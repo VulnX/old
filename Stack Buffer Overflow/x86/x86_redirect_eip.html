@@ -1,0 +1,208 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {margin: 0;}
+
+ul.topnav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #23252e;
+}
+
+ul.topnav li {float: left;}
+
+ul.topnav li a {
+  background-color: #23252e;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 16px 16px;
+  text-decoration: none;
+}
+
+ul.topnav li a:hover:not(.active) {background-color: #f44336;}
+
+ul.topnav li a.active {background-color: #4CAF50;}
+
+@media screen and (max-width: 600px) {
+  ul.topnav li.left, 
+  ul.topnav li {float: none;}
+}
+</style>
+<link rel="stylesheet" href="style.css"/>
+<link href="https://fonts.googleapis.com/css?family=Fira+Code:600|Lobster&display=swap" rel="stylesheet">
+<title>Exploit-Development : Part-1. x86_redirect_eip | VulnX</title>
+</head>
+<body>
+<font size="2" color="white" face="Fira Code">	
+<ul class="topnav">
+<li><a href="../../../../../../../../../index.html">Home</a></li>
+<li><a href="../../../../../../../../../Contents/resources.html">Resources</a></li>
+<li><a href="../../../../../../../../../Contents/tutorials.html">Tutorials</a></li>
+</ul>
+</font>
+<div id="align">
+<font color="white" face="Fira Code Medium" size="2">
+<center><h1>Exploit-Development</h1></center>
+<center><h1>PART-1 : x86_redirect_eip</h1></center>
+Hello and welcome everybody to the first tutorials of exploit-development. Firstly I would recommend you to store all the buffer overflow files in a separate folder to keep everything organised. In my case, I have created a folder name 'Buffer Overflow' on my Desktop. Now that everything is set, let's begin to exploit!!<br>
+<br>
+<h1><u>STEP 1 -	Identification of vulnerability</u></h1>
+First step is to create a vulnerable script which we can target and exploit. First let's take a look at the 32-bit architecture then we shall proceed to 64-bit versions. So copy the snippet provided below into a file. I have named it `x86_redirect_eip.c`
+<div id="image">
+<img src="../../../../../../../../../Stack Buffer Overflow/x86/images/x86_redirect_eip.c_source.png" width="1100px">
+</div><br>
+From the above code it is clear that as soon as the command to execute the program is issued, the control by default jumps to the main function. In the main function, the control is redirected to the 'vuln' function. In the 'vuln' function, the program allocates a space of 100 bytes for the variable 'buf'. Then it prints a message and waits for the user to supply input to the program. The program takes the input and prints it on the screen. You must have noticed that we are using the 'gets' function to take input. The 'gets' function is dangerous as all it does is that it takes input from the user and stores it in the variable without checking it's length. This way we can overwrite data on the stack if we write more than 100 bytes to the program. Another thing you may have noticed is that the 'call_me' function is created but it is never called. Our goal will be to redirect our execution to the 'call_me' function.<br>
+<br>
+<b>NOTE : IF THIS IS YOUR FIRST BUFFER OVERFLOW EXPERIENCE AND NOTHING SEEMS TO MAKE SENSE..............DON'T WORRY YOU ARE ON THE RIGHT TRACK.</b><br>
+<br>
+So the first step for exploiting this prorgram is to compile it. We will disable PIE [ Position Independent Execution ] protection. The PIE protection will not allow us to attack this program. Now let's compile it using the following command:<br>
+<br>
+<div id="image">
+<img src="../../../../../../../../../Stack Buffer Overflow/x86/images/x86_redirect_eip_compilation_output.png" width="1100px">
+</div>
+<br>
+<b>NOTE : If you are already on a x86 [ 32-bit ] machine then you must ignore the -m32 flag and use the rest of the command to compile it.</b><br>
+<br>
+I have used the -m32 flag since I am running a x64 [ 64-bit ] OS. If your OS is also x64 then you must install gcc-multilib in order to compile it into a 32-bit application [ installation of dependencies is outside the scope of this guide. ]<br>
+<br>
+Now let's test our program. Start your program and enter any text for this example I've typed `Vulnx`<br>
+<br>
+<div id="image">
+<img src="../../../../../../../../../Stack Buffer Overflow/x86/images/x86_redirect_eip_check_binary.png" width="1100px">
+</div>
+<br>
+We can see the program works flawlessly. Now let's use a simple python command to make our effort minimum. Let's feed the program with 50 times the character A.<br>
+<br>
+<div id="image">
+<img src="../../../../../../../../../Stack Buffer Overflow/x86/images/x86_redirect_eip_test_with_50_char.png" width="1100px">
+</div>
+<br>
+We can see that nothing much has changed and the program still functions as it was programmed. Now let's proceed further and feed it with 150 characters.<br>
+<br>
+<div id="image">
+<img src="../../../../../../../../../Stack Buffer Overflow/x86/images/x86_redirect_eip_test_with_150_char.png" width="1100px">
+</div>
+<br>
+Ahh now we can see something interesting!! The program has still echoed those 150 characters, however, this time there is a Segmentation Fault. According to a google search a Segmentation Fault usually occurs when we access or write data to memory protected region. Okay so this means that we can write data, and overflow the stack. Now I want you to understand some basic things about the instruction pointer. So the EIP [ Extended Instruction Pointer ] is a x86 register which tells the computer which instruction to execute. Since every instruction has it's memory address in the computer, therefore in order to execute that function the instruction pointer must point to that location. Let me explain this with a better explain, if you take a look in `x86_redirect_eip.c` the EIP moves to the main function, here the main function changes the value of the EIP to the address of 'vuln' function. In the 'vuln' function, the EIP points to the first instruction, which is to allocate 100 bytes, after that instruction has been executed, the EIP is incremented by 1, and so it points to the next instruction in the 'vuln' function, similarly that instruction is executed and EIP is again incremented and thus this series goes on until the end of the program has been reached.<br>
+<br>
+Now one thing we are aware of is that if we can overwrite data to the EIP we can redirect the execution of the program to the 'call_me' function.<br>
+
+<h1><u>STEP 2 - Determination of offset</u></h1>
+Alright so let's try to figure out if we can write to the EIP. We will use the same python command, but with a little alteration. Since we know that the first 100 bytes will be definately written into the 'buf' variable to we are going to just fill it with a lot of A's and then we will choose a different character for every 4 bytes since registers in a 32-bit machine are of 4 bytes. So here is the command for it:<br>
+<br>
+<div id="image">
+<img src="../../../../../../../../../Stack Buffer Overflow/x86/images/x86_redirect_eip_test_with_100_char+pattern.png" width="1100px">
+</div>
+<br>
+Okay so it does cause a seg fault. Now let's copy these AAAA...FFFF. Now we will be debugging this program using a disassembler. Of course you can choose any other disassembler, however, I personally prefer using GDB. So I'll start GDB with our binary [ x86_redirect_eip ].<br>
+<br>
+<div id="image">
+<img src="../../../../../../../../../Stack Buffer Overflow/x86/images/x86_redirect_eip_gdb_start.png" width="1100px">
+</div>
+<br>
+Now inside the debugger I'll type 'run' to start the program and paste the characters we had copied.<br>
+<br>
+<div id="image">
+<img src="../../../../../../../../../Stack Buffer Overflow/x86/images/x86_redirect_eip_gdb_run_output.png" width="1100px">
+</div>
+<br>
+Now I'll type 'info registers' to see what values are stored in the registers.<br>
+<br>
+<div id="image">
+<img src="../../../../../../../../../Stack Buffer Overflow/x86/images/x86_redirect_eip_gdb_info_registers.png" width="1100px" alt="Info Registers">
+</div>
+<br>
+From this we can observe that 4 bytes of similar data is written into EBX [ 0x43434343 ], EBP [ 0x44444444 ] & EIP [ 0x45454545 ]. Yayy!! So this means that we can redirect execution to the 'call_me' function. If you open the ASCII chart [ command : man ascii ] then you will find that 43, 44 & 45 are the hex codes for the characters C, D, & E respectively <br>
+<br>
+So from the above gdb analysis we can say that the general layout of the stack is somewhat like this:<br>
+<br>
+<div id="image">
+<img src="../../../../../../../../../Stack Buffer Overflow/x86/images/stack_layout_x86_redirect_eip.jpg" alt="Stack Layout">
+</div>
+<br>
+Alright so now we need to determine the offset for EIP, which is defined as the number of bytes required to overwrite/overflow the instruction pointer. So from the above layout we can see that 4 bytes after 112 bytes are written into EIP. If you are wondering how did I get 112 then I'll explain, 100 bytes for buf variable + 4 bytes which are written somewhere on the stack + 4 bytes into EBX [A general purpose register] + 4 bytes into EBP[Extended Base Pointer], thus<br>
+<br>
+112 = 100[buf] + 4[Somewhere on stack] + 4[EBX] + 4[EBP].<br>
+<br>
+Now this was a simple program but if you don't have the source code and don't know how many bytes are written into which register and into which variable and stack and so on, there is an alternative method. You can use the metasploit's script to get the offset.<br>
+<br>
+Just type the following command, copy it's output and feed it to the program in GDB:<br>
+<br>
+<div id="image">
+<img src="../../../../../../../../../Stack Buffer Overflow/x86/images/x86_redirect_eip_msf_pattern_create_output.png" width="1100px">
+</div>
+<br>
+<b>NOTE: THIS WILL GENERATE A PATTERN OF LENGTH OF 150 CHARACTERS IN GROUPS OF THREE SUCH THAT NO GROUP IS EVER REPEATED AND I CHOSE 150 BECAUSE ABOVE I'VE EXPLAINED HOW 150 CHARACTERS CAUSE AN OVERFLOW.</b><br>
+<br>
+Now open a GDB session with our binary, run it and paste the output:<br>
+<br>
+<div id="image">
+<img src="../../../../../../../../../Stack Buffer Overflow/x86/images/x86_redirect_eip_msf_pattern_create_output_with_gdb.png" width="1100px">
+</div>
+<br>
+Now copy the hex value stored in EIP as you can see in this case it's 0x64413764. Now close GDB by typing 'quit' and use this command to get the offset:
+<br>
+<div id="image">
+<img src="../../../../../../../../../Stack Buffer Overflow/x86/images/x86_redirect_eip_offset_determination.png" width="1100px">
+</div>
+<br>
+Okay so you can see that the offset is 112 so our calculation was correct.<br>
+<h1><u>STEP 3 - Overwriting EIP</u></h1>
+Perfect so let's try feeding the program with 112 A's followed by 4 B's and check if we overwrite the EIP with our B's. For this we will use the same python command but this time we will store the output in a file [I am going to name it 'output.txt'] and use that as input to our program in GDB. So here is the command for it:<br>
+<br>
+<div id="image">
+<img src="../../../../../../../../../Stack Buffer Overflow/x86/images/x86_redirect_eip_test_with_112_char.png" width="1100px">
+</div>
+<br>
+And now open a gdb session with our compiled binary and feed it with our 'output.txt' : <br>
+<br>
+<div id="image">
+<img src="../../../../../../../../../Stack Buffer Overflow/x86/images/x86_redirect_eip_gdb_analysis_for_112_char.png" width="1100px">
+</div>
+Alright so here you can see that EIP is overwritten with 0x42424242 which corresponds to the text "BBBB" so it means that we can successfully redirect our code. You might wonder why are we still getting a seg fault even though we have overwritten the EIP, this is mainly because there is no memory address like 0x42424242. Okay now we are clear with the concept that if we type anything after 112 bytes that will be overflowed to the instruction pointer and the instruction pointer is responsible for redirection of execution. Therefore if we print 112 bytes + address of 'call_me' function, we can successfully redirect our execution to the 'call_me' function.<br>
+<br>
+<h1><u>STEP 4 - Fetching the addr of 'call_me' and redirecting execution</u></h1>
+Now we have to get the address of the 'call_me' function. You can get it from the following command :<br>
+<br>
+<div id="image">
+<img src="../../../../../../../../../Stack Buffer Overflow/x86/images/x86_redirect_eip_filtered_objdump_output.png" width="1100px">
+</div>
+<br>
+Now copy the output [ as it will be different in your case ] and create a python script, for this tutorial I'm going to name it 'payload.py'. Copy the below code and paste it in your script :<br>
+<br>
+<div id="image">
+<img src="../../../../../../../../../Stack Buffer Overflow/x86/images/x86_redirect_eip_payload.py_source.png" width="1100px">
+</div>
+<br>
+In the above code replace `08049182` with the address in your case rest everything must remain same. So all this script does is that it prints "A" 112 times and then converts the hex value `08049182` [ in my case ] which is of 'call_me' function into text format in other words, it prints "A" 112 times followed by the address of 'call_me' which should be overflowed/overwritten into the EIP. According to our calculation everything must go well and our program must execute the 'call_me' function.<br>
+<br>
+Let's see the output of the file :<br>
+<br>
+<div id="image">
+<img src="../../../../../../../../../Stack Buffer Overflow/x86/images/x86_redirect_eip_output_of_payload.py.png" width="1100px">
+</div>
+<br>
+Okay so now feed the output of the script to the program and check for execution : <br>
+<br>
+<div id="image">
+<img src="../../../../../../../../../Stack Buffer Overflow/x86/images/x86_redirect_eip_code_execution_redirected!.png" width="1100px">
+</div>
+<br>
+Great!! We have successfully redirected the execution.<br>
+<br>
+Now that you have understood the concept of overwriting the EIP to redirect code execution, I highly encourage you to write your own script and exploit it!!<br>
+<br>
+<div id="align_right">
+Good Luck,<br>
+Vulnx
+<br>
+</div>
+<hr class="new5">
+</font>
+</div>
+</body>
+</html>
