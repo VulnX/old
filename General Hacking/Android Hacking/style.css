@@ -1,0 +1,45 @@
+* {
+		background-color: #000000;
+}
+
+#align_right {
+		text-align: right;
+}
+
+/* For Laptop */
+
+	hr.new5 {
+  		border: 2px solid white;
+  		border-radius: 5px;
+	}
+
+	#align {
+		margin:20px;
+    		font-family: 'Fira Code', ;
+	}
+
+	#image {
+		border: 7px solid white;
+		padding: 20px;
+		overflow: hidden;
+	}
+
+/* For Mobile */
+@media screen and (max-width: 600px) {
+
+	hr.new5 {
+  		border: 2px solid white;
+  		border-radius: 5px;
+	}
+
+	#align {
+		margin:20px;
+    		font-family: 'Fira Code', ;
+	}
+
+	#image {
+		border: 7px solid white;
+		padding: 20px;
+		overflow: hidden;
+	}
+}

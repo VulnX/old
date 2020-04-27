@@ -1,0 +1,193 @@
+<html>
+	<head>
+		<link rel="icon" href="https://www.vulnx.in/favicon.png">
+		<script data-ad-client="ca-pub-6203666289882469" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {margin: 0;}
+
+#myCookieConsent {
+    border-radius: 5px;
+    border: 5px solid #f44336;
+    width: 80%;
+    padding: 20px 20px;
+    overflow: hidden;
+    position: fixed;
+    color: #fff;
+    bottom: 3px;
+    display: none;
+    left: 5%;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+#myCookieConsent #cookieButton {
+    display: inline-block;
+    color: #fff;
+    font-size: 1.1em;
+    background: #000;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 2px 20px;
+    float: right;
+    border: 2px solid #f44336;
+    border-radius: 5px;
+    transition: 0.5s;
+}
+#myCookieConsent #cookieButton:hover {
+    border: 2px solid white;
+    background: #f44336;
+	color: #fff;
+}
+
+ul.topnav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #23252e;
+}
+
+ul.topnav li {float: left;}
+
+ul.topnav li a {
+  background-color: #23252e;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 16px 16px;
+  text-decoration: none;
+}
+
+ul.topnav li a:hover:not(.active) {background-color: #f44336;}
+
+ul.topnav li a.active {color: #f44336;}
+
+@media screen and (max-width: 600px) {
+  ul.topnav li.left, 
+  ul.topnav li {float: none;}
+}
+</style>
+		<link rel="stylesheet" href="style.css">
+		<link href="https://fonts.googleapis.com/css?family=Fira+Code:600|Lobster&display=swap" rel="stylesheet">
+		<title>Resources | VulnX</title>
+	</head>
+	<body>
+		<font size="3" color="white" face="Fira Code">	
+		<ul class="topnav">
+			<li><a href="../../../../../../../../../index.html">Home</a></li>
+			<li><a class="active" href="../../../../../../../../../Contents/resources.html">Resources</a></li>
+			<li><a href="../../../../../../../../../Contents/tutorials.html">Tutorials</a></li>
+			<li><a href="../../../../../../../../../Contents/CTFs.html">CTFs</a></li>
+		</ul>
+				<div id="intro">
+
+<div id="myCookieConsent">
+	<div id="cookieButton">I agree</div>
+	<div>By using our site, you agree to our use of cookies to deliver a better site experience.</div>
+</div>
+
+<script>
+var obj;
+obj = document.getElementById("myCookieConsent");
+
+function  func() {
+	obj.style.display = "none";
+	document.cookie = "cookiePromptShown=Yes; path=/";
+}
+var element;
+element = document.getElementById("cookieButton");
+element.addEventListener('click', func);
+</script>
+
+					
+					<h1>x86_redirect_eip :-</h1>
+					<ul>
+						<li><a href="../../../../../../../../../Contents/x86/x86_redirect_eip.c"><button class="btn">x86_redirect_eip.c [ source code ]</button></a></li><br>
+	
+						<li><a href="../../../../../../../../../Contents/x86/payload_x86_redirect_eip.py"><button class="btn">payload.py [ source code ]</button></a></li><br>
+
+						<li><a href="../../../../../../../../../Contents/x86/x86_redirect_eip"><button class="btn">x86_redirect_eip [ compiled binary ]</button></a></li><br>
+					</ul>
+
+					<br>
+
+					<hr class="new5">
+
+					<br>
+
+					<h1>x64_redirect_rip :-</h1>
+					<ul>
+						<li><a href="../../../../../../../../../Contents/x64/x64_redirect_rip.c"><button class="btn">x64_redirect_rip.c [ source code ]</button></a></li><br>
+
+						<li><a href="../../../../../../../../../Contents/x64/payload_x64_redirect_rip.py"><button class="btn">payload.py [ source code ]</button></a></li><br>
+
+						<li><a href="./../../../../../../../../Contents/x64/x64_redirect_rip"><button class="btn">x64_redirect_rip [ compiled binary ]</button></a></li><br>
+					</ul>
+
+					<br>
+
+					<hr class="new5">
+
+					<br>
+
+					<h1>x86_ace :-</h1>
+					<ul>
+						<li><a href="../../../../../../../../../Contents/x86/x86_ace.c"><button class="btn">x86_ace.c [ source code ]</button></a></li><br>
+
+						<li><a href="../../../../../../../../../Contents/x86/payload_x86_ace.py"><button class="btn">payload.py [ source code ]</button></a></li><br>
+
+						<li><a href="../../../../../../../../../Contents/x86/x86_ace"><button class="btn">x86_ace [ compiled binary ]</button></a></li><br>
+					</ul>
+		
+					<br>
+					
+					<hr class="new5">
+					
+					<br>
+					
+					<h1>Android Hacking :-</h1>
+					<ul>
+						<li><a href="../../../../../../../../../Contents/General Hacking/Android Hacking/auto_setup_apache2"><button class="btn">auto_setup_apache2</button></li>
+					</ul>	
+
+				</div>		
+
+			</font>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+var element;
+element = document.getElementById("myCookieConsent");
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+ var cookieVal = getCookie("cookiePromptShown");
+
+if(cookieVal != "Yes") {
+	element.style.display = "block";
+
+}
+else {
+	element.style.display = "none";
+}
+
+</script>
+
+	</body>
+</html>
