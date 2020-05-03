@@ -47,6 +47,7 @@ ul.topnav {
   padding: 0;
   overflow: hidden;
   background-color: #23252e;
+  transition: top 0.5s;	
 }
 
 ul.topnav li {float: left;}
@@ -164,6 +165,19 @@ element.addEventListener('click', func);
 					We are not responsible for any misuse you do with the knowledge gained from this site. The references and the exploits taught 						in the series are strictly meant for educational purposes only. You are adviced not to perform any hacking attack on anyone from 						whom you do not have a written permission. All attacks demonstrated in this site are within respective network which are fully 						authorised. This site does not promote hacking, instead we want to create awareness for developers who make tiny mistakes while programming which can cost them a lot in future. Nevertheless, enjoy!!</b>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+	
+</script>
+	var prevScrollPos = window.pageYOffset;
+	window.onscroll = function() {
+		var currentScrollPos = window.pageYOffset;
+		if (prevScrollPos > currentScrollPos) {
+				document.getElementById("topnav").style.top="0";
+			} else {
+				document.getElementById("topnav").style.top="-50px"
+		}
+		prevScrollPos = currentScrollPos;				
+        }					
 <script>
 var element;
 element = document.getElementById("myCookieConsent");
