@@ -6,6 +6,20 @@
 <style>
 body {margin: 0;}
 
+.videoWrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+}
+
+.videoWrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 #myCookieConsent {
     border-radius: 5px;
     border: 5px solid #f44336;
@@ -45,6 +59,8 @@ ul.topnav {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  left: 0;
+  right: 0;
   overflow: hidden;
   background-color: #23252e;
 }
@@ -111,6 +127,8 @@ element.addEventListener('click', func);
 				<center><h1>PART-1 : Introduction and first remote access of victim's device<h1></center>
 
 				Hello and welcome everybody to the part one of Android Hacking series. In this tutorial I'll show you how you can generate a payload apk and send it to your victim and as soon as he/she installs that apk and starts it, how we can get a reverse connection and get full access of victim's device.
+
+				<div class="videoWrapper"><iframe width="560" height="315" src="https://www.youtube.com/embed/L6bW85AHo18" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 				<h1><u>STEP 1 - Understanding the concept</u></h1>
 
