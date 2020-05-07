@@ -119,26 +119,26 @@ element.addEventListener('click', func);
 				In this part the code will be same as the <a href="../../../../../../../../../Stack Buffer Overflow/x86/x86_redirect_eip.html"><font color=#f44336 face="Fira Code Medium" size="2">first part.</font></a><br><br>
 
 				<div id="image">
-					<img src="../../../../../../../../../Stack Buffer Overflow/x86/images/x86_redirect_eip.c_source.png" width="1100px">
+					<img src="../../../../../../../../../Stack Buffer Overflow/x86/images/x86_redirect_eip.c_source.png" class="responsive">
 				</div><br>
 
 				From the above code it is clear that as soon as the command to execute the program is issued, the control by default jumps to the main function. In the main function, the control is redirected to the 'vuln' function. In the 'vuln' function, the program allocates a space of 100 bytes for the variable 'buf'. Then it prints a message and waits for the user to supply input to the program. The program takes the input and prints it on the screen. You must have noticed that we are using the 'gets' function to take input. The 'gets' function is dangerous as all it does is that it takes input from the user and stores it in the variable without checking it's length. This way we can overwrite data on the stack if we write more than 100 bytes to the program. Another thing you may have noticed is that the 'call_me' function is created but it is never called. Our goal will be to redirect our execution to the 'call_me' function.<br><br>
 
 				Now in order to start exploiting let's just start by compiling this application for x64 [ 64-bit ]. Use the following command for compilation:<br><br>
 				<div id="image">
-					<img src="../../../../../../../../../Stack Buffer Overflow/x64/images/x64_redirect_rip_compilation_output.png" width="1100px">
+					<img src="../../../../../../../../../Stack Buffer Overflow/x64/images/x64_redirect_rip_compilation_output.png" class="responsive">
 				</div><br>
 
 				Now let's test our program using the following command:<br><br>
 				
 				<div id="image">
-					<img src="../../../../../../../../../Stack Buffer Overflow/x64/images/x64_redirect_rip_binary_test.png" width="1100px">
+					<img src="../../../../../../../../../Stack Buffer Overflow/x64/images/x64_redirect_rip_binary_test.png" class="responsive">
 				</div><br>
 
 				Okay so the program works flawlessly. Now let's feed it with 150 characters.<br><br>
 				
 				<div id="image">
-					<img src="../../../../../../../../../Stack Buffer Overflow/x64/images/x64_redirect_rip_test_with_150_char.png" width="1100px">
+					<img src="../../../../../../../../../Stack Buffer Overflow/x64/images/x64_redirect_rip_test_with_150_char.png" class="responsive">
 				</div><br>
 
 				Alright it causes a seg fault, so now we are sure that there is a chance that we can overwrite the instruction pointer to redirect execution to the 'call_me' function. From the <a href="../../../../../../../../../Stack Buffer Overflow/x86/x86_redirect_eip.html"><font color=#f44336 face="Fira Code Medium" size="2">previous tutorial</font></a>, we are aware that if we overwrite amd change the value of instruction pointer [ RIP, in case of x64 ], to the memory address of the 'call_me' function. We can transfer execution of the program to that memory region. So for that we must get the offset of the RIP, the x64 instruction pointer.
@@ -148,19 +148,19 @@ element.addEventListener('click', func);
 				Now we will use metasploit's tools to get the offset of RIP. Use the following command to generate a pattern of 150 characters and store it in a file called 'output.txt':<br><br>
 
 				<div id="image">
-					<img src="../../../../../../../../../Stack Buffer Overflow/x64/images/x64_redirect_rip_msf-pattern_create.png" width="1100px">
+					<img src="../../../../../../../../../Stack Buffer Overflow/x64/images/x64_redirect_rip_msf-pattern_create.png" class="responsive">
 				</div><br>
 
 				Now start GDB [ or your preferred disassembler ] and load the binary. We will start it with 'output.txt' as our input, and view the register values.<br><br>
 
 				<div id="image">
-					<img src="../../../../../../../../../Stack Buffer Overflow/x64/images/x64_redirect_rip_reg_values.png" width="1100px">
+					<img src="../../../../../../../../../Stack Buffer Overflow/x64/images/x64_redirect_rip_reg_values.png" class="responsive">
 				</div><br>
 
 				Hmm... well the value in RIP doesn't seem to give us the offset, because in order to get the offset it must contain the hex value of the text in 'output.txt', but '0x401199' [ in my case ] corresponds to '�@' therefore it won't give us the offset. However one thing we can notice from the values of all regiters is that RBP [ Base Pointer for the Stack on a x64 machine ] contains hex value '0x3964413864413764' [ in my case ] which seems to be somewhere in the 'output.txt'. Now we will use the value of RBP to determine the offset of RBP.<br><br>
 
 				<div id="image">
-					<img src="../../../../../../../../../Stack Buffer Overflow/x64/images/x64_redirect_rip_msf-pattern_offset.png" width="1100px">
+					<img src="../../../../../../../../../Stack Buffer Overflow/x64/images/x64_redirect_rip_msf-pattern_offset.png" class="responsive">
 				</div><br>
 
 				So the offset of RBP seems to be '112'. So according to the layout of the stack in our <a href="../../../../../../../../../Stack Buffer Overflow/x86/x86_redirect_eip.html"><font color=#f44336 face="Fira Code Medium" size="2">previous tutorial</font></a>, the offset of EIP was 4 bytes ahead of the offset of EBP, therefore in case of 64-bit, the offset of RIP is 8 bytes ahead of the offset of RBP. Therefore the offset of RIP is:<br><br>
@@ -171,7 +171,7 @@ element.addEventListener('click', func);
 				Now let's output 120 times 'A' + 4 times 'B' into 'output.txt' and use it as our input and view RIP value using GDB.<br><br>
 
 				<div id="image">
-					<img src="../../../../../../../../../Stack Buffer Overflow/x64/images/x64_redirect_rip_rip_overwritten_with_BBBB.png" width="1100px">
+					<img src="../../../../../../../../../Stack Buffer Overflow/x64/images/x64_redirect_rip_rip_overwritten_with_BBBB.png" class="responsive">
 				</div><br>
 
 				So from the above image it is clear that we can overwrite the RIP, and this also means that the offset we found was absolutely correct.
@@ -181,25 +181,25 @@ element.addEventListener('click', func);
 				For this step we require the address of the 'call_me' function. You can get it from the following command:<br><br>
 
 				<div id="image">
-					<img src="../../../../../../../../../Stack Buffer Overflow/x64/images/x64_redirect_rip_address_of_call_me.png" width="1100px">
+					<img src="../../../../../../../../../Stack Buffer Overflow/x64/images/x64_redirect_rip_address_of_call_me.png" class="responsive">
 				</div><br>
 
 				Okay now note down this address somewhere [ as it will be different in your case ] and copy the script given below. You can also find it in the resources tab.<br><br>
 
 				<div id="image">
-					<img src="../../../../../../../../../Stack Buffer Overflow/x64/images/x64_redirect_rip_payload.py_source.png" width="1100px">
+					<img src="../../../../../../../../../Stack Buffer Overflow/x64/images/x64_redirect_rip_payload.py_source.png" class="responsive">
 				</div><br>
 
 				In the above code replace '0000000000401142' with the address of 'call_me' in your case, and then check the output of the python script.<br><br>
 
 				<div id="image">
-					<img src="../../../../../../../../../Stack Buffer Overflow/x64/images/x64_redirect_rip_payload.py_output.png" width="1100px">
+					<img src="../../../../../../../../../Stack Buffer Overflow/x64/images/x64_redirect_rip_payload.py_output.png" class="responsive">
 				</div><br>
 
 				Okay so now our python script should work fine and if we feed this output to 'x64_redirect_eip' we should be able to redirect execution. Let's try it out.<br><br>
 
 				<div id="image">
-					<img src="../../../../../../../../../Stack Buffer Overflow/x64/images/x64_redirect_rip_code_execution_redirected.png" width="1100px">
+					<img src="../../../../../../../../../Stack Buffer Overflow/x64/images/x64_redirect_rip_code_execution_redirected.png" class="responsive">
 				</div><br>
 
 				PWNED !! Great it worked. So now we are aware about the concepts of overwriting the EIP as well as the RIP. Our next tutorial will be about Aribitrary Code Execution [ ACE ] or Remote Code Execution [ RCE ]. I highly encourage you to practice this technique with your own code.<br><br>
