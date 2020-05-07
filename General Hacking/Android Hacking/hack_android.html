@@ -145,7 +145,7 @@ element.addEventListener('click', func);
 				Type the following command in your console :-
 
 				<br><br><div id="image">
-					<img src="images/android-hacking-list-payload.png" width="1100px">
+					<img src="images/android-hacking-list-payload.png" class="responsive">
 				</div><br>
 
 				This command just lists all the available payloads which metasploit has.<br><br>
@@ -163,33 +163,21 @@ element.addEventListener('click', func);
 				<hr class="new5"><br></ul>
 
 				<br><br><div id="image">
-					<img src="images/android-hacking-msfvenom.png" width="1100px">
+					<img src="images/android-hacking-msfvenom.png" class="responsive">
 				</div><br>
 
 				Now let's move this apk file to your local apache2 server directory.
 				
 				<br><br><div id="image">
-					<img src="images/android-hacking-move-to-apache2.png" width="1100px">
+					<img src="images/android-hacking-move-to-apache2.png" class="responsive">
 				</div><br>
 
-				<h1><u>STEP 3 - Creating simple HTML & installation of apk</u></h1>
-
-				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-						<!-- Horizontal ad (custom) -->
-					<ins class="adsbygoogle"
-     						style="display:block"
-						     data-ad-client="ca-pub-6203666289882469"
- 						     data-ad-slot="6275962994"
-						     data-ad-format="auto"
- 						     data-full-width-responsive="true"></ins>
-						<script>
-     							(adsbygoogle = window.adsbygoogle || []).push({});
-						</script>	
+				<h1><u>STEP 3 - Creating simple HTML & installation of apk</u></h1>	
 					
 				Great now let's quickly create a simple HTML page name as 'index.html' in your apache2 server directory. Well I guess this type of simple website will do the job and make the user click on the "Click Here" hyperlink.
 
 				<br><br><div id="image">
-					<img src="images/android-hacking-site-overview.png" width="1100px">
+					<img src="images/android-hacking-site-overview.png" class="responsive">
 				</div><br>
 
 				Of course you don't need to know HTML, you can directly get the source code from <a href="../../../../../../../../../Contents/General Hacking/Android Hacking/index.html_source.txt"><font color=#f44336 face="Fira Code Medium" size="2">here</font></a>. Just make sure that you save the file as 'index.html' and in '/var/www/html/' directory.<br><br>
@@ -204,49 +192,39 @@ element.addEventListener('click', func);
 
 				As you can see here in my case I have IPv4 : '192.168.43.190'. You must copy this and store it somewhere as this will be helpful, & yes I forgot to mention you need to send this link to victim. Once the victim opens the link our HTML page will open right away. Now I'll quickly click on the hyperlink and download it :-
 				<br><br><div id="image">
-					<center><img src="images/android-hacking-mobile-site-preview.jpg" height="700px"></center>
+					<center><img src="images/android-hacking-mobile-site-preview.jpg" class="responsive"></center>
 				</div><br>
 
 				Click open and the package installer will start :-
 
 				<br><br><div id="image">
-					<center><img src="images/android-hacking-apk-downloaded.jpg" height="700px"></center>
+					<center><img src="images/android-hacking-apk-downloaded.jpg" class="responsive"></center>
 				</div><br>
 
 				Here you need to click install :-
 
 				<br><br><div id="image">
-					<center><img src="images/android-hacking-installation.jpg" height="700px"></center>
+					<center><img src="images/android-hacking-installation.jpg" class="responsive"></center>
 				</div><br>
-				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-						<!-- Horizontal ad (custom) -->
-					<ins class="adsbygoogle"
-     						style="display:block"
-						     data-ad-client="ca-pub-6203666289882469"
- 						     data-ad-slot="6275962994"
-						     data-ad-format="auto"
- 						     data-full-width-responsive="true"></ins>
-						<script>
-     							(adsbygoogle = window.adsbygoogle || []).push({});
-						</script>
+
 				<h1><u>STEP 4 - Starting the backdoor handler</u></h1>
 
 				Now since the installing is done, time to get back to linux. Let's quickly start the msfconsole which will help us to interact with the victim's device.
 
 				<br><br><div id="image">
-					<img src="images/android-hacking-msfconsole.png" width="1100px">
+					<img src="images/android-hacking-msfconsole.png" class="responsive">
 				</div><br>
 
 				Remember in the explaination of the exploit, I explained that we need a 'handler' to accept connections? Now we are going to set-up that handler.
 
 				<br><br><div id="image">
-					<img src="images/android-hacking-exploit-multi-handler.png" width="1100px">
+					<img src="images/android-hacking-exploit-multi-handler.png" class="responsive">
 				</div><br>
 
 				Okay so let's choose our payload & set up LHOST [IPv4] and LPORT [same port which you chose while creating payload apk].
 
 				<br><br><div id="image">
-					<img src="images/android-hacking-msfconsole-setting-up-details.png" width="1100px">
+					<img src="images/android-hacking-msfconsole-setting-up-details.png" class="responsive">
 				</div><br>
 
 				Now type :-
@@ -260,7 +238,7 @@ element.addEventListener('click', func);
 				As soon as he/she starts it, you will get a reverse connection :-
 
 				<br><br><div id="image">
-					<img src="images/android-hacking-PWN!.png" width="1100px">
+					<img src="images/android-hacking-PWN!.png" class="responsive">
 				</div><br>
 
 				Now type :-
