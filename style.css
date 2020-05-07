@@ -67,6 +67,12 @@
 		text-align: center;
 		font-size: 25px;
 	}
+
+	.responsive {
+		max-width: 100%;
+		height: auto;
+	}
+
 }
 
 @media screen and (max-width: 600px) {
@@ -129,5 +135,10 @@
 		padding: 10px 50px;
 		text-align: center;
 		font-size: 25px;
+	}
+
+	.responsive {
+		max-width: 100%;
+		height: auto;
 	}
 }
