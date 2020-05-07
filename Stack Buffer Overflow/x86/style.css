@@ -24,6 +24,11 @@
 		overflow: hidden;
 	}
 
+	.responsive {
+		max-width: 100%;
+		height: auto;
+	}
+
 /* For Mobile */
 @media screen and (max-width: 600px) {
 
@@ -41,5 +46,10 @@
 		border: 7px solid white;
 		padding: 20px;
 		overflow: hidden;
+	}
+
+	.responsive {
+		max-width: 100%;
+		height: auto;
 	}
 }
