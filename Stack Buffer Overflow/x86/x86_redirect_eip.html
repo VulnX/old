@@ -71,7 +71,7 @@ ul.topnav li a.active {background-color: #4CAF50;}
 </style>
 <link rel="stylesheet" href="style.css"/>
 <link href="https://fonts.googleapis.com/css?family=Fira+Code:600|Lobster&display=swap" rel="stylesheet">
-<title>Exploit-Development : Part-1. x86_redirect_eip | VulnX</title>
+<title>Buffer Overflow : Part-1. x86_redirect_eip | VulnX</title>
 </head>
 <body>
 <font color="white" face="Fira Code" size="3">	
@@ -105,9 +105,9 @@ element.addEventListener('click', func);
 </font>
 	
 <font color="white" face="Fira Code" size="2">
-<center><h1>Exploit-Development</h1></center>
+<center><h1>Buffer Overflow</h1></center>
 <center><h1>PART-1 : x86_redirect_eip</h1></center>
-Hello and welcome everybody to the first tutorials of exploit-development. Firstly I would recommend you to store all the buffer overflow files in a separate folder to keep everything organised. In my case, I have created a folder name 'Buffer Overflow' on my Desktop. Now that everything is set, let's begin to exploit!!<br>
+Hello and welcome everybody to the first tutorials of Buffer Overflow. Firstly I would recommend you to store all the buffer overflow files in a separate folder to keep everything organised. In my case, I have created a folder name 'Buffer Overflow' on my Desktop. Now that everything is set, let's begin to exploit!!<br>
 <br>
 <h1><u>STEP 1 -	Identification of vulnerability</u></h1>
 First step is to create a vulnerable script which we can target and exploit. First let's take a look at the 32-bit architecture then we shall proceed to 64-bit versions. So copy the snippet provided below into a file. I have named it `x86_redirect_eip.c`
