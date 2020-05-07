@@ -71,7 +71,7 @@ ul.topnav li a.active {background-color: #4CAF50;}
 </style>
 <link rel="stylesheet" href="style.css"/>
 <link href="https://fonts.googleapis.com/css?family=Fira+Code:600|Lobster&display=swap" rel="stylesheet">
-<title>Exploit-Development : Part-3. x86_ace | VulnX</title>
+<title>Buffer Overflow : Part-3. x86_ace | VulnX</title>
 </head>
 <body>
 <font color="white" face="Fira Code" size="3">	
@@ -104,9 +104,9 @@ element.addEventListener('click', func);
 </font>
 
 <font color="white" face="Fira Code" size="2">
-<center><h1>Exploit-Development</h1></center>
+<center><h1>Buffer Overflow</h1></center>
 <center><h1>PART-3 : x86_ace</h1></center>
-Hello and welcome everybody to the third part of Exploit-Development series. In the previous tutorials, we discovered how, if we overwrite the EIP or RIP to the base address of the function to be called, we can redirect execution to that function. Now we are moving a step ahead, in this part we will be learning how to execute our code which is not available in the C program. Of course we want to get a reverse root shell, but the programmer of the software is not dumb to put this function his/her source code just so that we can call that function. So now the challenge is that, there is not function for us to call. Alright, so we can easily bypass this barrier by using RCE or ACE which stands for Remote Code Execution or Arbitrary Code Execution. In this technique we will be executing our own code by using a shellcode [ from msfvenom ]. So you might wonder what is a shellcode? A shellcode is basically is piece code used as the payload in the exploitation, and a shellcode is commonly written 
+Hello and welcome everybody to the third part of Buffer Overflow series. In the previous tutorials, we discovered how, if we overwrite the EIP or RIP to the base address of the function to be called, we can redirect execution to that function. Now we are moving a step ahead, in this part we will be learning how to execute our code which is not available in the C program. Of course we want to get a reverse root shell, but the programmer of the software is not dumb to put this function his/her source code just so that we can call that function. So now the challenge is that, there is not function for us to call. Alright, so we can easily bypass this barrier by using RCE or ACE which stands for Remote Code Execution or Arbitrary Code Execution. In this technique we will be executing our own code by using a shellcode [ from msfvenom ]. So you might wonder what is a shellcode? A shellcode is basically is piece code used as the payload in the exploitation, and a shellcode is commonly written 
 in machine code.<br><br>
 
 <hr noshade color="white">
@@ -265,7 +265,7 @@ Now that you have understood the concept of Arbitrary Code Execution, I highly e
 <br>
 <div id="align_right">
 Good Luck,<br>
-Vulnx
+VulnX
 <br>
 </div>
 <hr class="new5">
