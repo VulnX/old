@@ -121,7 +121,7 @@ element.addEventListener('click', func);
 				As I had mentioned in the <a href="../../../../../../../../../General Hacking/Android Hacking/hack_android.html"><font color=#f44336>previous</font></a> tutorial, <b>"make sure that you are connect to the internet and your victim is in your network"</b>, in this tutorial we will learn to overcome this problem. Well there is a quite simple solution to this. For that you must refer the diagram given below:
 
 				<br><br><div id="image">
-					<img src="images/hack_android_wan_internet_diagram.png" width="1100px">
+					<img src="images/hack_android_wan_internet_diagram.png" class="responsive">
 				</div><br>
 
 				<b>NOTE : All the IP values in the above diagram are imaginary values, they will not be same in your case. Do not depend on these values as are they are used ONLY for the explaination given below.</b><br><br>
@@ -151,7 +151,7 @@ element.addEventListener('click', func);
 				Once you successfully configure ngrok, you can start all tunnels by typing 'ngrok start --all' and hit enter.
 
 				<br><br><div id="image">
-					<img src="images/hack_android_wan_ngrok.png" width="1100px">
+					<img src="images/hack_android_wan_ngrok.png" class="responsive">
 				</div><br>
 
 				As you can see, '0.tcp.ngrok.io' is the hostname which is forwarded to localhost at 1501 through port 14745. Got confused??! This is not the time to get confused, basically, any traffic coming through the tcp protocol at 0.tcp.ngrok.io on port number 14735 will be forwarded to localhost at port 1501, and 'https://93c014cd.ngrok.io' will be forwarding traffic to localhost at port 80 [ to our fake apache2 page ]. Now make sure that you have set-up active apache2 page, if you are not sure the check out the <a href="../../../../../../../../../General Hacking/Android Hacking/hack_android.html"><font color=#f44336>previous</font></a> tutorial, where I explained how to can set-up the apache2 page or you can alternatively use my <a href="https://www.vulnx.in/Contents/General%20Hacking/Android%20Hacking/auto_setup_apache2"><font color="#f44336">script</font></a> directly [ If you already have an existing apache2 page, make sure that you back-up that first ]. Once that is over we can create a payload by using the following command
@@ -161,31 +161,31 @@ element.addEventListener('click', func);
 				</div></ul>
 
 				<br><br><div id="image">
-					<img src="images/hack_android_wan_msfvenom.png" width="1100px">
+					<img src="images/hack_android_wan_msfvenom.png" class="responsive">
 				</div><br>
 
 				and here you can see that my PC and the victim's device have different public IP addresses which proves that we are on two different networks,
 
 				<br><br><div id="image">
-					<img src="images/hack_android_wan_comparing_IPs.png" width="1100px">
+					<img src="images/hack_android_wan_comparing_IPs.png" class="responsive">
 				</div><br>
 
 				Now since we have generated our apk and our apache2 fake page is already set-up from the last tutorial, we need to just shift the apk to the apache2 server directory :-
 
 				<br><br><div id="image">
-					<img src="images/hack_android_wan_move_to_apache2.png" width="1100px">
+					<img src="images/hack_android_wan_move_to_apache2.png" class="responsive">
 				</div><br>
 
 				Now let's quickly start the msfconsole in order to communicate with our victim's device :-
 
 				<br><br><div id="image">
-					<img src="images/hack_android_wan_msfconsole.png" width="1100px">
+					<img src="images/hack_android_wan_msfconsole.png" class="responsive">
 				</div><br>
 
 				Now we will set-up things as usual :-
 
 				<br><br><div id="image">
-					<img src="images/hack_android_wan_setup_stuff_in_msfconsole.png" width="1100px">
+					<img src="images/hack_android_wan_setup_stuff_in_msfconsole.png" class="responsive">
 				</div><br>
 				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 						<!-- Horizontal ad (custom) -->
@@ -203,19 +203,19 @@ element.addEventListener('click', func);
 				Now just type exploit and hit enter!
 
 				<br><br><div id="image">
-					<img src="images/hack_android_wan_msfconsole_exploit.png" width="1100px">
+					<img src="images/hack_android_wan_msfconsole_exploit.png" class="responsive">
 				</div><br>
 
 				Now I'll quickly start the application on my phone [ you will have to wait for your victim to download, install & run the application ].
 
 				<br><br><div id="image">
-					<img src="images/hack_android_wan_pwned.png" width="1100px">
+					<img src="images/hack_android_wan_pwned.png" class="responsive">
 				</div><br>
 
 				As you can see I've got full meterpreter access of the victim's device. Now I'll type 'sysinfo' and hit enter to show information about the victim's device.
 
 				<br><br><div id="image">
-					<img src="images/hack_android_wan_sysinfo.png" width="1100px">
+					<img src="images/hack_android_wan_sysinfo.png" class="responsive">
 				</div><br>
 				
 					<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
