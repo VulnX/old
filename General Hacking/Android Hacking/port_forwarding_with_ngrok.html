@@ -135,25 +135,25 @@ element.addEventListener('click', func);
 				For this, just ahead over to <a href="https://www.ngrok.com"><font color="#f44336">ngrok's official website</font></a>. On their website, you must click the 'SIGN UP ->' button on the top-right corner of the screen.
 
 				<br><br><div id="image">
-					<img src="images/port_forward_ngrok_homepage.png" width="1100px">
+					<img src="images/port_forward_ngrok_homepage.png" class="responsive">
 				</div><br>
 
 				Once you click on sign up, your web browser will load a page which looks somewhat like this. Over here you need to fill up your details. For this tutorial I have created an account with fake details.
 
 				<br><br><div id="image">
-					<img src="images/port_forward_ngrok_signup_blank.png" width="1100px">
+					<img src="images/port_forward_ngrok_signup_blank.png" class="responsive">
 				</div><br>
 
 				After filling up all the details, you must ensure that you have completed the captcha. After that is done you can click create an account.
 
 				<br><br><div id="image">
-					<img src="images/port_forward_ngrok_signup_filled.png" width="1100px">
+					<img src="images/port_forward_ngrok_signup_filled.png" class="responsive">
 				</div><br>
 
 				Once your account is created, this page will load up. Here you need to click 'Download for Linux' button.
 
 				<br><br><div id="image">
-					<img src="images/port_forward_ngrok_download.png" width="1100px">
+					<img src="images/port_forward_ngrok_download.png" class="responsive">
 				</div><br>
 
 				Once the download is complete, open a terminal session and change the directory to Downloads [ or any other path where you have downloaded this file ]. In that directory type : 
@@ -174,19 +174,19 @@ element.addEventListener('click', func);
 				<hr class="new5"><br></ul>
 
 				<br><br><div id="image">
-					<img src="images/port_forward_unzip.png" width="1100px">
+					<img src="images/port_forward_unzip.png" class="responsive">
 				</div><br>
 
 				Once you have unzipped the file, now you need to add authtoken to ngrok.yaml file. Doing this will connect ngrok to your account and will enable you to use more features. To get your authtoken just go back to the ngrok page and copy the code from STEP-3 'Connect your account'
 
 				<br><br><div id="image">
-					<img src="images/port_forward_authtoken_copy.png" width="1100px">
+					<img src="images/port_forward_authtoken_copy.png" class="responsive">
 				</div><br>
 
 				and then go back to your terminal and paste it there :-
 
 				<br><br><div id="image">
-					<img src="images/port_forward_authtoken_setup.png" width="1100px">
+					<img src="images/port_forward_authtoken_setup.png" class="responsive">
 				</div><br>
 
 				<h1><u>STEP 2 - Setting up NGROK</u></h1>
@@ -204,20 +204,20 @@ element.addEventListener('click', func);
 				Now you need to move the 'ngrok' script file to the 'bin' directory of your computer. The 'bin' folder essentially contains all the binaries which you can execute from the command line by simply typing the script name instead of manually shuffling through the folders and then putting './' and executing the script. Of course this step is optional, but I recommend you to do this, as it is more convenient to directly type 'ngrok' to start the servers. So let's quickly shift the file now
 
 				<br><br><div id="image">
-					<img src="images/port_forward_move_to_bin.png" width="1100px">
+					<img src="images/port_forward_move_to_bin.png" class="responsive">
 				</div><br>
 
 				Now if you type 'ngrok' and hit enter, you can see the help menu of the script
 
 
 				<br><br><div id="image">
-					<img src="images/port_forward_ngrok.png" width="1100px">
+					<img src="images/port_forward_ngrok.png" class="responsive">
 				</div><br>
 
 				Now type 'ngrok http 80', you make your localhost public [ make sure that your apache2 server is up and running, if you aren't sure then it's better to restart it, use the following command : service apache2 restart ].
 
 				<br><br><div id="image">
-					<img src="images/port_forward_http_80.png" width="1100px">
+					<img src="images/port_forward_http_80.png" class="responsive">
 				</div><br>
 
 				<h1><u>STEP 2 - Configuring NGROK</u></h1>
@@ -237,7 +237,7 @@ element.addEventListener('click', func);
 				So we need to run ngrok on two protocols, the first is HTTP to make our localhost fake apache2 page become publicly available to all external networks, and second is TCP in order to establish a <b>'reverse_tcp'</b> connection. If you have taken the professional version of ngrok then you can skip this step and directly start two ngrok sessions, first with http at port 80, and second with tcp and port 1501. However if you chose to take the free version like me, then ngrok won't support the use of multiple tunnels at once, so what you can do is that you will need to configure the ngrok.yaml file. To do that open a terminal session and type the following command:
 
 				<br><br><div id="image">
-					<img src="images/port_forward_nano_yaml_file.png" width="1100px">
+					<img src="images/port_forward_nano_yaml_file.png" class="responsive">
 				</div><br>
 
 				And then add the following lines,
@@ -256,13 +256,13 @@ element.addEventListener('click', func);
 				Once you add the lines your file must look like this :-
 
 				<br><br><div id="image">
-					<img src="images/port_forward_ngrok.yaml.png" width="1100px">
+					<img src="images/port_forward_ngrok.yaml.png" class="responsive">
 				</div><br>
 
 				Now once that's over, you can type 'ngrok start --all' to start all ngrok tunnels at once.
 
 				<br><br><div id="image">
-					<img src="images/port_forward_multiple_sessions.png" width="1100px">
+					<img src="images/port_forward_multiple_sessions.png" class="responsive">
 				</div><br>
 
 				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
