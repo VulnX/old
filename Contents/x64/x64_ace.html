@@ -1,0 +1,26 @@
+<html>
+	<head>
+		<link rel="icon" href="https://www.vulnx.in/favicon.png">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="https://fonts.googleapis.com/css?family=Fira+Code:600|Lobster&display=swap" rel="stylesheet">
+	</head>
+
+	<body bgcolor="#000">
+		<font color="white" face="Fira Code" size="2">
+<hr>
+<font color="#0ff">#include</font> <font color="#ff0">&lt;stdio.h&gt;</font><br>
+<br>
+<font color="#0f0">void</font> vuln() {<br>
+&nbsp;&nbsp;<font color="#0f0">char</font> text[500];<br>
+&nbsp;&nbsp;printf(<font color="#ff0">"Enter some text: "</font>);<br>
+&nbsp;&nbsp;gets(text);<br>
+&nbsp;&nbsp;printf(<font color="#ff0">"You typed : %s\n"</font>, text);<br>
+}<br>
+<br>
+<font color="#0f0">int</font> main() {<br>
+&nbsp;&nbsp;vuln();<br>
+}<br>
+<hr>
+</font>
+	</body>
+</html>
