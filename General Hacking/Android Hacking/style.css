@@ -29,6 +29,14 @@
 		height: auto;
 	}
 
+	#snip {
+		border: 5px solid white;
+		padding: 15px;
+		overflow: hidden;
+		max-width: 100%;
+		height: auto;
+	}
+
 /* For Mobile */
 @media screen and (max-width: 600px) {
 
@@ -49,6 +57,14 @@
 	}
 
 	.responsive {
+		max-width: 100%;
+		height: auto;
+	}
+	
+	#snip {
+		border: 5px solid white;
+		padding: 15px;
+		overflow: hidden;
 		max-width: 100%;
 		height: auto;
 	}
