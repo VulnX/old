@@ -29,12 +29,16 @@
 		height: auto;
 	}
 
-	#snip {
-		border: 5px solid white;
-		padding: 15px;
-		overflow: hidden;
-		max-width: 100%;
-		height: auto;
+	p {
+	   	max-width: 100%;
+	   	height: auto;
+	   	padding: 15px;
+	   	border: 5px solid white;
+	}
+
+
+	.word-break {
+	   	word-break: break-all;
 	}
 
 /* For Mobile */
@@ -61,11 +65,16 @@
 		height: auto;
 	}
 	
-	#snip {
-		border: 5px solid white;
-		padding: 15px;
-		overflow: hidden;
-		max-width: 100%;
-		height: auto;
+	p {
+	   max-width: 100%;
+	   height: auto;
+	   padding: 15px;
+	   border: 5px solid white;
 	}
+
+
+	.word-break {
+	   word-break: break-all;
+	}
+
 }
