@@ -29,13 +29,22 @@
 		height: auto;
 	}
 	
-	div.snip {
+	.snip {
 		font-size: 15;
 		max-width: 100%;
 		height: auto;
 		padding: 15px;
 		border: 5px solid #aaa;
 		overflow: scroll;
+	}
+
+	.snip::-webkit-scrollbar {
+		display: none;
+	}
+
+	.snip {
+		-ms-overflow-style: none;
+		scrollbar-width: none;
 	}
 
 
@@ -63,14 +72,22 @@
 		height: auto;
 	}
 
-	div.snip {
-		font-family: 'Fira Code';
+	.snip {
 		font-size: 15;
 		max-width: 100%;
 		height: auto;
-	    padding: 15px;
-	    border: 5px solid #aaa;
-	    overflow: scroll;
+		padding: 15px;
+		border: 5px solid #aaa;
+		overflow: scroll;
+	}
+
+	.snip::-webkit-scrollbar {
+		display: none;
+	}
+
+	.snip {
+		-ms-overflow-style: none;
+		scrollbar-width: none;
 	}
 
 }
