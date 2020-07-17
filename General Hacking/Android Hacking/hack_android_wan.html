@@ -142,17 +142,6 @@ element.addEventListener('click', func);
 				Ever heard of Port Forwarding ??!! In short, the only thing you need to know [ at least for this tutorial ] is that, port forwarding is a technique which is most commanly used for making services [ msf handler in our case ] on a host of a protected network [ i.e the Hacker's network ], publicly available to the host on the external network [ i.e the Victim's network ]. Therefore basically we can get a reverse connection through the internet to our PC. Now you can try using your router's settings to enable port forwarding and set up custom IPv4 and ports, however, I prefer NOT doing that, because if you do this you will need to put your public IP in the apk as LHOST. If someone gets hold of that apk file and decompiles it, he can extract your public IP out of that [ it is a tedious process but not impossible ]. So it's better if you use a service like NGROK. If you use a service like NGROK, your public IP will be hidden by placing the NGROK servers in the LHOST.<br><br>
 
 				So this means that we can basically make the apk send a reverse connection to the NGROK servers which will forward the traffic to our local computer. To set-up NGROK you can read my tutorial by simply clicking <a href="https://www.vulnx.in/General%20Hacking/Android%20Hacking/port_forwarding_with_ngrok.html"><font color="#f44336">here</font></a>, or alternatively you can visit ther site <a href="https://www.ngrok.com"><font color="#f44336">ngrok.com</font></a>
-
-				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-				<ins class="adsbygoogle"
-				     style="display:block"
-				     data-ad-format="fluid"
-				     data-ad-layout-key="-6m+df+5e-2l-87"
-				     data-ad-client="ca-pub-6203666289882469"
-				     data-ad-slot="3245996046"></ins>
-				<script>
-				     (adsbygoogle = window.adsbygoogle || []).push({});
-				</script>
 					
 				<h1><u>STEP 2 - Generating the payload</u></h1>
 
@@ -198,17 +187,7 @@ element.addEventListener('click', func);
 				<br><br><div id="image">
 					<img src="images/hack_android_wan_setup_stuff_in_msfconsole.png" class="responsive">
 				</div><br>
-				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-						<!-- Horizontal ad (custom) -->
-					<ins class="adsbygoogle"
-     						style="display:block"
-						     data-ad-client="ca-pub-6203666289882469"
- 						     data-ad-slot="6275962994"
-						     data-ad-format="auto"
- 						     data-full-width-responsive="true"></ins>
-						<script>
-     							(adsbygoogle = window.adsbygoogle || []).push({});
-						</script>
+
 				<b>NOTE : Make sure you set LHOST as 'localhost' and not '192.168.xxx.xxx' as ngrok will be forwarding to localhost. I know this seems a bit weird because for us both are actually the same, however, that's how things work! You can try with '192.168.xxx.xxx' and will notice no connection will be accepted by you.</b><br><br>
 
 				Now just type exploit and hit enter!
@@ -228,18 +207,6 @@ element.addEventListener('click', func);
 				<br><br><div id="image">
 					<img src="images/hack_android_wan_sysinfo.png" class="responsive">
 				</div><br>
-				
-					<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-						<!-- Horizontal ad (custom) -->
-					<ins class="adsbygoogle"
-     						style="display:block"
-						     data-ad-client="ca-pub-6203666289882469"
- 						     data-ad-slot="6275962994"
-						     data-ad-format="auto"
- 						     data-full-width-responsive="true"></ins>
-						<script>
-     							(adsbygoogle = window.adsbygoogle || []).push({});
-						</script>
 					
 				Okay so these information are exactly correct and so we got the exploit working over WAN !! As always I'll encourage you to try this at your own device(s) in your authorised network(s).
 
