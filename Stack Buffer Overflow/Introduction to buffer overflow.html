@@ -171,7 +171,7 @@ element.addEventListener('click', func);
           -> So, we are aware that in C, strings do not exist. Instead in order to create a string we make an array of characters where the number of cells of the array == the maximum length of the string. Thus if we want to take user input in a program [ say a password-validation program ] then you can create a buffer like 'char buffer[64];' and then use functions to take input like gets, fgets, strcpy, strncpy, read and so on. The 'buffer' variable [ in this example ] is allocated only 64 bytes. This buffer is created on the stack. The flaw here is not with the buffer but with the input functions. If you use unsafe functions like gets, strcpy and read, then your program is at a risk of buffer overflows. Basically what these functions do is that, they take whatever input has been given to them through stdin [ normal standard input ] and somehow try to fit that in the buffer. These functions lack the procedure to check the end of buffer. This means that if you feed less than 64 bytes to the program then it will work just fine and the remaining bytes will be filled with NULLs. However, if you feed more than 64 bytes [ let's assume 100 ], then the first 64 bytes will be place correctly in the buffer but the remaining 36 bytes will be overflowed to the adjacent memory locations, overwriting them and ultimately causing the program to crash with a <b>'Segmentation Fault'</b>
 
           <h2><u>Segmentation Fault  -  Why is it so annoying?</u></h2>
-          -> If you have practiced assembly programming then it is very luckily that you must have came across this very weird error caused at run-time called <b>"Segmentation Fault"</b>. Its also called 'Seg Fault'. Now this seg fault is really annoying because it does not indicate us of any specific error. A seg fault is caused when we are trying to read/write/access/modify or do anything with non-existing or invalid memory locations. Basically when you start to play around with memory without knowing things in detail, you will often get this fault. Its really frustrating because it does not indicate any specific error and a wrong memory has been read or a function is handling invalid locations and so on. However, in this series we are going to get this seg fault very often. Luckily, in our case, this is going to be very helpful, as whenever we overflow a buffer, we will be overwriting the excess data on the stack which will trigger a Segmentation Fault. So a seg fault in our case will indicate a buffer overflow vulnerability.
+          -> If you have practiced assembly programming then it is very likely that you must have come across this very weird error caused at run-time called <b>"Segmentation Fault"</b>. Its also called 'Seg Fault'. Now this seg fault is really annoying because it does not indicate us of any specific error. A seg fault is caused when we are trying to read/write/access/modify or do anything with non-existing or invalid memory locations. Basically when you start to play around with memory without knowing things in detail, you will often get this fault. Its really frustrating because it does not indicate any specific error and a wrong memory has been read or a function is handling invalid locations and so on. However, in this series we are going to get this seg fault very often. Luckily, in our case, this is going to be very helpful, as whenever we overflow a buffer, we will be overwriting the excess data on the stack which will trigger a Segmentation Fault. So a seg fault in our case will indicate a buffer overflow vulnerability.
 
           <h2><u>Recognising a buffer overflow vulnerability</u></h2>
 
@@ -249,8 +249,4 @@ else {
 </script>
 
 	<body>
-<html/>
-
-
-
-
+</html>
