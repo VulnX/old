@@ -1,0 +1,94 @@
+* {
+		background-color: #000000;
+}
+
+#align_right {
+		text-align: right;
+}
+
+/* For Laptop */
+
+	hr.new5 {
+  		border: 2px solid white;
+  		border-radius: 5px;
+	}
+
+	#align {
+		margin:20px;
+    	font-family: 'Fira Code', ;
+	}
+	
+	#image {
+		border: 7px solid white;
+		padding: 20px;
+		overflow: hidden;
+	}
+
+	.responsive {
+		max-width: 100%;
+		height: auto;
+	}
+	
+	.snip {
+		border-radius: 5px;
+		font-size: 15;
+		max-width: 100%;
+		height: auto;
+		padding: 15px;
+		border: 2px solid #aaa;
+		overflow: scroll;
+	}
+
+	.snip::-webkit-scrollbar {
+		display: none;
+	}
+
+	.snip {
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
+
+
+/* For Mobile */
+@media screen and (max-width: 600px) {
+
+	hr.new5 {
+  		border: 2px solid white;
+  		border-radius: 5px;
+	}
+
+	#align {
+		margin:20px;
+    		font-family: 'Fira Code', ;
+	}
+	
+	#image {
+		border: 7px solid white;
+		padding: 20px;
+		overflow: hidden;
+	}
+
+	.responsive {
+		max-width: 100%;
+		height: auto;
+	}
+
+	.snip {
+		font-size: 15;
+		max-width: 100%;
+		height: auto;
+		padding: 15px;
+		border: 5px solid #aaa;
+		overflow: scroll;
+	}
+
+	.snip::-webkit-scrollbar {
+		display: none;
+	}
+
+	.snip {
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
+
+}
