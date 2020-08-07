@@ -176,9 +176,9 @@ element.addEventListener('click', func);
           <h2><u>Recognising a buffer overflow vulnerability</u></h2>
 
           Now enough with theory, let's start and recognise a buffer overflow vulnerability. First of all, below I have provided a very simple C program just read it once.
-<pre><div class="snip"><font color="##55FFFF"><b>//  File Name    :  introduction.c
-//  Compile with :  gcc introduction.c -m64 -o introduction.elf
-#include</font> <font color="#FF55FF">&lt;stdio.h&gt;</font>
+<pre><div class="snip"><font color="#aaa"><b>//  File Name    :  introduction.c
+//  Compile with :  gcc introduction.c -m64 -o introduction.elf</font>
+<font color="#55FFFF">#include</font> <font color="#FF55FF">&lt;stdio.h&gt;</font>
 
 <font color="#55FF55">void</font> vuln() {
   <font color="#55FF55">char</font> name[<font color="#FF55FF">128</font>];
