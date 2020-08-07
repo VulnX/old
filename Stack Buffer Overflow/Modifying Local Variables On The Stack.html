@@ -194,7 +194,7 @@ element.addEventListener('click', func);
 
           <b>NOTE : The above stack layout is only an assumption and might differ in reality. Also the value of RBP is a randomly choosen custom value, it is just for a better understanding</b><br>
           <br>
-          Now I have two main points which I can keep in mind to develop my exploit :-
+          Now I have two main points which you must keep in mind while developing this exploit :-
           <ul>
             <li>The program uses strcpy() to take user input. This means that if we feed excess data to the program, then the extra bytes will be overflowed to the next memory locations.</li><br>
             <li>Looking at the above stack layout it is clear that if the string buffer gets overflowed then the excess data will be overwritten to the integer variable.</li>
