@@ -1,0 +1,338 @@
+<html>
+	<head>
+		<link rel="icon" href="https://vulnx.in/favicon.png">
+		<script data-ad-client="ca-pub-6203666289882469" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {margin: 0;}
+
+.videoWrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+}
+
+.videoWrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#myCookieConsent {
+    border-radius: 5px;
+    border: 5px solid #f44336;
+    width: 80%;
+    padding: 20px 20px;
+    overflow: hidden;
+    position: fixed;
+    color: #fff;
+    bottom: 3px;
+    display: none;
+    left: 5%;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+#myCookieConsent #cookieButton {
+    display: inline-block;
+    color: #fff;
+    font-size: 1.1em;
+    background: #000;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 2px 20px;
+    float: right;
+    border: 2px solid #f44336;
+    border-radius: 5px;
+    transition: 0.5s;
+}
+#myCookieConsent #cookieButton:hover {
+    border: 2px solid white;
+    background: #f44336;
+	color: #fff;
+}
+
+ul.topnav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  background-color: #23252e;
+}
+
+ul.topnav li {float: left;}
+
+ul.topnav li a {
+  background-color: #23252e;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 16px 16px;
+  text-decoration: none;
+}
+
+ul.topnav li a:hover:not(.active) {background-color: #f44336;}
+
+ul.topnav li a.active {background-color: #4CAF50;}
+
+@media screen and (max-width: 600px) {
+  ul.topnav li.left, 
+  ul.topnav li {float: none;}
+}
+</style>
+		<link rel="stylesheet" href="style.css"/>
+		<link href="https://fonts.googleapis.com/css?family=Fira+Code:600|Lobster&display=swap" rel="stylesheet">
+		<title>Undestanding x64 Assembly [ Intel SYNTAX ] | VulnX</title>
+
+	</head>
+
+	<body>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-167461836-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-167461836-1');
+</script>
+
+		<font color="white" face="Fira Code" size="3" >	
+			<ul class="topnav">
+			<li><a href="../../../../../../../../../index.html">Home</a></li>
+			<li><a href="../../../../../../../../../Contents/resources.html">Resources</a></li>
+			<li><a href="../../../../../../../../../Contents/tutorials.html">Tutorials</a></li>
+			<li><a href="../../../../../../../../../Contents/CTFs.html">CTFs</a></li>
+			</ul>
+		</font>	
+		<div id="align">
+<font color="white" face="Fira Code" size="2">
+<div id="myCookieConsent">
+	<div id="cookieButton">I agree</div>
+	<div>By using our site, you agree to our use of cookies to deliver a better site experience.</div>
+</div>
+
+<script>
+var obj;
+obj = document.getElementById("myCookieConsent");
+
+function  func() {
+	obj.style.display = "none";
+	document.cookie = "cookiePromptShown=Yes; path=/";
+}
+var element;
+element = document.getElementById("cookieButton");
+element.addEventListener('click', func);
+</script>
+</font>	
+				
+				<font color="white" face="Fira Code" size="3">
+				<center><h1>Understanding x64 Assembly</h1></center>
+				<center><h1>NASM - Intel SYNTAX<h1></center>
+
+Hey what's up, welcome back to VulnX, the perfect place for new learners. So this is a very unique project as it isn't a tutorial but a whole series so it might be slightly lengthy, but of course we have compressed this long process as much as it was possible and have brought to you a simplified version of the same.<br>
+<br>
+So for the ease of learning let's take a few examples in which we'll compare C language program, to the assembly of it's compiled ELF executable file [ we will use GDB as a disassembler ].<br>
+<br>
+<br>
+<h1><u>#</u>&nbsp;&nbsp;&nbsp;&nbsp;<u>Example</u> <u>-</u> <u>1<br></u></h1>
+<br>
+<br>
+Let's take the below code for this example :-<br>
+<br>
+<pre><div class="snip">                                                               
+<font color="cyan">#include</font> <font color="yellow">&lt;stdio.h&gt;</font><br>
+<br>
+<font color="green">int</font> main() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf(<font color="yellow">"VulnX\n"</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#c0c">return</font> 0;<br>
+}<br>
+</div></pre>
+We will save it in a file called eg1.c and compile it using :-<br>
+<br>
+<pre><div class="snip">
+<font color="red">root@kali</font>:<font color="blue">~</font># gcc eg1.c -o eg1<br>
+</div></pre>
+Then on executing it, as expected 'VulnX' will be printed :-<br>
+<br>
+<pre><div class="snip">
+<font color="red">root@kali</font>:<font color="blue">~</font># ./eg1 <br>
+VulnX<br>
+</div></pre>
+So now let's quickly start this program with gdb and disassemble the main function :-<br>
+<br>
+<pre><div class="snip">
+<font color="red">root@kali</font>:<font color="blue">~</font># gdb ./eg1 -q<br>
+Reading symbols from <font color="#0f0">./eg1</font>...<br>
+(No debugging symbols found in ./eg1)<br>
+(gdb) set disassembly-flavor intel <br>
+(gdb) disassemble main <br>
+Dump of assembler code for function main:<br>
+   <font color="#00f">0x0000000000001135</font> <+0>:&nbsp;&nbsp;push&nbsp;&nbsp;&nbsp;rbp<br>
+   <font color="#00f">0x0000000000001136</font> <+1>:&nbsp;&nbsp;mov&nbsp;&nbsp;&nbsp;&nbsp;rbp,rsp<br>
+   <font color="#00f">0x0000000000001139</font> <+4>:&nbsp;&nbsp;lea&nbsp;&nbsp;&nbsp;&nbsp;rdi,[rip+0xec4]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# 0x2004<br>
+   <font color="#00f">0x0000000000001140</font> <+11>:	call&nbsp;&nbsp;&nbsp;0x1030 &lt;puts@plt&gt;<br>
+   <font color="#00f">0x0000000000001145</font> <+16>:	mov&nbsp;&nbsp;&nbsp;&nbsp;eax,0x0<br>
+   <font color="#00f">0x000000000000114a</font> <+21>:	pop&nbsp;&nbsp;&nbsp;&nbsp;rbp<br>
+   <font color="#00f">0x000000000000114b</font> <+22>:	ret<br>
+End of assembler dump.<br>
+(gdb) <br>
+</div></pre>
+Now if we see, we have a really short assembly program.<br>
+<br>
+<li>The first instruction at main+0 is 'push  rbp', it will just push the base-pointer on the stack to create a new stack frame for the main function.<br>
+<br><li>Then the second instruction at main+1 is 'mov  rbp, rsp', so it will move the RSP [stack-pointer] to the RBP [base-pointer]. This is done to update the newly created stack frame.<br>
+<br><li>The third instruction is 'lea  rdi, [rip+0xec4]', so it will move the something located at 0x2004 and it's relative address with respect to rip is 'rip+0xec4' into the rdi register. As of now we cannot understand why this has been done, but let's proceed further.<br>
+<br><li>The fourth instruction is 'call  0x1030 <puts@plt>', which means that we are calling the puts function. But wait, this isn't what we programmed, we called printf not puts. I'll explain this in a while, but now we now it's printing something, and if you look closely, the program is probably moving a string into rdi. Now this starts making sense because whenever a function is called, it's arguments are placed in rdi, rsi, rdx, rcx, r8, r9 and the rest are placed on the stack (all respectively).<br>
+<br>
+So the first argument of printf is the format specifier or simply in our case the string which we had to print. Now if we type this :-<br>
+<br>
+<pre><div class="snip">
+(gdb) x/s 0x2004<br>
+<font color="#00f">0x2004</font>: "VulnX"<br>
+(gdb) <br>
+</div></pre>
+we know that we are e(x)amining the address 0x2004 as a (s)tring, and we get "VulnX", which is exactly what we had to print.<br>
+<br>
+So now it's making sense. The one general difference between puts and printf is that, puts automatically adds a new-line at the end of the string, this is the reason we don't see a '\n' at the end of "VulnX". So instead of printing "VulnX\n" using printf, the compiler chooses to print "VulnX" using puts as it will yield the same desired output.<br>
+<br>
+<br><li>Now the fifth instruction is 'mov  eax, 0', so it will move 0 into eax [32-bit version of the RAX register]. The reason is that, the rax register generally contains the return value for the called function and this case, it is equivalent to 'return 0;'.<br>
+<br>
+<br><li>The sixth instruction is 'pop  rbp', so it will simply remove the current stack frame by removing the base-pointer off the stack. This indicates that the stack is no more required and the function is about to return back to where it came from.<br>
+<br>
+<br><li>The seventh instruction is quite self explainatory 'ret' will simply return back the control to where it came from.<br>
+<br>
+And so this was it. A really simple code, but when compiled may look quite complex at once.<br>
+<br>
+<br>
+<h1><u>#</u>&nbsp;&nbsp;&nbsp;&nbsp;<u>Example</u> <u>-</u> <u>2<br></u></h1>
+<br>
+<br>
+Let's take the below code for this example :-<br>
+<br>
+<pre><div class="snip">
+<font color="cyan">#include</font> <font color="yellow">&lt;stdio.h&gt;</font><br>
+<br>
+<font color="green">int</font> main() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="green">int</font> a = 1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="green">int</font> b = 5;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="green">int</font> c = 48;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf(<font color="yellow">"A = %d, B = %d , C = %d\n"</font>, a, b, c);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#c0c">return</font> 0;<br>
+}<br>
+</div></pre>
+We will save it in eg2.c and compile it using :-<br>
+<br>
+<pre><div class="snip">
+<font color="red">root@kali</font>:<font color="blue">~</font># gcc eg2.c -o eg2<br>
+</div></pre>
+Now if we run the executable, we will get the desired output, we print the values of all the variables :-<br>
+<br>
+<pre><div class="snip">
+<font color="red">root@kali</font>:<font color="blue">~</font># ./eg2 <br>
+A = 1, B = 5 , C = 48<br>
+</div></pre>
+So now let's quickly open this with GDB and disass. the main function :-<br>
+<br>
+<pre><div class="snip">
+<font color="red">root@kali</font>:<font color="blue">~</font># gdb ./eg2 -q<br>
+Reading symbols from <font color="green">./eg2</font>...<br>
+(No debugging symbols found in ./eg2)<br>
+(gdb) set disassembly-flavor intel <br>
+(gdb) disass main<br>
+Dump of assembler code for function main:<br>
+   <font color="blue">0x0000000000001135</font> <+0>:&nbsp;&nbsp;push&nbsp;&nbsp;&nbsp;rbp<br>
+   <font color="blue">0x0000000000001136</font> <+1>:&nbsp;&nbsp;mov&nbsp;&nbsp;&nbsp;&nbsp;rbp,rsp<br>
+   <font color="blue">0x0000000000001139</font> <+4>:&nbsp;&nbsp;sub&nbsp;&nbsp;&nbsp;&nbsp;rsp,0x10<br>
+   <font color="blue">0x000000000000113d</font> <+8>:&nbsp;&nbsp;mov&nbsp;&nbsp;&nbsp;&nbsp;DWORD PTR [rbp-0x4],0x1<br>
+   <font color="blue">0x0000000000001144</font> <+15>:	mov&nbsp;&nbsp;&nbsp;&nbsp;DWORD PTR [rbp-0x8],0x5<br>
+   <font color="blue">0x000000000000114b</font> <+22>:	mov&nbsp;&nbsp;&nbsp;&nbsp;DWORD PTR [rbp-0xc],0x30<br>
+   <font color="blue">0x0000000000001152</font> <+29>:	mov&nbsp;&nbsp;&nbsp;&nbsp;ecx,DWORD PTR [rbp-0xc]<br>
+   <font color="blue">0x0000000000001155</font> <+32>:	mov&nbsp;&nbsp;&nbsp;&nbsp;edx,DWORD PTR [rbp-0x8]<br>
+   <font color="blue">0x0000000000001158</font> <+35>:	mov&nbsp;&nbsp;&nbsp;&nbsp;eax,DWORD PTR [rbp-0x4]<br>
+   <font color="blue">0x000000000000115b</font> <+38>:	mov&nbsp;&nbsp;&nbsp;&nbsp;esi,eax<br>
+   <font color="blue">0x000000000000115d</font> <+40>:	lea&nbsp;&nbsp;&nbsp;&nbsp;rdi,[rip+0xea0]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# 0x2004<br>
+   <font color="blue">0x0000000000001164</font> <+47>:	mov&nbsp;&nbsp;&nbsp;&nbsp;eax,0x0<br>
+   <font color="blue">0x0000000000001169</font> <+52>:	call&nbsp;&nbsp;&nbsp;0x1030 &lt;printf@plt&gt;<br>
+   <font color="blue">0x000000000000116e</font> <+57>:	mov&nbsp;&nbsp;&nbsp;&nbsp;eax,0x0<br>
+   <font color="blue">0x0000000000001173</font> <+62>:	leave&nbsp;&nbsp;<br>
+   <font color="blue">0x0000000000001174</font> <+63>:	ret&nbsp;&nbsp;&nbsp;&nbsp;<br>
+End of assembler dump.<br>
+(gdb) <br>
+</div></pre>
+Alright this is a big chunk of code. So let's start analysing this now.<br>
+<br>
+<li>We already know that the first 2 lines are preparing the stack frame for the main function.<br>
+<br><li>The third instruction is 'sub  rsp, 0x10', so we subtracting 0x10[=16 in decimal], from the stack pointer, probably to make space for some variables.<br>
+<br><li>The fourth line is 'mov  DWORD PTR [rbp-0x4], 0x1', so it is moving the integer '1' into a dword address [rbp-0x4]. So this is probably an integer variable because we are subtracting 0x4, or 4 bytes which is equivalent to 32-bits, and an integer is of 32-bits as well. Let's assume this variable to be 'a'.<br>
+<br><li>The fifth instruction is 'mov  DWORD PTR [rbp-0x8], 0x5', so it will move the value 5 into another integer, at address [rbp-0x8], let's assume this to be the variable 'b'.<br>
+<br><li>Now sixth instruction, 'mov  DWORD PTR [rbp-0xc], 0x30', will move 0x30 [=48 in decimal] into [rbp-0xc] (0xc=12 in decimal). So this is again another integer, let's assume this to be 'c'.<br>
+<br><li>The seventh instruction is 'mov  ecx, DWORD PTR [rbp-0xc]' so it will move the value of 'c' in ecx register for some reason.<br>
+<br><li>The eighth instruction is 'mov  edx, DWORD PTR [rbp-0x8]', so it will move the value of 'b' in edx register for some reason.<br>
+<br><li>The ninth instruction is 'mov  eax, DWORD PTR [rbp-0x4]', so it will move the value of 'a' in eax register for some reason.<br>
+<br><li>The tenth instruction is 'mov  esi, eax', so it will move eax into esi [or indirectly shift 'a' into esi].<br>
+<br><li>The eleventh instruction is 'lea  rdi, [rip+0xea0]', so it will load the address [rip+0xea0] into rdi for some reason.<br>
+<br><li>The twelveth instruction is 'mov  eax, 0x0', so it will clear the eax register by storing zero(0) in it.<br>
+<br><li>The thirteenth instruction is 'call  0x1030 <printf@plt>', so it is printing  something.<br>
+And now things seem to get clear, the string which is getting printed probably is a format specifier and so the following arguments [a, b & c] are placed in the argument registers [rsi, rdx, rcx respectively] and then the function is called to print out all of this together.<br>
+For further confirmation, the first argument[format specifier] is placed in rdi. We know that the control is moving '0x2004' in rdi, so if we analyse it we get :-<br>
+<br>
+<pre><div class="snip">
+(gdb) x/s 0x2004<br>
+<font color="blue">0x2004</font>:	"A = %d, B = %d , C = %d\n"<br>
+(gdb) <br>
+</div></pre>
+Which is right, there are 3 %d so three variables are placed in respective registers so it will print the desired output.<br>
+<br><li>The fourteenth instruction is 'mov  eax, 0x0', so it will set eax to 0 to return the value 0 after the program has been ended.<br>
+<br><li>The fifteenth instruction is 'leave'. 'leave' is actually the exact opposite of 'enter', but wait we don't have any 'enter' in our code, the reason is that, 'enter' is actually replaced by the first 2 instructions, and so 'leave' is exactly the opposite of first two instructions, which means 'leave' -> 'mov rsp, rbp', 'pop rbp', this is done to remove the base-pointer off the stack and indicates that the program is about to end.<br>
+<br><li>The sixteenth instruction is 'ret', like the name suggests, it will return back to where it came from!<br>
+<br>
+So that's it, simple code! It looked quite large and confusing but at the end it was quite simple.<br>
+<br>
+		</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+var element;
+element = document.getElementById("myCookieConsent");
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+ var cookieVal = getCookie("cookiePromptShown");
+
+if(cookieVal != "Yes") {
+	element.style.display = "block";
+
+}
+else {
+	element.style.display = "none";
+}
+
+</script>
+
+	<body>
+<html/>
+
+
+
+

