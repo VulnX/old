@@ -158,14 +158,14 @@ element.addEventListener('click', func);
   <font color="#FFFF55">return</font> <font color="#FF55FF">0</font>;
 }</b></div></pre>
 
-          As you can see the only change is in the if statement. In the previous code the `if block` executed if the 'value' variable was not equal to 1501. This time it will be executed if the 'value' variable is equal to 0xcafebabe [ or 3405691582 in decimal form ].<br>
+          As you can see the only change is in the if statement. In the previous code the `if block` was executed if the 'value' variable was not equal to 1501. This time it will be executed if the 'value' variable is equal to 0xcafebabe [ or 3405691582 in decimal form ].<br>
           <br>
           Again we need to overflow the buffer and write the excess data in the integer variable. Seems simple right?<br>
           Great! Let's start building our exploit.
 
           <h2><u>STEP-1 : Determination of correct offset</u></h2>
 
-          Now, we can't just randomly write any number of bytes right? We need a specific number of junk bytes which will fill the buffer and write 0xcafebabe as the excess data in the variable. So, that number of bytes required to reach the int variable [ RBP-0x4, as explaining the previous tutorial ], such that any data after those number of bytes will be written into the int variable is called offset. Thus it is very import to determine the correct offset to the int variable. So anyway our exploit will be :-<br>
+          Now, we can't just randomly write any number of bytes right? We need a specific number of junk bytes which will fill the buffer and write 0xcafebabe as the excess data in the variable. So, that number of bytes required to reach the int variable [ RBP-0x4, as explaining the previous tutorial ], such that any data after those number of bytes will be written into the int variable is called offset. Thus it is very important to determine the correct offset to the int variable. So anyway our exploit will be :-<br>
           <li>XXXXXX.... (no. of X = offset) + 0xcafebabe</li>
           Let's ignore 0xcafebabe for now and write "AAAA" instead of that. The character "A" has the hex code 0x41<sup>*</sup> [ remember this! ], this means that after hitting the correct offset, the extra "AAAA" will be written into RBP-0x4 [ int variable ] and if we analyse it with GDB [ the debugger we are going to be using for this series ] the value stored should be 0x41414141. So now the question is what's the offset?<br>
           Well obviously 64 right? The buffer is of 64 bytes and just beneath it lies the int variable, so the 65th byte and the rest should be overwritten to the int variable.
@@ -211,7 +211,7 @@ Dump of assembler code for function main:
 End of assembler dump.
 gdb-peda$ </div></pre>
 
-          As you can see in the above snippet, in the line +60, the program compares [ donated by the cmp assembly instruction ] the dword value in the location rbp-0x4 [ which is the integer variable, I have explained this in the previous tutorial properly. ] with the 0xcafebabe. Now let's set a breakpoint at main+60, so that we can analyse the program just before it compares the variable.
+          As you can see in the above snippet, in the line +60, the program compares [ denoted by the 'cmp' assembly instruction ] the dword value in the location rbp-0x4 [ which is the integer variable, I have explained this in the previous tutorial properly. ] with the 0xcafebabe. Now let's set a breakpoint at main+60, so that we can analyse the program just before it compares the variable.
           <pre><div class="snip">gdb-peda$ break * main+60
 Breakpoint 1 at <font color="#8181FF"> 0x1191</font>
 gdb-peda$ 
@@ -288,7 +288,7 @@ little
 
           <h2><u>STEP-5 : Building up the final exploit</u></h2>
 
-          Now for a better understanding, let's make a python file which will print 76 "A" and 0xcafebabe in little-endian format.
+          Now for a better understanding, let's make a python file which will print 76 "A" + 0xcafebabe in little-endian format.
           <pre><div class="snip"><font color="#8181FF">import</font> sys
 <font color="#8181FF">from</font> struct <font color="#8181FF">import</font> pack
 
