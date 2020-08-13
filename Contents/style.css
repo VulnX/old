@@ -15,7 +15,7 @@
 	#intro {
 		margin:20px;
 		font-family: 'Lobster', ;
-    	font-family: 'Fira Code', ;
+    		font-family: 'Fira Code', ;
 	}
 
 	.btn {
@@ -30,9 +30,9 @@
 	}
 
 	.btn:hover {
-		border: 3px solid #00FF7F;
+		border: 3px solid #f44336;
 		border-radius: 10px;
-		background-color: #000;
+		background-color: #f44336;
 		color: #ffffff;
 		cursor: pointer;
 		padding: 10px 50px;
@@ -50,7 +50,7 @@
 	#intro {
 		margin:20px;
 		font-family: 'Lobster', ;
-    	font-family: 'Fira Code', ;
+    		font-family: 'Fira Code', ;
 	}
 
 	.btn {
@@ -58,21 +58,21 @@
 		border: 3px solid #000;
 		background-color: none;
 		color: white;
-		padding: 10px 50px;
+		padding: 10px 20px;
 		text-align: center;
 		transition: 0.3s;
-		font-size: 25px;
+		font-size: 15px;
 	}
 
 	.btn:hover {
-		border: 3px solid #00FF7F;
+		border: 3px solid #f44336;
 		border-radius: 10px;
-		background-color: #000;
+		background-color: #f44336;
 		color: #ffffff;
 		cursor: pointer;
-		padding: 10px 50px;
+		padding: 10px 20px;
 		text-align: center;
-		font-size: 25px;
+		font-size: 15px;
 	}
 
 }
