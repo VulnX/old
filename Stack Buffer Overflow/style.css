@@ -1,9 +1,14 @@
 * {
 		background-color: #000000;
+		scroll-behavior: smooth;
 }
 
 #align_right {
 		text-align: right;
+}
+
+a {
+	text-decoration: none;
 }
 
 /* For Laptop */
