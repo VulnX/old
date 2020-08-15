@@ -2,9 +2,42 @@
 	<head>
 		<link rel="icon" href="favicon.png">
 		<script data-ad-client="ca-pub-6203666289882469" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="HandheldFriendly" content="true">
 <style>
 body {margin: 0;}
+html {font-size: 100%;}
+
+.fa {
+  border-radius: 50%;
+  padding: 10px;
+  font-size: 20px;
+  width: 15px;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 10px;
+  transition: 0.3s;
+}
+
+.fa:hover {
+    opacity: 0.7;
+}
+
+.fa-google {
+  background: #dd4b39;
+  color: white;
+}
+
+.fa-youtube {
+  background: #bb0000;
+  color: white;
+}
+
+.fa-instagram {
+  background: #125688;
+  color: white;
+}
 
 #myCookieConsent {
     border-radius: 5px;
@@ -66,12 +99,21 @@ ul.topnav li a:hover:not(.active) {background-color: #f44336;}
 ul.topnav li a.active {color: #f44336;}
 
 @media screen and (max-width: 600px) {
+  body {
+    font-size: 0.8rem;
+  }
+  .fa {
+    margin: 5px 4px;
+    padding: 5px;
+    width: 10px;
+  }
   ul.topnav li.left, 
   ul.topnav li {float: none;}
 }
 </style>
 		<link rel="stylesheet" href="style.css">
-		<link href="https://fonts.googleapis.com/css?family=Fira+Code:600|Lobster&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@600&family=Ubuntu:wght@500;700&display=swap" rel="stylesheet">
 		<title>VulnX | HOMEPAGE</title>
 
 	</head>
@@ -89,78 +131,75 @@ ul.topnav li a.active {color: #f44336;}
 		<font size="3" color="white" face="Fira Code">	
 
 		<ul class="topnav">
-			<li><a class="active" href="../../../../../../../../../index.html">Home</a></li>
-			<li><a href="../../../../../../../../../Contents/resources.html">Resources</a></li>
-			<li><a href="../../../../../../../../../Contents/tutorials.html">Tutorials</a></li>
-			<li><a href="../../../../../../../../../Contents/CTFs.html">CTFs</a></li>
+			<li><a class="active" href="https://vulnx.in/">Home</a></li>
+			<li><a href="https://vulnx.in/Contents/resources.html">Resources</a></li>
+			<li><a href="https://vulnx.in/Contents/tutorials.html">Tutorials</a></li>
+			<li><a href="https://vulnx.in/Contents/CTFs.html">CTFs</a></li>
 		</ul>
 
 		</font>
 
-			<font size="2" color="white" face="Lobster">
-
-				<div id="intro">
+		<div id="intro">
 <font size="2" color="white" face="Fira Code">
-<div id="myCookieConsent">
-	<div id="cookieButton">I agree</div>
-	<div>By using our site, you agree to our use of cookies to deliver a better site experience.</div>
-</div>
+	<div id="myCookieConsent">
+		<div id="cookieButton">I agree</div>
+		<div>By using our site, you agree to our use of cookies to deliver a better site experience.</div>
+	</div>
 
-<script>
-var obj;
-obj = document.getElementById("myCookieConsent");
+	<script>
+	var obj;
+	obj = document.getElementById("myCookieConsent");
 
-function  func() {
-	obj.style.display = "none";
-	document.cookie = "cookiePromptShown=Yes; path=/";
-}
-var element;
-element = document.getElementById("cookieButton");
-element.addEventListener('click', func);
-</script>
+	function  func() {
+		obj.style.display = "none";
+		document.cookie = "cookiePromptShown=Yes; path=/";
+	}
+	var element;
+	element = document.getElementById("cookieButton");
+	element.addEventListener('click', func);
+	</script>
 </font>
 
-						&nbsp;
-						<img src="logo.png" class="responsive">
+					<img src="logo.png" class="responsive">
 
-					</font>
+					<font color="white" face="Ubuntu">
 
-					<font size="3" color="white" face="Fira Code">
+					<u><h2>About</h2></u>
 
-					<h1>INTRODUCTION :</h1>
-					Hello everybody and welcome to VulnX.in, in this site we will be spreading all our knowledge about hacking and particularly about buffer overflow. We will be training you from the most basic level of having absolutely no knowledge about a buffer overflow, all the way up to making you capable of understanding and exploiting a vulnerability. This site will be under constant development, so that new tutorials & CTFs can be released as soon as possible! So be sure to stay tuned!<br><br>
+					Welcome to VulnX, the perfect place for new learners.<br>
+					Our main objective is to spread as much knowledge about hacking as possible. We will be emphasising greatly on the quality of the tutorials so that they can be understood be people easily without having to search the net for it.
+					
+					<u><h2>Why VulnX?</h2></u>
 
-					<hr class="new5">
+					Well there are a couple of reasons to choose VulnX for learning
+          <ul>
+            <li>Through our <a href="https://vulnx.in/"><font color="#dd4b39">website</font></a> and <a href="https://bit.ly/VulnX_YT"><font color="#dd4b39">YouTube channel</font></a>, we intend to cover a vast variety of tutorials like assembly programming, shellcode-development and much more.</li>
+            <li>We target to teach the script-kiddies to <font color="#3490FF"><b>not</b></font> be dependent on scripts, instead understand the logic.</li>
+            <li>This is the reason why we are focusing more on the Buffer Overflow series, because there you will always have to think outside the box to understand the flaw and <font color="#3490FF"><b>no script can help you</b></font>.</li>
+            <li>We are not against the use of scripts because they ultimately help us in executing the process faster, but due to millions of tools/scripts out on the internet the new-comers are influenced to focus on the usage of the tools and not how the technique works.</li>
+            <li>VulnX aims to teach the technique and <font color="#3490FF"><b>not how to run a script</b></font>.</li>
+          </ul>
 
-					<h2>What is a buffer overflow?</h2>
+          <u><h2>Prerequisites</h2></u>
 
-					So you might be wondering, what actually is a buffer overflow. Well, a buffer is a section in memory allocated for the storage of 						data in future. When excess data [ more than what was expected to be stored ] is written into the buffer, it causes the excess 						data to be leaked/overflowed to the adjacent memory locations [ assuming ALSR to be disabled, you will learn about it in future 					tutorials ].<br><br>
+          VulnX is not targetted for the everyday user. Every tutorial you will find on this website, assumes you to have minimal knowledge about <font color="#3490FF">Linux</font>. You must be comfortable with the <font color="#3490FF">CLI</font> ( command-line interface ), this includes, <font color="#3490FF">updating repos</font>, <font color="#3490FF">installing softwares</font>, working with <font color="#3490FF">files and directories</font>, <font color="#3490FF">writing programs</font>, <font color="#3490FF">compiling</font> and <font color="#3490FF">preferably even debugging</font>.
 
-					<hr class="new5">
+          <u><h2>CTFs?</h2></u>
 
-					<h2>Why is it a big deal?</h2>
+          Yes, it is true. We provide you with a few CTFs. They weren't created for a competition instead they are hosted staticly.<br>
+          These are more of challenges with a task to perform. The task is replace is replaced with a unique flag in each question. The categories include reversing, binary exploiting, cryptography, forensics and so on. However, unfortunately due to lack of servers, we are unable to provide you with pwnable type CTFs.
 
-					The attacker can use a program which depends on user input by taking input through vulnerable functions like gets, read, strcpy, 						etc. The input which the attacker feeds to the program may contain memory address to change code execution or opcodes for 						instructions which ultimately help the attacker in changing the original purpose of the program.<br><br>
+					<br><br><hr class="new5">
 
-					<hr class="new5">
+					<h2><u>Disclaimer</u></h2>
 
-					<h2>Classification of buffer overflow</h2>
-					A buffer overflow is generally of two types:<br>
+					We are not responsible for any misuse you do with the knowledge gained from this website. The references and the exploits taught here are strictly meant for educational purposes only. You are advised not to perform any hacking attack on anyone from whom you do not have a written permission. All attacks demonstrated in this site are within respective network(s)/computer(s) which are fully authorised. Nevertheless, enjoy!
 
-						<ul>						
+					<br><br><hr style="border: 2px solid black; border-radius: 5px;">
 
-							<li><h3>Stack-Based</h3></li>
-							<li><h3>Heap-Based</h3></li>
-
-						</ul>						
-
-					Heap-based buffer overflows are particularly difficult to target & exploit. So for the sake of simplicity, we will be covering 						the Stack-based buffer overflow.<br><br>
-
-					<hr class="new5">	
-						
-					<b><h2><u>DISCLAIMER</u></h2>
-
-					We are not responsible for any misuse you do with the knowledge gained from this site. The references and the exploits taught 						in the series are strictly meant for educational purposes only. You are advised not to perform any hacking attack on anyone from 						whom you do not have a written permission. All attacks demonstrated in this site are within respective network which are fully 						authorised. This site does not promote hacking, instead we want to create awareness among people who make tiny mistakes while programming or everyday life which can cost them a lot in future. Nevertheless, enjoy!!</b>
+					<div style="float: right;"><a href="https://www.instagram.com/vulnx_hacking" class="fa fa-instagram"></a>
+					<a href="mailto:vulnx101@gmail.com" class="fa fa-google"></a>
+					<a href="https://bit.ly/VulnX_YT" class="fa fa-youtube"></a></div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>	
 <script>
@@ -194,10 +233,9 @@ else {
 }
 
 </script>
-				</div>		
+				</font>		
 
-			</font>
+			</div>>
 
 	</body>
-	</head>
 </html>

@@ -67,10 +67,10 @@
 	}
 
 	.btn:hover {
-		border: 3px solid #00ff7f;
+		border: 3px solid #000;
 		border-radius: 10px;
 		background-color: #000;
-		color: #ffffff;
+		color: #00ff7f;
 		cursor: pointer;
 		padding: 10px 20px;
 		text-align: center;
