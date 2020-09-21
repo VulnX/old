@@ -56,6 +56,7 @@ ul.topnav .x li a {
  	text-decoration: none;
  	transition: 0.3s;
  	align-items: center;
+	outline: 0;
 }
 ul.topnav .x li a:hover:not(.active) {
 	background-color: #092a49;
