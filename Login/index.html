@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>Login</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@600&family=Ubuntu:wght@500;700&family=Quicksand:wght@500&display=swap" rel="stylesheet">
+  	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  	<meta name="HandheldFriendly" content="true">
+	<meta name="google-signin-client_id" content="594737578999-1g8b0p8ss3drjagesrultk58tjpasak2.apps.googleusercontent.com">
+  	<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+
+  	<style type="text/css">
+  		#content {
+  			margin-top: 150px;
+  		}
+  		#center {
+  			margin: 0 auto 150px;
+  			width: 60%;
+  			display: flex;
+  			flex-direction: column;
+  			align-items: center;
+  			justify-content: space-around;
+  			height: 60vh;
+  		}
+  		#signOutButton {
+  			background-color: #fff;
+  			padding: 10px 60px;
+  			border: 0.1rem solid #1b1b1b;
+  			border-radius: 2px;
+  			font-weight: bold;
+  			text-transform: uppercase;
+  			letter-spacing: 3px;
+  			cursor: pointer;
+  			transition: 0.2s;
+  		}
+  		#signOutButton:hover {
+  			box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+  		}
+  		#box {
+  			position: absolute;
+  			top: 100px;
+  			margin: 20px;
+  			padding: 20px 0;
+  			border-radius: 5px;
+  			box-shadow: 0 5px 5px 2px rgba(0, 0, 0, .2);
+  			align-items: center;
+  			display: none;
+  			flex-direction: column;
+  			overflow: hidden;
+  		}
+  		#boxButton {
+  			text-transform: uppercase;
+  			text-align: center;
+  			font-weight: bold;
+  			padding: 10px 50px;
+  			width: 100%;
+  			cursor: pointer;
+  			color: #333;
+  		}
+  		#boxButton:hover {
+  			color: #777;
+  		}
+  	</style>
+
+</head>
+<body onload="fillBlank()">
+
+	<ul class="topnav"><div class="x">
+    	<img id="image" src="../imgs/logo.gif" onclick="reveal()">
+    	<div style="display: flex; justify-content: row-reverse; align-items: center;"><li><a target="_blank" href="https://vulnx.in/">Home</a></li>
+      	<li><a target="_blank" href="https://vulnx.in/Contents/resources.html">Services and Pricing</a></li>
+      	<li><a target="_blank" href="/About">About</a></li>
+      	<li><a target="_blank" href="https://vulnx.in/Contents/CTFs.html">Contact</a></li></div>
+    	</div>
+  	</ul>
+
+  	<div id="content">
+  		<div id="center">
+  			<h1 style="font-size: 50px; color: #333; text-align: center; margin: 0;">Sign In</h1>
+  			<div id="my-signin2"></div>
+  			<span id="setName">User not signed in</span>
+  			<a href="#" id="Email" style="color: #05f; text-decoration: none;"></a>
+  			<div id="signOutButton" onclick="signOut()">Sign Out</div>
+  		</div>
+  	</div>
+
+  	<div id="box">
+  		<a id="boxButton">My account</a><br>
+  		<a id="boxButton" onclick="signOut()">Log out</a>
+  	</div>
+
+  	<script type="text/javascript">
+  		function onSignIn(googleUser) {
+  			var profile = googleUser.getBasicProfile();
+  			document.getElementById("image").setAttribute("src", profile.getImageUrl());
+  			document.getElementById("setName").innerHTML = "User '<span style='color: #05f; border-bottom: 1px solid #05f;'>" + profile.getName() + "'</span> has signed in."
+  			document.getElementById("Email").innerHTML = profile.getEmail();
+  			document.getElementById("Email").setAttribute("href", "mailto:" + profile.getEmail());
+  			var name = profile.getName();
+  			var email = profile.getEmail();
+  			var profileUrl = profile.getImageUrl();
+  			setCookie("username", name, 1);
+  			setCookie("email", email, 1);
+  			setCookie("profileUrl", profileUrl, 1)
+  			document.getElementById("image").style.cursor = "pointer";
+  			
+  		}
+  		function signOut() {
+  			var x = gapi.auth2.getAuthInstance();
+          	x.signOut();
+          	x.disconnect();
+          	location.reload();
+          	document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+          	document.cookie = "email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+          	document.cookie = "profileUrl=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  		}
+  		function onFailure(error) {
+  			console.log(error);
+  		}
+  		function renderButton() {
+  			gapi.signin2.render('my-signin2', {
+              'scope': 'profile email',
+              'width': 240,
+              'height': 50,
+              'longtitle': true,
+              'theme': 'dark',
+              'onsuccess': onSignIn,
+              'onfailure': onFailure
+            });
+  		}
+  		function setCookie(cname, cvalue, days) {
+  			var d = new Date();
+  			d.setTime(d.getTime() + (days*24*60*60*1000));
+  			var expires = "expires="+ d.toUTCString();
+  			document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  		}
+  		function reveal() {
+  			if (checkCookie("username")) {
+  				if (document.getElementById("box").style.display == "flex") {
+  					document.getElementById("box").style.display = "none";
+  				} else {
+  					document.getElementById("box").style.display = "flex";
+  				}
+  			}
+  		}
+  		function getCookie(cname) {
+  			var name = cname + "=";
+  			var decodedCookie = decodeURIComponent(document.cookie);
+  			var ca = decodedCookie.split(';');
+  			for(var i = 0; i <ca.length; i++) {
+    			var c = ca[i];
+    			while (c.charAt(0) == ' ') {
+      				c = c.substring(1);
+    			}
+    			if (c.indexOf(name) == 0) {
+      				return c.substring(name.length, c.length);
+    			}
+  			}
+  			return "";
+		}
+  		function checkCookie(cname) {
+  			var username = getCookie(cname);
+  			if (username == "") {
+  				return false;
+  			}
+  			else {
+  				return true;
+  			}
+		}
+		function fillBlank() {
+			if (checkCookie("username")) {
+				document.getElementById("image").setAttribute("src", getCookie("profileUrl"));
+  				document.getElementById("setName").innerHTML = "User '<span style='color: #05f; border-bottom: 1px solid #05f;'>" + getCookie("username") + "'</span> has signed in."
+  				document.getElementById("Email").innerHTML = getCookie("email");
+  				document.getElementById("Email").setAttribute("href", "mailto:" + getCookie("email"));
+			}
+		}
+  	</script>
+
+</body>
+</html>
