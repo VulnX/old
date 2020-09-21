@@ -25,6 +25,7 @@ ul.topnav {
  	overflow: hidden;
  	background-color: #fff;
  	box-shadow: 0 5px 15px 0 #00000070;
+ 	font-family: 'Fira Code';
 }
 ul.topnav .x {
 	background: #fff;
@@ -41,7 +42,6 @@ ul.topnav .x li {
 	float: right;
 }
 ul.topnav .x img {
-	border-radius: 50%;
 	height: 100px;
 	width: auto;
 	float: left;

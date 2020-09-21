@@ -44,7 +44,7 @@
   			margin: 20px;
   			padding: 20px 0;
   			border-radius: 5px;
-  			box-shadow: 0 5px 5px 2px rgba(0, 0, 0, .2);
+  			box-shadow: 0 5px 5px rgba(0, 0, 0, .2);
   			align-items: center;
   			display: none;
   			flex-direction: column;
@@ -75,11 +75,11 @@
 <body onload="fillBlank()">
 
 	<ul class="topnav"><div class="x">
-    	<img id="image" src="logo.gif" onclick="reveal()">
+    	<img id="image" src="../logo.png" onclick="reveal()">
     	<div style="display: flex; justify-content: row-reverse; align-items: center;"><li><a target="_blank" href="https://vulnx.in/">Home</a></li>
-      	<li><a target="_blank" href="https://vulnx.in/Contents/resources.html">Services and Pricing</a></li>
-      	<li><a target="_blank" href="/About">About</a></li>
-      	<li><a target="_blank" href="https://vulnx.in/Contents/CTFs.html">Contact</a></li></div>
+      	<li><a target="_blank" href="https://vulnx.in/Contents/resources.html">Resources</a></li>
+      	<li><a target="_blank" href="https://vulnx.in/Contents/tutorials.html">Tutorials</a></li>
+      	<li><a target="_blank" href="https://vulnx.in/Contents/CTFs.html">CTFs</a></li></div>
     	</div>
   	</ul>
 
@@ -112,6 +112,7 @@
   			setCookie("email", email, 1);
   			setCookie("profileUrl", profileUrl, 1)
   			document.getElementById("image").style.cursor = "pointer";
+        document.getElementById("image").style.borderRadius = "50%";
   			
   		}
   		function signOut() {
@@ -178,11 +179,12 @@
 		}
 		function fillBlank() {
 			if (checkCookie("username")) {
+        document.getElementById("image").style.borderRadius = "50%";
 				document.getElementById("image").style.cursor = "pointer";
 				document.getElementById("image").setAttribute("src", getCookie("profileUrl"));
-  				document.getElementById("setName").innerHTML = "User '<span style='color: #05f; border-bottom: 1px solid #05f;'>" + getCookie("username") + "'</span> has signed in."
-  				document.getElementById("Email").innerHTML = getCookie("email");
-  				document.getElementById("Email").setAttribute("href", "mailto:" + getCookie("email"));
+  			document.getElementById("setName").innerHTML = "User '<span style='color: #05f; border-bottom: 1px solid #05f;'>" + getCookie("username") + "'</span> has signed in."
+  			document.getElementById("Email").innerHTML = getCookie("email");
+  			document.getElementById("Email").setAttribute("href", "mailto:" + getCookie("email"));
 			}
 		}
   	</script>
