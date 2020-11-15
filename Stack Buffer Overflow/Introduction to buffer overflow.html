@@ -1,255 +1,167 @@
+<!DOCTYPE HTML>
 <html>
-	<head>
-		<link rel="icon" href="https://vulnx.in/favicon.png">
-		<script data-ad-client="ca-pub-6203666289882469" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="HandheldFriendly" content="true">
-<style>
-body {margin: 0;}
-html {font-size: 100%;}
+<head>
+  <title>Buffer Overflow : Introduction to buffer overflows | VulnX</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script type="text/javascript" src="script.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@600&family=Quicksand:wght@500&family=Saira+Stencil+One&family=Ubuntu:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="https://vulnx.in/favicon.png">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+  <script data-ad-client="ca-pub-6203666289882469" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="HandheldFriendly" content="true">
+  <meta name="google-signin-client_id" content="7743864513-tbfn9rfgcgni8c2t8b9obgjpobeq0j7i.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+</head>
 
-.videoWrapper {
-  position: relative;
-  padding-bottom: 56.25%;
-  height: 0;
-}
+<body onload="fillBlank()">
 
-.videoWrapper iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
+  <div id="progressBar"></div>
 
-#myCookieConsent {
-    border-radius: 5px;
-    border: 5px solid #f44336;
-    width: 80%;
-    padding: 20px 20px;
-    overflow: hidden;
-    position: fixed;
-    color: #fff;
-    bottom: 3px;
-    display: none;
-    left: 5%;
-    text-align: center;
-    font-size: 15px;
-    font-weight: bold;
-}
+  <div id="my-signin2"></div>
 
-#myCookieConsent #cookieButton {
-    display: inline-block;
-    color: #fff;
-    font-size: 1.1em;
-    background: #000;
-    text-decoration: none;
-    cursor: pointer;
-    padding: 2px 20px;
-    float: right;
-    border: 2px solid #f44336;
-    border-radius: 5px;
-    transition: 0.5s;
-}
-#myCookieConsent #cookieButton:hover {
-    border: 2px solid white;
-    background: #f44336;
-	color: #fff;
-}
+  <ul class="topnav"><div class="x">
+    <img id="logo" src="../logo.png" onclick="reveal()">
+    <div style="display: flex; justify-content: row-reverse; align-items: center;"><li><a target="_blank" href="../">Home</a></li>
+      <li><a target="_blank" href="../Contents/resources.html">Resources</a></li>
+      <li><a target="_blank" href="../Contents/tutorials.html">Tutorials</a></li>
+      <li><a target="_blank" href="../Contents/CTFs.html">CTFs</a></li></div>
+    </div>
+  </ul>
 
-ul.topnav {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  left: 0;
-  right: 0;
-  overflow: hidden;
-  background-color: #23252e;
-}
+  <div id="pop">
+    <a id="popButton">My account</a><br>
+    <a id="popButton" onclick="signOut()">Log out</a>
+  </div>
 
-ul.topnav li {float: left;}
+  <div id="cookieBar">
+    <div id="cookieText">By using our site, you agree to our use of cookies to deliver a better site experience</div>
+    <div id="cookieButton"><span></span><span></span><span></span><span></span>&#10005;</div>
+  </div>
 
-ul.topnav li a {
-  background-color: #23252e;
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 16px 16px;
-  text-decoration: none;
-}
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167461836-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-ul.topnav li a:hover:not(.active) {background-color: #f44336;}
+    gtag('config', 'UA-167461836-1');
+  </script>
 
-ul.topnav li a.active {background-color: #4CAF50;}
+  <div id="align">
 
-@media screen and (max-width: 600px) {
-  body {
-    font-size: 0.8rem;
-  }
-  ul.topnav li.left, 
-  ul.topnav li {float: none;}
-}
-</style>
-		<link rel="stylesheet" href="style.css"/>
-		<link href="https://fonts.googleapis.com/css?family=Fira+Code:600|Lobster&display=swap" rel="stylesheet">
-		<title>Buffer Overflow : Introduction to buffer overflows | VulnX</title>
+    <font color="#555" face="Quicksand">
 
-	</head>
+      <center><h1 style="color: #1b1b1b">Buffer Overflow</h1></center>
+      <center><h1 style="color: #1b1b1b">Introduction to buffer overflows</h1></center>
 
-	<body>
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-167461836-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+      Hey guys! What's up?<br>Welcome to the first tutorial of the Buffer Overflow series. To be honest buffer overflows are my favourite exploitation techniques so I'm really happy to share my knowledge with you. So now without further ado let's actually start with the main topic.<br>
+      <br>
+      Before we begin you must keep in mind that this series is not targeted for everyone. If you :-
+      <ul>
+        <li>are a script-kiddie</li>
+        <li>Don't have enough experience in programming and specifically <b>C</b></li>
+        <li>Have just started with linux</li>
+        <li>Or have absolutely no knowledge and wanna start exploiting.</li>
+      </ul>
 
-  gtag('config', 'UA-167461836-1');
-</script>
+      Then unfortunately this series is not for you. You will not understand things quite well and might end up getting bored even though all these are extremely interesting. So what I recommend is, you start by :-
+      <ul>
+        <li>Getting familiar with Linux</li>
+        <li>Try different distros</li>
+        <li>Get comfortable with the CLI</li>
+        <li>Learn different tools</li>
+        <li>Learn to install programs, update repos and all</li>
+        <li>Practice programming [ &rArr; C, Java & Python will be helpful ]</li>
+        <li>and then finally continue reading this page</li>
+      </ul>
 
-		<font color="white" face="Fira Code" size="3" >	
-			<ul class="topnav">
-			<li><a href="../../../../../../../../../index.html">Home</a></li>
-			<li><a href="../../../../../../../../../Contents/resources.html">Resources</a></li>
-			<li><a href="../../../../../../../../../Contents/tutorials.html">Tutorials</a></li>
-			<li><a href="../../../../../../../../../Contents/CTFs.html">CTFs</a></li>
-			</ul>
-		</font>	
-		<div id="align">
-<font color="white" face="Fira Code" size="2">
-<div id="myCookieConsent">
-	<div id="cookieButton">I agree</div>
-	<div>By using our site, you agree to our use of cookies to deliver a better site experience.</div>
-</div>
+      The above listed things are a <b><font color="#f44336">must</font></b>! You must know them before you start. Below I have also made another list of the things which I <font color="#0055ff"><b>recommend</b></font> you to know/have before starting this series :-
+      <ul>
+        <li>Be comfortable with writing C language programs</li>
+        <li>Be fluent in python<b>3</b> as well. That will help save a lot of time</li>
+        <li>Be able to understand basic assembly [ Even if you can just read and interpret the meaning of instructions is also great ]</li>
+        <li>Peda [ Python Exploit Development Assistance ] for GDB</li>
+        <li>`pwntools` library for python</li>
+      </ul>
 
-<script>
-var obj;
-obj = document.getElementById("myCookieConsent");
+      Anyway now let me introduce you to buffer overflows.<br>
+      <br>
+      <h2 style="color: #3b3b3b;">What is a buffer & how is it overflowed?</h2>
+      So, we are aware that in C, strings do not exist. Instead in order to create a string we make an array of characters where the number of cells of the array == the maximum length of the string. Thus if we want to take user input in a program [ say a password-validation program ] then you can create a buffer like 'char buffer[64];' and then use functions to take input like gets, fgets, strcpy, strncpy, read and so on. The 'buffer' variable [ in this example ] is allocated only 64 bytes. This buffer is created on the stack. The flaw here is not with the buffer but with the input functions. If you use unsafe functions like gets, strcpy and read, then your program is at a risk of buffer overflows. Basically what these functions do is that, they take whatever input has been given to them through stdin [ normal standard input ] and somehow try to fit that in the buffer. These functions lack the procedure to check the end of buffer. This means that if you feed less than 64 bytes to the program then it will work just fine and the remaining bytes will be filled with NULLs. However, if you feed more than 64 bytes [ let's assume 100 ], then the first 64 bytes will be place correctly in the buffer but the remaining 36 bytes will be overflowed to the adjacent memory locations, overwriting them and ultimately causing the program to crash with a <b>'Segmentation Fault'</b>
 
-function  func() {
-	obj.style.display = "none";
-	document.cookie = "cookiePromptShown=Yes; path=/";
-}
-var element;
-element = document.getElementById("cookieButton");
-element.addEventListener('click', func);
-</script>
-</font>	
-				
-				<font color="white" face="Fira Code">
-				<center><h1>Buffer Overflow</h1></center>
-				<center><h1>Introduction to buffer overflows</h1></center>
+      <h2 style="color: #3b3b3b;">Segmentation Fault  -  Why is it so annoying?</h2>
+      If you have practiced assembly programming then it is very likely that you must have come across this very weird error caused at run-time called <b>"Segmentation Fault"</b>. Its also called 'Seg Fault'. Now this seg fault is really annoying because it does not indicate us of any specific error. A seg fault is caused when we are trying to read/write/access/modify or do anything with non-existing or invalid memory locations. Basically when you start to play around with memory without knowing things in detail, you will often get this fault. Its really frustrating because it does not indicate any specific error and a wrong memory has been read or a function is handling invalid locations and so on. However, in this series we are going to get this seg fault very often. Luckily, in our case, this is going to be very helpful, as whenever we overflow a buffer, we will be overwriting the excess data on the stack which will trigger a Segmentation Fault. So a seg fault in our case will indicate a buffer overflow vulnerability.
 
-          Hey guys! What's up?<br>Welcome to the first tutorial of the Buffer Overflow series. To be honest buffer overflows are my favourite exploitation techniques so I'm really happy to share my knowledge with you. So now without further ado let's actually start with the main topic.<br>
-          <br>
-          Before we begin you must keep in mind that this series is not targeted for everyone. If you :-
-          <ul>
-            <li>are a script-kiddie</li>
-            <li>Don't have enough experience in programming and specifically <b>C</b></li>
-            <li>Have just started with linux</li>
-            <li>Or have absolutely no knowledge and wanna start exploiting.</li>
-          </ul>
+      <h2 style="color: #3b3b3b;">Recognising a buffer overflow vulnerability</h2>
 
-          Then unfortunately this series is not for you. You will not understand things quite well and might end up getting bored even though all these are extremely interesting. So what I recommend is, you start by :-
-          <ul>
-            <li>Getting familiar with Linux</li>
-            <li>Try different distros</li>
-            <li>Get comfortable with the CLI</li>
-            <li>Learn different tools</li>
-            <li>Learn to install programs, update repos and all</li>
-            <li>Practice programming [ --> C, Java & Python will be helpful ]</li>
-            <li>and then finally continue reading this page</li>
-          </ul>
-
-          The above listed things are a <font color="#f44336">must</font>! You must know them before you start. Below I have also made another list of the things which I <font color="#8181FF">recommend</font> you to know/have before starting this series :-
-          <ul>
-            <li>Be comfortable with writing C language programs</li>
-            <li>Be fluent in python<b>3</b> as well. That will help save a lot of time</li>
-            <li>Be able to understand basic assembly [ Even if you can just read and interpret the meaning of instructions is also great ]</li>
-            <li>Peda [ Python Exploit Development Assistance ] for GDB</li>
-            <li>`pwntools` library for python</li>
-          </ul>
-
-          Anyway now let me introduce you to buffer overflows.<br>
-          <br>
-          <h2><u>What is a buffer & how is it overflowed?</u></h2>
-          -> So, we are aware that in C, strings do not exist. Instead in order to create a string we make an array of characters where the number of cells of the array == the maximum length of the string. Thus if we want to take user input in a program [ say a password-validation program ] then you can create a buffer like 'char buffer[64];' and then use functions to take input like gets, fgets, strcpy, strncpy, read and so on. The 'buffer' variable [ in this example ] is allocated only 64 bytes. This buffer is created on the stack. The flaw here is not with the buffer but with the input functions. If you use unsafe functions like gets, strcpy and read, then your program is at a risk of buffer overflows. Basically what these functions do is that, they take whatever input has been given to them through stdin [ normal standard input ] and somehow try to fit that in the buffer. These functions lack the procedure to check the end of buffer. This means that if you feed less than 64 bytes to the program then it will work just fine and the remaining bytes will be filled with NULLs. However, if you feed more than 64 bytes [ let's assume 100 ], then the first 64 bytes will be place correctly in the buffer but the remaining 36 bytes will be overflowed to the adjacent memory locations, overwriting them and ultimately causing the program to crash with a <b>'Segmentation Fault'</b>
-
-          <h2><u>Segmentation Fault  -  Why is it so annoying?</u></h2>
-          -> If you have practiced assembly programming then it is very likely that you must have come across this very weird error caused at run-time called <b>"Segmentation Fault"</b>. Its also called 'Seg Fault'. Now this seg fault is really annoying because it does not indicate us of any specific error. A seg fault is caused when we are trying to read/write/access/modify or do anything with non-existing or invalid memory locations. Basically when you start to play around with memory without knowing things in detail, you will often get this fault. Its really frustrating because it does not indicate any specific error and a wrong memory has been read or a function is handling invalid locations and so on. However, in this series we are going to get this seg fault very often. Luckily, in our case, this is going to be very helpful, as whenever we overflow a buffer, we will be overwriting the excess data on the stack which will trigger a Segmentation Fault. So a seg fault in our case will indicate a buffer overflow vulnerability.
-
-          <h2><u>Recognising a buffer overflow vulnerability</u></h2>
-
-          Now enough with theory, let's start and recognise a buffer overflow vulnerability. First of all, below I have provided a very simple C program just read it once.
-<pre><div class="snip"><font color="#aaa"><b>//  File Name    :  introduction.c
+      Now enough with theory, let's start and recognise a buffer overflow vulnerability. First of all, below I have provided a very simple C program just read it once.
+      <pre><div id="snip"><font color="#aaa" style="background-color: #2f2f2f;"><b>//  File Name    :  introduction.c
 //  Compile with :  gcc introduction.c -m64 -o introduction.elf</font>
-<font color="#55FFFF">#include</font> <font color="#FF55FF">&lt;stdio.h&gt;</font>
+<font color="#55FFFF" style="background-color: #2f2f2f;">#include</font> <font color="#FF55FF" style="background-color: #2f2f2f;">&lt;stdio.h&gt;</font>
 
-<font color="#55FF55">void</font> vuln() {
-  <font color="#55FF55">char</font> name[<font color="#FF55FF">128</font>];
-  printf(<font color="#FF55FF">"Welcome\nEnter your name -> "</font>);
-  read(<font color="#FF55FF">0</font>, name, <font color="#FF55FF">500</font>);
-  printf(<font color="#FF55FF">"The name stored in the buffer is -> %s\n"</font>, name);
+<font color="#55FF55" style="background-color: #2f2f2f;">void</font> vuln() {
+    <font color="#55FF55" style="background-color: #2f2f2f;">char</font> name[<font color="#FF55FF" style="background-color: #2f2f2f;">128</font>];
+    read(<font color="#FF55FF" style="background-color: #2f2f2f;">0</font>, name, <font color="#FF55FF" style="background-color: #2f2f2f;">500</font>);
+    printf(<font color="#FF55FF" style="background-color: #2f2f2f;">"The text stored in the buffer is -> %s\n"</font>, name);
 }
 
-<font color="#55FF55">int</font> main(<font color="#55FF55">int</font> argc, <font color="#55FF55">char const</font> *argv[])
+<font color="#55FF55" style="background-color: #2f2f2f;">int</font> main(<font color="#55FF55" style="background-color: #2f2f2f;">int</font> argc, <font color="#55FF55" style="background-color: #2f2f2f;">char const</font> *argv[])
 {
-  vuln();
-  <font color="#FFFF55">return <font color="#FF55FF">0</font>;</font>
-}</b></div></pre>
+    vuln();
+    <font color="#FFFF55" style="background-color: #2f2f2f;">return <font color="#FF55FF" style="background-color: #2f2f2f;">0</font>;</font>
+}</b>
+  </div></pre>
 
-          Now its very clear that as soon as the program is executed, the IP [ Instruction Pointer ] reaches the main function. From the main function, there is a call to the 'vuln()' function, so the IP now points to the vuln() function and now the execution of the program has been redirected there. First the vuln() function will create a string buffer of 128 bytes on the stack. Then it will print "Welcome\nEnter your name -> " and then there is a call to the read function. The first parameter indicates the file stream, in this case it is <b>stdin</b> [ 0 represents stdin ], which means normal input through the keyboard. The second parameter is the buffer or the place where the user input has to be stored. The third parameter specifies the maximum number of bytes to take from stdin, in this case its 500, so anything after 500 bytes will be thrown back to the command-line. However, anything less than 500 bytes is accepted freely and stored in the 128 byte buffer. Thus if we enter any text which is more than 128 bytes but less than 500 will be overflowed to the adjacent memory locations and the program will raise a Segmentation Fault. Great! Now let's compile it and test the program.
-          <pre><div class="snip"><b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># python3 -c 'print("X" * 256)' | ./introduction.elf 
-Welcome
-Enter your name -> The name stored in the buffer is -> XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    Now its very clear that as soon as the program is executed, the IP [ Instruction Pointer ] reaches the main function. From the main function, there is a call to the 'vuln()' function, so the IP now points to the vuln() function and now the execution of the program has been redirected there. First the vuln() function will create a string buffer of 128 bytes on the stack. Then it will print "Welcome\nEnter your name -> " and then there is a call to the read function. The first parameter indicates the file stream, in this case it is <b>stdin</b> [ 0 represents stdin ], which means normal input through the keyboard. The second parameter is the buffer or the place where the user input has to be stored. The third parameter specifies the maximum number of bytes to take from stdin, in this case its 500, so anything after 500 bytes will be thrown back to the command-line. However, anything less than 500 bytes is accepted freely and stored in the 128 byte buffer. Thus if we enter any text which is more than 128 bytes but less than 500 will be overflowed to the adjacent memory locations and the program will raise a Segmentation Fault. Great! Now let's compile it and test the program.
+    <pre><div id="snip"><b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># python3 -c 'print("X" * 256)' | ./introduction.elf 
+The text stored in the buffer is -> XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 �~�I3v
-      �X2,a�w
+�X2,a�w
 Segmentation fault
-</div></pre>
+    </div></pre>
 
-          As you can see, we use python3 from command-line to print the character <b>'X'</b> 256 times. The first 128, will be stored in the buffer, but the next 128 will be overwritten to the next memory addresses and this calls the seg fault, which means, there is the buffer overflow vulnerability. Though the program printed some junk stuff yet, we overflowed the buffer and so this was a total success. So that's all for this tutorial, we will meet in the next one.
-					
-            <div id="align_right">
-              Good luck,<br>
-              VulnX<br>
-          </div>
-          <hr class="new5">
+    As you can see, we use python3 from command-line to print the character <b>'X'</b> 256 times. The first 128, will be stored in the buffer, but the next 128 will be overwritten to the next memory addresses and this calls the seg fault, which means, there is the buffer overflow vulnerability. Though the program printed some junk stuff yet, we overflowed the buffer and so this was a total success. So that's all for this tutorial, we will meet in the next one.<br><br>
 
-		</font></div>
+    <div class="icons">
+      <a class="ico" href="javascript:delay('#')">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a class="ico" href="javascript:delay('mailto:vulnx101@gmail.com')">
+        <i class="fab fa-google"></i>
+      </a>
+      <a class="ico" href="javascript:delay('#')">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a class="ico" href="javascript:delay('https://bit.ly/VulnX_YT')">
+        <i class="fab fa-youtube"></i>
+      </a>
+    </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script>
-var element;
-element = document.getElementById("myCookieConsent");
+    <div id="align_right">
+      Good luck,<br>
+      VulnX<br>
+    </div>
+    <hr class="new5">
 
-function getCookie(cname) {
-  var name = cname + "=";
-  var decodedCookie = decodeURIComponent(document.cookie);
-  var ca = decodedCookie.split(';');
-  for(var i = 0; i <ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-}
+  </font></div></pre></font></div>
 
- var cookieVal = getCookie("cookiePromptShown");
+  <div id="footer">
+    <h1 id="footerHeading" style="cursor: pointer; background-color: transparent; font-family: 'Saira Stencil One'; font-size: 50px;" onclick="location.href='https://vulnx.in/'">VulnX</h1>
+    <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/'">Home</p>
+    <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/resources.html'">Resources</p>
+    <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/tutorials.html'">Tutorials</p>
+    <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/ctfs.html'">CTFs</p>
 
-if(cookieVal != "Yes") {
-	element.style.display = "block";
+    <h1 id="footerHeading" style="background-color: transparent; font-family: 'Ubuntu';">Contact</h1>
+        
+    <i class="fab fa-facebook-f" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='#'"></i>
+    <i class="fab fa-google" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='mailto:vulnx101@gmail.com'"></i>
+    <i class="fab fa-instagram" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='https://www.instagram.com/vulnx_hacking'"></i>
+    <i class="fab fa-youtube" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='https://bit.ly/VulnX_YT'"></i>
+  </div>
 
-}
-else {
-	element.style.display = "none";
-}
-
-</script>
-
-	<body>
+<body>
 </html>

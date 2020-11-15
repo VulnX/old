@@ -1,242 +1,197 @@
 <html>
-	<head>
-		<link rel="icon" href="favicon.png">
-		<script data-ad-client="ca-pub-6203666289882469" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="HandheldFriendly" content="true">
-<style>
-body {margin: 0;}
-html {font-size: 100%;}
+<head>
+	<title>VulnX | HOMEPAGE</title>
+	<link rel="stylesheet" href="style.css">
+	<link rel="icon" href="favicon.png">
 
-.fa {
-  border-radius: 50%;
-  padding: 10px;
-  font-size: 20px;
-  width: 15px;
-  text-align: center;
-  text-decoration: none;
-  margin: 5px 10px;
-  transition: 0.3s;
-}
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="HandheldFriendly" content="true">
 
-.fa:hover {
-    opacity: 0.7;
-}
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+	<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@600&family=Quicksand:wght@500&family=Saira+Stencil+One&family=Ubuntu:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body onload="updateCookieBar()">
 
-.fa-google {
-  background: #dd4b39;
-  color: white;
-}
-
-.fa-youtube {
-  background: #bb0000;
-  color: white;
-}
-
-.fa-instagram {
-  background: #125688;
-  color: white;
-}
-
-#myCookieConsent {
-    border-radius: 5px;
-    border: 5px solid #f44336;
-    width: 80%;
-    padding: 20px 20px;
-    overflow: hidden;
-    position: fixed;
-    color: #fff;
-    bottom: 3px;
-    display: none;
-    left: 5%;
-    text-align: center;
-    font-size: 15px;
-    font-weight: bold;
-}
-
-#myCookieConsent #cookieButton {
-    display: inline-block;
-    color: #fff;
-    font-size: 1.1em;
-    background: #000;
-    text-decoration: none;
-    cursor: pointer;
-    padding: 2px 20px;
-    float: right;
-    border: 2px solid #f44336;
-    border-radius: 5px;
-    transition: 0.5s;
-}
-#myCookieConsent #cookieButton:hover {
-    border: 2px solid white;
-    background: #f44336;
-	color: #fff;
-}
-
-ul.topnav {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #23252e;
-  transition: top 0.5s;	
-}
-
-ul.topnav li {float: left;}
-
-ul.topnav li a {
-  background-color: #23252e;
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 16px 16px;
-  text-decoration: none;
-}
-
-ul.topnav li a:hover:not(.active) {background-color: #f44336;}
-
-ul.topnav li a.active {color: #f44336;}
-
-@media screen and (max-width: 600px) {
-  body {
-    font-size: 0.8rem;
-  }
-  .fa {
-    margin: 5px 4px;
-    padding: 5px;
-    width: 10px;
-  }
-  ul.topnav li.left, 
-  ul.topnav li {float: none;}
-}
-</style>
-		<link rel="stylesheet" href="style.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@600&family=Ubuntu:wght@500;700&display=swap" rel="stylesheet">
-		<title>VulnX | HOMEPAGE</title>
-
-	</head>
-	<body>
-		<!-- Global site tag (gtag.js) - Google Analytics -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-167461836-1"></script>
-		<script>
-		  window.dataLayer = window.dataLayer || [];
-		  function gtag(){dataLayer.push(arguments);}
-		  gtag('js', new Date());
-		
-		  gtag('config', 'UA-167461836-1');
-		</script>
-
-		<font size="3" color="white" face="Fira Code">	
-
-		<ul class="topnav">
-			<li><a class="active" href="https://vulnx.in/">Home</a></li>
-			<li><a href="https://vulnx.in/Contents/resources.html">Resources</a></li>
-			<li><a href="https://vulnx.in/Contents/tutorials.html">Tutorials</a></li>
-			<li><a href="https://vulnx.in/Contents/CTFs.html">CTFs</a></li>
-		</ul>
-
-		</font>
-
-		<div id="intro">
-<font size="2" color="white" face="Fira Code">
-	<div id="myCookieConsent">
-		<div id="cookieButton">I agree</div>
-		<div>By using our site, you agree to our use of cookies to deliver a better site experience.</div>
+	<div id="temp">
+		<a href="javascript:delay('#Welcome')" id="yay">
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			About
+		</a>
+		<a href="javascript:delay('#')" id="yay">
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			Learn
+		</a>
+		<a href="javascript:delay('#')" id="yay">
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			Solve CTFs
+		</a>
 	</div>
 
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-167461836-1"></script>
 	<script>
-	var obj;
-	obj = document.getElementById("myCookieConsent");
-
-	function  func() {
-		obj.style.display = "none";
-		document.cookie = "cookiePromptShown=Yes; path=/";
-	}
-	var element;
-	element = document.getElementById("cookieButton");
-	element.addEventListener('click', func);
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		
+		gtag('config', 'UA-167461836-1');
 	</script>
-</font>
 
-					<img src="logo.png" class="responsive">
+	<div id="cookieBar">
+		<div id="cookieText">By using our site, you agree to our use of cookies to deliver a better site experience</div>
+		<div id="cookieButton" onclick="hideCookieBar()"><span></span><span></span><span></span><span></span>&#10005;</div>
+	</div>
 
-					<font color="white" face="Ubuntu">
+	<ul class="topnav"><div class="x">
+		<img id="image" src="logo.png">
+		<div style="display: flex; align-items: center;"><li><a target="_blank" class="active" href="https://vulnx.in/">Home</a></li>
+			<li><a target="_blank" href="Contents/resources.html">Resources</a></li>
+			<li><a target="_blank" href="Contents/tutorials.html">Tutorials</a></li>
+			<li><a target="_blank" href="Contents/CTFs.html">CTFs</a></li></div>
+		</div>
+	</ul>
 
-					<u><h2>About</h2></u>
+	<font color="#444" face="Quicksand">
+		<div id="intro">
 
-					Welcome to VulnX, the perfect place for new learners.<br>
-					Our main objective is to spread as much knowledge about hacking as possible. We will be emphasising greatly on the quality of the tutorials so that they can be understood be people easily without having to search the net for it.
-					
-					<u><h2>Why VulnX?</h2></u>
+			<span style="position: relative; top: -110" id="Welcome"></span><h2 style="color: #3b3b3b;">About</h2>
 
-					Well there are a couple of reasons to choose VulnX for learning
-          <ul>
-            <li>Through our <a href="https://vulnx.in/"><font color="#dd4b39">website</font></a> and <a href="https://bit.ly/VulnX_YT"><font color="#dd4b39">YouTube channel</font></a>, we intend to cover a vast variety of tutorials like assembly programming, shellcode-development and much more.</li>
-            <li>We target to teach the script-kiddies to <font color="#3490FF"><b>not</b></font> be dependent on scripts, instead understand the logic.</li>
-            <li>This is the reason why we are focusing more on the Buffer Overflow series, because there you will always have to think outside the box to understand the flaw and <font color="#3490FF"><b>no script can help you</b></font>.</li>
-            <li>We are not against the use of scripts because they ultimately help us in executing the process faster, but due to millions of tools/scripts out on the internet the new-comers are influenced to focus on the usage of the tools and not how the technique works.</li>
-            <li>VulnX aims to teach the technique and <font color="#3490FF"><b>not how to run a script</b></font>.</li>
-          </ul>
+			Welcome to VulnX, the perfect place for new learners.<br>
+			Our main objective is to spread as much knowledge about hacking as possible. We will be emphasising greatly on the quality of the tutorials so that they can be understood by the people easily without having to search the net for it.
 
-          <u><h2>Prerequisites</h2></u>
+			<h2 style="color: #3b3b3b;">Why VulnX?</h2>
 
-          VulnX is not targetted for the everyday user. Every tutorial you will find on this website, assumes you to have minimal knowledge about <font color="#3490FF">Linux</font>. You must be comfortable with the <font color="#3490FF">CLI</font> ( command-line interface ), this includes, <font color="#3490FF">updating repos</font>, <font color="#3490FF">installing softwares</font>, working with <font color="#3490FF">files and directories</font>, <font color="#3490FF">writing programs</font>, <font color="#3490FF">compiling</font> and <font color="#3490FF">preferably even debugging</font>.
+			Well there are a couple of reasons to choose VulnX for learning
+			<ul>
+				<li id="points">Through our <a href="https://vulnx.in/" target="_blank" style="color: #0055ff; text-decoration: none; padding-bottom: 0.75px; border-bottom: 2px solid #0055ff;">website</a> and <a href="https://bit.ly/VulnX_YT" target="_blank" style="color: #0055ff; text-decoration: none; padding-bottom: 0.75px; border-bottom: 2px solid #0055ff;">YouTube channel</a>, we intend to cover a vast variety of tutorials like assembly programming, shellcode-development and much more.</li>
+				<li id="points">We target to teach the script-kiddies to <font color="#f44336"><b>not</b></font> be dependent on scripts, instead understand the logic.</li>
+				<li id="points">This is the reason why we are focusing more on the Buffer Overflow series, because there you will always have to think outside the box to understand the flaw and <font color="#f44336"><b>no script can help you</b></font>.</li>
+				<li id="points">We are not against the use of scripts because they ultimately help us in executing the process faster, but due to millions of tools/scripts out on the internet the new-comers are influenced to focus on the usage of the tools and not how the technique works.</li>
+				<li id="points">VulnX aims to teach the technique and <font color="#f44336"><b>not how to run a script</b></font>.</li>
+			</ul>
 
-          <u><h2>CTFs?</h2></u>
-          <div style=" overflow: hidden;">
-          <div><img src="https://i.imgur.com/8bwJpaO.png" alt="VulnX CTFs" style="max-width: 100%; height: auto;" align="right"></div>
-          <p style="text-align: justify;">Yes, it is true. We provide you with a few CTFs. They weren't created for a competition instead they are hosted staticly.<br>
-          These are more of challenges with a task to perform. The task is replace is replaced with a unique flag in each question. The categories include reversing, binary exploiting, cryptography, forensics and so on. However, unfortunately due to lack of servers, we are unable to provide you with pwnable type CTFs.</p>
-          </div>
-					<br><br><hr class="new5">
+			<h2 style="color: #3b3b3b;">Prerequisites</h2>
 
-					<h2><u>Disclaimer</u></h2>
+			VulnX is not targetted for the everyday user. Every tutorial you will find on this website, assumes you to have minimal knowledge about <font color="#f44336">Linux</font>. You must be comfortable with the <font color="#f44336">CLI</font> ( command-line interface ), this includes, <font color="#f44336">updating repos</font>, <font color="#f44336">installing softwares</font>, working with <font color="#f44336">files and directories</font>, <font color="#f44336">writing programs</font>, <font color="#f44336">compiling</font> and <font color="#f44336">preferably even debugging</font>.
 
-					We are not responsible for any misuse you do with the knowledge gained from this website. The references and the exploits taught here are strictly meant for educational purposes only. You are advised not to perform any hacking attack on anyone from whom you do not have a written permission. All attacks demonstrated in this site are within respective network(s)/computer(s) which are fully authorised. Nevertheless, enjoy!
+			<h2 style="color: #3b3b3b;">CTFs?</h2>
+			<div style=" overflow: hidden;">
+				<div><img src="https://i.imgur.com/8bwJpaO.png" alt="VulnX CTFs" style="max-width: 100%; height: auto; padding: 0 10px;" align="left"></div>
+				<p style="text-align: justify;">Yes, it is true. We provide you with a few CTFs. They weren't created for a competition instead they are hosted staticly.<br>
+				These are more of challenges with a task to perform. The task is replace with a unique flag in each question. The categories include reversing, binary exploiting, cryptography, forensics and so on. However, unfortunately due to lack of servers, we are unable to provide you with pwnable type CTFs.</p>
+			</div>
 
-					<br><br><hr style="border: 2px solid black; border-radius: 5px;">
+			<br><br><hr class="new5">
 
-					<div style="float: right;"><a href="https://www.instagram.com/vulnx_hacking" class="fa fa-instagram"></a>
-					<a href="mailto:vulnx101@gmail.com" class="fa fa-google"></a>
-					<a href="https://bit.ly/VulnX_YT" class="fa fa-youtube"></a></div>
+			<h2 style="color: #3b3b3b;">Disclaimer</h2>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>	
-<script>
-var element;
-element = document.getElementById("myCookieConsent");
+			We are not responsible for any misuse you do with the knowledge gained from this website. The references and the exploits taught here are strictly meant for educational purposes only. You are advised not to perform any hacking attack on anyone from whom you do not have a written permission. All attacks demonstrated   this site are within respective network(s)/computer(s) which are fully authorised. Nevertheless, enjoy!<br><br>
 
-function getCookie(cname) {
-  var name = cname + "=";
-  var decodedCookie = decodeURIComponent(document.cookie);
-  var ca = decodedCookie.split(';');
-  for(var i = 0; i <ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-}
+			<hr />
 
- var cookieVal = getCookie("cookiePromptShown");
+			<center><h1>Latest Tutorials</h1></center>
+			<div id="tuts">
 
-if(cookieVal != "Yes") {
-	element.style.display = "block";
+				<center><a href="https://vulnx.in/Stack%20Buffer%20Overflow/First%20buffer%20overflow%20attack.html" target="_blank" style="outline: 0;"><div id="box">
+					<div id="imageHolder"><img src="https://i.imgur.com/NxX8f0i.png" style="min-width: 100%; min-height: auto;"></div>
+					<p id="boxText">Buffer Overflow - Tutorial 4<br>First buffer overflow attack!</p>
+				</div></a></center>
 
-}
-else {
-	element.style.display = "none";
-}
+				<center><a href="https://vulnx.in/Stack%20Buffer%20Overflow/Understanding%20the%20concept%20of%20overwriting%20return%20pointer%20to%20acheive%20arbitrary%20code%20execution.html" target="_blank" style="outline: 0;"><div id="box">
+					<div id="imageHolder"><img src="https://i.imgur.com/NxX8f0i.png" style="min-width: 100%; min-height: auto;"></div>
+					<p id="boxText">Buffer Overflow - Tutorial 3<br>Understanding the concept of overwriti...</p>
+				</div></a></center>
 
-</script>
-				</font>		
+				<center><a href="https://vulnx.in/Stack%20Buffer%20Overflow/Modifying%20Local%20Variables%20On%20The%20Stack%20-%20Part%202.html" target="_blank" style="outline: 0;"><div id="box">
+					<div id="imageHolder"><img src="https://i.imgur.com/NxX8f0i.png" style="min-width: 100%; min-height: auto;"></div>
+					<p id="boxText">Buffer Overflow - Tutorial 2.2<br>Modifying local variables<br>Part-II</p>
+				</div></a></center>
 
-			</div>>
+			</div>
+
+			<div class="icons">
+				<a class="ico" href="javascript:delay('#')">
+					<i class="fab fa-facebook-f"></i>
+				</a>
+				<a class="ico" href="javascript:delay('mailto:vulnx101@gmail.com')">
+					<i class="fab fa-google"></i>
+				</a>
+				<a class="ico" href="javascript:delay('https://www.instagram.com/vulnx_hacking')">
+					<i class="fab fa-instagram"></i>
+				</a>
+				<a class="ico" href="javascript:delay('https://bit.ly/VulnX_YT')">
+					<i class="fab fa-youtube"></i>
+				</a>
+			</div>
+
+		</div>
+		<div id="footer">
+			<h1 style="cursor: pointer; background-color: transparent; font-family: 'Saira Stencil One'; font-size: 50px; color: #eee;" onclick="location.href='https://vulnx.in/'">VulnX</h1>
+			<p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/'">Home</p>
+			<p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/resources.html'">Resources</p>
+			<p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/tutorials.html'">Tutorials</p>
+			<p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/ctfs.html'">CTFs</p>
+
+			<h1 style="background-color: transparent; font-family: 'Ubuntu'; color: #eee;">Contact</h1>
+
+			<i class="fab fa-facebook-f" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='#'"></i>
+			<i class="fab fa-google" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='mailto:vulnx101@gmail.com'"></i>
+			<i class="fab fa-instagram" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='https://www.instagram.com/vulnx_hacking'"></i>
+			<i class="fab fa-youtube" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='https://bit.ly/VulnX_YT'"></i>
+		</div>
+
+		<script type="text/javascript">
+			function getCookie(cname) {
+				var name = cname + "=";
+				var decodedCookie = decodeURIComponent(document.cookie);
+				var ca = decodedCookie.split(';');
+				for(var i = 0; i <ca.length; i++) {
+					var c = ca[i];
+					while (c.charAt(0) == ' ') {
+						c = c.substring(1);
+					}
+					if (c.indexOf(name) == 0) {
+						return c.substring(name.length, c.length);
+					}
+				}
+				return "";
+			}
+			function checkCookie(cname) {
+				var username = getCookie(cname);
+				if (username == "") {
+					return false;
+				}
+				else {
+					return true;
+				}
+			}
+			function updateCookieBar() {
+				if (checkCookie("cookiePromptShown")) {
+					if (getCookie("cookiePromptShown") == "yes") {
+						document.getElementById("cookieBar").style.display = "none";
+					}
+				}
+				if (!(checkCookie("cookiePromptShown"))) {
+					document.getElementById("cookieBar").style.display = "flex";
+				}
+			}
+			function delay(URL) {
+				setTimeout(function() { window.location = URL }, 700);
+			}
+			function hideCookieBar() {
+				setCookie("cookiePromptShown", "yes", 30);
+				document.getElementById("cookieBar").style.display = "none";
+			}
+		</script>
 
 	</body>
-</html>
+	</html>

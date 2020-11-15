@@ -1,5 +1,7 @@
 * {
-		background-color: #000000;
+		scroll-behavior: smooth;
+		-ms-overflow-style: none;
+		scrollbar-width: none;
 }
 
 #align_right {
@@ -7,6 +9,213 @@
 }
 
 /* For Laptop */
+	body::-webkit-scrollbar {
+  		display: none;
+	}
+	ul.topnav {
+		left: 0;
+ 		top: 0;
+ 		list-style-type: none;
+ 		margin: 0;
+ 		padding: 0;
+ 		position: fixed;
+ 		z-index: 1;
+ 		width: 100%;
+ 		overflow: hidden;
+ 		background-color: #fff;
+ 		box-shadow: 0 5px 15px 0 #00000070;
+ 		font-family: 'Fira Code';
+	}
+	ul.topnav .x {
+		background: #fff;
+		margin-left: 2.5%;
+		margin-right: 2.5%;
+		z-index: 3;
+		height: 100px;
+		width: 95%;
+		display: flex;
+		justify-content: space-between;
+		flex-direction: row;
+	}
+	ul.topnav .x li {
+		float: right;
+		display: flex;
+	}
+	ul.topnav .x img {
+		height: 100px;
+		width: auto;
+		float: left;
+	}
+	ul.topnav .x li a {
+		height: 10px;
+ 		background-color: #fff;
+ 		display: flex;
+ 		color: #333;
+ 		text-align: center;
+ 		padding: 16px 16px;
+ 		text-decoration: none;
+ 		transition: 0.3s;
+ 		align-items: center;
+		outline: 0;
+	}
+	ul.topnav .x li a:hover:not(.active) {
+		background-color: #092a49;
+		color: #fff;
+	}
+	ul.topnav .x li a.active {
+		background-color: #dcdcdc;
+	}
+	#pop {
+  		position: fixed;
+  		top: 100px;
+  		margin: 20px;
+  		padding: 20px 0;
+  		border-radius: 5px;
+  		box-shadow: 0 5px 5px rgba(0, 0, 0, .2);
+  		align-items: center;
+  		display: none;
+  		flex-direction: column;
+  		overflow: hidden;
+  		background-color: #fff;
+  		font-family: 'Ubuntu';
+  		z-index: 1;
+  	}
+  	#popButton {
+  		text-transform: uppercase;
+  		text-align: center;
+  		font-weight: bold;
+  		padding: 10px 50px;
+  		width: 100%;
+  		cursor: pointer;
+  		color: #333;
+  	}
+  	#popButton:hover {
+  		color: #777;
+  	}
+	#holder {
+		margin: 0;
+		padding: 0;
+		font-family: 'Ubuntu';
+		display: flex;
+		justify-content: left;
+		flex-direction: column;
+		word-break: break-word;
+	}
+	#cookieBar {
+		height: 100px;
+		position: fixed;
+		width: 100%;
+		bottom: 0;
+		left: 0;
+		background: linear-gradient(30deg, #8197a6, 0%, #5c788a 50%, #5c788a 50%, #5a6770 100%);
+		display: none;
+		justify-content: space-between;
+		align-items: center;
+		z-index: 1;
+	}
+	#cookieText {
+		background: transparent;
+		color: #fff;
+		font-family: 'Ubuntu';
+		padding: 0 30px;
+		font-size: 1rem;
+	}
+	#cookieButton {
+		-webkit-tap-highlight-color: transparent;
+		color: #fff;
+		font-family: 'Ubuntu';
+		padding: 0 30px;
+		font-size: 1rem;
+	}
+	div#cookieButton {
+		height: 0;
+		margin: 0 20px;
+		position: relative;
+		padding: 15px 15px;
+		color: #fff;
+		font-size: 1.5rem;
+		text-transform: uppercase;
+		font-family: 'Ubuntu';
+		overflow: hidden;
+		background: rgba(255, 255, 255, .1);
+		box-shadow: 0 5px 5px rgba(0, 0, 0, .2);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		cursor: pointer;
+	}
+	div#cookieButton:before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 50%;
+		height: 100%;
+		background: rgba(255, 255, 255, .1);
+	}
+	div#cookieButton:after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left:-100%;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .4), transparent);
+		transition: 0.5s;
+		transition-delay: 0.5s;
+	}
+	div#cookieButton:hover:after {
+		left: 100%;
+	}
+	div#cookieButton span {
+		position: absolute;
+		display: block;
+		transition: 0.5s ease;
+	}
+	div#cookieButton span:nth-child(1) {
+		top: 0;
+		left: 0;
+		width: 0;
+		height: 1px;
+		background: #fff;
+	}
+	div#cookieButton:hover span:nth-child(1) {
+		width: 100%;
+		transform: translateX(100%);
+	}
+	div#cookieButton span:nth-child(3) {
+		bottom: 0;
+		right: 0;
+		width: 0;
+		height: 1px;
+		background: #fff;
+	}
+	div#cookieButton:hover span:nth-child(3) {
+		width: 100%;
+		transform: translateX(-100%);
+	}
+	div#cookieButton span:nth-child(2) {
+		top: 0;
+		left: 0;
+		width: 1px;
+		height: 0;
+		background: #fff;
+	}
+	div#cookieButton:hover span:nth-child(2) {
+		height: 100%;
+		transform: translateY(100%);
+	}
+	div#cookieButton span:nth-child(4) {
+		bottom: 0;
+		right: 0;
+		width: 1px;
+		height: 0;
+		background: #fff;
+	}
+	div#cookieButton:hover span:nth-child(4) {
+		height: 100%;
+		transform: translateY(-100%);
+	}
 
 	hr.new5 {
   		border: 2px solid white;
@@ -14,14 +223,20 @@
 	}
 
 	#align {
-		margin:20px;
-    		font-family: 'Fira Code', ;
+		margin: 120px 30%;
+    	font-family: 'Ubuntu';
+    	color: #555;
+	}
+
+	h1 {
+		color: #333;
+		text-decoration: none;
+		font-family: 'Quicksand';
 	}
 	
 	#image {
-		border: 7px solid white;
-		padding: 20px;
 		overflow: hidden;
+		box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 2);
 	}
 
 	.responsive {
@@ -29,21 +244,26 @@
 		height: auto;
 	}
 	
-	.snip {
+	#snip {
+		position: relative;
+		background: #2f2f2f;
+		background-color: #2f2f2f;
+		color: white;
+		font-size: 0.9rem;
 		border-radius: 5px;
-		font-size: 15;
 		max-width: 100%;
 		height: auto;
 		padding: 15px;
-		border: 2px solid #aaa;
+		border: 2px solid #2f2f2f;
 		overflow: scroll;
+		transition: 0.7s;
 	}
 
-	.snip::-webkit-scrollbar {
+	#snip::-webkit-scrollbar {
 		display: none;
 	}
 
-	.snip {
+	#snip {
 		-ms-overflow-style: none;
 		scrollbar-width: none;
 	}
@@ -51,45 +271,31 @@
 
 /* For Mobile */
 @media screen and (max-width: 600px) {
+	#align {
+    	margin: 60px 5%;
+  	}
+  	ul.topnav .x {
+  		margin-left: 5%;
+  		margin-right: 5%;
+  		width: auto;
+  		height: 55px;
+  	}
+  	ul.topnav .x li a {
+   		font-size: 0.6rem;
+   		padding: 10px 5px;
+   		height: 100%;
+  	}
+  	ul.topnav .x img {
+  		height: 55px;
+  	}
+  	#pop {
+  		top: 60px;
+  		margin: 0 15px;
+  	}
 
 	hr.new5 {
   		border: 2px solid white;
   		border-radius: 5px;
-	}
-
-	#align {
-		margin:20px;
-    		font-family: 'Fira Code', ;
-	}
-	
-	#image {
-		border: 7px solid white;
-		padding: 20px;
-		overflow: hidden;
-	}
-
-	.responsive {
-		max-width: 100%;
-		height: auto;
-	}
-
-	.snip {
-		border-radius: 5px;
-		font-size: 15;
-		max-width: 100%;
-		height: auto;
-		padding: 15px;
-		border: 2px solid #aaa;
-		overflow: scroll;
-	}
-
-	.snip::-webkit-scrollbar {
-		display: none;
-	}
-
-	.snip {
-		-ms-overflow-style: none;
-		scrollbar-width: none;
 	}
 
 }

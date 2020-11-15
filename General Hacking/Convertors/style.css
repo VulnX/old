@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&family=Saira+Stencil+One&family=Source+Code+Pro:wght@500&display=swap');
+
+* {
+	scroll-behavior: smooth;
+}
+body {
+	margin: 0;
+}
+html {
+	font-size: 100%;
+}
+a {
+	outline: 0;
+	-webkit-tap-highlight-color: transparent;
+}
+::selection {
+	color: #fff;
+	background: #09f;
+}
+::-moz-selection {
+	color: #fff;
+	background: #09f;
+}
+body::-webkit-scrollbar {
+	display: none;
+}
+ul.topnav {
+	left: 0;
+	top: 0;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	position: fixed;
+	z-index: 1;
+	width: 100%;
+	overflow: hidden;
+	background-color: #fff;
+	box-shadow: 0 5px 15px 0 #00000070;
+	font-family: 'Quicksand';
+}
+ul.topnav .x {
+	background: #fff;
+	margin-left: 2.5%;
+	margin-right: 2.5%;
+	z-index: 3;
+	height: 100px;
+	width: 95%;
+	display: flex;
+	justify-content: space-between;
+	flex-direction: row;
+}
+ul.topnav .x li {
+	float: right;
+	display: flex;
+}
+ul.topnav .x img {
+	height: 100px;
+	width: auto;
+	float: left;
+}
+ul.topnav .x li a {
+	height: 10px;
+	background-color: #fff;
+	display: flex;
+	color: #333;
+	text-align: center;
+	padding: 16px 16px;
+	text-decoration: none;
+	transition: 0.3s;
+	align-items: center;
+	outline: 0;
+}
+ul.topnav .x li a:hover:not(.active) {
+	background-color: #092a49;
+	color: #fff;
+}
+ul.topnav .x li a.active {
+	background-color: #dcdcdc;
+}
+#align {
+	margin: 120px 20%;
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	font-family: Quicksand;
+	background: #eee7;
+	padding: 30px;
+}
+textarea { max-width: 100%; background: #eee7; padding: 20px; outline: none; border: none; border-radius: 10px; transition: .2s; }
+textarea::-webkit-scrollbar { width: 7px; }
+textarea::-webkit-scrollbar-track { background-color: #f1f1f1; }
+textarea::-webkit-scrollbar-thumb { background-color: #aaa; border-radius: 10px; }
+textarea:focus, textarea:hover {
+	box-shadow: 5px 5px 5px rgba(0, 0, 0, .2)
+}
+.inputSection {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+.outputSection {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+.convertButton {
+	background-color: #08f;
+	padding: 10px 16px;
+	color: white;
+	font-weight: bold;
+	font-family: Quicksand;
+	margin: 10px 0;
+	cursor: pointer;
+	transition: .2s;
+}
+.convertButton:hover {
+	background-color: #2b2b2b;
+}
+@media screen and (max-width: 768px) {
+	body {
+		font-size: 0.8rem;
+	}
+	ul.topnav .x {
+		margin-left: 5%;
+		margin-right: 5%;
+		width: auto;
+		height: 55px;
+	}
+	ul.topnav .x li a {
+		font-size: 0.6rem;
+		padding: 10px 5px;
+		height: 100%;
+	}
+	ul.topnav .x img {
+		height: 55px;
+	}
+	.inputSection { flex-direction: column; }
+	.outputSection { flex-direction: column; }
+}

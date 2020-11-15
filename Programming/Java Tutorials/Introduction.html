@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Introduction - Java Programming | VulnX</title>
+	<link rel="stylesheet" href="style.css"/>
+	<script type="text/javascript" src="script.js"></script>
+	<link rel="icon" href="../../favicon.png" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" />
+	<script data-ad-client="ca-pub-6203666289882469" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta charset="utf-8">
+	<meta name="keywords" content="VulnX, vulnx, vulnx.in, VulnX.in, hacking, Hacking, programming, java, tutorials, java tutorials, introduction to java, introduction, intro to java, intro to java vulnx">
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-167461836-1"></script>
+</head>
+<body>
+	<script type="text/javascript">
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-167461836-1');
+	</script>
+	<ul class="topnav">
+		<div class="x">
+			<img id="logo" src="../../logo.png">
+			<div style="display: flex;  align-items: center;">
+				<li><a target="_blank" href="../../">Home</a></li>
+				<li><a target="_blank" href="../../Contents/resources.html">Resources</a></li>
+				<li><a target="_blank" href="../../Contents/tutorials.html">Tutorials</a></li>
+				<li><a target="_blank" href="../../Contents/CTFs.html">CTFs</a></li>
+			</div>
+		</div>
+	</ul>
+
+	<div id="cookieBar">
+		<div id="cookieText">By using our site, you agree to our use of cookies to deliver a better site experience</div>
+		<div id="cookieButton" onclick="hideCookieBar()"><span></span><span></span><span></span><span></span>&#10005;</div>
+	</div>
+
+	<div id="align">
+		<center><h1 style="color: #1b1b1b;">Java Programming</h1></center>
+		<center><h1 style="color: #1b1b1b;">Introduction lesson</h1></center>
+		<div id="tutorialContent">
+
+			<h2>Contents of the tutorial</h2>
+
+			<ul class="points">
+				<li><a style="margin: 5px 0; display: inline-block;" href="#Prerequisites" class="link">Prerequisites</a></li>
+				<li><a style="margin: 5px 0; display: inline-block;" href="#Introduction-to-Java" class="link">Introduction to Java</a></li>
+				<li><a style="margin: 5px 0; display: inline-block;" href="#Why-to-choose-Java" class="link">Why to choose Java?</a></li>
+				<li><a style="margin: 5px 0; display: inline-block;" href="#Why-is-it-a-big-deal" class="link">Why is it a big deal?</a></li>
+				<li><a style="margin: 5px 0; display: inline-block;" href="#How-platform-independency-works" class="link">How platform-independency works?</a></li>
+				<li style="margin-left: 1rem"><a style="margin: 5px 0; display: inline-block;" href="#The-Compiler" class="link">The Compiler</a></li>
+				<li style="margin-left: 1rem"><a style="margin: 5px 0; display: inline-block;" href="#The-Interpreter" class="link">The Interpreter</a></li>
+				<li><a style="margin: 5px 0; display: inline-block;" href="#Object-Oriented-Programming" class="link">Object Oriented Programming</a></li>
+				<li style="margin-left: 1rem"><a style="margin: 5px 0; display: inline-block;" href="#What-is-POP" class="link">What is POP</a></li>
+				<li style="margin-left: 1rem"><a style="margin: 5px 0; display: inline-block;" href="#What-is-OOP" class="link">What is OOP</a></li>
+				<li><a style="margin: 5px 0; display: inline-block;" href="#Concepts-of-OOP" class="link">Concepts of OOP</a></li>
+				<li style="margin-left: 1rem"><a style="margin: 5px 0; display: inline-block;" href="#Data-abstraction" class="link">Data abstraction</a></li>
+				<li style="margin-left: 1rem"><a style="margin: 5px 0; display: inline-block;" href="#Encapsulation" class="link">Encapsulation</a></li>
+				<li style="margin-left: 1rem"><a style="margin: 5px 0; display: inline-block;" href="#Inheritance" class="link">Inheritance</a></li>
+				<li style="margin-left: 1rem"><a style="margin: 5px 0; display: inline-block;" href="#Polymorphism" class="link">Polymorphism</a></li>
+			</ul>
+
+			Hey guys!<br>
+			Welcome to the <b>Introductory lesson</b> of <i><u>Java Programming</u></i>. 
+
+			<p>
+				So this project is a little different and unique, because the rest of my tutorials are hacking and security based, whereas this one is a series dedicated to <i><u>Java Programming</u></i>.<br>
+				Before we begin I will list a few prerequisites so that you will understand the series better without losing interest.
+			</p>
+			
+			<span id="Prerequisites" class="secLink"></span><h2>Prerequisites</h2>
+			<ul class="points">
+				<li>Java Compiler</li>
+				<li>Java Interpreter</li>
+				<li><sup style="color: red">*</sup>An IDE/Text editor like <a href="https://bluej.org/" target="_blank" class="link">BlueJ</a> or <a href="https://visualstudio.microsoft.com/" target="_blank" class="link"> Microsoft Visual Studio</a> or <a href="https://www.sublimetext.com/" target="_blank" class="link">Sublime Text</a></li>
+			</ul>
+			<hr>
+			<b><sup style="color: red">*</sup>Optional. You may as well use basic terminal based editors.</b>
+			<hr>
+
+			<p>
+				So now without further ado, let's begin
+			</p>
+
+			<span id="Introduction-to-Java" class="secLink"></span><h2>Introduction to Java</h2>
+
+			<p>Java, an <b>O</b>bject <b>O</b>riented <b>P</b>rogramming language [ <b>OOP</b> ] was developed by James Gosling at Sun Microsystems, which is now acquired by Oracle. The language was originally called Oak, named after the oak trees outside the creator's office, but it was later discontinued and re-named as Java.</p> 
+
+			<p>Java language allows writing of both, standalone applications [ those which can run offline ] as well as applets [ a Java program which can be embedded on a webpage ].</p>
+
+			<span id="Why-to-choose-Java" class="secLink"></span><h2>Why to choose Java?</h2>
+
+			<p>Well, Java is a great language to start from and I personally recommend you to start with Java as your first programming language, because, once you have mastered Java, you can go down to languages such as <b>C</b> and they will seem quite familiar [ as compared to someone who has directly started with C ], alternatively you can also go for a more popular, easier, and much more syntax-friendly language like <b>python</b>.</p>
+
+			<p>Aside from this, there are a few more striking key features of Java, like</p>
+			<ul class="points">
+				<li><span style="border-bottom: thin solid #0007">Object Oriented</span style="border-bottom: thin solid #0007"></li>
+				<li>It is both <span style="border-bottom: thin solid #0007">compiled and interpreted</span style="border-bottom: thin solid #0007"></li>
+				<li>Because of the above point it is also <span style="border-bottom: thin solid #0007">platform-independent</span style="border-bottom: thin solid #0007"></li>
+			</ul>
+
+			<p>which contribute to it's greatness. Also</p>
+			<ul class="points">
+				<li>It does <span style="border-bottom: thin solid #0007">not require a preprocessor</span style="border-bottom: thin solid #0007"> (<b>#</b>) or the necessity to <span style="border-bottom: thin solid #0007">include header files</span style="border-bottom: thin solid #0007"> unlike C and C++.</li>
+				<li>It is a <span style="border-bottom: thin solid #0007">case-sensitive language</span style="border-bottom: thin solid #0007">.</li>
+				<li>It is a <span style="border-bottom: thin solid #0007">robust language</span style="border-bottom: thin solid #0007"> since it gives a huge <span style="border-bottom: thin solid #0007">emphasis on memory management</span style="border-bottom: thin solid #0007">.</li>
+			</ul>
+
+			<span id="Why-is-it-a-big-deal" class="secLink"></span><h2>Why is it a big deal?</h2>
+
+			<p>The reason behind Java's modern day popularity and wide usage lies in it's potential to be platform-independent.</p>
+
+			<p>Java guarentees we will be able to <sup style="color: red">*</sup>WORA</p>
+			<hr>
+			<p style="margin-left: 1.5rem; font-style: italic"><sup style="color: red">*</sup><span style="border-bottom: thin solid #0007">'<b>W</b>rite <b>O</b>nce, <b>R</b>un <b>A</b>nywhere or sometimes called <b>W</b>rite <b>O</b>nce, <b>R</b>un <b>E</b>verywhere. It was a slogan created in 1995 by Sun Microsystems to illustrate the cross platform benefits of the Java language.'</span><br>
+				<span style="float: right">~source <a href="https://en.wikipedia.org/wiki/Write_once,_run_anywhere" target="_blank" class="link">Wikipedia</a>.</span><br></p>
+			<hr>
+
+			<p>This means that the binary can run on absolutely any Operating System that has Java installed on it. This is a really powerful advantage of Java. So now we don't need to worry about getting the binary compiled on every machine.</p>
+
+			<span id="How-platform-independency-works" class="secLink"></span><h2>How platform-independency works?</h2>
+
+			To understand this we first need to understand how do the compilers and interpreters work.<br>
+			Also we must note a few points :-
+			<ul class="points">
+				<li>A human readable program is not understood by the computers.</li>
+				<li>The computer only understands binary [ the zeros and ones ].</li>
+				<li>The code which we will write in Java will be called <underline>source code</underline>.</li>
+				<li>Java is a <underline>high-level language</underline> so our code will need to be translated to<underline> low-level language</underline> [ like assembly ]</li>
+				<li>It can be done so by using a <underline>compiler</underline> and/or <underline>interpreter</underline>.</li>
+				<li>The <underline>machine code/binary code [ final stage of compiling, lowest possible code ] is platform-specific</underline>. Which means that the compiled machine code for windows cannot be used on a linux machine</li>
+			</ul>
+
+			<span id="The-Compiler" class="secLink"></span><h3>The Compiler</h3>
+
+			<p>A compiler is a special, complicated computer program which is created with the intention to help in converting <abbr title="such as Java">high-level languages</abbr> to <abbr title="such as assembly">low-level languages</abbr>.</p>
+
+			<p>The compiler scans the whole program at once and translates it to <sup style="color: red;">*</sup>machine code.</p>
+			<hr>
+			<p style="margin-left: 1.5rem; font-style: italic"><sup style="color: red;">*</sup><underline>'In computer programming, machine code, consisting of machine language instructions, is a low-level programming language used to directly control a computer's central processing unit (CPU). Each instruction causes the CPU to perform a very specific task, such as a load, a store, a jump, or an arithmetic logic unit (ALU) operation on one or more units of data in the CPU's registers or memory.</underline><br><span style="float: right">~source <a href="https://en.wikipedia.org/wiki/Machine_code" target="_blank" class="link">Wikipedia</a>.</span><br></p>
+			<hr>
+
+			<span id="The-Interpreter" class="secLink"></span><h3>The Interpreter</h3>
+
+			<p>The interpreter is similar to the compiler in numerous ways. Like the compiler, the interpreter is also used in converting <abbr title="such as Java">high-level languages</abbr> to <abbr title="such as assembly">low-level languages</abbr>.</p>
+
+			<hr>
+			<p><b style="text-transform: uppercase;">note : both, the compiler and the interpreter are unique for every language. this means that for example, a compiler made for java cannot be used to compile c language programs or vice-versa.<br>Using a compiler to compile a language which is meant to be interpreted is probably the worst idea to think of.</b></p>
+			<hr>
+
+			<table>
+				<tr>
+					<th>Compiler</th>
+					<th>Interpreter</th>
+				</tr>
+				<tr>
+					<td>Scans the complete program at once and converts it into machine code.</td>
+					<td>Translates the program line by line.</td>
+				</tr>
+				<tr>
+					<td>It displays all the errors at once.</td>
+					<td>If any error found, the translation will stop right there. After the error is fixed, only then can the interpreter proceed further.</td>
+				</tr>
+				<tr>
+					<td>The overall execution is comparatively tremendous.</td>
+					<td>The overall execution becomes slow.</td>
+				</tr>
+				<tr>
+					<td>Languages like C, C++, Go & Rust use a compiler.</td>
+					<td>Languages like Perl, PHP, Python, Ruby use an interpreter.</td>
+				</tr>
+			</table>
+
+			<p>Generally, programming languages are either compiled or interpreted. However, Java is <b>both</b> compiled as well as interpreted.</p>
+
+			<p>Now let's understand, how Java makes use of the compiler <b>and</b> the interpreter to make itself completely platform-independent.</p>
+
+			<p>The source code of a Java program is stored in a file with the extension <underline>.java</underline>. In order to run the program, we need to compile it first. So on compiling, the system generates another file with the extension <underline>.class</underline>. The <underline>.java</underline> file is human readable but not the <underline>.class</underline> file. Java uses the compiler to compile the source code. However, now there is a slight change, instead of translating the source code to machine code, the Java compiler converts the source code to an intermediate machine code which is common to all, i.e it is platform independent and it is called the <underline>byte-code</underline>. Despite being platform-independent, the byte-code cannot be executed since it is only compiled half way and the remaining part is left to compile. Java now attempts to use it's interpreter to further translate this byte-code. Java's interpreter is called JVM [ Java Virtual Machine ]. But wait... didn't we just say that the interpreter is also a software? Then how come the interpreter is called Java Virtual <b>Machine</b>? It is so because, the JVM will now act like it's host machine and convert the byte-code to executable machine code in accordance with itself. For example, if JVM is installed on a windows computer then it will interpret the byte-code for a windows machine and if it is installed on a linux computer then it will interpret the byte code for a linux machine. So it is ideal to call the interpreter, a <b>machine</b>. Moreover this way, the compiler and the interpreter work together to make the language platform-independent.</p>
+
+			<p>To summerize it, the Java compiler compiles the source code half way through and leaves it in a platform-independent stage in the form of byte-code. The Java interpreter or the JVM now takes it's role and completes the remaining task by translating the byte-code to machine-code according to the machine on which it is running.</p>
+
+			<div>
+				<img src="https://i.imgur.com/wJgMrz2.png" alt="Java's Platform Independency Technique - VulnX - Java Programming" />
+				<center><span style="font-size: 75%">Java's Platform Independency Technique</span></center>
+			</div>
+
+			<span id="Object-Oriented-Programming" class="secLink"></span><h2>Object Oriented Programming</h2>
+
+			<p>An object is the most <underline>basic unit of Object Oriented Programming</underline> [ or OOP in short ]. In OOP, the complete task is simplified by <underline>spilitting it into multiple objects</underline>.<br>
+			Just how a bridge is used to transfer stuff from one part to the other, similarly in programming, these objects act like a <underline>bridge to allow for the easy passage of flow of data between <sup style="color: red">*</sup>functions.</underline></p>
+
+			<hr>
+			<p><sup style="color: red">*</sup>Functions are essentially a group of organised instructions used to perform a very specific task.</p>
+			<hr>
+
+			<span id="What-is-POP" class="secLink"></span><h3>Procedure Oriented Programming</h3>
+
+			<p>Procedure Oriented Programming is a programming style in which stress is laid on procedures, i.e. functions and not data.</p>
+
+			<p>The key features of POP [ Procedure Oriented Programming ] are :</p>
+
+			<ul class="points">
+				<li>Emphasis is on functions and not on data.</li>
+				<li>Data values often keep <underline>floating from one function to another</underline>, because of this the programmer may need to make necessay changes so as to NOT allow to program to deviate from it's purpose.</li>
+				<li>Traditional procedural languages use the <underline><sup style="color: red">*</sup>top-down programming approach</underline>.</li>
+			</ul>
+
+			<hr>
+			<p><sup style="color: red">*</sup>Top-down approach is a programming pattern in which complex structures are defined first and then they are divided into successive smaller pieces.</p>
+			<hr>
+
+			<span id="What-is-OOP" class="secLink"></span><h3>Object Oriented Programming</h3>
+
+			<p>It is a systematic approach to programming which is based on the concept of "objects" which can contain data and code [ in the form of functions ].</p>
+
+			<p>Key characteristics of OOP are :</p>
+
+			<ul class="points">
+				<li>It is extremely applicable in solving complex problems.</li>
+				<li>It uses objects as a <underline>bridge to have data flow between functions</underline>.</li>
+				<li>It makes the complete task easier by <underline>simplifing it [ splitting it ] into multiple objects</underline>.</li>
+				<li>They often use <underline>bottom-up approach</underline> [ inverse of what is explained earlier ].</li>
+			</ul>
+
+			<p>So a very brief distinguishing table between OOP and POP is given ahead</p>
+			<table>
+				<tr>
+					<th>OOP</th>
+					<th>POP</th>
+				</tr>
+				<tr>
+					<td>It is object oriented.</td>
+					<td>It is procedure [ function ] oriented.</td>
+				</tr>
+				<tr>
+					<td>The complete program is divided into muliple objects.</td>
+					<td>The complete program is divided into several functions.</td>
+				</tr>
+				<tr>
+					<td>It uses bottom-up approach.</td>
+					<td>It uses top-down approach.</td>
+				</tr>
+				<tr>
+					<td>The concept of inheritance exists.</td>
+					<td>Inheritance is not allowed.</td>
+				</tr>
+				<tr>
+					<td>For example Java, Python, Ruby, Rust, C++</td>
+					<td>For example C, Pascal, assembly.</td>
+				</tr>
+			</table>
+
+			<span id="Concepts-of-OOP" class="secLink"></span><h2>Concepts of OOP</h2>
+
+			<p>So there are 4 basic pillars or concepts which OOP uses. They are :</p>
+
+			<ul class="points">
+				<li>Data abstraction</li>
+				<li>Encapsulation</li>
+				<li>Inheritance</li>
+				<li>Polymorphism</li>
+			</ul>
+
+			<span id="Data-abstraction" class="secLink"></span><h3>Data abstraction</h3>
+
+			<p>Suppose you have a computer. In order to work on it, you must press the power button and once your Operating System starts, you can start working on it. This is all you need to know, but obviously there is more to it. You are not aware how and what circuits are fired up on pressing the power button and how the BIOS loads the bootloader which starts the kernel and later the Operating System. You are also not aware of how the kernel establishes the pathway between the software and the hardware world with the drivers. But does this mean that these things do not exist?<br>
+			&#8594	Obviously not! These things do exist, it's just that you are unaware of it. So this is a real world example of data abstraction.</p>
+
+			<p>Thus data abstraction is the process of hiding certain unncessary details and showing essential information to the user. In Java, abstraction can be achieved by either <sup style="color: red">*</sup>abstract classes or <sup style="color: red">*</sup>interfaces.</p>
+
+			<hr>
+			<p><sup style="color: red">*</sup>All these concepts are very advanced so you will learn this later in the series.</p>
+			<hr>
+
+			<span id="Encapsulation" class="secLink"></span><h3>Encapsulation</h3>
+
+			<p>Encapsulation is the mechanism of compiling data and code [ functions ] into a single unit.</p>
+
+			<div>
+				<img src="https://i.imgur.com/rsUZlcE.png" alt="Encapsulation - VulnX - Java Programming" />
+				<center><span style="font-size: 75%">Encapsulation</span></center>
+			</div>
+
+			<p>As explained in the above image, the data and functions are wrapped together in a single unit. With the help of encapsulation, functions cannot access data of other units [ or more specifically objects ]. Functions can only communicate with other functions and not the data, thus in order to use the <b><underline>private</underline></b> data of the other objects, they call the functions of those objects which help in fulfilling their purpose however, <underline>by no means can a function access the <b>private</b> data of another object</underline>.</p>
+
+			<p>Encapsulation is very beneficial because</p>
+			<ul class="points">
+				<li>the functions maintain the privacy of the data of other objects.</li>
+			</ul>
+
+			<span id="Inheritance" class="secLink"></span><h3>Inheritance</h3>
+
+			<p>A class is a template or blueprint for creating objects. It defines the data and functions necessary for creation of objects.</p>
+
+			<p>Let's take a real world example of the cars. Here the class will be 'Vehicles'. It can be further classified into 'Motor' and 'Non-motor' vehicles. Each have certain properties [ or more techinically called attributes ].</p>
+
+			<p>The complete structure is given below</p>
+
+			<b><underline>Vehicles</underline></b>
+			<ul class="points">
+				<li>Motor vehicle</li>
+				<li style="margin-left: 1rem">Engine Capacity</li>
+				<li style="margin-left: 1rem">Colour</li>
+				<li>Non-motor vehicle</li>
+				<li style="margin-left: 1rem">Tyre type</li>
+				<li style="margin-left: 1rem">Colour</li>
+			</ul>
+
+			<p>We know that both, motor and non-motor vehicles inherit some very specific properties from the class 'Vehicles' like, both of them have tyres and a metal frame.</p>
+
+			<p>Thus, Inheritance is the mechanism to link some common properties between two or more classes.</p>
+
+			<p>So, the class that gets inherited to another class is called <underline>Super Class</underline> and the class that inherits from the super class is called <underline>sub class</underline>.</p>
+
+			<hr>
+			<p><b style="text-transform: uppercase;">note : the properties of the super class are when derived by the sub class, they may be used to perform another task in the latter. This concept is called reusability. Thus a very simple defination should be<br>Reusability is the concept by which the properties of the super class are shared by the sub class to perform another task.</b></p>
+			<hr>
+
+			<span id="Polymorphism" class="secLink"></span><h3>Polymorphism</h3>
+
+			<p>The term polymorphism literally means 'several forms'. Just how same words have multiple meanings similarly in Java the same function <underline>name</underline> can be used to satisfy multiple purposes.</p>
+
+			<p>For example, if naming the functions would have been like</p>
+				<ul class="points">
+					<li>'volumeCylinder'</li>
+					<li>'volumeCone'</li>
+					<li>'volumeSphere'</li>
+				</ul>
+
+			<p>then it would have been difficult for the programmer because (s)he would have to remember a lot of function names. To ease out this process, a concept of <underline>Function Overloading</underline> was introduced.</p>
+
+			<p>Function oveloading means to use the same name for multiple functions.</p>
+
+			<p>Thus, Java implements Polymorphisn through Function Overloading.</p>
+
+			<p>So a proper defination for polymorphism would be<br>It is the concept of using the same function name to carry out multiple purpose.</p>
+
+			<p style="font-weight: bolder; text-transform: uppercase;">note : all these concepts of oop are very advance and cannot be explained in the introductory lesson. this is just a very small portion of it for you to get the gist of the language. all the concepts will be explained in detail with examples very late in the series.<br>also the concepts of objects and classes might be difficult for some to understand, so the next tutorial will be focused to clear all those doubts.</p>
+
+			<p>So that's all for this tutorial, in the next one we will be writing our first <underline>Hello World!</underline> program.</p>
+		</div>
+	</div>
+
+	<div id="footer">
+		<h1 id="footerHeading" style="cursor: pointer; background-color: transparent; font-family: 'Saira Stencil One'; font-size: 50px; color: #eee" onclick="location.href='https://vulnx.in/'">VulnX</h1>
+		<p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/'">Home</p>
+		<p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/resources.html'">Resources</p>
+		<p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/tutorials.html'">Tutorials</p>
+		<p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/ctfs.html'">CTFs</p>
+
+		<h1 id="footerHeading" style="background-color: transparent; font-family: 'Ubuntu'; color: #eee">Contact</h1>
+
+		 <i class="fab fa-facebook-f" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='#'"></i>
+		 <i class="fab fa-google" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='mailto:vulnx101@gmail.com'"></i>
+		 <i class="fab fa-instagram" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='https://www.instagram.com/vulnx_hacking'"></i>
+		 <i class="fab fa-youtube" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='https://bit.ly/VulnX_YT'"></i>
+	</div>
+</body>
+</html>

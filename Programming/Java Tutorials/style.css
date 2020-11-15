@@ -1,140 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&family=Saira+Stencil+One&family=Source+Code+Pro:wght@500&display=swap');
+ * {
+ 	scroll-behavior: smooth;
+ }
 
-* {
-	scroll-behavior: smooth;
-}
-
-#align_right {
-	text-align: right;
-}
-
-/*	For Destop	*/
-
-body {
-	margin: 0;
-}
-
-html {
-	font-size: 100%;
-}
-
-hr {
-	border-color: #fff7;
-}
-
-a {
-	outline: 0;
-	-webkit-tap-highlight-color: transparent;
-}
-
-#image {
-	border: 1px solid #000;
-	border-radius: 2%;
-	width: 80%;
-	margin-left: 10%;
-	margin-right: 10%;
-	box-shadow: 0 5px 15px 0 #1b1b1b;
-	overflow: hidden;
-}
-
-.responsive {
-	max-width: 100%;
-	height: auto;
-}
-
-#snip {
-	background-color: #2f2f2f;
-	color: white;
-	font-size: 0.7rem;
-	border-radius: 5px;
-	padding: 15px;
-	border: 2px solid #2f2f2f;
-	overflow: scroll;
-	font-family: 'Source Code Pro';
-}
-
-#snip::-webkit-scrollbar {
-	display: none;
-}
-
-#snip {
-	-ms-overflow-style: none;
-	scrollbar-width: none;
-}
-
-#align {
-	background-color: #fff;
-	margin: 120px 30%;
-	color: #555;
-	font-family: 'Quicksand';
-}
-
-.videoPlayer {
-	width: 640px;
-	height: 480px;
-	border: 0;
-	border-radius: 10px;
-}
-
+html { font-size: 100%; }
+body { margin: 0; font-family: Quicksand; }
+body::-webkit-scrollbar { display: none; }
 ::selection {
 	color: #fff;
 	background: #09f;
 }
-
 ::-moz-selection {
 	color: #fff;
 	background: #09f;
 }
-
-body::-webkit-scrollbar {
-	display: none;
-}
-#footer {
-	margin: 0;
-	bottom: 0;
-	background-color: #151515;
-	color: #888;
-	font-weight: bold;
-	text-align: center;
-	padding: 2vh 0;
+hr { border-color: #fff7; }
+a {
+	outline: 0;
 	-webkit-tap-highlight-color: transparent;
-	font-family: 'Ubuntu';
 }
-h2 {
-	color: #333;
-}
-h2::selection {
-	color: #333;
-	background: transparent;
-}
-
-h2::-moz-selection {
-	color: #333;
-	background: transparent;
-}
-h1 {
-	color: #333;
-}
-h1#footerHeading {
-	color: #eee;
-}
-h1:not(#footerHeading)::selection {
-	color: #333;
-	background: transparent;
-}
-
-h1:not(#footerHeading)::-moz-selection {
-	color: #333;
-	background: transparent;
-}
-h1#footerHeading::selection {
-	color: #eee;
-	background: transparent;
-}
-
-h1#footerHeading::-moz-selection {
-	color: #eee;
-	background: transparent;
+#align {
+	margin: 120px 5% 60px 5%;
+	color: #555;
 }
 #cookieBar {
 	height: 100px;
@@ -304,77 +191,33 @@ ul.topnav .x li a:hover:not(.active) {
 ul.topnav .x li a.active {
 	background-color: #dcdcdc;
 }
-.icons {
-	position: fixed;
-	right: 0;
-	bottom: 100px;
-	display: flex;
-	flex-direction: column;
+#footer {
+	margin: 0;
+	bottom: 0;
+	background-color: #151515;
+	color: #888;
+	font-weight: bold;
 	text-align: center;
-	z-index: 1;
-	background: transparent;
+	padding: 2vh 0;
 	-webkit-tap-highlight-color: transparent;
+	font-family: 'Ubuntu';
 }
-
-.ico {
-	display: inline-block;
-	width: 60px;
-	height: 60px;
-	background: #f1f1f1;
-	margin: 10px;
-	border-radius: 30%;
-	box-shadow: 0 5px 15px -5px #00000070;
-	color: #3498db;
-	overflow: hidden;
-	position: relative;
-}
-.ico i {
-	line-height: 60px;
-	font-size: 26px;
-	transition: 0.2s linear;
+#footerHeading { color: #eee; }
+h1:not(#footerHeading)::selection {
+	color: #333;
 	background: transparent;
 }
-.ico:hover i {
-	transform: scale(1.3);
-	color: #f1f1f1;
+h1:not(#footerHeading)::-moz-selection {
+	color: #333;
+	background: transparent;
 }
-.ico::before {
-	content: "";
-	position: absolute;
-	width: 120%;
-	height: 120%;
-	background: #3498db;
-	transform: rotate(45deg);
-	left: -110%;
-	top: 90%;
+h1#footerHeading::selection {
+	color: #eee;
+	background: transparent;
 }
-.ico:hover::before {
-	animation: aaa 0.7s 1;
-	top: -10%;
-	left: -10%;
-}
-@keyframes aaa {
-	0% {
-		left: -110%;
-		top: 90%;
-	}
-	50% {
-		left: 10%;
-		top: -30%;
-	}
-	100% {
-		top: -10%;
-		left: -10%;
-	}
-}
-#progressBar {
-	position: fixed;
-	top: 100px;
-	height: 2px;
-	width: 0%;
-	background: #05f;
-	z-index: 2;
-	box-shadow: 0 2px 5px rgba(0, 140, 255, 1);
+h1#footerHeading::-moz-selection {
+	color: #eee;
+	background: transparent;
 }
 #points::before {
 	content: "\2022";
@@ -384,112 +227,124 @@ ul.topnav .x li a.active {
 	width: 1em;
 	margin-left: -1em;
 }
-#quote {
-	background-color: #f0f0f0;
-	padding: 20px;
-	border-left: 5px solid #0004;
-	border-radius: 5px;
-	font-family: monospace;
+#tutorialContent {
+	column-count: 2;
+}
+.points { list-style-type: none; }
+.points li::before {
+	content: "\2022";
+	color: red;
+	font-weight: bold;
+	display: inline-block;
+	width: 1rem;
+	margin-left: -1rem;
+}
+.link {
+	color: #07f;
+	text-decoration: none;
+	border-bottom: thin solid #07f;
+}
+abbr {
+	text-decoration: underline;
+	cursor: pointer;
+}
+underline {
+	border-bottom: thin solid #555;
+}
+table {
+	border: thin solid #dcdcdc;
+	table-layout: fixed;
+	border-collapse: collapse;
+	width: 100%;
+	box-shadow: 3px 3px 3px rgba(0, 0, 0, .7);
+}
+td, th {
+	border: thin solid #dcdcdc;
+	text-align: left;
+	padding: 8px;
 	word-break: break-all;
 }
-#contactForm {
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	margin: 70px 0;
-}
-#buttonUnderline::selection {
-	color: #0af;
-	background: transparent;
-}
-#contactFormButton {
-	border: thin solid #09f;
-	background-color: #fff;
-	outline: 0;
-	padding: 15px 4vw;
-	font-family: Quicksand;
-	color: #09f;
-	font-size: 1.5rem;
-	font-weight: bolder;
-	-webkit-tap-highlight-color: transparent;
-	cursor: pointer;
-	border-radius: 100px;
-	transition: .2s;
-}
-#contactFormButton:hover {
+tr:nth-child(odd) {
 	background-color: #09f;
 	color: #fff;
 }
-#contactFormButton:hover > #buttonUnderline {
-	border-bottom: 2px solid #fff;
+tr:nth-child(odd) td {
+	border-color: #09f;
 }
-
+th {
+	text-align: center;
+	background: #555;
+	border: thin solid #555;
+}
+.secLink {
+	position: relative;
+	top: -110px;
+}
+h2 {
+	background: #555;
+	color: #fff;
+	padding: 5px 10px;
+	text-align: center;
+}
+img {
+	width: 100%;
+	height: auto;
+}
+img::selection {
+	background: transparent;
+}
+.code {
+	background-color: #eee;
+	width: 100%;
+	padding: 10px;
+	border-left: 5px solid #00a500;
+	overflow: scroll;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+	font-family: 'Source Code Pro';
+	position: relative;
+}
+.code::-webkit-scrollbar {
+	display: none;
+}
+.code::selection {
+	background: black;
+	color: white;
+}
 @media screen and (max-width: 768px) {
-
-	.videoPlayer {
-		max-width: auto;
-		max-height: 200px;
-		border: 0;
-		border-radius: 10px;
-	}
-
-	.ico {
-		width: 45px;
-		height: 45px;
-	}
-
-	.ico i {
-		line-height: 45px;
-		font-size: 20px;
-	}
-
-	#image {
-		width: 100%;
-		margin: 0;
-	}
-
 	body {
 		font-size: 0.8rem;
 	}
-
-	#snip {
-		font-size: 0.6rem;
-	}
-
 	#align {
 		margin: 60px 5%;
 	}
-
 	ul.topnav .x {
 		margin-left: 5%;
 		margin-right: 5%;
 		width: auto;
 		height: 55px;
 	}
-
 	ul.topnav .x li a {
 		font-size: 0.6rem;
 		padding: 10px 5px;
 		height: 100%;
 	}
-
-	ul.topnav .x img {
-		height: 55px;
-	}
-
-	#pop {
-		top: 60px;
-		margin: 0 15px;
-	}
-
+	ul.topnav .x img { height: 55px; }
 	#progressBar {
 		top: 55px;
 		box-shadow: 0 2px 5px rgba(0, 140, 255, .75);
 	}
-
 	#contactFormButton {
 		font-size: 1rem;
 		padding: 15px 10vw;
 	}
-
+	#tutorialContent {
+		column-count: 1;
+	}
+	.secLink {
+		top: -60px;
+	}
+	.code {
+		width: 95%
+	}
 }
