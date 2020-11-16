@@ -202,7 +202,7 @@ ul.topnav .x li a.active {
 ul {
 	list-style-type: none;
 }
-li#points::before {
+#points li::before {
 	content: "\2022";
 	color: #05f;
 	font-weight: bold;
