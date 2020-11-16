@@ -5,6 +5,14 @@ function updateScrollBar() {
     var scrolled = (winScroll / height) * 100;
     document.getElementById("progressBar").style.width = scrolled + "%";
 }
+if (checkCookie("cookiePromptShown")) {
+  if (getCookie("cookiePromptShown") == "yes") {
+  document.getElementById("cookieBar").style.display = "none";
+  }
+}
+if (!(checkCookie("cookiePromptShown"))) {
+  document.getElementById("cookieBar").style.display = "flex";
+}
 function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
     document.getElementById("logo").setAttribute("src", profile.getImageUrl());
@@ -77,21 +85,6 @@ function checkCookie(cname) {
   }
   else {
     return true;
-  }
-}
-function fillBlank() {
-  if (checkCookie("username")) {
-    document.getElementById("logo").style.borderRadius = "50%";
-    document.getElementById("logo").style.cursor = "pointer";
-    document.getElementById("logo").setAttribute("src", getCookie("profileUrl"));
-  }
-  if (checkCookie("cookiePromptShown")) {
-    if (getCookie("cookiePromptShown") == "yes") {
-    document.getElementById("cookieBar").style.display = "none";
-    }
-  }
-  if (!(checkCookie("cookiePromptShown"))) {
-    document.getElementById("cookieBar").style.display = "flex";
   }
 }
 function delay(URL) {

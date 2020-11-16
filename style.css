@@ -209,32 +209,7 @@ li#points::before {
   	display: inline-block;
   	width: 1em;
   	margin-left: -1em;
-}
-#pop {
-	font-family: 'Ubuntu';
-	position: fixed;
-	top: 100px;
-	margin: 20px;
-	padding: 20px 0;
-	border-radius: 5px;
-	box-shadow: 0 5px 5px rgba(0, 0, 0, .2);
-	align-items: center;
-	display: none;
-	flex-direction: column;
-	overflow: hidden;
-	background-color: #fff;
-}
-#popButton {
-	text-transform: uppercase;
-	text-align: center;
-	font-weight: bold;
-	padding: 10px 50px;
-	width: 100%;
-	cursor: pointer;
-	color: #333;
-}
-#popButton:hover {
-	color: #777;
+  	line-height: 2rem;
 }
 #footer {
 	margin: 0;
@@ -265,7 +240,7 @@ h1::-moz-selection {
 	background: linear-gradient(-30deg, #1ec4e9 0%, #673ab7 50%, #262626 50%, #607d8b 100%);
 	z-index: 1;
 }
-a#yay {
+a.yay {
 	height: 25px;
 	margin: 500px 20px 0 20px;
 	position: relative;
@@ -280,7 +255,7 @@ a#yay {
 	background: rgba(255, 255, 255, .1);
 	box-shadow: 0 5px 5px rgba(0, 0, 0, .2);
 }
-a#yay:before {
+a.yay:before {
 	content: '';
 	position: absolute;
 	top: 0;
@@ -289,7 +264,7 @@ a#yay:before {
 	height: 100%;
 	background: rgba(255, 255, 255, .1);
 }
-a#yay:after {
+a.yay:after {
 	content: '';
 	position: absolute;
 	top: 0;
@@ -300,55 +275,55 @@ a#yay:after {
 	transition: 0.5s;
 	transition-delay: 0.5s;
 }
-a#yay:hover:after {
+a.yay:hover:after {
 	left: 100%;
 }
-a#yay span {
+a.yay span {
 	position: absolute;
 	display: block;
 	transition: 0.5s ease;
 }
-a#yay span:nth-child(1) {
+a.yay span:nth-child(1) {
 	top: 0;
 	left: 0;
 	width: 0;
 	height: 1px;
 	background: #fff;
 }
-a#yay:hover span:nth-child(1) {
+a.yay:hover span:nth-child(1) {
 	width: 100%;
 	transform: translateX(100%);
 }
-a#yay span:nth-child(3) {
+a.yay span:nth-child(3) {
 	bottom: 0;
 	right: 0;
 	width: 0;
 	height: 1px;
 	background: #fff;
 }
-a#yay:hover span:nth-child(3) {
+a.yay:hover span:nth-child(3) {
 	width: 100%;
 	transform: translateX(-100%);
 }
-a#yay span:nth-child(2) {
+a.yay span:nth-child(2) {
 	top: 0;
 	left: 0;
 	width: 1px;
 	height: 0;
 	background: #fff;
 }
-a#yay:hover span:nth-child(2) {
+a.yay:hover span:nth-child(2) {
 	height: 100%;
 	transform: translateY(100%);
 }
-a#yay span:nth-child(4) {
+a.yay span:nth-child(4) {
 	bottom: 0;
 	right: 0;
 	width: 1px;
 	height: 0;
 	background: #fff;
 }
-a#yay:hover span:nth-child(4) {
+a.yay:hover span:nth-child(4) {
 	height: 100%;
 	transform: translateY(-100%);
 }
@@ -473,9 +448,9 @@ a#yay:hover span:nth-child(4) {
   #tuts {
   	flex-direction: column;
   }
-  a#yay {
+  a.yay {
   	font-size: 1rem;
-  	margin-top: 50px;
+  	margin-top: 100px;
   	text-align: center;
 	-webkit-tap-highlight-color: transparent;
   }
@@ -503,9 +478,5 @@ a#yay:hover span:nth-child(4) {
   }
   ul.topnav .x img {
   	height: 55px;
-  }
-  #pop {
-  	top: 60px;
-  	margin: 0 15px;
   }
 }
