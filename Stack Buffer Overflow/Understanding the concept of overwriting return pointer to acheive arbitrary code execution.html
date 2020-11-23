@@ -1,204 +1,186 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>Understanding the concept of overwriting return pointer to achieve arbitrary code execution</title>
-	<link rel="stylesheet" href="style.css"/>
-  <script type="text/javascript" src="script.js"></script>
-	<link rel="icon" href="https://vulnx.in/favicon.png">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
-  <script data-ad-client="ca-pub-6203666289882469" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="HandheldFriendly" content="true">
-	<meta name="keywords" content="VulnX, vulnx, vulnx.in, VulnX.in, hacking, Hacking, Buffer Overflow, Local variable, local variable, buffer overflow, bof, BoF, modifying, modyfying local variable, modifying variables, exploiting, binary exploiting, memory corruption, memory, corruption, exploit, stack, stack variables, overflow the stack, overwrite RIP, overwrite EIP, saved return pointer, remote code execution">
-  <meta charset="utf-8">
-  <meta name="google-signin-client_id" content="7743864513-tbfn9rfgcgni8c2t8b9obgjpobeq0j7i.apps.googleusercontent.com">
-  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+    <title>Understanding the concept of overwriting return pointer to achieve arbitrary code execution</title>
+    <link rel="stylesheet" href="style.css" />
+    <script type="text/javascript" src="script.js"></script>
+    <link rel="icon" href="https://vulnx.in/favicon.png">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+    <script data-ad-client="ca-pub-6203666289882469" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="keywords" content="VulnX, vulnx, vulnx.in, VulnX.in, hacking, Hacking, Buffer Overflow, Local variable, local variable, buffer overflow, bof, BoF, modifying, modyfying local variable, modifying variables, exploiting, binary exploiting, memory corruption, memory, corruption, exploit, stack, stack variables, overflow the stack, overwrite RIP, overwrite EIP, saved return pointer, remote code execution">
+    <meta charset="utf-8">
+    <meta name="google-signin-client_id" content="7743864513-tbfn9rfgcgni8c2t8b9obgjpobeq0j7i.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 </head>
 
 <body>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167461836-1"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-  
-      gtag('config', 'UA-167461836-1');
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-167461836-1');
     </script>
-
     <div id="progressBar"></div>
-  
-    <ul class="topnav"><div class="x">
-      <img id="logo" src="../logo.png">
-      <div style="display: flex; justify-content: row-reverse; align-items: center;"><li><a target="_blank" href="../">Home</a></li>
-        <li><a target="_blank" href="../Contents/resources.html">Resources</a></li>
-        <li><a target="_blank" href="../Contents/tutorials.html">Tutorials</a></li>
-        <li><a target="_blank" href="../Contents/CTFs.html">CTFs</a></li></div>
-      </div>
+    <ul class="topnav">
+        <div class="x">
+            <img id="logo" src="../logo.svg">
+            <div style="display: flex; justify-content: row-reverse; align-items: center;">
+                <li><a target="_blank" href="../">Home</a></li>
+                <li><a target="_blank" href="../Contents/resources.html">Resources</a></li>
+                <li><a target="_blank" href="../Contents/tutorials.html">Tutorials</a></li>
+                <li><a target="_blank" href="../Contents/CTFs.html">CTFs</a></li>
+            </div>
+        </div>
     </ul>
-
     <div id="cookieBar">
-      <div id="cookieText">By using our site, you agree to our use of cookies to deliver a better site experience</div>
-      <div id="cookieButton" onclick="hideCookieBar()"><span></span><span></span><span></span><span></span>&#10005;</div>
+        <div id="cookieText">By using our site, you agree to our use of cookies to deliver a better site experience</div>
+        <div id="cookieButton" onclick="hideCookieBar()"><span></span><span></span><span></span><span></span>&#10005;</div>
     </div>
-
     <div id="align" style="color: #555; font-family: 'Quicksand';">
-
-    	<center><h1 style="color: #1b1b1b;">Buffer Overflow</h1></center>
-		<center><h1 style="color: #1b1b1b;">Redirecting code execution<br>[ Theory only ]</h1></center>
-    	<p>Hey guys! What's up?<br>
-    	Welcome to the third tutorial of the Buffer Overflow series. In the previous tutorial, we learnt how we can overflow a buffer to modify local variables to change the purpose of a program. Now let's move a step forward and begin to call functions arbitrarily.</p>
-
-    	<p>So first of all, before we begin store the code snippet given below in a file with the extention <b>(.c)</b></p>
-    	<pre><div id="snip"><b>
+        <center>
+            <h1 style="color: #1b1b1b;">Buffer Overflow</h1>
+        </center>
+        <center>
+            <h1 style="color: #1b1b1b;">Redirecting code execution<br>[ Theory only ]</h1>
+        </center>
+        <p>Hey guys! What's up?<br>
+            Welcome to the fourth tutorial of the Buffer Overflow series. In the previous tutorial, we learnt how we can overflow a buffer to modify local variables to change the purpose of a program. Now let's move a step forward and begin to call functions arbitrarily.</p>
+        <p>So first of all, before we begin store the code snippet given below in a file with the extention <b>(.c)</b></p>
+        <pre><div id="snip"><b>
 <span style="color: #aaa;">//  File name     : controlRIP.c
 //  Compile with  : gcc controlRIP.c -m64 -no-pie -o controlRIP.elf</span>
 
 <font color="#55FFFF">#include</font> <font color="#FF55FF">&lt;stdio.h&gt;</font>
 
 <span style="color: #55FF55;">void</span> callMe() {
-	printf(<span style="color: #FF55FF;">"[+] Boom! Code execution redirected.\n"</span>);
+  printf(<span style="color: #FF55FF;">"[+] Boom! Code execution redirected.\n"</span>);
 }
 
 <span style="color: #55FF55;">int</span> func() {
-	<span style="color: #55FF55;">char</span> uname[<span style="color: #FF55FF;">64</span>];
-	printf(<span style="color: #FF55FF;">"Enter your username : "</span>);
-	gets(uname);
-	printf(<span style="color: #FF55FF;">"Sorry Mr. %s, but you failed.\n"</span>, uname);
+  <span style="color: #55FF55;">char</span> uname[<span style="color: #FF55FF;">64</span>];
+  printf(<span style="color: #FF55FF;">"Enter your username : "</span>);
+  gets(uname);
+  printf(<span style="color: #FF55FF;">"Sorry Mr. %s, but you failed.\n"</span>, uname);
 }
 
 <font color="#55FF55">int</font> main(<font color="#55FF55">int</font> argc, <font color="#55FF55">char const</font> *argv[]) {
-	func();
-	<font color="#FFFF55">return</font> <font color="#FF55FF">0</font>;
+  func();
+  <font color="#FFFF55">return</font> <font color="#FF55FF">0</font>;
 }
-    	</b></div></pre>
-
-    	<h2>Understanding the concept of `ret` instruction</h2>
-
-    	<span id="disassembledfuncFunction"></span><p>Alright so be sure <b style="color: #007fff">NOT</b> to ignore this part. Understanding what the 'ret' instruction does and how we can take advantage of it is extremely necessary and the entire tutorial [ even the next few ones ] will be dependent on it.</p>
-
-    	<p>So if you compile the program, load it up inside GDB and disassemble the func() function you will get something like this</p>
-    	<pre><div id="snip">
+      </b></div></pre>
+        <h2>Understanding the concept of `ret` instruction</h2>
+        <span id="disassembledfuncFunction"></span>
+        <p>Alright so be sure <b style="color: #007fff">NOT</b> to ignore this part. Understanding what the 'ret' instruction does and how we can take advantage of it is extremely necessary and the entire tutorial [ even the next few ones ] will be dependent on it.</p>
+        <p>So if you compile the program, load it up inside GDB and disassemble the func() function you will get something like this</p>
+        <pre><div id="snip">
 <b>root@kali</b>:<span style="color: #8181ff">~/Desktop/Buffer Overflow</span># gdb ./controlRIP.elf -q
 Reading symbols from <span style="color: #0f0;">./controlRIP.elf</span>...
 (No debugging symbols found in <span style="color: #0f0;">./controlRIP.elf</span>)
 gdb-peda$ disassemble func 
 Dump of assembler code for function func:
-   <span style="color: #8181ff;">0x0000000000401155</span> <+0>:	push   rbp
-   <span style="color: #8181ff;">0x0000000000401156</span> <+1>:	mov    rbp,rsp
-   <span style="color: #8181ff;">0x0000000000401159</span> <+4>:	sub    rsp,0x40
-   <span style="color: #8181ff;">0x000000000040115d</span> <+8>:	lea    rdi,[rip+0xec9]        # <span style="color: #8181ff;">0x40202d</span>
-   <span style="color: #8181ff;">0x0000000000401164</span> <+15>:	mov    eax,0x0
-   <span style="color: #8181ff;">0x0000000000401169</span> <+20>:	call   <span style="color: #8181ff;">0x401040</span> <span style="color: #ff0;">&lt;printf@plt></span>
-   <span style="color: #8181ff;">0x000000000040116e</span> <+25>:	lea    rax,[rbp-0x40]
-   <span style="color: #8181ff;">0x0000000000401172</span> <+29>:	mov    rdi,rax
-   <span style="color: #8181ff;">0x0000000000401175</span> <+32>:	mov    eax,0x0
-   <span style="color: #8181ff;">0x000000000040117a</span> <+37>:	call   <span style="color: #8181ff;">0x401050</span> <span style="color: #ff0;">&lt;gets@plt></span>
-   <span style="color: #8181ff;">0x000000000040117f</span> <+42>:	lea    rax,[rbp-0x40]
-   <span style="color: #8181ff;">0x0000000000401183</span> <+46>:	mov    rsi,rax
-   <span style="color: #8181ff;">0x0000000000401186</span> <+49>:	lea    rdi,[rip+0xebb]        # <span style="color: #8181ff;">0x402048</span>
-   <span style="color: #8181ff;">0x000000000040118d</span> <+56>:	mov    eax,0x0
-   <span style="color: #8181ff;">0x0000000000401192</span> <+61>:	call   <span style="color: #8181ff;">0x401040</span> <span style="color: #ff0;">&lt;printf@plt></span>
-   <span style="color: #8181ff;">0x0000000000401197</span> <+66>:	nop
-   <span style="color: #8181ff;">0x0000000000401198</span> <+67>:	leave  
-   <b><span style="color: #8181ff;">0x0000000000401199</span> <+68>:	ret    </b>
+   <span style="color: #8181ff;">0x0000000000401155</span> <+0>:  push   rbp
+   <span style="color: #8181ff;">0x0000000000401156</span> <+1>:  mov    rbp,rsp
+   <span style="color: #8181ff;">0x0000000000401159</span> <+4>:  sub    rsp,0x40
+   <span style="color: #8181ff;">0x000000000040115d</span> <+8>:  lea    rdi,[rip+0xec9]        # <span style="color: #8181ff;">0x40202d</span>
+   <span style="color: #8181ff;">0x0000000000401164</span> <+15>: mov    eax,0x0
+   <span style="color: #8181ff;">0x0000000000401169</span> <+20>: call   <span style="color: #8181ff;">0x401040</span> <span style="color: #ff0;">&lt;printf@plt></span>
+   <span style="color: #8181ff;">0x000000000040116e</span> <+25>: lea    rax,[rbp-0x40]
+   <span style="color: #8181ff;">0x0000000000401172</span> <+29>: mov    rdi,rax
+   <span style="color: #8181ff;">0x0000000000401175</span> <+32>: mov    eax,0x0
+   <span style="color: #8181ff;">0x000000000040117a</span> <+37>: call   <span style="color: #8181ff;">0x401050</span> <span style="color: #ff0;">&lt;gets@plt></span>
+   <span style="color: #8181ff;">0x000000000040117f</span> <+42>: lea    rax,[rbp-0x40]
+   <span style="color: #8181ff;">0x0000000000401183</span> <+46>: mov    rsi,rax
+   <span style="color: #8181ff;">0x0000000000401186</span> <+49>: lea    rdi,[rip+0xebb]        # <span style="color: #8181ff;">0x402048</span>
+   <span style="color: #8181ff;">0x000000000040118d</span> <+56>: mov    eax,0x0
+   <span style="color: #8181ff;">0x0000000000401192</span> <+61>: call   <span style="color: #8181ff;">0x401040</span> <span style="color: #ff0;">&lt;printf@plt></span>
+   <span style="color: #8181ff;">0x0000000000401197</span> <+66>: nop
+   <span style="color: #8181ff;">0x0000000000401198</span> <+67>: leave  
+   <b><span style="color: #8181ff;">0x0000000000401199</span> <+68>:  ret    </b>
 End of assembler dump.
 gdb-peda$ 
-    	</div></pre>
-
-    	<p>and the disassembled main function will look like this</p>
-
-    	<pre><div id="snip">
+      </div></pre>
+        <p>and the disassembled main function will look like this</p>
+        <pre><div id="snip">
 gdb-peda$ disassemble main
 Dump of assembler code for function main:
-   <span style="color: #8181ff;">0x000000000040119a</span> <+0>:	push   rbp
-   <span style="color: #8181ff;">0x000000000040119b</span> <+1>:	mov    rbp,rsp
-   <span style="color: #8181ff;">0x000000000040119e</span> <+4>:	sub    rsp,0x10
-   <span style="color: #8181ff;">0x00000000004011a2</span> <+8>:	mov    DWORD PTR [rbp-0x4],edi
-   <span style="color: #8181ff;">0x00000000004011a5</span> <+11>:	mov    QWORD PTR [rbp-0x10],rsi
-   <span style="color: #8181ff;">0x00000000004011a9</span> <+15>:	mov    eax,0x0
-   <span style="color: #8181ff;">0x00000000004011ae</span> <+20>:	call   <span style="color: #8181ff;">0x401155</span> <span style="color: #ff0;">&lt;func></span>
-   <span style="color: #8181ff;">0x00000000004011b3</span> <+25>:	mov    eax,0x0
-   <span style="color: #8181ff;">0x00000000004011b8</span> <+30>:	leave  
-   <span style="color: #8181ff;">0x00000000004011b9</span> <+31>:	ret    
+   <span style="color: #8181ff;">0x000000000040119a</span> <+0>:  push   rbp
+   <span style="color: #8181ff;">0x000000000040119b</span> <+1>:  mov    rbp,rsp
+   <span style="color: #8181ff;">0x000000000040119e</span> <+4>:  sub    rsp,0x10
+   <span style="color: #8181ff;">0x00000000004011a2</span> <+8>:  mov    DWORD PTR [rbp-0x4],edi
+   <span style="color: #8181ff;">0x00000000004011a5</span> <+11>: mov    QWORD PTR [rbp-0x10],rsi
+   <span style="color: #8181ff;">0x00000000004011a9</span> <+15>: mov    eax,0x0
+   <span style="color: #8181ff;">0x00000000004011ae</span> <+20>: call   <span style="color: #8181ff;">0x401155</span> <span style="color: #ff0;">&lt;func></span>
+   <span style="color: #8181ff;">0x00000000004011b3</span> <+25>: mov    eax,0x0
+   <span style="color: #8181ff;">0x00000000004011b8</span> <+30>: leave  
+   <span style="color: #8181ff;">0x00000000004011b9</span> <+31>: ret    
 End of assembler dump.
 gdb-peda$ 
-    	</div></pre>
-
-      <p>So we know that the control [ the instruction pointer or RIP in short ] reaches the main function first. In the main function, it goes on executing instructions sequentially. When it reaches <span style="color: #05f;">0x00000000004011ae</span> at <span style="font-weight: bold;">main+20</span>, it's a call to the <span style="border-bottom: 1px solid #555; cursor: pointer;" onclick="location.href='#disassembledfuncFunction'">func()</span> so instead of incrementing the RIP by 1 so that it points to the next instruction, the RIP value is changed to the <i>base address</i> of the <span style="border-bottom: 1px solid #555; cursor: pointer;" onclick="location.href='#disassembledfuncFunction'">func()</span>.</p>
-
-      <p>Then the RIP executes all the instructions of the <span style="border-bottom: 1px solid #555; cursor: pointer;" onclick="location.href='#disassembledfuncFunction'">func()</span> and then when it reaches <i>func+68</i>, it's a <i>ret</i> instruction so the program returns back to where it came from.</p>
-
-      <p>But now the question is <b>how does the <i>ret</i> instruction know where it came from?</b></p>
-
-      <p>&#8594; So in order to get the answer to this question, we must understand how the stack behaves with each instruction when a function is called and when it returns back.</p>
-
-      <p>So when the RIP reaches <i>main+20</i> at <b>0x4011ae</b>, the program pushes the address of the next instruction, which in this case should be <b>0x4011b3</b> on the stack. Then the program changes the RIP value to the start address of the <span style="border-bottom: 1px solid #555; cursor: pointer;" onclick="location.href='#disassembledfuncFunction'">func()</span>. In the <span style="border-bottom: 1px solid #555; cursor: pointer;" onclick="location.href='#disassembledfuncFunction'">func()</span>, the first two instructions set up a new stack frame for the <span style="border-bottom: 1px solid #555; cursor: pointer;" onclick="location.href='#disassembledfuncFunction'">func()</span> to allow storage of local variables and other data. After that, the second last instruction at <i>func+67</i> is <b>leave</b> which is actually the same as :-</p>
-      <ul>
-        mov rsp, rbp<br>
-        pop rbp
-      </ul>
-
-      <p>which if you notice carefully, is the exact opposite of the first two instruction, so it theoretically should destroy the stack frame created for the <span style="border-bottom: 1px solid #555; cursor: pointer;" onclick="location.href='#disassembledfuncFunction'">func()</span> as all instructions are executed and it is no longer required.</p>
-
-      <p>Now, the stack before the <b>leave</b> instruction should look like this :-</p>
-
-      <div id="image" style="position: relative;"><span style="position: absolute; top: -120px; visibility: hidden;" id="Stack Layout"></span><img src="https://i.imgur.com/CZxxYjh.png" class="responsive"></div>
-
-      <p>So we can visualize that when the stack frame for the <span style="border-bottom: 1px solid #555; cursor: pointer;" onclick="location.href='#disassembledfuncFunction'">func()</span> is destroyed by the <b>leave</b> instruction, the value at the top of the stack would be the saved return address. This is the address which the program had stored on the stack in order to save it so that after execution the ret instruction can read it and make the RIP point to that address. So we know that the program now has to read the saved address from the top of the stack and make the RIP point to it. Thus we can conclude that the <b>ret</b> does the following two things :-</p>
-
-      <ul style="list-style-type: none">
-        <li id="points"><span style="border-bottom: 1px solid #228B22">Reads the value currently stored at the top of the stack.</span></li>
-        <li id="points"><span style="border-bottom: 1px solid #228B22">Make the RIP point to that address.</span></li>
-      </ul>
-
-      <p>In the previous tutorial, we understood that, if a program uses functions like <i>gets</i>, <i>strcpy</i> and so on, then the program does not have a buffer-bound checking system. This means that if we feed sufficient data [ much more than what was supposed to be fed ] then we can overflow data past the base-pointer. This means that if we find out exactly how many bytes are required to overflow the RBP, we can add 8-bytes to it [ because RBP is a 64-bit or 8 byte register ], we get the correct offset for the saved return address. Then we can write arbitrary data to modify the return point of the program.</p>
-
-      <p>So if we somehow overwrite the saved return pointer by the, <span style="border-bottom: 1px solid #555">start address</span> of the <i>callMe()</i> then we should redirect the flow of control to another function.</p>
-
-      <h2>Contact</h2>
-
-      <p>I hope this tutorial made sense to you. It's perfectly normal if you could not understand this in the first attempt, but I can guarantee that once we open the program in debugger and analyse the memory at run-time, it will seem much clear.</p>
-      <p>If you have any doubts or confusions in some part of the tutorial, feel free to reach out to me on my <a href="https://www.instagram.com/vulnx_hacking" style="text-decoration: none; color: #05f; border-bottom: 1px solid #05f;">Instagram</a> or you can mail me at <a href="mailto:vulnx101@gmail.com" style="text-decoration: none; color: #05f; border-bottom: 1px solid #05f;">vulnx101@gmail.com</a></p>
-
-      <div id="align_right">
-        Good luck,<br>
-        VulnX<br>
-      </div>
-      <hr class="new5">
-
-      <div class="icons">
-        <a class="ico" href="javascript:delay('#')">
-          <i class="fab fa-facebook-f"></i>
-        </a>
-        <a class="ico" href="javascript:delay('mailto:vulnx101@gmail.com')">
-          <i class="fab fa-google"></i>
-        </a>
-        <a class="ico" href="javascript:delay('#')">
-          <i class="fab fa-instagram"></i>
-        </a>
-        <a class="ico" href="javascript:delay('https://bit.ly/VulnX_YT')">
-          <i class="fab fa-youtube"></i>
-        </a>
-      </div>
-
+      </div></pre>
+        <p>So we know that the control [ the instruction pointer or RIP in short ] reaches the main function first. In the main function, it goes on executing instructions sequentially. When it reaches <span style="color: #05f;">0x00000000004011ae</span> at <span style="font-weight: bold;">main+20</span>, it's a call to the <span style="border-bottom: 1px solid #555; cursor: pointer;" onclick="location.href='#disassembledfuncFunction'">func()</span> so instead of incrementing the RIP by 1 so that it points to the next instruction, the RIP value is changed to the <i>base address</i> of the <span style="border-bottom: 1px solid #555; cursor: pointer;" onclick="location.href='#disassembledfuncFunction'">func()</span>.</p>
+        <p>Then the RIP executes all the instructions of the <span style="border-bottom: 1px solid #555; cursor: pointer;" onclick="location.href='#disassembledfuncFunction'">func()</span> and then when it reaches <i>func+68</i>, it's a <i>ret</i> instruction so the program returns back to where it came from.</p>
+        <p>But now the question is <b>how does the <i>ret</i> instruction know where it came from?</b></p>
+        <p>&#8594; So in order to get the answer to this question, we must understand how the stack behaves with each instruction when a function is called and when it returns back.</p>
+        <p>So when the RIP reaches <i>main+20</i> at <b>0x4011ae</b>, the program pushes the address of the next instruction, which in this case should be <b>0x4011b3</b> on the stack. Then the program changes the RIP value to the start address of the <span style="border-bottom: 1px solid #555; cursor: pointer;" onclick="location.href='#disassembledfuncFunction'">func()</span>. In the <span style="border-bottom: 1px solid #555; cursor: pointer;" onclick="location.href='#disassembledfuncFunction'">func()</span>, the first two instructions set up a new stack frame for the <span style="border-bottom: 1px solid #555; cursor: pointer;" onclick="location.href='#disassembledfuncFunction'">func()</span> to allow storage of local variables and other data. After that, the second last instruction at <i>func+67</i> is <b>leave</b> which is actually the same as :-</p>
+        <ul>
+            mov rsp, rbp<br>
+            pop rbp
+        </ul>
+        <p>which if you notice carefully, is the exact opposite of the first two instruction, so it theoretically should destroy the stack frame created for the <span style="border-bottom: 1px solid #555; cursor: pointer;" onclick="location.href='#disassembledfuncFunction'">func()</span> as all instructions are executed and it is no longer required.</p>
+        <p>Now, the stack before the <b>leave</b> instruction should look like this :-</p>
+        <div id="image" style="position: relative;"><span style="position: absolute; top: -120px; visibility: hidden;" id="Stack Layout"></span><img src="https://i.imgur.com/CZxxYjh.png" class="responsive"></div>
+        <p>So we can visualize that when the stack frame for the <span style="border-bottom: 1px solid #555; cursor: pointer;" onclick="location.href='#disassembledfuncFunction'">func()</span> is destroyed by the <b>leave</b> instruction, the value at the top of the stack would be the saved return address. This is the address which the program had stored on the stack in order to save it so that after execution the ret instruction can read it and make the RIP point to that address. So we know that the program now has to read the saved address from the top of the stack and make the RIP point to it. Thus we can conclude that the <b>ret</b> does the following two things :-</p>
+        <ul style="list-style-type: none">
+            <li id="points"><span style="border-bottom: 1px solid #228B22">Reads the value currently stored at the top of the stack.</span></li>
+            <li id="points"><span style="border-bottom: 1px solid #228B22">Make the RIP point to that address.</span></li>
+        </ul>
+        <p>In the previous tutorial, we understood that, if a program uses functions like <i>gets</i>, <i>strcpy</i> and so on, then the program does not have a buffer-bound checking system. This means that if we feed sufficient data [ much more than what was supposed to be fed ] then we can overflow data past the base-pointer. This means that if we find out exactly how many bytes are required to overflow the RBP, we can add 8-bytes to it [ because RBP is a 64-bit or 8 byte register ], we get the correct offset for the saved return address. Then we can write arbitrary data to modify the return point of the program.</p>
+        <p>So if we somehow overwrite the saved return pointer by the, <span style="border-bottom: 1px solid #555">start address</span> of the <i>callMe()</i> then we should redirect the flow of control to another function.</p>
+        <h2>Contact</h2>
+        <p>I hope this tutorial made sense to you. It's perfectly normal if you could not understand this in the first attempt, but I can guarantee that once we open the program in debugger and analyse the memory at run-time, it will seem much clear.</p>
+        <p>If you have any doubts or confusions in some part of the tutorial, feel free to reach out to me on my <a href="https://www.instagram.com/vulnx_hacking" style="text-decoration: none; color: #05f; border-bottom: 1px solid #05f;">Instagram</a> or you can mail me at <a href="mailto:vulnx101@gmail.com" style="text-decoration: none; color: #05f; border-bottom: 1px solid #05f;">vulnx101@gmail.com</a></p>
+        <div id="contactForm" onclick="location.href='https://docs.google.com/forms/d/e/1FAIpQLScM7cjnyriiDIwM_8wFkS66cueS83lOaDoSsJ6dlM39szevcg/viewform?usp=sf_link'">
+            <button id="contactFormButton"><span id="buttonUnderline">Fill the Form</span></button>
+        </div>
+        <div id="align_right">
+            Good luck,<br>
+            VulnX<br>
+        </div>
+        <hr class="new5">
+        <div class="icons">
+            <a class="ico" href="javascript:delay('#')">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a class="ico" href="javascript:delay('mailto:vulnx101@gmail.com')">
+                <i class="fab fa-google"></i>
+            </a>
+            <a class="ico" href="javascript:delay('#')">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a class="ico" href="javascript:delay('https://bit.ly/VulnX_YT')">
+                <i class="fab fa-youtube"></i>
+            </a>
+        </div>
     </div>
-
     <div id="footer">
-      <h1 id="footerHeading" style="cursor: pointer; background-color: transparent; font-family: 'Saira Stencil One'; font-size: 50px; color: #eee" onclick="location.href='https://vulnx.in/'">VulnX</h1>
-      <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/'">Home</p>
-      <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/resources.html'">Resources</p>
-      <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/tutorials.html'">Tutorials</p>
-      <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/ctfs.html'">CTFs</p>
-  
-      <h1 id="footerHeading" style="background-color: transparent; font-family: 'Ubuntu'; color: #eee">Contact</h1>
-          
-      <i class="fab fa-facebook-f" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='#'"></i>
-      <i class="fab fa-google" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='mailto:vulnx101@gmail.com'"></i>
-      <i class="fab fa-instagram" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='https://www.instagram.com/vulnx_hacking'"></i>
-      <i class="fab fa-youtube" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='https://bit.ly/VulnX_YT'"></i>
+        <h1 id="footerHeading" style="cursor: pointer; background-color: transparent; font-family: 'Saira Stencil One'; font-size: 50px; color: #eee" onclick="location.href='https://vulnx.in/'">VulnX</h1>
+        <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/'">Home</p>
+        <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/resources.html'">Resources</p>
+        <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/tutorials.html'">Tutorials</p>
+        <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/ctfs.html'">CTFs</p>
+        <h1 id="footerHeading" style="background-color: transparent; font-family: 'Ubuntu'; color: #eee">Contact</h1>
+        <i class="fab fa-facebook-f" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='#'"></i>
+        <i class="fab fa-google" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='mailto:vulnx101@gmail.com'"></i>
+        <i class="fab fa-instagram" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='https://www.instagram.com/vulnx_hacking'"></i>
+        <i class="fab fa-youtube" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='https://bit.ly/VulnX_YT'"></i>
     </div>
-
 </body>
+
 </html>

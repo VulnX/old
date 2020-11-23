@@ -1,72 +1,146 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>Fundamentals of Objects and Classes - Java Programming | VulnX</title>
-	<link rel="stylesheet" href="style.css"/>
-	<script type="text/javascript" src="script.js"></script>
-	<link rel="icon" href="../../favicon.png" />
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" />
-	<script data-ad-client="ca-pub-6203666289882469" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta charset="utf-8">
-	<meta name="keywords" content="VulnX, vulnx, vulnx.in, VulnX.in, hacking, Hacking, programming, java, tutorials, java tutorials, classes, objects, classes and objects, Fundamentals, Fundamentals of classes and objects, Fundamentals of objects and classes, basics of classes, basics of objects, java basics, how to learn java, how to learn programming, what is object, whart is classes, introduction to objects and classes, hello world, hello world in java, first java program">
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-167461836-1"></script>
+    <title>Fundamentals of Objects and Classes - Java Programming | VulnX</title>
+    <link rel="stylesheet" href="style.css" />
+    <script type="text/javascript" src="script.js"></script>
+    <link rel="icon" href="../../favicon.png" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" />
+    <script data-ad-client="ca-pub-6203666289882469" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta charset="utf-8">
+    <meta name="keywords" content="VulnX, vulnx, vulnx.in, VulnX.in, hacking, Hacking, programming, java, tutorials, java tutorials, classes, objects, classes and objects, Fundamentals, Fundamentals of classes and objects, Fundamentals of objects and classes, basics of classes, basics of objects, java basics, how to learn java, how to learn programming, what is object, whart is classes, introduction to objects and classes, hello world, hello world in java, first java program">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167461836-1"></script>
 </head>
+
 <body>
+    <script type="text/javascript">
+    window.dataLayer = window.dataLayer || [];
 
-	<script type="text/javascript">
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-		gtag('config', 'UA-167461836-1');
-	</script>
+    gtag('config', 'UA-167461836-1');
+    </script>
+    <ul class="topnav">
+        <div class="x">
+            <img id="logo" src="../../logo.svg">
+            <div style="display: flex; align-items: center;">
+                <li><a target="_blank" href="../../">Home</a></li>
+                <li><a target="_blank" href="../../Contents/resources.html">Resources</a></li>
+                <li><a target="_blank" href="../../Contents/tutorials.html">Tutorials</a></li>
+                <li><a target="_blank" href="../../Contents/CTFs.html">CTFs</a></li>
+            </div>
+        </div>
+    </ul>
+    <div id="cookieBar">
+        <div id="cookieText">By using our site, you agree to our use of cookies to deliver a better site experience</div>
+        <div id="cookieButton" onclick="hideCookieBar()"><span></span><span></span><span></span><span></span>&#10005;</div>
+    </div>
+    <div id="align">
+        <center>
+            <h1 style="color: #1b1b1b;">Java Programming</h1>
+        </center>
+        <center>
+            <h1 style="color: #1b1b1b;">Classes and Objects</h1>
+        </center>
+        <div id="tutorialContent">
+            Hey guys!<br />
+            Welcome to the <b>second lesson</b> of <i><u>Java Programming</u></i>.
+            <p>In the previous chapter, we learnt about Java, how it is platform-independent, the compiler, interpreter, OOP, POP, and a brief introduction for the 4 main principles of OOP.<br />That was a great start, so now let's proceed further and explore the fundamental concepts of classes and objects.</p>
+            <hr>
+            <b>NOTE : THIS TUTORIAL WILL GUIDE YOU IN WRITING YOUR FIRST `HELLO WORD` PROGRAM!<br /> SO BE SURE TO READ TILL THE END!</b>
+            <hr>
+            <span id="Introduction" class="secLink"></span>
+            <h2>Introduction</h2>
+            <p>In Java, every line of code is written within a class. A class serves as a template for creating similar kind of objects.</p>
+            <p>As of now you can understand that class is a container for all data [ variables ] and code [ functions ] & an object is a reference to a class.</p>
+            <p>So now let's study the details of an object</p>
+            <span id="Object" class="secLink"></span>
+            <h2>Object</h2>
+            <p>An object is the most <underline>basic unit</underline> of an Object Oriented Programming (OOP) language. In Procedure Oriented Programming (POP) languages, the whole code is written at a single place without enclosing it in any function or class. Like the example given below :-</p>
+            <pre>
+            	<div class="code"><span style="color: #006699; font-weight: bold">section</span> <span style="color: #008200">.text</span>
 
-	<ul class="topnav">
-		<div class="x">
-			<img id="logo" src="../../logo.png">
-			<div style="display: flex; align-items: center;">
-				<li><a target="_blank" href="../../">Home</a></li>
-				<li><a target="_blank" href="../../Contents/resources.html">Resources</a></li>
-				<li><a target="_blank" href="../../Contents/tutorials.html">Tutorials</a></li>
-				<li><a target="_blank" href="../../Contents/CTFs.html">CTFs</a></li>
-			</div>
-		</div>
-	</ul>
+<span style="color: #006699; font-weight: bold">global</span> <span style="color: #008200">init</span>
 
-	<div id="cookieBar">
-		<div id="cookieText">By using our site, you agree to our use of cookies to deliver a better site experience</div>
-		<div id="cookieButton" onclick="hideCookieBar()"><span></span><span></span><span></span><span></span>&#10005;</div>
-	</div>
+<span style="color: #008200">init:</span>
 
-	<div id="align">
-		<center><h1 style="color: #1b1b1b;">Java Programming</h1></center>
-		<center><h1 style="color: #1b1b1b;">Classes and Objects</h1></center>
-		<div id="tutorialContent">
-			Hey guys!<br>
-			Welcome to the <b>second lesson</b> of <i><u>Java Programming</u></i>.
+	<span style="color: #ff1493; font-weight: bold">push</span> <span style="color: #a0f">0x1</span>
+	<span style="color: #ff1493; font-weight: bold">pop</span> <span style="color: #333; font-weight: bold">rax</span>
+	<span style="color: #ff1493; font-weight: bold">mov</span> <span style="color: #333; font-weight: bold">rdi</span>, <span style="color: #333; font-weight: bold">rax</span>
+	<span style="color: #ff1493; font-weight: bold">mov</span> <span style="color: #333; font-weight: bold">rsi</span>, <span style="color: #008200">message</span>
+	<span style="color: #ff1493; font-weight: bold">mov</span> <span style="color: #333; font-weight: bold">rdx</span>, <span style="color: #008200">length</span>
+	<span style="color: #ff1493; font-weight: bold">syscall</span>
 
-			<p>In the previous chapter, we learnt about Java, how it is platform-independent, the compiler, interpreter, OOP, POP, and a brief introduction for the 4 main principles of OOP.<br>That was a great start, so now let's proceed further and explore the fundamental concepts of classes and objects.</p>
+	<span style="color: #ff1493; font-weight: bold">push</span> <span style="color: #a0f">0x3c</span>
+	<span style="color: #ff1493; font-weight: bold">pop</span> <span style="color: #333; font-weight: bold">rax</span>
+	<span style="color: #ff1493; font-weight: bold">xor</span> <span style="color: #333; font-weight: bold">rdi</span>, <span style="color: #333; font-weight: bold">rdi</span>
+	<span style="color: #ff1493; font-weight: bold">syscall</span>
 
-			<hr>
-			<b>NOTE : THIS TUTORIAL WILL GUIDE YOU  IN WRITING YOUR FIRST `HELLO WORD` PROGRAM!<br>	SO BE SURE TO READ TILL THE END!</b>
-			<hr>
-
-			<span id="Introduction" class="secLink"></span><h2>Introduction</h2>
-			<p>In Java, every line of code is written within a class. A class serves as a template for creating similar kind of objects.</p>
-
-			<p>As of now you can understand that class is a container for all data [ variables ] and code [ functions ] & an object is a reference to a class.</p>
-
-			<p>So now let's study the details of an object</p>
-			
-			<span id="Object" class="secLink"></span><h2>Object</h2>
-
-			<p>An object is the most <underline>basic unit</underline> of an Object Oriented Programming (OOP) language. In OOP, attempts are made to <underline>split a task into multiple classes which can be referenced as Objects</underline>.</p>
-
-			
-		</div>
-	</div>
+<span style="color: #008200">message</span> <span style="color: #006699; font-weight: bold">db</span> <span style="color: #006699">"Test"</span>, <span style="color: #a0f">0xa</span>
+<span style="color: #008200">length</span> <span style="color: #006699; font-weight: bold">equ</span> <span style="color: #008200">$</span>-<span style="color: #008200">message</span></div>
+            </pre>
+            <div class="note">The above code is not of Java so it's not necessary to understand it.</div>
+            <p>What you can see above is probably the simplest x64 NASM assembly code [ INTEL SYNTAX ]. Understanding the code isn't important because this is not Java so it's better to not focus on it. But the reason I've included it here is that, assembly is a POP language and you can see above, how everything is just written openly and not enclosed in any function or class.</p>
+            <div class="note">What you see above as 'init', 'message' and so on, are not function and data but rather just labels for the linker to process information better.</div>
+            <p>Thus unlike procedural languages, in OOP <underline>attempts are made to split a task into multiple classes</underline>.</p>
+            <span id="Introduction" class="secLink"></span>
+            <h2>Class</h2>
+            <p>Suppose we have a <underline style="letter-spacing: 1px">School Management Program</underline>. The whole school can be divided into many <underline>sectors</underline>, which in Java can be understood as a <underline>class</underline>. Like :-</p>
+            <ul class="points">
+                <li style="line-height: 2rem">Class: <underline style="font-style: italic">Students</underline>
+                </li>
+                <li style="line-height: 2rem">Class: <underline style="font-style: italic">Teachers</underline>
+                </li>
+                <li style="line-height: 2rem">Class: <underline style="font-style: italic">Non-teaching staff</underline>
+                </li>
+                <li style="line-height: 2rem">Class: <underline style="font-style: italic">Extracurricular activity coaches</underline>
+                </li>
+                <li style="line-height: 2rem">Class: <underline style="font-style: italic">School fees and biling</underline>
+                </li>
+            </ul>
+            <p>Each of these classes will have to store some data and functions like :-</p>
+            <ul class="points">
+                <li style="line-height: 2rem">Class: <underline style="font-style: italic">Students</underline>
+                </li>
+                <li class="subdiv" style="line-height: 2rem">Data: <underline style="font-style: italic">Name, age, standard, division, subjects, ...</underline>
+                </li>
+                <li class="subdiv" style="line-height: 2rem">Functions: <underline style="font-style: italic">FeesPaid<span style="font-family: 'Source Code Pro'">()</span>, AssignmentsSubmitted<span style="font-family: 'Source Code Pro'">()</span>, CalculateMarks<span style="font-family: 'Source Code Pro'">()</span>, Attendance<span style="font-family: 'Source Code Pro'">()</span>, ...</underline>
+                </li>
+                <li style="line-height: 2rem">Class: <underline style="font-style: italic">Teachers</underline>
+                </li>
+                <li class="subdiv" style="line-height: 2rem">Data: <underline style="font-style: italic">XXXXXXXXX, XXXXXXXXX, XXXXXXXXX, ...</underline>
+                </li>
+                <li class="subdiv" style="line-height: 2rem">Functions: <underline style="font-style: italic">YYYYYY<span style="font-family: 'Source Code Pro'">()</span>, YYYYYY<span style="font-family: 'Source Code Pro'">()</span>, YYYYYY<span style="font-family: 'Source Code Pro'">()</span>, ...</underline>
+                </li>
+                <li style="line-height: 2rem">Class: <underline style="font-style: italic">Non-teaching staff</underline>
+                </li>
+                <li class="subdiv" style="line-height: 2rem">Data: <underline style="font-style: italic">XXXXXXXXX, XXXXXXXXX, XXXXXXXXX, ...</underline>
+                </li>
+                <li class="subdiv" style="line-height: 2rem">Functions: <underline style="font-style: italic">YYYYYY<span style="font-family: 'Source Code Pro'">()</span>, YYYYYY<span style="font-family: 'Source Code Pro'">()</span>, YYYYYY<span style="font-family: 'Source Code Pro'">()</span>, ...</underline>
+                </li>
+                <li style="line-height: 2rem">Class: <underline style="font-style: italic">Extracurricular activity coaches</underline>
+                </li>
+                <li class="subdiv" style="line-height: 2rem">Data: <underline style="font-style: italic">XXXXXXXXX, XXXXXXXXX, XXXXXXXXX, ...</underline>
+                </li>
+                <li class="subdiv" style="line-height: 2rem">Functions: <underline style="font-style: italic">YYYYYY<span style="font-family: 'Source Code Pro'">()</span>, YYYYYY<span style="font-family: 'Source Code Pro'">()</span>, YYYYYY<span style="font-family: 'Source Code Pro'">()</span>, ...</underline>
+                </li>
+                <li style="line-height: 2rem">Class: <underline style="font-style: italic">School fees and biling</underline>
+                </li>
+                <li class="subdiv" style="line-height: 2rem">Data: <underline style="font-style: italic">XXXXXXXXX, XXXXXXXXX, XXXXXXXXX, ...</underline>
+                </li>
+                <li class="subdiv" style="line-height: 2rem">Functions: <underline style="font-style: italic">YYYYYY<span style="font-family: 'Source Code Pro'">()</span>, YYYYYY<span style="font-family: 'Source Code Pro'">()</span>, YYYYYY<span style="font-family: 'Source Code Pro'">()</span>, ...</underline>
+                </li>
+            </ul>
+            <div class="note">The <span style="background: #aaaa; padding: 5px 10px; font-family: 'Source Code Pro'">()</span> indicate that it is a function.</div>
+            <br />
+            <div class="note">I've just listed a few data & functions for you to get the gist, however in reality there will be much more to it.</div>
+        </div>
+    </div>
 </body>
+
 </html>

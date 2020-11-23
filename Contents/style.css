@@ -317,6 +317,12 @@
 	.points li {
 		line-height: 2rem;
 	}
+	.gridLayout {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: space-around;
+	}
 @media screen and (max-width: 768px) {
 	body {
     	font-size: 0.8rem;
