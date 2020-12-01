@@ -59,7 +59,7 @@
             <br>
             Let's take the below code for this example :-<br>
             <br>
-            <pre><div id="snip">                                                               
+            <pre><div class="snip">                                                               
 <font color="#55FFFF">#include</font> <font color="#FF55FF">&lt;stdio.h&gt;</font>
 
 <font color="#55FF55">int</font> main(<font color="#55FF55">int</font> argc, <font color="#55FF55">char const</font> *argv[]) {
@@ -69,18 +69,18 @@
 </div></pre>
             We will save it in a file called eg1.c and compile it using :-<br>
             <br>
-            <pre><div id="snip">
+            <pre><div class="snip">
 <b>root@kali</b>:<font color="#8181FF">~</font># gcc eg1.c -o eg1<br>
 </div></pre>
             Then on executing it, as expected 'VulnX' will be printed :-<br>
             <br>
-            <pre><div id="snip">
+            <pre><div class="snip">
 <b>root@kali</b>:<font color="#8181FF">~</font># ./eg1
 VulnX<br>
 </div></pre>
             So now let's quickly start this program with gdb and disassemble the main function :-<br>
             <br>
-            <pre><div id="snip">
+            <pre><div class="snip">
 <b>root@kali</b>:<font color="#8181FF">~</font># gdb ./eg1 -q
 Reading symbols from <font color="#0f0">./eg1</font>...
 (No debugging symbols found in ./eg1)
@@ -109,7 +109,7 @@ End of assembler dump.
                     <br>
                     So the first argument of printf is the format specifier or simply in our case the string which we had to print. Now if we type this :-<br>
                     <br>
-                    <pre><div id="snip">
+                    <pre><div class="snip">
 (gdb) x/s 0x2004
 <font color="#8181FF">0x2004</font>: "VulnX"
 (gdb) <br>
@@ -135,7 +135,7 @@ End of assembler dump.
                 <br>
                 Let's take the below code for this example :-<br>
                 <br>
-                <pre><div id="snip">
+                <pre><div class="snip">
 <font color="#55FFFF">#include</font> <font color="#FF55FF">&lt;stdio.h&gt;</font>
 
 <font color="#55FF55">int</font> main(<font color="#55FF55">int</font> argc, <font color="#55FF55">char const</font> *argv[]) {
@@ -149,18 +149,18 @@ End of assembler dump.
 </div></pre>
                 We will save it in eg2.c and compile it using :-<br>
                 <br>
-                <pre><div id="snip">
+                <pre><div class="snip">
 <b>root@kali</b>:<font color="#8181FF">~</font># gcc eg2.c -o eg2<br>
 </div></pre>
                 Now if we run the executable, we will get the desired output, we print the values of all the variables :-<br>
                 <br>
-                <pre><div id="snip">
+                <pre><div class="snip">
 <b>root@kali</b>:<font color="#8181FF">~</font># ./eg2
 A = 1, B = 5 , C = 48<br>
 </div></pre>
                 So now let's quickly open this with GDB and disass. the main function :-<br>
                 <br>
-                <pre><div id="snip">
+                <pre><div class="snip">
 <b>root@kali</b>:<font color="#8181FF">~</font># gdb ./eg2 -q
 Reading symbols from <font color="#0f0">./eg2</font>...
 (No debugging symbols found in ./eg2)
@@ -214,7 +214,7 @@ End of assembler dump.
                     And now things seem to get clear, the string which is getting printed probably is a format specifier and so the following arguments [a, b & c] are placed in the argument registers [rsi, rdx, rcx respectively] and then the function is called to print out all of this together.<br>
                     For further confirmation, the first argument[format specifier] is placed in rdi. We know that the control is moving '0x2004' in rdi, so if we analyse it we get :-<br>
                     <br>
-                    <pre><div id="snip">
+                    <pre><div class="snip">
 (gdb) x/s 0x2004<br>
 <font color="#8181FF">0x2004</font>:  "A = %d, B = %d , C = %d\n"<br>
 (gdb) <br>

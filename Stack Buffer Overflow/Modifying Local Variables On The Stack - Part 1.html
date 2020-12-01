@@ -58,7 +58,7 @@
             So in this tutorial, we will be learning about how we can modify local variables using the Buffer Overflow vulnerability. So without further ado let's start.
             <h2 style="color: #3b3b3b;">STEP-1 : Analyze the program logic & vulnerability</h2>
             So this step is very important. In this tutorial, you have been provided with the C program given below :-
-            <pre><div id="snip"><b><font color="#aaa">//  File name     : controlLocalVariable.c
+            <pre><div class="snip"><b><font color="#aaa">//  File name     : controlLocalVariable.c
 //  Compile with  : gcc controlLocalVariable.c -m64 -o controlLocalVariable.elf</font>
 
 <font color="#55FFFF">#include</font> <font color="#FF55FF">&lt;stdio.h&gt;</font>
@@ -85,13 +85,13 @@
             Okay it seems difficult to approach this problem from the user's point of view. So let's proceed and check the computer's perspective
             <h3 style="color: #3b3b3b;">1.2 : Understanding the computer's perspective for the program</h3>
             So the computer will first create a stack frame for the main function and then subtract 4 bytes from the Stack Pointer and push it upwards to reserve space for that integer [ 4 byte ] variable. After executing 'const int value = 1501;' the stack should look somewhat like this :-
-            <pre><div id="snip"><font face="Fira Code"> ________________
+            <pre><div class="snip"><font face="Fira Code"> ________________
 |      0x5dd     |  <-- RSP [currently pointing to int variable with value 0x5dd or 1501, offset = RBP-0x4]
 |________________|
 | 0x7fffffffde32 |  <-- RBP
 |________________|</font></div></pre>
             So it's clear that the integer variable is just above the base of the stack. Anyway, let's proceed further. So the CPU now subtracts some bytes further from the Stack Pointer and pushes it further upward creating more space in the memory for the string buffer. So after executing the 'char buffer[64];', the stack should look somewhat like this :-
-            <pre><div id="snip"><font face="Fira Code"> ________________
+            <pre><div class="snip"><font face="Fira Code"> ________________
 |   EMPTY SPACE  |  <-- RSP [currently pointing to the start of the empty space reserved for the user input]
 |      FOR       |
 |      INPUT     |
@@ -111,15 +111,15 @@
             So to sum it all up, all we have to do is, feed more input to the program than it was expecting. Obviously the stack layout which I have shown above is not 100% accurate so there will be some data and space between the string buffer and the integer variable, but that won't be a problem because we can overwrite that as well. So the proceedure is simple, first we compile the program and then run it with argv[1] having 100 bytes [ because it is more than 64 so that will be overwritten to the integer variable and it will be changed from 0x5dd to the hexadecimal representation of the character overflowed ].
             <h2 style="color: #3b3b3b;">STEP-2 : Compiling and modifying 'value'</h2>
             Now let's compile to program with the command commented in the source code :-
-            <pre><div id="snip"><b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># gcc controlLocalVariable.c -m64 -o controlLocalVariable.elf
+            <pre><div class="snip"><b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># gcc controlLocalVariable.c -m64 -o controlLocalVariable.elf
 <b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font>#</div></pre>
             And now before we exploit the program, first let's test it with normal input :-
-            <pre><div id="snip"><b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># ./controlLocalVariable.elf ABCD
+            <pre><div class="snip"><b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># ./controlLocalVariable.elf ABCD
 Copying argv[1] to buffer ...
 Nope! You were not given the access.
 </div></pre>
             So it's clear that the first argument after the filename [ ABCD in this case ] is copied to the buffer and since it is not overflowed so the int variable is not modified hence we aren't greeted with argv[1]. Now let's pass on about 100 times the character 'X' [ because every character is of one byte and you can alternatively choose any other character as well ] :-
-            <pre><div id="snip"><b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># ./controlLocalVariable.elf `python3 -c 'print("X" * 100)'`
+            <pre><div class="snip"><b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># ./controlLocalVariable.elf `python3 -c 'print("X" * 100)'`
 Copying argv[1] to buffer ...
 <b>Hello XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</b>
 Nope! You were not given the access.
@@ -170,7 +170,7 @@ Segmentation fault
         <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/'">Home</p>
         <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/resources.html'">Resources</p>
         <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/tutorials.html'">Tutorials</p>
-        <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/ctfs.html'">CTFs</p>
+        <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/CTFs.html'">CTFs</p>
         <h1 id="footerHeading" style="background-color: transparent; font-family: 'Ubuntu';">Contact</h1>
         <i class="fab fa-facebook-f" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='#'"></i>
         <i class="fab fa-google" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='mailto:vulnx101@gmail.com'"></i>

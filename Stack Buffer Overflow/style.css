@@ -8,10 +8,11 @@
     text-align: right;
 }
 
-/*	For Destop	*/
+/*  For Destop  */
 
 body {
     margin: 0;
+    line-height: 2rem;
 }
 
 html {
@@ -50,10 +51,11 @@ img::-moz-selection {
     height: auto;
 }
 
-#snip {
+.snip {
     background-color: #2f2f2f;
     color: white;
     font-size: 0.7rem;
+    line-height: normal;
     border-radius: 5px;
     padding: 15px;
     border: 2px solid #2f2f2f;
@@ -61,11 +63,11 @@ img::-moz-selection {
     font-family: 'Source Code Pro';
 }
 
-#snip::-webkit-scrollbar {
+.snip::-webkit-scrollbar {
     display: none;
 }
 
-#snip {
+.snip {
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
@@ -435,7 +437,11 @@ ul.topnav .x li a.active {
     box-shadow: 0 2px 5px rgba(0, 140, 255, 1);
 }
 
-#points::before {
+.points {
+    list-style-type: none;
+}
+
+.points li::before {
     content: "\2022";
     color: #07f;
     font-weight: bold;
@@ -446,11 +452,11 @@ ul.topnav .x li a.active {
 
 #quote {
     background-color: #f0f0f0;
+    font-size: .7rem;
     padding: 20px;
     border-left: 5px solid #0004;
-    border-radius: 5px;
-    font-family: monospace;
-    word-break: break-all;
+    font-family: 'Source Code Pro';
+    overflow-wrap: break-word;
 }
 
 #contactForm {
@@ -517,7 +523,11 @@ ul.topnav .x li a.active {
         font-size: 0.8rem;
     }
 
-    #snip {
+    .snip {
+        font-size: 0.6rem;
+    }
+
+    #quote {
         font-size: 0.6rem;
     }
 

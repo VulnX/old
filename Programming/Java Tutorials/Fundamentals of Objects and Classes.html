@@ -14,6 +14,49 @@
     <meta charset="utf-8">
     <meta name="keywords" content="VulnX, vulnx, vulnx.in, VulnX.in, hacking, Hacking, programming, java, tutorials, java tutorials, classes, objects, classes and objects, Fundamentals, Fundamentals of classes and objects, Fundamentals of objects and classes, basics of classes, basics of objects, java basics, how to learn java, how to learn programming, what is object, whart is classes, introduction to objects and classes, hello world, hello world in java, first java program">
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167461836-1"></script>
+    <style type="text/css">
+    .zigZagLayout {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 50px 0;
+        border-top: thin solid black;
+        border-bottom: thin solid black;
+    }
+
+    .row {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .reverse {
+        flex-direction: row-reverse;
+    }
+
+    .row div {
+        width: 45%;
+        padding: 20px;
+        word-wrap: break-word;
+    }
+
+    .row div:nth-child(2) {
+        display: flex;
+        justify-content: center;
+    }
+
+    @media screen and (max-width: 768px) {
+        .row {
+            flex-direction: column-reverse;
+        }
+
+        .row div {
+            width: 100%;
+            padding: 20px 0;
+        }
+    }
+    </style>
 </head>
 
 <body>
@@ -47,7 +90,18 @@
         <center>
             <h1 style="color: #1b1b1b;">Classes and Objects</h1>
         </center>
-        <div id="tutorialContent">
+        <div class="tutorialContent">
+            <div id="sharePDF" onclick="location.href='https://drive.google.com/file/d/1RhFW2uxK4F8-IFTe2gXjN-mm6R5jOF5v/view?usp=sharing'"><i class="fas fa-file-pdf"></i><span>Download as PDF</span></div>
+            <h2>Contents of the tutorial</h2>
+            <ul class="points">
+                <li><a style="display: inline-block; margin: 5px 0" href="#Introduction" class="link">Introduction</a></li>
+                <li><a style="display: inline-block; margin: 5px 0" href="#Basics-of-Object" class="link">Basics of Object</a></li>
+                <li><a style="display: inline-block; margin: 5px 0" href="#Basics-of-Class" class="link">Basics of Class</a></li>
+                <li><a style="display: inline-block; margin: 5px 0" href="#Object" class="link">Object</a></li>
+                <li><a style="display: inline-block; margin: 5px 0" href="#Message-Passing" class="link">Message Passing</a></li>
+                <li><a style="display: inline-block; margin: 5px 0" href="#Class" class="link">Class</a></li>
+                <li><a style="display: inline-block; margin: 5px 0" href="#Writing-your-first-Java-program" class="link">First Java Program</a></li>
+            </ul>
             Hey guys!<br />
             Welcome to the <b>second lesson</b> of <i><u>Java Programming</u></i>.
             <p>In the previous chapter, we learnt about Java, how it is platform-independent, the compiler, interpreter, OOP, POP, and a brief introduction for the 4 main principles of OOP.<br />That was a great start, so now let's proceed further and explore the fundamental concepts of classes and objects.</p>
@@ -58,38 +112,35 @@
             <h2>Introduction</h2>
             <p>In Java, every line of code is written within a class. A class serves as a template for creating similar kind of objects.</p>
             <p>As of now you can understand that class is a container for all data [ variables ] and code [ functions ] & an object is a reference to a class.</p>
-            <p>So now let's study the details of an object</p>
-            <span id="Object" class="secLink"></span>
-            <h2>Object</h2>
+            <span id="Basics-of-Object" class="secLink"></span>
+            <h2>Basics - Object</h2>
             <p>An object is the most <underline>basic unit</underline> of an Object Oriented Programming (OOP) language. In Procedure Oriented Programming (POP) languages, the whole code is written at a single place without enclosing it in any function or class. Like the example given below :-</p>
-            <pre>
-            	<div class="code"><span style="color: #006699; font-weight: bold">section</span> <span style="color: #008200">.text</span>
+            <pre><div class="code"><span style="color: #006699; font-weight: bold">section</span> <span style="color: #008200">.text</span>
 
 <span style="color: #006699; font-weight: bold">global</span> <span style="color: #008200">init</span>
 
 <span style="color: #008200">init:</span>
 
-	<span style="color: #ff1493; font-weight: bold">push</span> <span style="color: #a0f">0x1</span>
-	<span style="color: #ff1493; font-weight: bold">pop</span> <span style="color: #333; font-weight: bold">rax</span>
-	<span style="color: #ff1493; font-weight: bold">mov</span> <span style="color: #333; font-weight: bold">rdi</span>, <span style="color: #333; font-weight: bold">rax</span>
-	<span style="color: #ff1493; font-weight: bold">mov</span> <span style="color: #333; font-weight: bold">rsi</span>, <span style="color: #008200">message</span>
-	<span style="color: #ff1493; font-weight: bold">mov</span> <span style="color: #333; font-weight: bold">rdx</span>, <span style="color: #008200">length</span>
-	<span style="color: #ff1493; font-weight: bold">syscall</span>
+    <span style="color: #ff1493; font-weight: bold">push</span> <span style="color: #a0f">0x1</span>
+    <span style="color: #ff1493; font-weight: bold">pop</span> <span style="color: #333; font-weight: bold">rax</span>
+    <span style="color: #ff1493; font-weight: bold">mov</span> <span style="color: #333; font-weight: bold">rdi</span>, <span style="color: #333; font-weight: bold">rax</span>
+    <span style="color: #ff1493; font-weight: bold">mov</span> <span style="color: #333; font-weight: bold">rsi</span>, <span style="color: #008200">message</span>
+    <span style="color: #ff1493; font-weight: bold">mov</span> <span style="color: #333; font-weight: bold">rdx</span>, <span style="color: #008200">length</span>
+    <span style="color: #ff1493; font-weight: bold">syscall</span>
 
-	<span style="color: #ff1493; font-weight: bold">push</span> <span style="color: #a0f">0x3c</span>
-	<span style="color: #ff1493; font-weight: bold">pop</span> <span style="color: #333; font-weight: bold">rax</span>
-	<span style="color: #ff1493; font-weight: bold">xor</span> <span style="color: #333; font-weight: bold">rdi</span>, <span style="color: #333; font-weight: bold">rdi</span>
-	<span style="color: #ff1493; font-weight: bold">syscall</span>
+    <span style="color: #ff1493; font-weight: bold">push</span> <span style="color: #a0f">0x3c</span>
+    <span style="color: #ff1493; font-weight: bold">pop</span> <span style="color: #333; font-weight: bold">rax</span>
+    <span style="color: #ff1493; font-weight: bold">xor</span> <span style="color: #333; font-weight: bold">rdi</span>, <span style="color: #333; font-weight: bold">rdi</span>
+    <span style="color: #ff1493; font-weight: bold">syscall</span>
 
 <span style="color: #008200">message</span> <span style="color: #006699; font-weight: bold">db</span> <span style="color: #006699">"Test"</span>, <span style="color: #a0f">0xa</span>
-<span style="color: #008200">length</span> <span style="color: #006699; font-weight: bold">equ</span> <span style="color: #008200">$</span>-<span style="color: #008200">message</span></div>
-            </pre>
+<span style="color: #008200">length</span> <span style="color: #006699; font-weight: bold">equ</span> <span style="color: #008200">$</span>-<span style="color: #008200">message</span></div></pre>
             <div class="note">The above code is not of Java so it's not necessary to understand it.</div>
             <p>What you can see above is probably the simplest x64 NASM assembly code [ INTEL SYNTAX ]. Understanding the code isn't important because this is not Java so it's better to not focus on it. But the reason I've included it here is that, assembly is a POP language and you can see above, how everything is just written openly and not enclosed in any function or class.</p>
             <div class="note">What you see above as 'init', 'message' and so on, are not function and data but rather just labels for the linker to process information better.</div>
             <p>Thus unlike procedural languages, in OOP <underline>attempts are made to split a task into multiple classes</underline>.</p>
-            <span id="Introduction" class="secLink"></span>
-            <h2>Class</h2>
+            <span id="Basics-of-Class" class="secLink"></span>
+            <h2>Basics - Class</h2>
             <p>Suppose we have a <underline style="letter-spacing: 1px">School Management Program</underline>. The whole school can be divided into many <underline>sectors</underline>, which in Java can be understood as a <underline>class</underline>. Like :-</p>
             <ul class="points">
                 <li style="line-height: 2rem">Class: <underline style="font-style: italic">Students</underline>
@@ -138,8 +189,314 @@
             </ul>
             <div class="note">The <span style="background: #aaaa; padding: 5px 10px; font-family: 'Source Code Pro'">()</span> indicate that it is a function.</div>
             <br />
-            <div class="note">I've just listed a few data & functions for you to get the gist, however in reality there will be much more to it.</div>
+            <div class="note">I've just listed a few data & functions for you to get the gist, however in reality there will be much more to it since a school has to deal with many more classes, data and functions.</div>
+            <p>So, now that we are aware of the fundamental concept of Classes and Objects, let's dive deeper into the details of what an Object is.</p>
         </div>
+        <hr />
+        <span id="Object"></span>
+        <h2>Object</h2>
+        <p>Every class has certain :-</p>
+        <ul class="points">
+            <li style="line-height: 2rem">
+                <underline>Characterics</underline>
+            </li>
+            <li style="line-height: 2rem">
+                <underline>Behaviour</underline>
+            </li>
+        </ul>
+        <p>which in programming terms can be said as</p>
+        <ul class="points">
+            <li style="line-height: 2rem">
+                <underline>Data members [ variables <i class="fas fa-long-arrow-alt-right"></i> used to store data ]</underline>
+            </li>
+            <li style="line-height: 2rem">
+                <underline>Member methods [ functions <i class="fas fa-long-arrow-alt-right"></i> used to process information with the help of data (Data members) ]</underline>
+            </li>
+        </ul>
+        <p>so as I said an <underline>object is a reference point</underline> to a class so all properties of a class are <underline>naturally owned by it's object</underline>. So even an object has</p>
+        <ul class="points">
+            <li style="line-height: 2rem">
+                <underline>Characterics</underline>
+            </li>
+            <li style="line-height: 2rem">
+                <underline>Behaviour</underline>
+            </li>
+        </ul>
+        <p>which in programming terms can be said as</p>
+        <ul class="points">
+            <li style="line-height: 2rem">
+                <underline>Data members [ variables <i class="fas fa-long-arrow-alt-right"></i> used to store data ]</underline>
+            </li>
+            <li style="line-height: 2rem">
+                <underline>Member methods [ functions <i class="fas fa-long-arrow-alt-right"></i> used to process information with the help of data (Data members) ]</underline>
+            </li>
+        </ul>
+        <p>So, let's take a few real-world examples of objects and try to list a few <underline>Characteristics</underline> & <underline>Behaviours</underline>.</p>
+        <br />
+        <div class="zigZagLayout">
+            <div class="row">
+                <div>
+                    <p>What you see aside is obviously a mobile phone. Let's list a few of it's <underline>Characteristics</underline> & <underline>Behaviours</underline>.</p>
+                    <p style="color: #000; letter-spacing: 2px; font-family: 'Source Code Pro'">Characterics</p>
+                    <ul class="points">
+                        <li>Colour</li>
+                        <li>RAM</li>
+                        <li>Storage</li>
+                        <li>Camera Mega-Pixels</li>
+                        <li>Processor type</li>
+                        <li>...</li>
+                    </ul>
+                    <p style="color: #000; letter-spacing: 2px; font-family: 'Source Code Pro'">Behaviours</p>
+                    <ul class="points">
+                        <li>Used to talk over calls</li>
+                        <li>Used to install apps and use them</li>
+                        <li>Used for net banking</li>
+                        <li>Used for chatting</li>
+                        <li>...</li>
+                    </ul>
+                </div>
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000" width="75%" height="75%">
+                        <defs>
+                            <image width="2000" height="2000" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAB9AAAAfQAQMAAACg9lY6AAAAAXNSR0IB2cksfwAAAANQTFRF////p8QbyAAAAf1JREFUeJztwQENAAAAwqD3T20ON6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4NqlZAAGnxg2hAAAAAElFTkSuQmCC" />
+                        </defs>
+                        <style>
+                        tspan {
+                            white-space: pre
+                        }
+
+                        .shp0 {
+                            fill: #0099ff
+                        }
+                        </style>
+                        <use id="Background" href="#img1" x="0" y="0" />
+                        <path id="Shape 1" class="shp0" d="M1000.5 1887.07C972.05 1887.07 947.69 1875.35 927.45 1851.86C907.18 1828.4 897.06 1800.17 897.06 1767.2C897.06 1734.23 907.18 1706.02 927.45 1682.54C947.69 1659.08 972.05 1647.32 1000.5 1647.32C1028.95 1647.32 1053.29 1659.08 1073.55 1682.54C1093.8 1706.02 1103.94 1734.23 1103.94 1767.2C1103.94 1800.17 1093.8 1828.4 1073.55 1851.86C1053.29 1875.35 1028.95 1887.07 1000.5 1887.07ZM1360.59 1561.16C1352.39 1570.67 1342.69 1575.4 1331.5 1575.4L669.5 1575.4C658.29 1575.4 648.59 1570.67 640.41 1561.16C632.21 1551.68 628.12 1540.44 628.12 1527.45L628.12 472.55C628.12 459.58 632.21 448.34 640.41 438.84C648.59 429.35 658.29 424.6 669.5 424.6L1331.5 424.6C1342.69 424.6 1352.39 429.35 1360.59 438.84C1368.77 448.34 1372.87 459.58 1372.87 472.55L1372.87 1527.45C1372.87 1540.44 1368.77 1551.68 1360.59 1561.16ZM1103.94 280.75L897.06 280.75C883.26 280.75 876.37 272.77 876.37 256.77C876.37 240.81 883.26 232.8 897.06 232.8L1103.94 232.8C1117.72 232.8 1124.62 240.81 1124.62 256.77C1124.62 272.77 1117.72 280.75 1103.94 280.75L1103.94 280.75ZM1447.87 97.94C1415.1 59.99 1376.31 41 1331.5 41L669.5 41C624.67 41 585.88 59.99 553.13 97.94C520.36 135.92 504 180.87 504 232.8L504 1767.2C504 1819.15 520.36 1864.11 553.13 1902.06C585.88 1940.04 624.67 1959 669.5 1959L1331.5 1959C1376.31 1959 1415.1 1940.04 1447.87 1902.06C1480.62 1864.11 1497 1819.15 1497 1767.2L1497 232.8C1497 180.87 1480.62 135.92 1447.87 97.94Z" />
+                    </svg>
+                </div>
+            </div>
+            <div class="row reverse">
+                <div>
+                    <p>Let's list a few <underline>Characteristics</underline> & <underline>Behaviours</underline> of this camera.</p>
+                    <p style="color: #000; letter-spacing: 2px; font-family: 'Source Code Pro'">Characterics</p>
+                    <ul class="points">
+                        <li>Megapixel count</li>
+                        <li>Image quality</li>
+                        <li>Shutter lag and startup time</li>
+                        <li>Size, weight, and design</li>
+                        <li>Zoom lens and image stabilization</li>
+                        <li>Storage</li>
+                        <li>...</li>
+                    </ul>
+                    <p style="color: #000; letter-spacing: 2px; font-family: 'Source Code Pro'">Behaviours</p>
+                    <ul class="points">
+                        <li>Used to click pictures</li>
+                        <li>Used to record images</li>
+                    </ul>
+                </div>
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000" width="75%" height="75%">
+                        <style>
+                        tspan {
+                            white-space: pre
+                        }
+
+                        .shp0 {
+                            fill: #0099ff
+                        }
+                        </style>
+                        <path id="Shape 1" class="shp0" d="M737.5 1134.62C737.5 1218.06 763.16 1289.39 814.52 1348.63C865.86 1407.89 927.68 1437.5 1000 1437.5C1072.3 1437.5 1134.13 1407.89 1185.48 1348.63C1236.82 1289.39 1262.5 1218.06 1262.5 1134.62C1262.5 1051.19 1236.82 979.85 1185.48 920.6C1134.13 861.36 1072.3 831.73 1000 831.73C927.68 831.73 865.86 861.36 814.52 920.6C763.16 979.85 737.5 1051.19 737.5 1134.62ZM1437.5 394.23L1391.02 251.2C1379.47 216.86 1358.35 187.23 1327.67 162.33C1296.98 137.46 1265.53 125 1233.33 125L766.67 125C734.45 125 703.01 137.46 672.33 162.33C641.64 187.23 620.52 216.86 608.98 251.2L562.5 394.23L358.33 394.23C293.92 394.23 238.93 420.52 193.36 473.11C147.79 525.69 125 589.15 125 663.46L125 1605.77C125 1680.09 147.79 1743.54 193.36 1796.12C238.93 1848.71 293.92 1875 358.33 1875L1641.67 1875C1706.07 1875 1761.07 1848.71 1806.64 1796.12C1852.21 1743.54 1875 1680.09 1875 1605.77L1875 663.46C1875 589.15 1852.21 525.69 1806.64 473.11C1761.07 420.52 1706.07 394.23 1641.67 394.23L1437.5 394.23ZM591.67 1134.62C591.67 1004.91 631.61 893.96 711.52 801.76C791.42 709.57 887.58 663.46 1000 663.46C1112.41 663.46 1208.57 709.57 1288.48 801.76C1368.37 893.96 1408.33 1004.91 1408.33 1134.62C1408.33 1264.33 1368.37 1375.29 1288.48 1467.47C1208.57 1559.68 1112.41 1605.77 1000 1605.77C887.58 1605.77 791.42 1559.68 711.52 1467.47C631.61 1375.29 591.67 1264.33 591.67 1134.62Z" />
+                    </svg>
+                </div>
+            </div>
+            <div class="row">
+                <div>
+                    <p>What you can see aside looks somewhat like a calculator. Let's list a few of it's <underline>Characteristics</underline> & <underline>Behaviours</underline>.</p>
+                    <p style="color: #000; letter-spacing: 2px; font-family: 'Source Code Pro'">Characterics</p>
+                    <ul class="points">
+                        <li>Colour</li>
+                        <li>Number of step-checks</li>
+                        <li>Types of calculations supported</li>
+                        <li>...</li>
+                    </ul>
+                    <p style="color: #000; letter-spacing: 2px; font-family: 'Source Code Pro'">Behaviours</p>
+                    <ul class="points">
+                        <li>Used for arithematic calculations</li>
+                    </ul>
+                </div>
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000" width="75%" height="75%">
+                        <defs>
+                            <image width="2000" height="2000" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAB9AAAAfQAQMAAACg9lY6AAAAAXNSR0IB2cksfwAAAANQTFRF////p8QbyAAAAf1JREFUeJztwQENAAAAwqD3T20ON6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4NqlZAAGnxg2hAAAAAElFTkSuQmCC" />
+                        </defs>
+                        <style>
+                        tspan {
+                            white-space: pre
+                        }
+
+                        .shp0 {
+                            fill: #0099ff
+                        }
+
+                        .shp1 {
+                            fill: #ffffff
+                        }
+
+                        .shp2 {
+                            fill: #ffffff;
+                            stroke: #0099ff;
+                            stroke-linejoin: round;
+                            stroke-width: 30
+                        }
+                        </style>
+                        <use id="Background" href="#img1" x="0" y="0" />
+                        <path id="Shape 1" class="shp0" d="M1667.48 199.02C1612.46 133.01 1546.22 100 1468.75 100L531.25 100C453.77 100 387.53 133.01 332.52 199.02C277.5 265.05 250 344.54 250 437.5L250 1562.5C250 1655.48 277.5 1734.97 332.52 1800.98C387.53 1866.99 453.77 1900 531.25 1900L1468.75 1900C1546.22 1900 1612.46 1866.99 1667.48 1800.98C1722.49 1734.97 1750 1655.48 1750 1562.5L1750 437.5C1750 344.54 1722.49 265.05 1667.48 199.02Z" />
+                        <path id="Shape 2" class="shp1" d="M1645.23 221.27C1592.04 157.1 1528.01 125 1453.13 125L546.88 125C471.97 125 407.94 157.1 354.77 221.27C301.58 285.47 275 362.74 275 453.12L275 1546.88C275 1637.27 301.58 1714.55 354.77 1778.73C407.94 1842.9 471.97 1875 546.88 1875L1453.13 1875C1528.01 1875 1592.04 1842.9 1645.23 1778.73C1698.41 1714.55 1725 1637.27 1725 1546.88L1725 453.12C1725 362.74 1698.41 285.47 1645.23 221.27Z" />
+                        <path id="Shape 3" class="shp2" d="M350 348L1650 348L1650 648L350 648L350 348Z" />
+                        <path id="Shape 4" class="shp2" d="M390 741L540 741L540 891L390 891L390 741Z" />
+                        <path id="Shape 4 copy" class="shp2" d="M390 1089L540 1089L540 1239L390 1239L390 1089Z" />
+                        <path id="Shape 4 copy 2" class="shp2" d="M390 1422L540 1422L540 1572L390 1572L390 1422Z" />
+                        <path id="Shape 4 copy 3" class="shp2" d="M940 741L1090 741L1090 891L940 891L940 741Z" />
+                        <path id="Shape 4 copy 4" class="shp2" d="M940 1089L1090 1089L1090 1239L940 1239L940 1089Z" />
+                        <path id="Shape 4 copy 5" class="shp2" d="M940 1422L1090 1422L1090 1572L940 1572L940 1422Z" />
+                        <path id="Shape 4 copy 6" class="shp2" d="M1437 735L1587 735L1587 885L1437 885L1437 735Z" />
+                        <path id="Shape 5" class="shp2" d="M1437 1047L1587 1047L1587 1547L1437 1547L1437 1047Z" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="tutorialContent">
+            <div class="note">An object is also often referred to as <underline>instance of a class</underline>.</div>
+            <br />
+            <div class="note">The process of object creation is called <underline>instantiation</underline>.</div>
+            <span id="Message-Passing"></span>
+            <h2>Message Passing</h2>
+            <p>Remember in the last tutorial, we had learnt about <a href="Introduction.html#Encapsulation" target="_blank" class="link">Encapsulation</a>, there we had understood that only the functions can communicate with each other and by no means can a function access the private data of another object. This is true, however in reality, it is not the function which directly communicates with the other functions, it is actually the objects with interact with each other, with the concept of <underline>Message Passing</underline>, allowing functions to call other functions and in turn allow them to use <underline>only the esssential data</underline>.</p>
+            <hr />
+            <span style="color: #f00"><sup>*</sup></span>Defination:<br />
+            <div style="margin-left: 1rem">Message Passing is the concept of interaction of objects with each other, allowing them to share and accept information for the better overall functioning of the program.</div>
+            <span id="Class"></span>
+            <hr />
+            <h2>Class</h2>
+            <p>We had read that, every sector in a school is a real-world illustration of a class. Let's take a better example,<br /></p>
+            <div style="margin-left: 2rem">
+                <span><i class="fas fa-long-arrow-alt-right"></i> A showroom of cars is a representation of a class</span><br /><br />
+                <span><i class="fas fa-long-arrow-alt-right"></i> Every car in the showroom has certain characteristics and behaviours, which are referred to as variables and functions respectively.</span><br /><br />
+                <span><i class="fas fa-long-arrow-alt-right"></i> The cars, here can be understood as objects</span><br /><br />
+                <span><i class="fas fa-long-arrow-alt-right"></i> Though each object [ car ] of the class [ showroom ] is unique, they posses some common information [ again, variables ] and carry a specific purpose [ again, functions ].</span><br /><br />
+                <span><i class="fas fa-long-arrow-alt-right"></i> So, essentially, the showroom can be understood as a template or a blueprint which supplies some common information to each object like :</span><br /><br />
+                <div style="border: thin solid #0004; background-color: #09f7; letter-spacing: 1px; color: #333">
+                    <ul class="points">
+                        <li>Colour</li>
+                        <li>Model Number</li>
+                        <li>Wheel type</li>
+                    </ul>
+                </div>
+                <br />
+                <span><i class="fas fa-long-arrow-alt-right"></i> Each car [ object ] will inherit these features from the showroom [ class ], however, they all will be different as in, every car may have a different colour, model number & wheel type.</span><br /><br />
+                <span><i class="fas fa-long-arrow-alt-right"></i> This way, all objects of the class are unique, but do inherit some common features [ data ] to perform very specific tasks [ functions ].</span><br /><br />
+            </div>
+            <p>Now, let's actually start writing our first program.</p>
+        </div>
+        <span id="Writing-your-first-Java-program"></span>
+        <h2>Writing your first Java Program</h2>
+        <p>Let's see how we can create a code to <span style="color: red"><sup>*</sup></span>print a line in Java.</p>
+        <div class="note"><span style="color: red"><sup>*</sup></span>print - here does not mean physically printing a line on paper, it means <underline>"displaying" a text sentence on the console</underline>.</div>
+        <p>The SYNTAX for printing a line on the console is as follows :</p>
+        <div class="code"><span style="color: #07f">System</span>.out.<span style="color: #07f">println</span>(<span style="color: #f0f">"<underline>&lt;TYPE HERE THE SENTENCE TO PRINT&gt;</underline>"</span>);</div>
+        <p>For example :</p>
+        <div class="code"><span style="color: #07f">System</span>.out.<span style="color: #07f">println</span>(<span style="color: #f0f">"Hello World!"</span>);</div>
+        <p>Note the SYNTAX properly.</p>
+        <table>
+            <tr>
+                <th>SYNTAX</th>
+                <th>Note</th>
+            </tr>
+            <tr>
+                <td>System</td>
+                <td>Keep in mind to write the 'S' in uppercase while the rest of the word in lowercase.<br />We use this to access the <underline>System library</underline> and it's other <underline>built-in functions</underline>.</td>
+            </tr>
+            <tr>
+                <td>out</td>
+                <td>The whole word will be in lowercase.<br />This is an object in the System library, we call this object in order to tell the computer to prepare for <underline style="border-color: #fff">out</underline>putting something.</td>
+            </tr>
+            <tr>
+                <td>println</td>
+                <td>println is a built-in system function so be sure to write it in this format ONLY.<br />We call this function to tell the computer to print [ in normal english, 'display' ] something on the console screen.</td>
+            </tr>
+            <tr>
+                <td>("<underline style="border-color: #fff">MESSAGE</underline>")</td>
+                <td style="line-height: 2rem">Remember, we had read earlier in this tutorial that a <span style="background: #fff; padding: 5px 10px; font-family: 'Source Code Pro'; color: #000">()</span> indicate a function?<br />Since println is a function, it will be followed by these <span style="background: #fff; padding: 5px 10px; font-family: 'Source Code Pro'; color: #000">()</span> , and the content to be printed is placed within these parenthesis.</td>
+            </tr>
+            <tr>
+                <td>"<underline style="border-color: #fff">MESSAGE</underline>"</td>
+                <td style="line-height: 2rem">Since the message we have to display to the console is a String [ basically a <underline>sentence</underline>, we will learn about Strings later ], we need to enclose it within the <span style="background: #0004; padding: 5px 10px; font-family: 'Source Code Pro'">""</span><br />If not done so, the computer won't be able to distinguish between a sentence and a variable<span style="color: #f00"><sup>*</sup></span>.</td>
+            </tr>
+            <tr>
+                <td>MESSAGE</td>
+                <td>This is the text to print, so you can replace it to whatever you want. So no restriction on anything :)</td>
+            </tr>
+            <tr>
+                <td><span style="font-family: 'Source Code Pro'">;</span></td>
+                <td>This is what most people miss!<br />Often they forget to add this <span style="font-family: 'Source Code Pro'">;</span> (semi-colon) in the end and the program fails to compile.<br />The <span style="font-family: 'Source Code Pro'">;</span> (semi-colon) is a line-terminator, every Java statement should end with a <span style="font-family: 'Source Code Pro'">;</span> (semi-colon).</td>
+            </tr>
+            <tr>
+                <td><span style="font-family: 'Source Code Pro'">.</span></td>
+                <td>Make sure to put a <span style="font-family: 'Source Code Pro'">.</span> (period) between System, out & println</td>
+            </tr>
+        </table>
+        <br />
+        <div class="note" style="line-height: 2rem"><span style="color: #f00"><sup>*</sup></span>For example you create a program to calculate the sum of a few numbers, then you store the sum of all numbers in a variable called <underline>sum</underline> to print it later on. Now if you print without the <span style="background: #aaaa; padding: 5px 10px; font-family: 'Source Code Pro'">""</span> it will be like :<br />System.out.println( <abbr title="Message to print">sum =</abbr> <abbr title="The + is used to separate a message and variable">+</abbr> <abbr title="The variable called 'sum'">sum</abbr> );<br />This doesn't make any sense even to the normal english, how will the computer be able to understand the difference between the <abbr title="Both the 'sum' [ variable, and the one used in 'sum = ' ]">sum</abbr>?<br />So to avoid this confusion, we need to enclose it within <span style="background: #aaaa; padding: 5px 10px; font-family: 'Source Code Pro'">""</span> .</div>
+        <p>Now write this line in the editor and try compiling it.</p>
+        <p>Did it work?<br />Obviously NOT! Reason?</p>
+        <p>The reason behind this is that, you can't simply write a line anywhere and expect the computer to execute it randomly. Every statement to be executed <underline>must be within a function and a function must be placed within a class</underline>. But the question here is that, in which function should we place this statement? In order to execute a statement, we need to place it within a function, but even that function <underline>won't execute until it is called</underline>. So the solution is, we need to place it in such a function that is called automatically by the computer when the program loads. Luckily we have a function called <underline>main</underline>
+        </p>
+        <p>So the complete structure of a basic Java program will be as follows</p>
+        <pre><div class="code"><span style="color: #07f">class</span> <span style="color: #0a0">ClassName</span> {
+    <span style="color: #f00">public static</span> <span style="color: #07f">void</span> <span style="color: #0a0">main</span>(<span style="color: #07f">String</span><span style="color: #f00">[]</span> <span style="color: #f50">args</span>) {
+        <span style="color: #999">// Statements here</span>
+    }
+}</div></pre>
+        <div class="note"><span style="color: #0a0">ClassName</span> can be changed in your case. It is not a keyword.</div>
+        <p>Rules to be kept in mind while naming a class</p>
+        <ul class="points">
+            <li>A class name should preferable always begin with an <underline>upper-case</underline> character.</li>
+            <li>A class name must <span style="color: #1b1b1b; font-family: 'Source Code Pro'">not</span> contain <underline>whitespace</underline>.</li>
+            <li class="subdiv">If more than one word has to be used in the class name then it can be done like this :<br />FirstSecond<br />First_Second</li>
+            <div class="note">Underscore(_) is used to separate the words and <span style="color: #1b1b1b; font-family: 'Source Code Pro'">not</span> minus sign(-).</div>
+            <li>A class name may be a <underline>mixed-case alphanumeric</underline> word.</li>
+            <li>A class name can<span style="color: #1b1b1b; font-family: 'Source Code Pro'">not</span> start from a digit like: <underline>1501abcClass</underline>.</li>
+            <li>No special symbols are permitted <underline>apart from underscore(_)</underline>.</li>
+        </ul>
+        <div class="note"><span style="color: #f00">public static</span> <span style="color: #07f">void</span> <span style="color: #0a0">main</span>(<span style="color: #07f">String</span><span style="color: #f00">[]</span> <span style="color: #f50">args</span>) cannot be changed. Each individual word of this statement will be explained in future tutorials for better understanding.</div>
+        <p>So let's write the final program to print "Hello World"</p>
+        <pre><div class="code"><span style="color: #07f">class</span> <span style="color: #0a0">Program</span> {
+    <span style="color: #f00">public static</span> <span style="color: #07f">void</span> <span style="color: #0a0">main</span>(<span style="color: #07f">String</span><span style="color: #f00">[]</span> <span style="color: #f50">args</span>) {
+        <span style="color: #999">// Call the <underline style="border-color: #999">println</underline> function through the <underline style="border-color: #999">out</underline> object of the <underline style="border-color: #999">System</underline> library.</span>
+        <span style="color: #07f">System</span>.out.<span style="color: #07f">println</span>(<span style="color: #f0f">"Hello World!"</span>);
+    }
+}</div></pre>
+        <p>Now you compile the program. The compiling process <underline>might</underline> differ between different IDEs, but I am using the command-line interface so I will compile it like this</p>
+        <pre><div class="code"><span style="font-weight: bold; color: #f00">$VulnX ❯</span> javac <underline>Program.java</underline>
+[+]    No Compilation Errors!</div></pre>
+        <p>Great, no errors in our program & it's successfully compiled. Now let's run our application & test if all went correct.</p>
+        <pre><div class="code"><span style="font-weight: bold; color: #f00">$VulnX ❯</span> java <underline>Program</underline>
+Hello World!</div></pre>
+        <p>Awesome! Look at that!<br />Our first Java program is complete, and it was fairly simple.</p>
+        <p>So that's all for this tutorial, we will meet in the next one where we will be handling a little more data.</p>
+        <hr />
+    </div>
+    <div id="footer">
+        <h1 id="footerHeading" style="cursor: pointer; background-color: transparent; font-family: 'Saira Stencil One'; font-size: 50px;" onclick="location.href='https://vulnx.in/'">VulnX</h1>
+        <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/'">Home</p>
+        <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/resources.html'">Resources</p>
+        <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/tutorials.html'">Tutorials</p>
+        <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/CTFs.html'">CTFs</p>
+        <h1 id="footerHeading" style="background-color: transparent; font-family: 'Ubuntu';">Contact</h1>
+        <i class="fab fa-facebook-f" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='#'"></i>
+        <i class="fab fa-google" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='mailto:vulnx101@gmail.com'"></i>
+        <i class="fab fa-instagram" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='https://www.instagram.com/vulnx_hacking'"> </i>
+        <i class="fab fa-youtube" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='https://bit.ly/VulnX_YT'"></i>
     </div>
 </body>
 
