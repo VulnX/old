@@ -336,7 +336,7 @@ a.yay:hover span:nth-child(4) {
 	-webkit-tap-highlight-color: transparent;
 }
 
-#box {
+.box {
 	min-width: 200px;
 	min-height: 300px;
 	max-width: 200px;
@@ -348,7 +348,7 @@ a.yay:hover span:nth-child(4) {
 	-webkit-tap-highlight-color: transparent;
 }
 
-#box:hover {
+.box:hover {
 	transform: scale(1.02);
 	box-shadow: 0 10px 15px 0 #00000070;
 	border: 0px solid black;
@@ -361,7 +361,7 @@ a.yay:hover span:nth-child(4) {
 	position: absolute;
 }
 
-#boxText {
+.boxText {
 	color: #000;
 	display: flex;
 	justify-content: center;
