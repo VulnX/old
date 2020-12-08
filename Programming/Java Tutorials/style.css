@@ -63,6 +63,7 @@ a {
     justify-content: space-between;
     align-items: center;
     z-index: 1;
+    line-height: normal;
 }
 
 #cookieText {
@@ -510,7 +511,7 @@ img::selection {
         height: 55px;
     }
 
-         {
+    #progressBar {
         top: 55px;
         box-shadow: 0 2px 5px rgba(0, 140, 255, .75);
     }

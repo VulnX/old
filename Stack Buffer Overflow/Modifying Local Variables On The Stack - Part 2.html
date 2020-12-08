@@ -42,7 +42,7 @@
     </ul>
     <div id="cookieBar">
         <div id="cookieText">By using our site, you agree to our use of cookies to deliver a better site experience</div>
-        <div id="cookieButton"><span></span><span></span><span></span><span></span>&#10005;</div>
+        <div id="cookieButton" onclick="hideCookieBar()"><span></span><span></span><span></span><span></span>&#10005;</div>
     </div>
     <div id="align">
         <font color="#555" face="Quicksand">
@@ -161,7 +161,7 @@ gdb-peda$ </div></pre>
             </a>
             If you have read the previous tutorial properly then you will be able to solve the issue quite easily. I had clearly mentioned that the stack layout is not 100% accurate and there will be some space between the end of the buffer and the start of int variable. So the perhaps we have overwritten that space and not the int variable. So the stack layout should look somewhat like this :-
             <br /><br />
-            <div id="image"><img src="https://i.imgur.com/CZxxYjh.png" class="responsive"></div><br />
+            <div class="image"><img src="https://i.imgur.com/CZxxYjh.png"></div><br />
             Now how do we get the correct offset?<br />
             <br />
             It's simple we will use a pattern like below and feed that to the program.
@@ -196,7 +196,7 @@ gdb-peda$ </div></pre>
             <br />
             So the image shown below might give you a idea how important is endianness. If your computer is a little-endian and you write 0xcafebabe in big-endian format then all the bytes will be placed in reverse order and we would not proceed to the if block.
             <br /><br />
-            <div id="image"><img src="https://i.imgur.com/9OUi7aT.png" class="responsive"></div><br />
+            <div class="image"><img src="https://i.imgur.com/9OUi7aT.png"></div><br />
             Now how do you get the endianness of your machine?<br />
             Luckily we have a very simple way to identify the endianness using a one-line python command.
             <pre><div class="snip"><b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># python3 -c 'import sys; print(sys.byteorder)'
@@ -231,11 +231,7 @@ Nope! You were not given the access.
 <b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># </div></pre>
             Boom! Look at that, we have been greeted with argv[1]. Which means ..... <font face="Lobster"><b>WE WIN!</b></font> I hope this tutorial made sense to you. If you got confused somewhere try re-reading it because this is the first tutorial where we are introduced to debuggers and the making of payload using python scripts so I understand it might be a little confusing for some of you. Anyway, if you understood everything well then it's a great start! We will meet in the next tutorial where we will be jumping to a function in the source code which is not called by the programmer.
             <h2 style="color: #3b3b3b;">CONTACT</h2>
-            If you have any doubts or confusions in some part of the tutorial, feel free to reach out to me on my <a href="https://instagram.com/vulnx_hacking" style="text-decoration: none; border-bottom: 2px solid #0055ff;">
-                <font color="#0055ff">Instagram</font>
-            </a> or you can mail me at <a href="mailto:vulnx101@gmail.com" style="text-decoration: none; border-bottom: 2px solid #0055ff;">
-                <font color="#0055ff">vulnx101@gmail.com</font>
-            </a>
+            If you have any doubts or confusions in some part of the tutorial, feel free to reach out to me on my <a href="https://instagram.com/vulnx_hacking" class="link"><font color="#0055ff">Instagram</font></a> or you can mail me at <a href="mailto:vulnx101@gmail.com" class="link"><font color="#0055ff">vulnx101@gmail.com</font></a>
             <div id="contactForm" onclick="location.href='https://docs.google.com/forms/d/e/1FAIpQLScM7cjnyriiDIwM_8wFkS66cueS83lOaDoSsJ6dlM39szevcg/viewform?usp=sf_link'">
                 <button id="contactFormButton"><span id="buttonUnderline">Fill the Form</span></button>
             </div>

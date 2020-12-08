@@ -1,5 +1,11 @@
 window.onscroll = function() { updateScrollBar() };
 
+window.onload = function() {
+    if (!(checkCookie("cookiePromptShown"))) {
+        document.getElementById('cookieBar').style.display = "flex";
+    }
+}
+
 function updateScrollBar() {
     var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
     var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;

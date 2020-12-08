@@ -36,18 +36,8 @@ img::-moz-selection {
     background: transparent;
 }
 
-#image {
-    border: 1px solid #000;
-    border-radius: 2%;
-    width: 80%;
-    margin-left: 10%;
-    margin-right: 10%;
-    box-shadow: 0 5px 15px 0 #1b1b1b;
-    overflow: hidden;
-}
-
-.responsive {
-    max-width: 100%;
+.image img {
+    width: 100%;
     height: auto;
 }
 
@@ -165,6 +155,7 @@ h1#footerHeading::-moz-selection {
     justify-content: space-between;
     align-items: center;
     z-index: 1;
+    line-height: normal;
 }
 
 #cookieText {
@@ -495,14 +486,17 @@ ul.topnav .x li a.active {
     border-bottom: 2px solid #fff;
 }
 
-@media screen and (max-width: 768px) {
+.link {
+    color: #05f;
+    border-bottom: thin dotted #05f;
+    text-decoration: none;
+}
 
-    .videoPlayer {
-        max-width: auto;
-        max-height: 200px;
-        border: 0;
-        border-radius: 10px;
-    }
+.link:hover {
+    border-bottom-style: solid;
+}
+
+@media screen and (max-width: 768px) {
 
     .ico {
         width: 45px;
@@ -514,13 +508,8 @@ ul.topnav .x li a.active {
         font-size: 20px;
     }
 
-    #image {
-        width: 100%;
-        margin: 0;
-    }
-
     body {
-        font-size: 0.8rem;
+        font-size: 1rem;
     }
 
     .snip {
@@ -550,11 +539,6 @@ ul.topnav .x li a.active {
 
     ul.topnav .x img {
         height: 55px;
-    }
-
-    #pop {
-        top: 60px;
-        margin: 0 15px;
     }
 
     #progressBar {

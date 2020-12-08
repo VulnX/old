@@ -135,7 +135,10 @@ gdb-peda$
         </ul>
         <p>which if you notice carefully, is the exact opposite of the first two instruction, so it theoretically should destroy the stack frame created for the <span style="border-bottom: 1px solid #555; cursor: pointer;" onclick="location.href='#disassembledfuncFunction'">func()</span> as all instructions are executed and it is no longer required.</p>
         <p>Now, the stack before the <b>leave</b> instruction should look like this :-</p>
-        <div id="image" style="position: relative;"><span style="position: absolute; top: -120px; visibility: hidden;" id="Stack Layout"></span><img src="https://i.imgur.com/CZxxYjh.png" class="responsive"></div>
+        <div class="image" style="position: relative;">
+            <span style="position: absolute; top: -120px; visibility: hidden;" id="Stack Layout"></span>
+            <img src="https://i.imgur.com/CZxxYjh.png">
+        </div>
         <p>So we can visualize that when the stack frame for the <span style="border-bottom: 1px solid #555; cursor: pointer;" onclick="location.href='#disassembledfuncFunction'">func()</span> is destroyed by the <b>leave</b> instruction, the value at the top of the stack would be the saved return address. This is the address which the program had stored on the stack in order to save it so that after execution the ret instruction can read it and make the RIP point to that address. So we know that the program now has to read the saved address from the top of the stack and make the RIP point to it. Thus we can conclude that the <b>ret</b> does the following two things :-</p>
         <ul style="list-style-type: none">
             <li id="points"><span style="border-bottom: 1px solid #228B22">Reads the value currently stored at the top of the stack.</span></li>
@@ -145,7 +148,7 @@ gdb-peda$
         <p>So if we somehow overwrite the saved return pointer by the, <span style="border-bottom: 1px solid #555">start address</span> of the <i>callMe()</i> then we should redirect the flow of control to another function.</p>
         <h2>Contact</h2>
         <p>I hope this tutorial made sense to you. It's perfectly normal if you could not understand this in the first attempt, but I can guarantee that once we open the program in debugger and analyse the memory at run-time, it will seem much clear.</p>
-        <p>If you have any doubts or confusions in some part of the tutorial, feel free to reach out to me on my <a href="https://www.instagram.com/vulnx_hacking" style="text-decoration: none; color: #05f; border-bottom: 1px solid #05f;">Instagram</a> or you can mail me at <a href="mailto:vulnx101@gmail.com" style="text-decoration: none; color: #05f; border-bottom: 1px solid #05f;">vulnx101@gmail.com</a></p>
+        <p>If you have any doubts or confusions in some part of the tutorial, feel free to reach out to me on my <a href="https://www.instagram.com/vulnx_hacking" class="link">Instagram</a> or you can mail me at <a href="mailto:vulnx101@gmail.com" class="link">vulnx101@gmail.com</a></p>
         <div id="contactForm" onclick="location.href='https://docs.google.com/forms/d/e/1FAIpQLScM7cjnyriiDIwM_8wFkS66cueS83lOaDoSsJ6dlM39szevcg/viewform?usp=sf_link'">
             <button id="contactFormButton"><span id="buttonUnderline">Fill the Form</span></button>
         </div>
