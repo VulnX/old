@@ -1,3 +1,14 @@
+function copy() {
+	object = document.getElementById('HEX');
+	object.select();
+	object.setSelectionRange(0, 99999);
+	document.execCommand("copy");
+	document.getElementById('copy').innerHTML = "Copied";
+	setTimeout(function() {
+		document.getElementById('copy').innerHTML = "Copy Text";
+	}, 2500);
+}
+
 function ascii2hex() {
 	var str = document.getElementById('ASCII').value;
 	var arr1 = [];
@@ -8,4 +19,7 @@ function ascii2hex() {
 		arr1.push(ascii);
 	}
 	document.getElementById('HEX').value = arr1.join('');
+	if (!(document.getElementById('HEX').value == "")) {
+		document.getElementById('copy').style.display = "block";
+	}
 }

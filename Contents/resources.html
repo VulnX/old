@@ -1,112 +1,117 @@
 <html>
+
 <head>
-	<link rel="icon" href="https://vulnx.in/favicon.png">
-	<script data-ad-client="ca-pub-6203666289882469" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="HandheldFriendly" content="true">
-	<link rel="stylesheet" href="style.css">
-	<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@600&family=Ubuntu:wght@500;700&display=swap" rel="stylesheet">
-	<title>Resources | VulnX</title>
+    <link rel="icon" href="https://vulnx.in/favicon.png">
+    <script data-ad-client="ca-pub-6203666289882469" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="HandheldFriendly" content="true">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@600&family=Ubuntu:wght@500;700&display=swap" rel="stylesheet">
+    <title>Resources | VulnX</title>
 </head>
+
 <body>
+    <ul class="topnav">
+        <div class="x">
+            <img id="logo" src="../logo.svg">
+            <div style="display: flex; justify-content: row-reverse; align-items: center;">
+                <li><a target="_blank" href="../">Home</a></li>
+                <li><a target="_blank" class="active" href="resources.html">Resources</a></li>
+                <li><a target="_blank" href="tutorials.html">Tutorials</a></li>
+                <li><a target="_blank" href="CTFs.html">CTFs</a></li>
+            </div>
+        </div>
+    </ul>
+    <div id="cookieBar">
+        <div id="cookieText">By using our site, you agree to our use of cookies to deliver a better site experience</div>
+        <div id="cookieButton" onclick="hideCookieBar()"><span></span><span></span><span></span><span></span>&#10005;</div>
+    </div>
+    <div id="align">
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167461836-1"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
 
-	<ul class="topnav"><div class="x">
-		<img id="logo" src="../logo.svg">
-		<div style="display: flex; justify-content: row-reverse; align-items: center;"><li><a target="_blank" href="../">Home</a></li>
-			<li><a target="_blank" class="active" href="resources.html">Resources</a></li>
-			<li><a target="_blank" href="tutorials.html">Tutorials</a></li>
-			<li><a target="_blank" href="CTFs.html">CTFs</a></li></div>
-		</div>
-	</ul>
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-	<div id="cookieBar">
-		<div id="cookieText">By using our site, you agree to our use of cookies to deliver a better site experience</div>
-		<div id="cookieButton" onclick="hideCookieBar()"><span></span><span></span><span></span><span></span>&#10005;</div>
-	</div>
+        gtag('config', 'UA-167461836-1');
+        </script>
+        <h1><span style="border-bottom: thick solid black">Android Hacking</span></h1>
+        <button formtarget="_blank" onclick="location.href='General Hacking/Android Hacking/auto_setup_apache2'" class="btn">auto_setup_apache2</button>
+        <br />
+        <hr />
+        <h1><span style="border-bottom: thick solid black">CTFs</span></h1>
+        <div class="gridLayout">
+            <button onclick="location.href='CTFs/flag1.exe'" class="btn">Image - Challenge 1</button>
+            <button onclick="location.href='CTFs/flag2.elf'" class="btn">Binary - Challenge 2</button>
+            <button onclick="location.href='CTFs/flag3.elf'" class="btn">Binary - Challenge 3</button>
+            <button onclick="location.href='CTFs/flag4.elf'" class="btn">Binary - Challenge 4</button>
+            <button onclick="location.href='CTFs/flag5.zip'" class="btn">Image - Challenge 5</button>
+        </div>
+        <br />
+        <hr />
+        <h1><span style="border-bottom: thick solid black">General</span></h1>
+        <button onclick="location.href='../General Hacking/syscall table for Linux.html'" class="btn">syscall table for x64 linux</button>
+        <br />
+        <hr />
+        <h1><span style="border-bottom: thick solid black">Convertors</span></h1>
+        <button onclick="location.href='../General Hacking/Convertors/ascii-to-hex.html'" class="btn">ASCII To HEX Convertor</button>
+        <br />
+        <hr />
+    </div>
+    <script type="text/javascript">
+    if (checkCookie("cookiePromptShown")) {
+        if (getCookie("cookiePromptShown") == "yes") {
+            document.getElementById("cookieBar").style.display = "none";
+        }
+    }
+    if (!(checkCookie("cookiePromptShown"))) {
+        document.getElementById("cookieBar").style.display = "flex";
+    }
 
-	<div id="align">
+    function setCookie(cname, cvalue, days) {
+        var d = new Date();
+        d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
 
-			<!-- Global site tag (gtag.js) - Google Analytics -->
-			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-167461836-1"></script>
-			<script>
-				window.dataLayer = window.dataLayer || [];
-				function gtag(){dataLayer.push(arguments);}
-				gtag('js', new Date());
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
 
-				gtag('config', 'UA-167461836-1');
-			</script>
+    function checkCookie(cname) {
+        var username = getCookie(cname);
+        if (username == "") {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
-			<h1><span style="border-bottom: thick solid black">Android Hacking</span></h1>
+    function delay(URL) {
+        setTimeout(function() { window.location = URL }, 700);
+    }
 
-			<button formtarget="_blank" onclick="location.href='General Hacking/Android Hacking/auto_setup_apache2'" class="btn">auto_setup_apache2</button>
-
-			<br /><hr />
-
-			<h1><span style="border-bottom: thick solid black">CTFs</span></h1>
-
-			<div class="gridLayout">
-				<button onclick="location.href='CTFs/flag1.exe'" class="btn">Image - Challenge 1</button>
-				<button onclick="location.href='CTFs/flag2.elf'" class="btn">Binary - Challenge 2</button>
-				<button onclick="location.href='CTFs/flag3.elf'" class="btn">Binary - Challenge 3</button>
-				<button onclick="location.href='CTFs/flag4.elf'" class="btn">Binary - Challenge 4</button>
-				<button onclick="location.href='CTFs/flag5.zip'" class="btn">Image - Challenge 5</button>
-			</div>
-
-			<br /><hr />
-
-			<h1><span style="border-bottom: thick solid black">General</span></h1>
-
-			<button onclick="location.href='../General Hacking/syscall table for Linux.html'" class="btn">syscall table for x64 linux</button>
-		</div>
-
-	<script type="text/javascript">
-		if (checkCookie("cookiePromptShown")) {
-				if (getCookie("cookiePromptShown") == "yes") {
-					document.getElementById("cookieBar").style.display = "none";
-				}
-			}
-			if (!(checkCookie("cookiePromptShown"))) {
-				document.getElementById("cookieBar").style.display = "flex";
-		}
-		function setCookie(cname, cvalue, days) {
-			var d = new Date();
-			d.setTime(d.getTime() + (days*24*60*60*1000));
-			var expires = "expires="+ d.toUTCString();
-			document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-		}
-		function getCookie(cname) {
-			var name = cname + "=";
-			var decodedCookie = decodeURIComponent(document.cookie);
-			var ca = decodedCookie.split(';');
-			for(var i = 0; i <ca.length; i++) {
-				var c = ca[i];
-				while (c.charAt(0) == ' ') {
-					c = c.substring(1);
-				}
-				if (c.indexOf(name) == 0) {
-					return c.substring(name.length, c.length);
-				}
-			}
-			return "";
-		}
-		function checkCookie(cname) {
-			var username = getCookie(cname);
-			if (username == "") {
-				return false;
-			}
-			else {
-				return true;
-			}
-		}
-		function delay(URL) {
-			setTimeout(function() { window.location = URL }, 700);
-		}
-		function hideCookieBar() {
-			setCookie("cookiePromptShown", "yes", 30);
-			document.getElementById("cookieBar").style.display = "none";
-		}
-	</script>
-
+    function hideCookieBar() {
+        setCookie("cookiePromptShown", "yes", 30);
+        document.getElementById("cookieBar").style.display = "none";
+    }
+    </script>
 </body>
+
 </html>
