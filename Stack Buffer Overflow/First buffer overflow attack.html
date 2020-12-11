@@ -29,43 +29,36 @@
     gtag('config', 'UA-167461836-1');
     </script>
     <div id="progressBar"></div>
-    <ul class="topnav">
-        <div class="x">
-            <img id="logo" src="../logo.svg" />
-            <div style="display: flex; justify-content: row-reverse; align-items: center;">
-                <li><a target="_blank" href="../">Home</a></li>
-                <li><a target="_blank" href="../Contents/resources.html">Resources</a></li>
-                <li><a target="_blank" href="../Contents/tutorials.html">Tutorials</a></li>
-                <li><a target="_blank" href="../Contents/CTFs.html">CTFs</a></li>
-            </div>
+    <ul id="navbar">
+        <img src="../logo.svg">
+        <div>
+            <li><a href="../../" target="_blank">Home</a></li>
+            <li><a href="../../Contents/resources.html" target="_blank">Resources</a></li>
+            <li><a href="../../Contents/tutorials.html" target="_blank">Tutorials</a></li>
+            <li><a href="../../Contents/CTFs.html" target="_blank">CTFs</a></li>
         </div>
     </ul>
     <div id="cookieBar">
         <div id="cookieText">By using our site, you agree to our use of cookies to deliver a better site experience</div>
         <div id="cookieButton" onclick="hideCookieBar()"><span></span><span></span><span></span><span></span>&#10005;</div>
     </div>
+    <div id="floatingBox"><span>First BoF Attack</span></div>
     <div id="align">
-        <center>
-            <h1 style="color: #1b1b1b;">Buffer Overflow</h1>
-        </center>
-        <center>
-            <h1 style="color: #1b1b1b;">First buffer overflow</h1>
-        </center>
         <p>Hey guys! What's up?</p>
         <p>Welcome to the fourth tutorial of the Buffer Overflow series. In the previous tutorial, we understood how the <span style="background-color: #dcdcdc; padding: 0 5px;">assembly : <span style="font-weight: bold;">ret</span></span> instruction works</p> and how if we overflow the stack buffer and overwrite the <i>saved return pointer</i> with an arbitrary address, we can redirect code execution to that address.
         <h2>Table of Contents :</h2>
-        <ul>
-            <li style="margin: 10px 0;"><span style="color: #05f; border-bottom: 1px solid #05f; cursor: pointer; --webkit-tap-highlight-color: transparent" onclick="location.href='#Recap'">Quick recap of the 'ret' instruction</span></li>
-            <li style="margin: 10px 0;"><span style="color: #05f; border-bottom: 1px solid #05f; cursor: pointer; --webkit-tap-highlight-color: transparent" onclick="location.href='#Checking-for-buffer-overflow'">Checking for buffer overflow vulnerability</span></li>
-            <li style="margin: 10px 0;"><span style="color: #05f; border-bottom: 1px solid #05f; cursor: pointer; --webkit-tap-highlight-color: transparent" onclick="location.href='#Determining-correct-offset'">Determining the correct offset</span></li>
-            <li style="margin: 10px 0;"><span style="color: #05f; border-bottom: 1px solid #05f; cursor: pointer; --webkit-tap-highlight-color: transparent" onclick="location.href='#Fetching-the-address-of-callMe()'">Fetching the address of 'callMe()'</span></li>
-            <li style="margin: 10px 0;"><span style="color: #05f; border-bottom: 1px solid #05f; cursor: pointer; --webkit-tap-highlight-color: transparent" onclick="location.href='#Redirecting-flow-of-control'">Redirecting flow of control.</span></li>
+        <ul id="tableOfContents">
+            <li><span onclick="location.href='#Recap'">Quick recap of the 'ret' instruction</span></li>
+            <li><span onclick="location.href='#Checking-for-buffer-overflow'">Checking for buffer overflow vulnerability</span></li>
+            <li><span onclick="location.href='#Determining-correct-offset'">Determining the correct offset</span></li>
+            <li><span onclick="location.href='#Fetching-the-address-of-callMe()'">Fetching the address of 'callMe()'</span></li>
+            <li><span onclick="location.href='#Redirecting-flow-of-control'">Redirecting flow of control.</span></li>
         </ul>
         <span style="position: relative; top: -120px; visibility: hidden;" id="Recap"></span>
         <h2>Recap of 'ret' instruction</h2>
         <p>Whenever a function is called, or the <span style="background-color: #dcdcdc; padding: 0 5px;">assembly : <span style="font-weight: bold;">call</span></span> instruction is executed, the memory address of the next instruction to be executed is push on the stack. Then the RIP [ the 64-bit instruction pointer register ] is changed to the base address of the function to be called. The function so called, sets up a new stack frame for itself to allow the storage of local variables and other data. At the end of the function, just before it returns back, the stack frame is destroyed and now, again the RSP points directly to the instruction which was pushed earlier on the stack.</p>
         <p>This way the return address or return pointer is always saved on the stack and it is lies beneath the RBP [ like we had seen <a href="Understanding%20the%20concept%20of%20overwriting%20return%20pointer%20to%20acheive%20arbitrary%20code%20execution.html#Stack%20Layout" class="link">here</a> ]. Therefore, if we write data past the base of the stack and correctly overflow the <i>saved return pointer</i>, with the address of an arbitrary function, the flow of control should be redirected there.</p>
-        <span id="Checking-for-buffer-overflow" style="position: relative; top: -120px;"></span>
+        <span id="Checking-for-buffer-overflow" class="secLink"></span>
         <h2>Checking for buffer overflow vulnerability</h2>
         <p>Before we begin, store the code snippet provided below in a file and compile it with the command commented in the script</p>
         <pre><div class="snip"><b><span style="color: #aaa;">//  File name     : controlRIP.c
@@ -160,7 +153,7 @@ gdb-peda$ </div>
       </pre>
         <p>As you can see, the RIP points to the location of the crash. However, the RBP points to 0x4141414141414141 which is hex equivalent of 'AAAAAAAA'. This means that some 8 <span style="background-color: #dcdcdc; padding: 0 5px; font-weight: bold;">A</span> letters will be overwritten in the RBP.</p>
         <p>So now our primary objective will be to determine the exact offset to overwrite the saved return pointer.</p>
-        <span id="Determining-correct-offset" style="position: relative; top: -120px;"></span>
+        <span id="Determining-correct-offset" class="secLink"></span>
         <h2>Determining the correct offset</h2>
         <p>Since we know that some 8 <span style="background-color: #dcdcdc; padding: 0 5px; font-weight: bold;">A</span>'s are overflowed to the RBP register, we can use a pattern like this :</p>
         <div id="quote">AAAAAAAABBBBBBBBCCCCCCCC ...</div>
@@ -230,7 +223,7 @@ gdb-peda$ </div>
         <p>Thus the offset for the RBP is 64. The <i>saved return pointer</i>, lies just beneath the base-pointer, thus the correct offset for the <i>saved return pointer</i> should be 64 + 8 [ since registers in a x64 system are of 8 bytes ].</p>
         <p>This gives us the correct offset for the <i>saved return pointer</i> as 72. Let's test it before proceeding further. We will write 72 times the letter <span style="background-color: #dcdcdc; padding: 0 5px; font-weight: bold;">A</span> and 6 times the letter <span style="background-color: #dcdcdc; padding: 0 5px; font-weight: bold;">B</span></p>
         <div id="quote" style="text-transform: uppercase; font-weight: bold; color: #333;">Note : The letter 'B' is repeated 6 times and not 8 because the RIP is a 6 byte register. Try to write more than 6 bytes in it and see what happens.</div>
-        <span id="Fetching-the-address-of-callMe()" style="position: relative; top: -120px;"></span>
+        <span id="Fetching-the-address-of-callMe()" class="secLink"></span>
         <h2>Fetching the addressing of 'callMe()'</h2>
         <p>Alright, now we need to find the exact address where <abbr title="Our AIM : The function to be called">'callMe()' </abbr> is located. We can do that by using <i>objdump</i> with our binary.</p>
         <pre>
@@ -420,7 +413,7 @@ Base Address: 0x0000000000401142
             <li>Offset for saved return pointer <span style="color: #09f; font-weight: bold;">72</span></li>
             <li>Address to be overwritten with: <span style="color: #09f; font-weight: bold;">0000000000401142</span></li>
         </ol>
-        <span id="Redirecting-flow-of-control" style="position: relative; top: -120px;"></span>
+        <span id="Redirecting-flow-of-control" class="secLink"></span>
         <h2>Redirecting flow of control</h2>
         <p>Okay we now have enough data to exploit this application. Let's make a script in python [ you can alternatively choose another language as well ] which will overflow the buffer and write the base address of the 'callMe()' function to the saved return pointer which according to our theory, should be popped in RIP causing the flow of control to reach that function.</p>
         <p>I have used the script given below</p>

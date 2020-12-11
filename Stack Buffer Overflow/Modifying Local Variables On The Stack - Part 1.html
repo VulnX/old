@@ -30,33 +30,33 @@
     gtag('config', 'UA-167461836-1');
     </script>
     <div id="progressBar"></div>
-    <ul class="topnav">
-        <div class="x">
-            <img id="logo" src="../logo.svg">
-            <div style="display: flex; justify-content: row-reverse; align-items: center;">
-                <li><a target="_blank" href="../">Home</a></li>
-                <li><a target="_blank" href="../Contents/resources.html">Resources</a></li>
-                <li><a target="_blank" href="../Contents/tutorials.html">Tutorials</a></li>
-                <li><a target="_blank" href="../Contents/CTFs.html">CTFs</a></li>
-            </div>
+    <ul id="navbar">
+        <img src="../logo.svg">
+        <div>
+            <li><a href="../../" target="_blank">Home</a></li>
+            <li><a href="../../Contents/resources.html" target="_blank">Resources</a></li>
+            <li><a href="../../Contents/tutorials.html" target="_blank">Tutorials</a></li>
+            <li><a href="../../Contents/CTFs.html" target="_blank">CTFs</a></li>
         </div>
     </ul>
     <div id="cookieBar">
         <div id="cookieText">By using our site, you agree to our use of cookies to deliver a better site experience</div>
         <div id="cookieButton" onclick="hideCookieBar()"><span></span><span></span><span></span><span></span>&#10005;</div>
     </div>
+    <div id="floatingBox"><span>Modifying local variables on the stack - Part I</span></div>
     <div id="align">
         <font color="#555" face="Quicksand">
-            <center>
-                <h1 style="color: #1b1b1b;">Buffer Overflow</h1>
-            </center>
-            <center>
-                <h1 style="color: #1b1b1b;">Modifying local variables on the stack - Part I</h1>
-            </center>
             Hey guys! What's up?<br>Welcome to the second tutorial of the Buffer Overflow series. In the previous tutorial, we learnt how we can overflow a buffer in a program which uses input-functions prone to buffer overflow attacks.<br>
             <br>
             So in this tutorial, we will be learning about how we can modify local variables using the Buffer Overflow vulnerability. So without further ado let's start.
-            <h2 style="color: #3b3b3b;">STEP-1 : Analyze the program logic & vulnerability</h2>
+            <h2>Table of Contents</h2>
+            <ul id="tableOfContents">
+                <li><span onclick="location.href='#Analyze-Logic'">STEP-1 : Analyze the program logic & vulnerability</span></li>
+                <li style="margin-left: 2rem"><span onclick="location.href='#users-PoV'">STEP-1.1 : Approaching the code from the user's PoV</span></li>
+                <li style="margin-left: 2rem"><span onclick="location.href='#computers-PoV'">STEP-1.2 : Understanding the computer's perspective</span></li>
+                <li><span onclick="location.href='#compiling-and-modifying'">STEP-2 : Compiling and modifying 'value'</span></li>
+            </ul>
+            <span id="Analyze-Logic" class="secLink"></span><h2 style="color: #3b3b3b;">STEP-1 : Analyze the program logic & vulnerability</h2>
             So this step is very important. In this tutorial, you have been provided with the C program given below :-
             <pre><div class="snip"><b><font color="#aaa">//  File name     : controlLocalVariable.c
 //  Compile with  : gcc controlLocalVariable.c -m64 -o controlLocalVariable.elf</font>
@@ -79,11 +79,11 @@
             So now our aim will be to change 'value' to be something other than 1501.<br>
             <br>
             So let's approach this code from (i) user's point of view and (ii) the computer's perspective
-            <h3 style="color: #3b3b3b;">1.1 : Approaching the code from users's point of view</h3>
+            <span id="users-PoV" class="secLink"></span><h3 style="color: #3b3b3b;">1.1 : Approaching the code from users's point of view</h3>
             Looking at the source code, we can see that the integer variable has been assigned a value and later on it is checked if it is not the same. Throughout the entire code, the variable is never modified so regardless of anything, the 'if' statement will never be true. Further, the integer variable is also declared with the keyword 'const' which means that the variable cannot be modified throught the program.<br>
             <br>
             Okay it seems difficult to approach this problem from the user's point of view. So let's proceed and check the computer's perspective
-            <h3 style="color: #3b3b3b;">1.2 : Understanding the computer's perspective for the program</h3>
+            <span id="computers-PoV" class="secLink"></span><h3 style="color: #3b3b3b;">1.2 : Understanding the computer's perspective for the program</h3>
             So the computer will first create a stack frame for the main function and then subtract 4 bytes from the Stack Pointer and push it upwards to reserve space for that integer [ 4 byte ] variable. After executing 'const int value = 1501;' the stack should look somewhat like this :-
             <pre><div class="snip"><font face="Fira Code"> ________________
 |      0x5dd     |  <-- RSP [currently pointing to int variable with value 0x5dd or 1501, offset = RBP-0x4]
@@ -109,7 +109,7 @@
                 <li>Looking at the above stack layout it is clear that if the string buffer gets overflowed then the excess data will be overwritten to the integer variable.</li>
             </ul>
             So to sum it all up, all we have to do is, feed more input to the program than it was expecting. Obviously the stack layout which I have shown above is not 100% accurate so there will be some data and space between the string buffer and the integer variable, but that won't be a problem because we can overwrite that as well. So the proceedure is simple, first we compile the program and then run it with argv[1] having 100 bytes [ because it is more than 64 so that will be overwritten to the integer variable and it will be changed from 0x5dd to the hexadecimal representation of the character overflowed ].
-            <h2 style="color: #3b3b3b;">STEP-2 : Compiling and modifying 'value'</h2>
+            <span id="compiling-and-modifying" class="secLink"></span><h2 style="color: #3b3b3b;">STEP-2 : Compiling and modifying 'value'</h2>
             Now let's compile to program with the command commented in the source code :-
             <pre><div class="snip"><b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># gcc controlLocalVariable.c -m64 -o controlLocalVariable.elf
 <b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font>#</div></pre>
@@ -136,11 +136,7 @@ Segmentation fault
             Well, this was an extremely simple example. Obviously, buffer overflow isn't so easy, there are more concepts which are really confusing so I decided to go slow and explain everything in detail to avoid as much confusion as possible.<br>
             <br>
             <h2 style="color: #3b3b3b;">CONTACT</h2>
-            If you have any doubts or confusions in some part of the tutorial, feel free to reach out to me on my <a href="https://instagram.com/vulnx_hacking">
-                <font color="#05f">Instagram</font>
-            </a> or you can mail me at <a href="mailto:vulnx101@gmail.com">
-                <font color="#05f">vulnx101@gmail.com</font>
-            </a>
+            If you have any doubts or confusions in some part of the tutorial, feel free to reach out to me on my <a href="https://instagram.com/vulnx_hacking" class="link">Instagram</a> or you can mail me at <a href="mailto:vulnx101@gmail.com" class="link">vulnx101@gmail.com</a>
             <div id="contactForm" onclick="location.href='https://docs.google.com/forms/d/e/1FAIpQLScM7cjnyriiDIwM_8wFkS66cueS83lOaDoSsJ6dlM39szevcg/viewform?usp=sf_link'">
                 <button id="contactFormButton"><span id="buttonUnderline">Fill the Form</span></button>
             </div>

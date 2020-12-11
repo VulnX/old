@@ -18,15 +18,13 @@
 
 <body>
     <div id="progressBar"></div>
-    <ul class="topnav">
-        <div class="x">
-            <img id="logo" src="../logo.svg">
-            <div style="display: flex; justify-content: row-reverse; align-items: center;">
-                <li><a target="_blank" href="../">Home</a></li>
-                <li><a target="_blank" href="../Contents/resources.html">Resources</a></li>
-                <li><a target="_blank" href="../Contents/tutorials.html">Tutorials</a></li>
-                <li><a target="_blank" href="../Contents/CTFs.html">CTFs</a></li>
-            </div>
+    <ul id="navbar">
+        <img src="../logo.svg">
+        <div>
+            <li><a href="../../" target="_blank">Home</a></li>
+            <li><a href="../../Contents/resources.html" target="_blank">Resources</a></li>
+            <li><a href="../../Contents/tutorials.html" target="_blank">Tutorials</a></li>
+            <li><a href="../../Contents/CTFs.html" target="_blank">CTFs</a></li>
         </div>
     </ul>
     <div id="cookieBar">
@@ -43,14 +41,9 @@
 
     gtag('config', 'UA-167461836-1');
     </script>
+    <div id="floatingBox"><span>Introduction to buffer overflows</span></div>
     <div id="align">
         <font color="#555" face="Quicksand">
-            <center>
-                <h1 style="color: #1b1b1b">Buffer Overflow</h1>
-            </center>
-            <center>
-                <h1 style="color: #1b1b1b">Introduction to buffer overflows</h1>
-            </center>
             Hey guys! What's up?<br>Welcome to the first tutorial of the Buffer Overflow series. To be honest buffer overflows are my favourite exploitation techniques so I'm really happy to share my knowledge with you. So now without further ado let's actually start with the main topic.<br>
             <br>
             Before we begin you must keep in mind that this series is not targeted for everyone. If you :-

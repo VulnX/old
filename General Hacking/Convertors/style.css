@@ -23,6 +23,7 @@ a {
     color: inherit;
     font-family: inherit;
     outline: 0;
+    -webkit-tap-highlight-color: transparent;
 }
 
 #navbar {
@@ -237,11 +238,11 @@ h1#footerHeading::-moz-selection {
     }
 
     #buttonContainer {
-    	flex-direction: column;
-    	align-items: center;
+        flex-direction: column;
+        align-items: center;
     }
 
     .Button span {
-    	margin: 75px 0;
+        margin: 75px 0;
     }
 }

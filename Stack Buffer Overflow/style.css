@@ -24,6 +24,9 @@ hr {
 }
 
 a {
+    text-decoration: none;
+    color: inherit;
+    font-family: inherit;
     outline: 0;
     -webkit-tap-highlight-color: transparent;
 }
@@ -62,18 +65,30 @@ img::-moz-selection {
     scrollbar-width: none;
 }
 
+#floatingBox {
+    margin: 200px 20% 0 20%;
+    box-shadow: 0 0 10px 5px #0007;
+    width: 60%;
+    padding: 30px;
+    text-align: center;
+    overflow-wrap: break-word;
+}
+
+#floatingBox span {
+    font-family: 'Saira Stencil One';
+    font-size: 2rem;
+    letter-spacing: 2px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 #align {
     background-color: #fff;
     margin: 120px 30%;
     color: #555;
     font-family: 'Quicksand';
-}
-
-.videoPlayer {
-    width: 640px;
-    height: 480px;
-    border: 0;
-    border-radius: 10px;
 }
 
 ::selection {
@@ -104,17 +119,14 @@ body::-webkit-scrollbar {
 }
 
 h2 {
+    margin: 50px 0;
     color: #333;
-}
-
-h2::selection {
-    color: #333;
-    background: transparent;
-}
-
-h2::-moz-selection {
-    color: #333;
-    background: transparent;
+    font-size: 2rem;
+    font-family: 'Ubuntu';
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 h1 {
@@ -157,6 +169,10 @@ h1#footerHeading::-moz-selection {
     align-items: center;
     z-index: 1;
     line-height: normal;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 #cookieText {
@@ -277,75 +293,48 @@ div#cookieButton:hover span:nth-child(4) {
     transform: translateY(-100%);
 }
 
-ul.topnav {
-    left: 0;
-    top: 0;
+#navbar {
     list-style-type: none;
-    margin: 0;
-    padding: 0;
     position: fixed;
-    z-index: 1;
-    width: 100%;
+    top: 0;
+    height: 100px;
+    width: 100vw;
+    margin: 0;
+    padding: 0 2.5%;
     overflow: hidden;
     background-color: #fff;
     box-shadow: 0 5px 15px 0 #00000070;
-    font-family: 'Quicksand';
-}
-
-ul.topnav .x {
-    background: #fff;
-    margin-left: 2.5%;
-    margin-right: 2.5%;
-    z-index: 3;
-    height: 100px;
-    width: 95%;
     display: flex;
     justify-content: space-between;
-    flex-direction: row;
+    box-sizing: border-box;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    z-index: 1;
 }
 
-ul.topnav .x li {
-    float: right;
-    display: flex;
-}
-
-ul.topnav .x img {
-    height: 100px;
+#navbar img {
+    height: 100%;
     width: auto;
-    float: left;
 }
 
-ul.topnav .x li a {
-    height: 10px;
-    background-color: #fff;
+#navbar div {
     display: flex;
+}
+
+#navbar div li {
+    font-family: Quicksand;
     color: #333;
-    text-align: center;
+    align-self: center;
     padding: 16px 16px;
-    text-decoration: none;
-    transition: 0.3s;
-    align-items: center;
-    outline: 0;
+    transition: .2s;
 }
 
-ul.topnav .x li a::selection {
-    color: inherit;
-    background: transparent;
-}
-
-ul.topnav .x li a::-moz-selection {
-    color: inherit;
-    background: transparent;
-}
-
-
-ul.topnav .x li a:hover:not(.active) {
-    background-color: #092a49;
-    color: #fff;
-}
-
-ul.topnav .x li a.active {
-    background-color: #dcdcdc;
+#navbar div li:hover {
+    background-color: #333;
+    color: #f1f1f1;
+    cursor: pointer;
 }
 
 .icons {
@@ -497,7 +486,49 @@ ul.topnav .x li a.active {
     border-bottom-style: solid;
 }
 
+.secLink {
+    position: relative;
+    top: -120px;
+}
+
+
+#tableOfContents {
+    list-style-type: none;
+}
+
+#tableOfContents li::before {
+    content: "\2022";
+    color: #f00;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+}
+
+#tableOfContents li {
+    margin: 1rem 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#tableOfContents li span {
+    color: #07f;
+    border-bottom: thin dashed #07f;
+    cursor: pointer;
+    padding: 5px 0;
+}
+
+#tableOfContents li span:hover {
+    border-bottom-style: solid;
+}
+
 @media screen and (max-width: 768px) {
+
+    h2 {
+        font-size: 1.25rem;
+    }
 
     .ico {
         width: 45px;
@@ -525,21 +556,25 @@ ul.topnav .x li a.active {
         margin: 60px 5%;
     }
 
-    ul.topnav .x {
-        margin-left: 5%;
-        margin-right: 5%;
-        width: auto;
-        height: 55px;
+    #floatingBox {
+        margin: 100px 12.5% 0 12.5%;
+        width: 75%;
+        padding: 5px;
     }
 
-    ul.topnav .x li a {
-        font-size: 0.6rem;
+    #floatingBox span {
+        font-size: 1.5rem;
+        letter-spacing: 1px;
+    }
+
+    #navbar {
+        height: 55px;
+        padding: 0 5%;
+    }
+
+    #navbar div li {
+        font-size: .6rem;
         padding: 10px 5px;
-        height: 100%;
-    }
-
-    ul.topnav .x img {
-        height: 55px;
     }
 
     #progressBar {
@@ -550,6 +585,10 @@ ul.topnav .x li a.active {
     #contactFormButton {
         font-size: 1rem;
         padding: 15px 10vw;
+    }
+
+    .secLink {
+        top: -10px;
     }
 
 }

@@ -26,39 +26,32 @@
     gtag('config', 'UA-167461836-1');
     </script>
     <div id="progressBar"></div>
-    <ul class="topnav">
-        <div class="x">
-            <img id="logo" src="../logo.svg">
-            <div style="display: flex; justify-content: row-reverse; align-items: center;">
-                <li><a target="_blank" href="../">Home</a></li>
-                <li><a target="_blank" href="../Contents/resources.html">Resources</a></li>
-                <li><a target="_blank" href="../Contents/tutorials.html">Tutorials</a></li>
-                <li><a target="_blank" href="../Contents/CTFs.html">CTFs</a></li>
-            </div>
+    <ul id="navbar">
+        <img src="../logo.svg">
+        <div>
+            <li><a href="../../" target="_blank">Home</a></li>
+            <li><a href="../../Contents/resources.html" target="_blank">Resources</a></li>
+            <li><a href="../../Contents/tutorials.html" target="_blank">Tutorials</a></li>
+            <li><a href="../../Contents/CTFs.html" target="_blank">CTFs</a></li>
         </div>
     </ul>
     <div id="cookieBar">
         <div id="cookieText">By using our site, you agree to our use of cookies to deliver a better site experience</div>
         <div id="cookieButton"><span></span><span></span><span></span><span></span>&#10005;</div>
     </div>
+    <div id="floatingBox"><span>x64 NASM Intel Assembly</span></div>
     <div id="align">
         <font color="#555" face="Quicksand">
-            <center>
-                <h1 style="color: #1b1b1b;">Understanding x64 Assembly</h1>
-            </center>
-            <center>
-                <h1 style="color: #1b1b1b;">NASM - Intel SYNTAX<h1>
-            </center>
-            Hey what's up, welcome back to VulnX, the perfect place for new learners. So this is a very unique project as it isn't a tutorial but a whole series so it might be slightly lengthy, but of course we have compressed this long process as much as it was possible and have brought to you a simplified version of the same.<br>
-            <br>
-            So for the ease of learning let's take a few examples in which we'll compare C language program, to the assembly of it's compiled ELF executable file [ we will use GDB as a disassembler ].<br>
-            <br>
-            <br>
+            Hey what's up, welcome back to VulnX, the perfect place for new learners. So this is a very unique project as it isn't a tutorial but a whole series so it might be slightly lengthy, but of course we have compressed this long process as much as it was possible and have brought to you a simplified version of the same.<br />
+            <br />
+            So for the ease of learning let's take a few examples in which we'll compare C language program, to the assembly of it's compiled ELF executable file [ we will use GDB as a disassembler ].<br />
+            <br />
+            <br />
             <h1 style="color: #3b3b3b;"><span style="border-bottom: 3px solid #3b3b3b;"># Example - 1</span></h1>
-            <br>
-            <br>
-            Let's take the below code for this example :-<br>
-            <br>
+            <br />
+            <br />
+            Let's take the below code for this example :-<br />
+            <br />
             <pre><div class="snip">                                                               
 <font color="#55FFFF">#include</font> <font color="#FF55FF">&lt;stdio.h&gt;</font>
 
@@ -67,19 +60,19 @@
         <font color="#FFFF55">return</font> <font color="#FF55FF">0</font>;
 }
 </div></pre>
-            We will save it in a file called eg1.c and compile it using :-<br>
-            <br>
+            We will save it in a file called eg1.c and compile it using :-<br />
+            <br />
             <pre><div class="snip">
-<b>root@kali</b>:<font color="#8181FF">~</font># gcc eg1.c -o eg1<br>
+<b>root@kali</b>:<font color="#8181FF">~</font># gcc eg1.c -o eg1<br />
 </div></pre>
-            Then on executing it, as expected 'VulnX' will be printed :-<br>
-            <br>
+            Then on executing it, as expected 'VulnX' will be printed :-<br />
+            <br />
             <pre><div class="snip">
 <b>root@kali</b>:<font color="#8181FF">~</font># ./eg1
-VulnX<br>
+VulnX<br />
 </div></pre>
-            So now let's quickly start this program with gdb and disassemble the main function :-<br>
-            <br>
+            So now let's quickly start this program with gdb and disassemble the main function :-<br />
+            <br />
             <pre><div class="snip">
 <b>root@kali</b>:<font color="#8181FF">~</font># gdb ./eg1 -q
 Reading symbols from <font color="#0f0">./eg1</font>...
@@ -95,46 +88,46 @@ Dump of assembler code for function main:
    <font color="#8181FF">0x000000000000114a</font> <+21>: pop&nbsp;&nbsp;&nbsp;&nbsp;rbp
    <font color="#8181FF">0x000000000000114b</font> <+22>: ret
 End of assembler dump.
-(gdb) <br>
+(gdb) <br />
 </div></pre>
-            Now if we see, we have a really short assembly program.<br>
-            <br>
-            <li>The first instruction at main+0 is 'push rbp', it will just push the base-pointer on the stack to create a new stack frame for the main function.<br>
-                <br>
-            <li>Then the second instruction at main+1 is 'mov rbp, rsp', so it will move the RSP [stack-pointer] to the RBP [base-pointer]. This is done to update the newly created stack frame.<br>
-                <br>
-            <li>The third instruction is 'lea rdi, [rip+0xec4]', so it will move the something located at 0x2004 and it's relative address with respect to rip is 'rip+0xec4' into the rdi register. As of now we cannot understand why this has been done, but let's proceed further.<br>
-                <br>
-            <li>The fourth instruction is 'call 0x1030 <puts@plt>', which means that we are calling the puts function. But wait, this isn't what we programmed, we called printf not puts. I'll explain this in a while, but now we now it's printing something, and if you look closely, the program is probably moving a string into rdi. Now this starts making sense because whenever a function is called, it's arguments are placed in rdi, rsi, rdx, rcx, r10, r8, r9 and the rest are placed on the stack (all respectively).<br>
-                    <br>
-                    So the first argument of printf is the format specifier or simply in our case the string which we had to print. Now if we type this :-<br>
-                    <br>
+            Now if we see, we have a really short assembly program.<br />
+            <br />
+            <li>The first instruction at main+0 is 'push rbp', it will just push the base-pointer on the stack to create a new stack frame for the main function.<br />
+                <br />
+            <li>Then the second instruction at main+1 is 'mov rbp, rsp', so it will move the RSP [stack-pointer] to the RBP [base-pointer]. This is done to update the newly created stack frame.<br />
+                <br />
+            <li>The third instruction is 'lea rdi, [rip+0xec4]', so it will move the something located at 0x2004 and it's relative address with respect to rip is 'rip+0xec4' into the rdi register. As of now we cannot understand why this has been done, but let's proceed further.<br />
+                <br />
+            <li>The fourth instruction is 'call 0x1030 <puts@plt>', which means that we are calling the puts function. But wait, this isn't what we programmed, we called printf not puts. I'll explain this in a while, but now we now it's printing something, and if you look closely, the program is probably moving a string into rdi. Now this starts making sense because whenever a function is called, it's arguments are placed in rdi, rsi, rdx, rcx, r10, r8, r9 and the rest are placed on the stack (all respectively).<br />
+                    <br />
+                    So the first argument of printf is the format specifier or simply in our case the string which we had to print. Now if we type this :-<br />
+                    <br />
                     <pre><div class="snip">
 (gdb) x/s 0x2004
 <font color="#8181FF">0x2004</font>: "VulnX"
-(gdb) <br>
+(gdb) <br />
 </div></pre>
-                    we know that we are e(x)amining the address 0x2004 as a (s)tring, and we get "VulnX", which is exactly what we had to print.<br>
-                    <br>
-                    So now it's making sense. The one general difference between puts and printf is that, puts automatically adds a new-line at the end of the string, this is the reason we don't see a '\n' at the end of "VulnX". So instead of printing "VulnX\n" using printf, the compiler chooses to print "VulnX" using puts as it will yield the same desired output.<br>
-                    <br>
-                    <br>
-            <li>Now the fifth instruction is 'mov eax, 0', so it will move 0 into eax [32-bit version of the RAX register]. The reason is that, the rax register generally contains the return value for the called function and this case, it is equivalent to 'return 0;'.<br>
-                <br>
-                <br>
-            <li>The sixth instruction is 'pop rbp', so it will simply remove the current stack frame by removing the base-pointer off the stack. This indicates that the stack is no more required and the function is about to return back to where it came from.<br>
-                <br>
-                <br>
-            <li>The seventh instruction is quite self explainatory 'ret' will simply return back the control to where it came from.<br>
-                <br>
-                And so this was it. A really simple code, but when compiled may look quite complex at once.<br>
-                <br>
-                <br>
+                    we know that we are e(x)amining the address 0x2004 as a (s)tring, and we get "VulnX", which is exactly what we had to print.<br />
+                    <br />
+                    So now it's making sense. The one general difference between puts and printf is that, puts automatically adds a new-line at the end of the string, this is the reason we don't see a '\n' at the end of "VulnX". So instead of printing "VulnX\n" using printf, the compiler chooses to print "VulnX" using puts as it will yield the same desired output.<br />
+                    <br />
+                    <br />
+            <li>Now the fifth instruction is 'mov eax, 0', so it will move 0 into eax [32-bit version of the RAX register]. The reason is that, the rax register generally contains the return value for the called function and this case, it is equivalent to 'return 0;'.<br />
+                <br />
+                <br />
+            <li>The sixth instruction is 'pop rbp', so it will simply remove the current stack frame by removing the base-pointer off the stack. This indicates that the stack is no more required and the function is about to return back to where it came from.<br />
+                <br />
+                <br />
+            <li>The seventh instruction is quite self explainatory 'ret' will simply return back the control to where it came from.<br />
+                <br />
+                And so this was it. A really simple code, but when compiled may look quite complex at once.<br />
+                <br />
+                <br />
                 <h1 style="color: #3b3b3b;"><span style="border-bottom: 3px solid #3b3b3b;"># Example - 2</span></h1>
-                <br>
-                <br>
-                Let's take the below code for this example :-<br>
-                <br>
+                <br />
+                <br />
+                Let's take the below code for this example :-<br />
+                <br />
                 <pre><div class="snip">
 <font color="#55FFFF">#include</font> <font color="#FF55FF">&lt;stdio.h&gt;</font>
 
@@ -145,21 +138,21 @@ End of assembler dump.
     printf(<font color="#FF55FF">"A = %d, B = %d , C = %d\n"</font>, a, b, c);
 
     <font color="yellow">return</font> <font color="#FF55FF">0</font>;
-}<br>
+}<br />
 </div></pre>
-                We will save it in eg2.c and compile it using :-<br>
-                <br>
+                We will save it in eg2.c and compile it using :-<br />
+                <br />
                 <pre><div class="snip">
-<b>root@kali</b>:<font color="#8181FF">~</font># gcc eg2.c -o eg2<br>
+<b>root@kali</b>:<font color="#8181FF">~</font># gcc eg2.c -o eg2<br />
 </div></pre>
-                Now if we run the executable, we will get the desired output, we print the values of all the variables :-<br>
-                <br>
+                Now if we run the executable, we will get the desired output, we print the values of all the variables :-<br />
+                <br />
                 <pre><div class="snip">
 <b>root@kali</b>:<font color="#8181FF">~</font># ./eg2
-A = 1, B = 5 , C = 48<br>
+A = 1, B = 5 , C = 48<br />
 </div></pre>
-                So now let's quickly open this with GDB and disass. the main function :-<br>
-                <br>
+                So now let's quickly open this with GDB and disass. the main function :-<br />
+                <br />
                 <pre><div class="snip">
 <b>root@kali</b>:<font color="#8181FF">~</font># gdb ./eg2 -q
 Reading symbols from <font color="#0f0">./eg2</font>...
@@ -184,51 +177,51 @@ Dump of assembler code for function main:
    <font color="#8181FF">0x0000000000001173</font> <+62>: leave&nbsp;&nbsp;
    <font color="#8181FF">0x0000000000001174</font> <+63>: ret&nbsp;&nbsp;&nbsp;&nbsp;
 End of assembler dump.
-(gdb) <br>
+(gdb) <br />
 </div></pre>
-                Alright this is a big chunk of code. So let's start analysing this now.<br>
-                <br>
-            <li>We already know that the first 2 lines are preparing the stack frame for the main function.<br>
-                <br>
-            <li>The third instruction is 'sub rsp, 0x10', so we subtracting 0x10[=16 in decimal], from the stack pointer, probably to make space for some variables.<br>
-                <br>
-            <li>The fourth line is 'mov DWORD PTR [rbp-0x4], 0x1', so it is moving the integer '1' into a dword address [rbp-0x4]. So this is probably an integer variable because we are subtracting 0x4, or 4 bytes which is equivalent to 32-bits, and an integer is of 32-bits as well. Let's assume this variable to be 'a'.<br>
-                <br>
-            <li>The fifth instruction is 'mov DWORD PTR [rbp-0x8], 0x5', so it will move the value 5 into another integer, at address [rbp-0x8], let's assume this to be the variable 'b'.<br>
-                <br>
-            <li>Now sixth instruction, 'mov DWORD PTR [rbp-0xc], 0x30', will move 0x30 [=48 in decimal] into [rbp-0xc] (0xc=12 in decimal). So this is again another integer, let's assume this to be 'c'.<br>
-                <br>
-            <li>The seventh instruction is 'mov ecx, DWORD PTR [rbp-0xc]' so it will move the value of 'c' in ecx register for some reason.<br>
-                <br>
-            <li>The eighth instruction is 'mov edx, DWORD PTR [rbp-0x8]', so it will move the value of 'b' in edx register for some reason.<br>
-                <br>
-            <li>The ninth instruction is 'mov eax, DWORD PTR [rbp-0x4]', so it will move the value of 'a' in eax register for some reason.<br>
-                <br>
-            <li>The tenth instruction is 'mov esi, eax', so it will move eax into esi [or indirectly shift 'a' into esi].<br>
-                <br>
-            <li>The eleventh instruction is 'lea rdi, [rip+0xea0]', so it will load the address [rip+0xea0] into rdi for some reason.<br>
-                <br>
-            <li>The twelveth instruction is 'mov eax, 0x0', so it will clear the eax register by storing zero(0) in it.<br>
-                <br>
-            <li>The thirteenth instruction is 'call 0x1030 <printf@plt>', so it is printing something.<br>
-                    And now things seem to get clear, the string which is getting printed probably is a format specifier and so the following arguments [a, b & c] are placed in the argument registers [rsi, rdx, rcx respectively] and then the function is called to print out all of this together.<br>
-                    For further confirmation, the first argument[format specifier] is placed in rdi. We know that the control is moving '0x2004' in rdi, so if we analyse it we get :-<br>
-                    <br>
+                Alright this is a big chunk of code. So let's start analysing this now.<br />
+                <br />
+            <li>We already know that the first 2 lines are preparing the stack frame for the main function.<br />
+                <br />
+            <li>The third instruction is 'sub rsp, 0x10', so we subtracting 0x10[=16 in decimal], from the stack pointer, probably to make space for some variables.<br />
+                <br />
+            <li>The fourth line is 'mov DWORD PTR [rbp-0x4], 0x1', so it is moving the integer '1' into a dword address [rbp-0x4]. So this is probably an integer variable because we are subtracting 0x4, or 4 bytes which is equivalent to 32-bits, and an integer is of 32-bits as well. Let's assume this variable to be 'a'.<br />
+                <br />
+            <li>The fifth instruction is 'mov DWORD PTR [rbp-0x8], 0x5', so it will move the value 5 into another integer, at address [rbp-0x8], let's assume this to be the variable 'b'.<br />
+                <br />
+            <li>Now sixth instruction, 'mov DWORD PTR [rbp-0xc], 0x30', will move 0x30 [=48 in decimal] into [rbp-0xc] (0xc=12 in decimal). So this is again another integer, let's assume this to be 'c'.<br />
+                <br />
+            <li>The seventh instruction is 'mov ecx, DWORD PTR [rbp-0xc]' so it will move the value of 'c' in ecx register for some reason.<br />
+                <br />
+            <li>The eighth instruction is 'mov edx, DWORD PTR [rbp-0x8]', so it will move the value of 'b' in edx register for some reason.<br />
+                <br />
+            <li>The ninth instruction is 'mov eax, DWORD PTR [rbp-0x4]', so it will move the value of 'a' in eax register for some reason.<br />
+                <br />
+            <li>The tenth instruction is 'mov esi, eax', so it will move eax into esi [or indirectly shift 'a' into esi].<br />
+                <br />
+            <li>The eleventh instruction is 'lea rdi, [rip+0xea0]', so it will load the address [rip+0xea0] into rdi for some reason.<br />
+                <br />
+            <li>The twelveth instruction is 'mov eax, 0x0', so it will clear the eax register by storing zero(0) in it.<br />
+                <br />
+            <li>The thirteenth instruction is 'call 0x1030 <printf@plt>', so it is printing something.<br />
+                    And now things seem to get clear, the string which is getting printed probably is a format specifier and so the following arguments [a, b & c] are placed in the argument registers [rsi, rdx, rcx respectively] and then the function is called to print out all of this together.<br />
+                    For further confirmation, the first argument[format specifier] is placed in rdi. We know that the control is moving '0x2004' in rdi, so if we analyse it we get :-<br />
+                    <br />
                     <pre><div class="snip">
-(gdb) x/s 0x2004<br>
-<font color="#8181FF">0x2004</font>:  "A = %d, B = %d , C = %d\n"<br>
-(gdb) <br>
+(gdb) x/s 0x2004<br />
+<font color="#8181FF">0x2004</font>:  "A = %d, B = %d , C = %d\n"<br />
+(gdb) <br />
 </div></pre>
-                    Which is right, there are 3 %d so three variables are placed in respective registers so it will print the desired output.<br>
-                    <br>
-            <li>The fourteenth instruction is 'mov eax, 0x0', so it will set eax to 0 to return the value 0 after the program has been ended.<br>
-                <br>
-            <li>The fifteenth instruction is 'leave'. 'leave' is actually the exact opposite of 'enter', but wait we don't have any 'enter' in our code, the reason is that, 'enter' is actually replaced by the first 2 instructions, and so 'leave' is exactly the opposite of first two instructions, which means 'leave' -> 'mov rsp, rbp', 'pop rbp', this is done to remove the base-pointer off the stack and indicates that the program is about to end.<br>
-                <br>
-            <li>The sixteenth instruction is 'ret', like the name suggests, it will return back to where it came from!<br>
-                <br>
-                So that's it, simple code! It looked quite large and confusing but at the end it was quite simple.<br>
-                <br>
+                    Which is right, there are 3 %d so three variables are placed in respective registers so it will print the desired output.<br />
+                    <br />
+            <li>The fourteenth instruction is 'mov eax, 0x0', so it will set eax to 0 to return the value 0 after the program has been ended.<br />
+                <br />
+            <li>The fifteenth instruction is 'leave'. 'leave' is actually the exact opposite of 'enter', but wait we don't have any 'enter' in our code, the reason is that, 'enter' is actually replaced by the first 2 instructions, and so 'leave' is exactly the opposite of first two instructions, which means 'leave' -> 'mov rsp, rbp', 'pop rbp', this is done to remove the base-pointer off the stack and indicates that the program is about to end.<br />
+                <br />
+            <li>The sixteenth instruction is 'ret', like the name suggests, it will return back to where it came from!<br />
+                <br />
+                So that's it, simple code! It looked quite large and confusing but at the end it was quite simple.<br />
+                <br />
     </div>
     <div id="contactForm" onclick="location.href='https://docs.google.com/forms/d/e/1FAIpQLScM7cjnyriiDIwM_8wFkS66cueS83lOaDoSsJ6dlM39szevcg/viewform?usp=sf_link'">
         <button id="contactFormButton"><span id="buttonUnderline">Fill the Form</span></button>

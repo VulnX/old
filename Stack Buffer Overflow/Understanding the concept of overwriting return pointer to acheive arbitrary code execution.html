@@ -29,28 +29,21 @@
     gtag('config', 'UA-167461836-1');
     </script>
     <div id="progressBar"></div>
-    <ul class="topnav">
-        <div class="x">
-            <img id="logo" src="../logo.svg">
-            <div style="display: flex; justify-content: row-reverse; align-items: center;">
-                <li><a target="_blank" href="../">Home</a></li>
-                <li><a target="_blank" href="../Contents/resources.html">Resources</a></li>
-                <li><a target="_blank" href="../Contents/tutorials.html">Tutorials</a></li>
-                <li><a target="_blank" href="../Contents/CTFs.html">CTFs</a></li>
-            </div>
+    <ul id="navbar">
+        <img src="../logo.svg">
+        <div>
+            <li><a href="../../" target="_blank">Home</a></li>
+            <li><a href="../../Contents/resources.html" target="_blank">Resources</a></li>
+            <li><a href="../../Contents/tutorials.html" target="_blank">Tutorials</a></li>
+            <li><a href="../../Contents/CTFs.html" target="_blank">CTFs</a></li>
         </div>
     </ul>
     <div id="cookieBar">
         <div id="cookieText">By using our site, you agree to our use of cookies to deliver a better site experience</div>
         <div id="cookieButton" onclick="hideCookieBar()"><span></span><span></span><span></span><span></span>&#10005;</div>
     </div>
+    <div id="floatingBox"><span>Understanding local variables on the stack</span></div>
     <div id="align" style="color: #555; font-family: 'Quicksand';">
-        <center>
-            <h1 style="color: #1b1b1b;">Buffer Overflow</h1>
-        </center>
-        <center>
-            <h1 style="color: #1b1b1b;">Redirecting code execution<br>[ Theory only ]</h1>
-        </center>
         <p>Hey guys! What's up?<br>
             Welcome to the third tutorial of the Buffer Overflow series. In the previous tutorial, we learnt how we can overflow a buffer to modify local variables to change the purpose of a program. Now let's move a step forward and begin to call functions arbitrarily.</p>
         <p>So first of all, before we begin store the code snippet given below in a file with the extention <b>(.c)</b></p>
