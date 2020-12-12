@@ -3,79 +3,17 @@
 
 <head>
     <title>syscall table for x64 Linux</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@600&family=Quicksand:wght@500&family=Saira+Stencil+One&family=Ubuntu:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css" />
     <link rel="icon" href="https://vulnx.in/favicon.png">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="HandheldFriendly" content="true">
-    <style type="text/css">
-    * {
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-    }
-
-    body {
-        margin: 0;
-    }
-
-    body::-webkit-scrollbar {
-        display: none;
-    }
-
-    table {
-        border-collapse: collapse;
-        font-family: 'Quicksand';
-        width: 80%;
-        margin: 25px 0;
-        box-shadow: 0 0 20px rgba(0, 0, 0, .15);
-    }
-
-    td,
-    th {
-        padding: 1vw;
-        text-align: center;
-        border: 0;
-    }
-
-    /*#topLeft {
-        border-top-left-radius: 15px;
-    }
-
-    #topRight {
-        border-top-right-radius: 15px;
-    }*/
-
-    tr:nth-child(even) {
-        background-color: #f3f3f3;
-        color: #08f;
-        font-weight: bold;
-    }
-
-    #heading {
-        background-color: #08f;
-        color: #fff;
-    }
-
-    #last {
-        border-bottom: 5px solid #08f;
-    }
-
-    @media screen and (max-width: 768px) {
-
-        td,
-        th {
-            padding: 2vw;
-        }
-    }
-    </style>
 </head>
 
 <body>
-    <h1 style="font-family: 'Quicksand'; text-align: center;">Syscall Table for x64 Linux</h1>
     <center>
-        <div style="overflow-x: auto;">
+        <h1>Syscall Table for x64 Linux</h1>
+        <div>
             <table>
                 <tr id="heading">
                     <th id="topLeft">NR</th>
