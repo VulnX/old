@@ -37,15 +37,15 @@
     <center><div id="floatingBox">HEX TO ASCII</div></center>
     <div id="container">
         <div class="subContainer">
-            <textarea placeholder="Type your text here ..." id="ASCII"></textarea>
+            <textarea placeholder="Type your hex here in this format: 
+56 75 6c 6e 58" id="HEX"></textarea>
         </div>
         <div id="buttonContainer">
-            <div class="Button"><span onclick="ascii2hex()">Convert</span></div>
-            <div class="Button"><span onclick="copy()" id="copy">Copy Text</span></div>
+            <div class="Button"><span onclick="hex2ascii()">Convert</span></div>
+            <div class="Button"><span onclick="copy('ASCII')" id="copy">Copy Text</span></div>
         </div>
         <div class="subContainer" id="1">
-            <textarea readonly="true" placeholder="Your hex output will appear here in the following format: 
-56 75 6c 6e 58 " id="HEX"></textarea>
+            <textarea readonly="true" placeholder="Your ASCII/Plain Text output will appear here." id="ASCII"></textarea>
         </div>
     </div>
     <div id="footer">

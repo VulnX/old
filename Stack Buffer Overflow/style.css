@@ -574,7 +574,7 @@ div#cookieButton:hover span:nth-child(4) {
 
     #navbar div li {
         font-size: .6rem;
-        padding: 10px 5px;
+        padding: 0px 5px;
     }
 
     #progressBar {

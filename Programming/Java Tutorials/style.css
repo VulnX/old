@@ -242,8 +242,6 @@ ul.topnav .x li a {
 
 ul.topnav .x li a:hover:not(.active) {
     background-color: #2b2b2b;
-    /*background-color: #092a49;*/
-    box-shadow: 0px 5px 5px #0007;
     color: #fff;
 }
 
@@ -274,16 +272,6 @@ h1:not(#footerHeading)::selection {
 
 h1:not(#footerHeading)::-moz-selection {
     color: #333;
-    background: transparent;
-}
-
-h2::selection {
-    color: inherit;
-    background: transparent;
-}
-
-h2::-moz-selection {
-    color: inherit;
     background: transparent;
 }
 
@@ -383,19 +371,26 @@ th {
     position: relative;
     top: -110px;
 }
+
 table *::selection {
     color: inherit;
     background: transparent;
 }
+
 table *::-moz-selection {
     color: inherit;
     background: transparent;
 }
+
 h2 {
     background: #555;
     color: #fff;
     padding: 5px 10px;
     text-align: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 img {
@@ -422,7 +417,7 @@ img::selection {
     line-height: normal;
 
     -webkit-column-break-inside: avoid;
-    page-break-inside: avoid;  
+    page-break-inside: avoid;
     break-inside: avoid-column;
 }
 
@@ -503,7 +498,7 @@ img::selection {
 
     ul.topnav .x li a {
         font-size: 0.6rem;
-        padding: 10px 5px;
+        padding: 0px 5px;
         height: 100%;
     }
 
