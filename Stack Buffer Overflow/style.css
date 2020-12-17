@@ -13,6 +13,7 @@
 body {
     margin: 0;
     line-height: 2rem;
+    background: #f1f1f1;
 }
 
 html {
@@ -86,7 +87,9 @@ img::-moz-selection {
 
 #align {
     background-color: #fff;
-    margin: 120px 30%;
+    margin: 120px 20%;
+    padding: 50px 10%;
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
     color: #555;
     font-family: 'Quicksand';
 }
@@ -522,6 +525,12 @@ div#cookieButton:hover span:nth-child(4) {
 
 #tableOfContents li span:hover {
     border-bottom-style: solid;
+}
+
+.highlight {
+    background-color: #333;
+    color: #f1f1f1;
+    padding: 2px 10px;
 }
 
 @media screen and (max-width: 768px) {

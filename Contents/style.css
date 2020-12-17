@@ -354,10 +354,16 @@ uline {
 }
 
 .gridLayout {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    display: inline-block;
+    width: 100%;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
 }
 
 @media screen and (max-width: 768px) {
