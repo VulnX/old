@@ -522,6 +522,7 @@ div#cookieButton:hover span:nth-child(4) {
     border-bottom: thin dashed #07f;
     cursor: pointer;
     padding: 5px 0;
+    -webkit-tap-highlight-color: none;
 }
 
 #tableOfContents li span:hover {
