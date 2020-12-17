@@ -45,12 +45,17 @@ img::-moz-selection {
     height: auto;
 }
 
+pre {
+    margin: 20px -25%;
+    padding: 20px 25%;
+    background-color: #2f2f2f;
+}
+
 .snip {
     background-color: #2f2f2f;
     color: white;
     font-size: 0.7rem;
     line-height: normal;
-    border-radius: 5px;
     padding: 15px;
     border: 2px solid #2f2f2f;
     overflow: scroll;
@@ -58,17 +63,25 @@ img::-moz-selection {
 }
 
 .snip::-webkit-scrollbar {
-    display: none;
+    height: 5px;
 }
 
-.snip {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+.snip::-webkit-scrollbar-track {
+    background-color: #2f2f2f;
+}
+
+.snip::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 50px;
+}
+
+.snip::-webkit-scrollbar-corner {
+    background: transparent;
 }
 
 #floatingBox {
     margin: 200px 20% 0 20%;
-    box-shadow: 0 0 10px 5px #0007;
+    box-shadow: 0 0 5px 2px #0007;
     width: 60%;
     padding: 30px;
     text-align: center;
@@ -90,7 +103,7 @@ img::-moz-selection {
     background-color: #fff;
     margin: 120px 20%;
     padding: 50px 10%;
-    box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .3), 0 1px 3px 1px rgba(60, 64, 67, .15);
     color: #555;
     font-family: 'Quicksand';
 }
@@ -535,6 +548,50 @@ div#cookieButton:hover span:nth-child(4) {
     padding: 2px 10px;
 }
 
+.highlight::selection {
+    color: inherit;
+    background: transparent;
+}
+
+.highlight::-moz-selection {
+    color: inherit;
+    background: transparent;
+}
+
+.highlight *::selection {
+    color: inherit;
+    background: transparent;
+}
+
+.highlight *::-moz-selection {
+    color: inherit;
+    background: transparent;
+}
+
+#contentList {
+    background-color: #fff;
+    width: 15%;
+    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .3), 0 1px 3px 1px rgba(60, 64, 67, .15);
+    margin: 0 1.25%;
+    padding: 1.25%;
+    position: fixed;
+    top: 250px;
+    border-right: .25rem solid #09f;
+    line-height: normal;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#contentList span {
+    font-family: Ubuntu;
+    color: #555;
+    font-size: .8rem;
+    margin: 100px 0;
+    cursor: pointer;
+}
+
 @media screen and (max-width: 768px) {
 
     h2 {
@@ -553,6 +610,11 @@ div#cookieButton:hover span:nth-child(4) {
 
     body {
         font-size: 1rem;
+    }
+
+    pre {
+        margin: 20px -14.5%;
+        padding: 0 5%;
     }
 
     .snip {
@@ -600,6 +662,10 @@ div#cookieButton:hover span:nth-child(4) {
 
     .secLink {
         top: -10px;
+    }
+
+    #contentList {
+        display: none;
     }
 
 }

@@ -44,6 +44,41 @@
         <div id="cookieButton" onclick="hideCookieBar()"><span></span><span></span><span></span><span></span>&#10005;</div>
     </div>
     <div id="floatingBox"><span>Modifying local variables on the stack - Part I</span></div>
+    <div id="contentList">
+        <span id="1" onclick="location.href='#Analyze-Logic'">STEP-1 : Analyze the program logic & vulnerability</span><br /><br />
+        <span id="2" onclick="location.href='#users-PoV'">STEP-1.1 : Approaching the code from the user's PoV</span><br /><br />
+        <span id="3" onclick="location.href='#computers-PoV'">STEP-1.2 : Understanding the computer's perspective</span><br /><br />
+        <span id="4" onclick="location.href='#compiling-and-modifying'">STEP-2 : Compiling and modifying 'value'</span>
+    </div>
+    <script type="text/javascript">
+    function decolorizeAll() {
+        document.getElementById('1').style.color = "#555";
+        document.getElementById('2').style.color = "#555";
+        document.getElementById('3').style.color = "#555";
+        document.getElementById('4').style.color = "#555";
+    }
+    document.addEventListener('scroll', () => {
+        if (document.getElementById('a').getBoundingClientRect().top > 0) {
+            decolorizeAll();
+        }
+        if (document.getElementById('a').getBoundingClientRect().top < 500 && document.getElementById('b').getBoundingClientRect().top > 0) {
+            decolorizeAll();
+            document.getElementById('1').style.color = "#09f";
+        }
+        if (document.getElementById('b').getBoundingClientRect().top < 500 && document.getElementById('c').getBoundingClientRect().top > 0) {
+            decolorizeAll();
+            document.getElementById('2').style.color = "#09f";
+        }
+        if (document.getElementById('c').getBoundingClientRect().top < 500 && document.getElementById('d').getBoundingClientRect().top > 0) {
+            decolorizeAll();
+            document.getElementById('3').style.color = "#09f";
+        }
+        if (document.getElementById('d').getBoundingClientRect().top < 500) {
+            decolorizeAll();
+            document.getElementById('4').style.color = "#09f";
+        }
+    });
+    </script>
     <div id="align">
         <font color="#555" face="Quicksand">
             Hey guys! What's up?<br>Welcome to the second tutorial of the Buffer Overflow series. In the previous tutorial, we learnt how we can overflow a buffer in a program which uses input-functions prone to buffer overflow attacks.<br>
@@ -56,7 +91,8 @@
                 <li style="margin-left: 2rem"><span onclick="location.href='#computers-PoV'">STEP-1.2 : Understanding the computer's perspective</span></li>
                 <li><span onclick="location.href='#compiling-and-modifying'">STEP-2 : Compiling and modifying 'value'</span></li>
             </ul>
-            <span id="Analyze-Logic" class="secLink"></span><h2 style="color: #3b3b3b;">STEP-1 : Analyze the program logic & vulnerability</h2>
+            <span id="Analyze-Logic" class="secLink"></span>
+            <h2 id="a">STEP-1 : Analyze the program logic & vulnerability</h2>
             So this step is very important. In this tutorial, you have been provided with the C program given below :-
             <pre><div class="snip"><b><font color="#aaa">//  File name     : controlLocalVariable.c
 //  Compile with  : gcc controlLocalVariable.c -m64 -o controlLocalVariable.elf</font>
@@ -79,11 +115,13 @@
             So now our aim will be to change 'value' to be something other than 1501.<br>
             <br>
             So let's approach this code from (i) user's point of view and (ii) the computer's perspective
-            <span id="users-PoV" class="secLink"></span><h3 style="color: #3b3b3b;">1.1 : Approaching the code from users's point of view</h3>
+            <span id="users-PoV" class="secLink"></span>
+            <h3 id="b">1.1 : Approaching the code from users's point of view</h3>
             Looking at the source code, we can see that the integer variable has been assigned a value and later on it is checked if it is not the same. Throughout the entire code, the variable is never modified so regardless of anything, the 'if' statement will never be true. Further, the integer variable is also declared with the keyword 'const' which means that the variable cannot be modified throught the program.<br>
             <br>
             Okay it seems difficult to approach this problem from the user's point of view. So let's proceed and check the computer's perspective
-            <span id="computers-PoV" class="secLink"></span><h3 style="color: #3b3b3b;">1.2 : Understanding the computer's perspective for the program</h3>
+            <span id="computers-PoV" class="secLink"></span>
+            <h3 id="c">1.2 : Understanding the computer's perspective for the program</h3>
             So the computer will first create a stack frame for the main function and then subtract 4 bytes from the Stack Pointer and push it upwards to reserve space for that integer [ 4 byte ] variable. After executing 'const int value = 1501;' the stack should look somewhat like this :-
             <pre><div class="snip"><font face="Fira Code"> ________________
 |      0x5dd     |  <-- RSP [currently pointing to int variable with value 0x5dd or 1501, offset = RBP-0x4]
@@ -109,7 +147,8 @@
                 <li>Looking at the above stack layout it is clear that if the string buffer gets overflowed then the excess data will be overwritten to the integer variable.</li>
             </ul>
             So to sum it all up, all we have to do is, feed more input to the program than it was expecting. Obviously the stack layout which I have shown above is not 100% accurate so there will be some data and space between the string buffer and the integer variable, but that won't be a problem because we can overwrite that as well. So the proceedure is simple, first we compile the program and then run it with argv[1] having 100 bytes [ because it is more than 64 so that will be overwritten to the integer variable and it will be changed from 0x5dd to the hexadecimal representation of the character overflowed ].
-            <span id="compiling-and-modifying" class="secLink"></span><h2 style="color: #3b3b3b;">STEP-2 : Compiling and modifying 'value'</h2>
+            <span id="compiling-and-modifying" class="secLink"></span>
+            <h2 id="d">STEP-2 : Compiling and modifying 'value'</h2>
             Now let's compile to program with the command commented in the source code :-
             <pre><div class="snip"><b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># gcc controlLocalVariable.c -m64 -o controlLocalVariable.elf
 <b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font>#</div></pre>
@@ -132,10 +171,10 @@ Segmentation fault
                 <li>Program was supposed to have rbp-0x4 ==> 0x000005dd</li>
                 <li>But during run-time it was modified to ==> 0x58585858 [hex representation of "X"]</li>
             </ul>
-            <h2 style="color: #3b3b3b;">CONCLUSION</h2>
+            <h2>CONCLUSION</h2>
             Well, this was an extremely simple example. Obviously, buffer overflow isn't so easy, there are more concepts which are really confusing so I decided to go slow and explain everything in detail to avoid as much confusion as possible.<br>
             <br>
-            <h2 style="color: #3b3b3b;">CONTACT</h2>
+            <h2>CONTACT</h2>
             If you have any doubts or confusions in some part of the tutorial, feel free to reach out to me on my <a href="https://instagram.com/vulnx_hacking" class="link">Instagram</a> or you can mail me at <a href="mailto:vulnx101@gmail.com" class="link">vulnx101@gmail.com</a>
             <div id="contactForm" onclick="location.href='https://docs.google.com/forms/d/e/1FAIpQLScM7cjnyriiDIwM_8wFkS66cueS83lOaDoSsJ6dlM39szevcg/viewform?usp=sf_link'">
                 <button id="contactFormButton"><span id="buttonUnderline">Fill the Form</span></button>

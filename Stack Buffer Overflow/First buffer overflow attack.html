@@ -14,8 +14,6 @@
     <meta name="HandheldFriendly" content="true" />
     <meta name="keywords" content="VulnX, vulnx, vulnx.in, VulnX.in, hacking, Hacking, Buffer Overflow, Local variable, local variable, buffer overflow, bof, BoF, exploiting, binary exploiting, memory / corruption, memory, corruption, exploit, stack, overflow the stack, overwrite RIP, overwrite EIP, saved return pointer, remote code execution">
     <meta charset="utf-8" />
-    <meta name="google-signin-client_id" content="7743864513-tbfn9rfgcgni8c2t8b9obgjpobeq0j7i.apps.googleusercontent.com" />
-    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 </head>
 
 <body>
@@ -43,6 +41,47 @@
         <div id="cookieButton" onclick="hideCookieBar()"><span></span><span></span><span></span><span></span>&#10005;</div>
     </div>
     <div id="floatingBox"><span>First BoF Attack</span></div>
+    <div id="contentList">
+        <span id="1" onclick="location.href='#Recap'">Quick recap of the 'ret' instruction</span><br /><br />
+        <span id="2" onclick="location.href='#Checking-for-buffer-overflow'">Checking for buffer overflow vulnerability</span><br /><br />
+        <span id="3" onclick="location.href='#Determining-correct-offset'">Determining the correct offset</span><br /><br />
+        <span id="4" onclick="location.href='#Fetching-the-address-of-callMe()'">Fetching the address of 'callMe()'</span><br /><br />
+        <span id="5" onclick="location.href='#Redirecting-flow-of-control'">Redirecting flow of control.</span>
+    </div>
+    <script type="text/javascript">
+    function decolorizeAll() {
+        document.getElementById('1').style.color = "#555";
+        document.getElementById('2').style.color = "#555";
+        document.getElementById('3').style.color = "#555";
+        document.getElementById('4').style.color = "#555";
+        document.getElementById('5').style.color = "#555";
+    }
+    document.addEventListener('scroll', () => {
+        if (document.getElementById('a').getBoundingClientRect().top > 0) {
+            decolorizeAll();
+        }
+        if (document.getElementById('a').getBoundingClientRect().top < 500 && document.getElementById('b').getBoundingClientRect().top > 0) {
+            decolorizeAll();
+            document.getElementById('1').style.color = "#09f";
+        }
+        if (document.getElementById('b').getBoundingClientRect().top < 500 && document.getElementById('c').getBoundingClientRect().top > 0) {
+            decolorizeAll();
+            document.getElementById('2').style.color = "#09f";
+        }
+        if (document.getElementById('c').getBoundingClientRect().top < 500 && document.getElementById('d').getBoundingClientRect().top > 0) {
+            decolorizeAll();
+            document.getElementById('3').style.color = "#09f";
+        }
+        if (document.getElementById('d').getBoundingClientRect().top < 500 && document.getElementById('e').getBoundingClientRect().top > 0) {
+            decolorizeAll();
+            document.getElementById('4').style.color = "#09f";
+        }
+        if (document.getElementById('e').getBoundingClientRect().top < 500) {
+            decolorizeAll();
+            document.getElementById('5').style.color = "#09f";
+        }
+    });
+    </script>
     <div id="align">
         <hr />
         <p style="text-align: right; letter-spacing: 2px; font-family: Ubuntu; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;"><i class="fas fa-user-circle" style="color: #09f"></i> VulnX&nbsp;&nbsp;<i class="far fa-clock" style="color: #09f"></i> 15 Dec 2020</p>
@@ -58,11 +97,11 @@
             <li><span onclick="location.href='#Redirecting-flow-of-control'">Redirecting flow of control.</span></li>
         </ul>
         <span style="position: relative; top: -120px; visibility: hidden;" id="Recap"></span>
-        <h2>Recap of 'ret' instruction</h2>
+        <h2 id="a">Recap of 'ret' instruction</h2>
         <p>Whenever a function is called, or the <span class="highlight">assembly : <span style="font-weight: bold;">call</span></span> instruction is executed, the memory address of the next instruction to be executed is push on the stack. Then the RIP [ the 64-bit instruction pointer register ] is changed to the base address of the function to be called. The function so called, sets up a new stack frame for itself to allow the storage of local variables and other data. At the end of the function, just before it returns back, the stack frame is destroyed and now, again the RSP points directly to the instruction which was pushed earlier on the stack.</p>
-        <p>This way the return address or return pointer is always saved on the stack and it is lies beneath the RBP [ like we had seen <a href="Understanding%20the%20concept%20of%20overwriting%20return%20pointer%20to%20acheive%20arbitrary%20code%20execution.html#Stack%20Layout" class="link">here</a> ]. Therefore, if we write data past the base of the stack and correctly overflow the <i>saved return pointer</i>, with the address of an arbitrary function, the flow of control should be redirected there.</p>
+        <p>This way the return address or return pointer is always saved on the stack and it is lies beneath the RBP [ like we had seen <a href="Understanding%20the%20concept%20of%20overwriting%20return%20pointer%20to%20acheive%20arbitrary%20code%20execution.html#Stack%20Layout" class="link">here <span class="newTab material-icons"></span></a> ]. Therefore, if we write data past the base of the stack and correctly overflow the <i>saved return pointer</i>, with the address of an arbitrary function, the flow of control should be redirected there.</p>
         <span id="Checking-for-buffer-overflow" class="secLink"></span>
-        <h2>Checking for buffer overflow vulnerability</h2>
+        <h2 id="b">Checking for buffer overflow vulnerability</h2>
         <p>Before we begin, store the code snippet provided below in a file and compile it with the command commented in the script</p>
         <pre><div class="snip"><b><span style="color: #aaa;">//  File name     : controlRIP.c
 //  Compile with  : gcc controlRIP.c -m64 -no-pie -o controlRIP.elf</span>
@@ -157,7 +196,7 @@ gdb-peda$ </div>
         <p>As you can see, the RIP points to the location of the crash. However, the RBP points to 0x4141414141414141 which is hex equivalent of 'AAAAAAAA'. This means that some 8 <span class="highlight">A</span> letters will be overwritten in the RBP.</p>
         <p>So now our primary objective will be to determine the exact offset to overwrite the saved return pointer.</p>
         <span id="Determining-correct-offset" class="secLink"></span>
-        <h2>Determining the correct offset</h2>
+        <h2 id="c">Determining the correct offset</h2>
         <p>Since we know that some 8 <span class="highlight">A</span>'s are overflowed to the RBP register, we can use a pattern like this :</p>
         <div id="quote">AAAAAAAABBBBBBBBCCCCCCCC ...</div>
         <p>to overflow the buffer. This way we can examine which 8 bytes overflowed the RBP and accordingly calculate the offset for <span style="font-weight: bold;">Base Pointer</span></p>
@@ -227,7 +266,7 @@ gdb-peda$ </div>
         <p>This gives us the correct offset for the <i>saved return pointer</i> as 72. Let's test it before proceeding further. We will write 72 times the letter <span class="highlight">A</span> and 6 times the letter <span class="highlight">B</span></p>
         <div id="quote" style="text-transform: uppercase; font-weight: bold; color: #333;">Note : The letter 'B' is repeated 6 times and not 8 because the RIP is a 6 byte register. Try to write more than 6 bytes in it and see what happens.</div>
         <span id="Fetching-the-address-of-callMe()" class="secLink"></span>
-        <h2>Fetching the addressing of 'callMe()'</h2>
+        <h2 id="d">Fetching the addressing of 'callMe()'</h2>
         <p>Alright, now we need to find the exact address where <abbr title="Our AIM : The function to be called">'callMe()' </abbr> is located. We can do that by using <i>objdump</i> with our binary.</p>
         <pre>
         <div class="snip"><b>root@kali</b>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># objdump --help
@@ -417,7 +456,7 @@ Base Address: 0x0000000000401142
             <li>Address to be overwritten with: <span style="color: #09f; font-weight: bold;">0000000000401142</span></li>
         </ol>
         <span id="Redirecting-flow-of-control" class="secLink"></span>
-        <h2>Redirecting flow of control</h2>
+        <h2 id="e">Redirecting flow of control</h2>
         <p>Okay we now have enough data to exploit this application. Let's make a script in python [ you can alternatively choose another language as well ] which will overflow the buffer and write the base address of the 'callMe()' function to the saved return pointer which according to our theory, should be popped in RIP causing the flow of control to reach that function.</p>
         <p>I have used the script given below</p>
         <pre>

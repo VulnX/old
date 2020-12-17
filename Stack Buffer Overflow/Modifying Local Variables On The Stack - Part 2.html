@@ -42,26 +42,59 @@
         <div id="cookieText">By using our site, you agree to our use of cookies to deliver a better site experience</div>
         <div id="cookieButton" onclick="hideCookieBar()"><span></span><span></span><span></span><span></span>&#10005;</div>
     </div>
-
     <div id="floatingBox"><span>Modifying local variables on the stack - Part II</span></div>
-
+    <div id="contentList">
+        <span id="1" onclick="location.href='#Offset-Determination'">Undestanding and determination of correct offset</span><br /><br />
+        <span id="2" onclick="location.href='#Compiling-n-testing'">Compiling and testing</span><br /><br />
+        <span id="3" onclick="location.href='#Fixing-mistakes'">Fixing the mistakes</span><br /><br />
+        <span id="4" onclick="location.href='#Endianness'">Determining the endianness</span><br /><br />
+        <span id="5" onclick="location.href='#Exploit'">Building the final exploit</span><br /><br />
+    </div>
+    <script type="text/javascript">
+    function decolorizeAll() {
+        document.getElementById('1').style.color = "#555";
+        document.getElementById('2').style.color = "#555";
+        document.getElementById('3').style.color = "#555";
+        document.getElementById('4').style.color = "#555";
+        document.getElementById('5').style.color = "#555";
+    }
+    document.addEventListener('scroll', () => {
+        if (document.getElementById('a').getBoundingClientRect().top > 0) {
+            decolorizeAll();
+        }
+        if (document.getElementById('a').getBoundingClientRect().top < 500 && document.getElementById('b').getBoundingClientRect().top > 0) {
+            decolorizeAll();
+            document.getElementById('1').style.color = "#09f";
+        }
+        if (document.getElementById('b').getBoundingClientRect().top < 500 && document.getElementById('c').getBoundingClientRect().top > 0) {
+            decolorizeAll();
+            document.getElementById('2').style.color = "#09f";
+        }
+        if (document.getElementById('c').getBoundingClientRect().top < 500 && document.getElementById('d').getBoundingClientRect().top > 0) {
+            decolorizeAll();
+            document.getElementById('3').style.color = "#09f";
+        }
+        if (document.getElementById('d').getBoundingClientRect().top < 500 && document.getElementById('e').getBoundingClientRect().top > 0) {
+            decolorizeAll();
+            document.getElementById('4').style.color = "#09f";
+        }
+        if (document.getElementById('e').getBoundingClientRect().top < 500) {
+            decolorizeAll();
+            document.getElementById('5').style.color = "#09f";
+        }
+    });
+    </script>
     <div id="align">
         <font color="#555" face="Quicksand">
-            <!--center>
-                <h1 style="color: #1b1b1b;">Buffer Overflow</h1>
-            </center>
-            <center>
-                <h1 style="color: #1b1b1b;">Modifying local variables on the stack - Part II</h1>
-            </center-->
             Hey guys! What's up?<br />Welcome to the second part of the third tutorial of the Buffer Overflow series. In the previous tutorial, we learnt how we can overflow a buffer to change the value of a local variable. This time there is gonna be a slight change in it.<br />
             <br />
             <h2 style="color: #3b3b3b;">What we will be learning through this tutorial</h2>
             <ul id="tableOfContents">
-                <li><span onclick="location.href='#Offset-Determination'">Undestanding and determination of correct offset</span></a></li>
-                <li><span onclick="location.href='#Compiling-n-testing'">Compiling and testing</span></a></li>
-                <li><span onclick="location.href='#Fixing-mistakes'">Fixing the mistakes</span></a></li>
-                <li><span onclick="location.href='#Endianness'">Determining the endianness</span></a></li>
-                <li><span onclick="location.href='#Exploit'">Building the final exploit</span></a></li>
+                <li><span onclick="location.href='#Offset-Determination'">Undestanding and determination of correct offset</span></li>
+                <li><span onclick="location.href='#Compiling-n-testing'">Compiling and testing</span></li>
+                <li><span onclick="location.href='#Fixing-mistakes'">Fixing the mistakes</span></li>
+                <li><span onclick="location.href='#Endianness'">Determining the endianness</span></li>
+                <li><span onclick="location.href='#Exploit'">Building the final exploit</span></li>
             </ul>
             The source code of the vulnerable C program will be almost same as the previous one. It's given below, take a look at it :-
             <pre><div class="snip"><b><font color="#aaa">//  File name     : controlLocalVariable.c
@@ -85,14 +118,14 @@
             <br />
             Again we need to overflow the buffer and write the excess data in the integer variable. Seems simple right?<br />
             Great! Let's start building our exploit.
-            <span id="Offset-Determination" class="secLink"></span><h2 style="color: #3b3b3b;">STEP-1 : Determination of correct offset</h2>
-
+            <span id="Offset-Determination" class="secLink"></span>
+            <h2 id="a">STEP-1 : Determination of correct offset</h2>
             Now, we can't just randomly write any number of bytes right? We need a specific number of junk bytes which will fill the buffer and write 0xcafebabe as the excess data in the variable. So, that number of bytes required to reach the int variable [ RBP-0x4, as explaining the previous tutorial ], such that any data after those number of bytes will be written into the int variable is called offset. Thus it is very important to determine the correct offset to the int variable. So anyway our exploit will be :-<br />
             <p>XXXXXX.... (no. of X = offset) + 0xcafebabe</p>
             Let's ignore 0xcafebabe for now and write "AAAA" instead of that. The character "A" has the hex code 0x41<sup>*</sup> [ remember this! ], this means that after hitting the correct offset, the extra "AAAA" will be written into RBP-0x4 [ int variable ] and if we analyse it with GDB [ the debugger we are going to be using for this series ] the value stored should be 0x41414141. So now the question is what's the offset?<br />
             Well obviously 64 right? The buffer is of 64 bytes and just beneath it lies the int variable, so the 65th byte and the rest should be overwritten to the int variable.
-            <span id="Compiling-n-testing" class="secLink"></span><h2 style="color: #3b3b3b;">STEP-2 : Compiling and testing</h2>
-
+            <span id="Compiling-n-testing" class="secLink"></span>
+            <h2 id="b">STEP-2 : Compiling and testing</h2>
             Let's compile the program with the command commented in the source code. Once you are done with that, open it with GDB :-
             <pre><div class="snip"><b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># gdb ./controlLocalVariable.elf -q
 Reading symbols from <font color="#55FF55">./controlLocalVariable.elf</font>...
@@ -145,8 +178,8 @@ gdb-peda$ <b>x/wx $rbp-0x4
 <font color="#8181FF">0x7fffffffdfac</font>: 0x000005dd</b>
 gdb-peda$ </div></pre>
             Wait what?! We overflowed the buffer, and so the excess 4 "A" should be overwritten to the int variable right??! Then why is this not working? Think about it!<br />
-            <span id="Fixing-mistakes" class="secLink"></span><h2 style="color: #3b3b3b;">STEP-3 : Fixing the mistakes</h2>
-
+            <span id="Fixing-mistakes" class="secLink"></span>
+            <h2 id="c">STEP-3 : Fixing the mistakes</h2>
             If you have read the previous tutorial properly then you will be able to solve the issue quite easily. I had clearly mentioned that the stack layout is not 100% accurate and there will be some space between the end of the buffer and the start of int variable. So the perhaps we have overwritten that space and not the int variable. So the stack layout should look somewhat like this :-
             <br /><br />
             <div class="image"><img src="https://i.imgur.com/CZxxYjh.png"></div><br />
@@ -176,8 +209,8 @@ gdb-peda$ <b>x/wx $rbp-0x4
 <font color="#8181FF">0x7fffffffdfac</font>: 0x41414141</b>
 gdb-peda$ </div></pre>
             Yay! Perfect, so we got the correct offset. Now let's replace "AAAA" with 0xcafebabe and redirect code execution to the if block.
-            <span id="Endianness" class="secLink"></span><h2 style="color: #3b3b3b;">STEP-4 : Determining the endianness</h2>
-
+            <span id="Endianness" class="secLink"></span>
+            <h2 id="d">STEP-4 : Determining the endianness</h2>
             Before we write 0xcafebabe in the int varialbe, we firt need to determine the endianness of your computer.<br />
             First of all, what is endianness? According to a wiki `In computing, endianness is the ordering or sequencing of bytes of a word of digital data in computer memory storage or during transmission. Endianness is primarily expressed as big-endian or little-endian. A big-endian system stores the most significant byte of a word at the smallest memory address and the least significant byte at the largest. A little-endian system, in contrast, stores the least-significant byte at the smallest address`.<br />
             <br />
@@ -195,8 +228,8 @@ little
 <b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># </div></pre>
             Wait! What are those ugly characters???<br />
             Well if you notice, all the bytes are greater than 7f [ or decimal 127 ] this means that they all are beyond representable characters. That's why they appear in question mark(?) like symbols on my terminal, and like these weird characters on your web browser.
-            <span id="Exploit" class="secLink"></span><h2 style="color: #3b3b3b;">STEP-5 : Building up the final exploit</h2>
-
+            <span id="Exploit" class="secLink"></span>
+            <h2 id="e">STEP-5 : Building up the final exploit</h2>
             Now for a better understanding, let's make a python file which will print 76 "A" + 0xcafebabe in little-endian format.
             <pre><div class="snip"><font color="#8181FF">import</font> sys
 <font color="#8181FF">from</font> struct <font color="#8181FF">import</font> pack
@@ -216,8 +249,12 @@ Copying argv[1] to buffer ...
 Nope! You were not given the access.
 <b>root@kali</b>:<font color="#8181FF">~/Desktop/Buffer Overflow</font># </div></pre>
             Boom! Look at that, we have been greeted with argv[1]. Which means ..... <font face="Saira Stencil One" style="letter-spacing: 2px"><b>WE WIN!</b></font> I hope this tutorial made sense to you. If you got confused somewhere try re-reading it because this is the first tutorial where we are introduced to debuggers and the making of payload using python scripts so I understand it might be a little confusing for some of you. Anyway, if you understood everything well then it's a great start! We will meet in the next tutorial where we will be jumping to a function in the source code which is not called by the programmer.
-            <h2 style="color: #3b3b3b;">CONTACT</h2>
-            If you have any doubts or confusions in some part of the tutorial, feel free to reach out to me on my <a href="https://instagram.com/vulnx_hacking" class="link"><font color="#0055ff">Instagram</font></a> or you can mail me at <a href="mailto:vulnx101@gmail.com" class="link"><font color="#0055ff">vulnx101@gmail.com</font></a>
+            <h2>CONTACT</h2>
+            If you have any doubts or confusions in some part of the tutorial, feel free to reach out to me on my <a href="https://instagram.com/vulnx_hacking" class="link">
+                <font color="#0055ff">Instagram</font>
+            </a> or you can mail me at <a href="mailto:vulnx101@gmail.com" class="link">
+                <font color="#0055ff">vulnx101@gmail.com</font>
+            </a>
             <div id="contactForm" onclick="location.href='https://docs.google.com/forms/d/e/1FAIpQLScM7cjnyriiDIwM_8wFkS66cueS83lOaDoSsJ6dlM39szevcg/viewform?usp=sf_link'">
                 <button id="contactFormButton"><span id="buttonUnderline">Fill the Form</span></button>
             </div>

@@ -12,14 +12,6 @@ function updateScrollBar() {
     var scrolled = (winScroll / height) * 100;
     document.getElementById("progressBar").style.width = scrolled + "%";
 }
-/*if (checkCookie("cookiePromptShown")) {
-if (getCookie("cookiePromptShown") == "yes") {
-document.getElementById("cookieBar").style.display = "none";
-}
-}
-else if (!(checkCookie("cookiePromptShown"))) {
-document.getElementById("cookieBar").style.display = "flex";
-}*/
 
 function setCookie(cname, cvalue, days) {
     var d = new Date();
