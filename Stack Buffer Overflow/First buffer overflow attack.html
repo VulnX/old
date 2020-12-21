@@ -50,11 +50,11 @@
     </div>
     <script type="text/javascript">
     function decolorizeAll() {
-        document.getElementById('1').style.color = "#555";
-        document.getElementById('2').style.color = "#555";
-        document.getElementById('3').style.color = "#555";
-        document.getElementById('4').style.color = "#555";
-        document.getElementById('5').style.color = "#555";
+        document.getElementById('1').style.color = "initial";
+        document.getElementById('2').style.color = "initial";
+        document.getElementById('3').style.color = "initial";
+        document.getElementById('4').style.color = "initial";
+        document.getElementById('5').style.color = "initial";
     }
     document.addEventListener('scroll', () => {
         if (document.getElementById('a').getBoundingClientRect().top > 0) {
@@ -62,23 +62,23 @@
         }
         if (document.getElementById('a').getBoundingClientRect().top < 500 && document.getElementById('b').getBoundingClientRect().top > 0) {
             decolorizeAll();
-            document.getElementById('1').style.color = "#09f";
+            document.getElementById('1').style.color = "#05f";
         }
         if (document.getElementById('b').getBoundingClientRect().top < 500 && document.getElementById('c').getBoundingClientRect().top > 0) {
             decolorizeAll();
-            document.getElementById('2').style.color = "#09f";
+            document.getElementById('2').style.color = "#05f";
         }
         if (document.getElementById('c').getBoundingClientRect().top < 500 && document.getElementById('d').getBoundingClientRect().top > 0) {
             decolorizeAll();
-            document.getElementById('3').style.color = "#09f";
+            document.getElementById('3').style.color = "#05f";
         }
         if (document.getElementById('d').getBoundingClientRect().top < 500 && document.getElementById('e').getBoundingClientRect().top > 0) {
             decolorizeAll();
-            document.getElementById('4').style.color = "#09f";
+            document.getElementById('4').style.color = "#05f";
         }
         if (document.getElementById('e').getBoundingClientRect().top < 500) {
             decolorizeAll();
-            document.getElementById('5').style.color = "#09f";
+            document.getElementById('5').style.color = "#05f";
         }
     });
     </script>
