@@ -7,17 +7,23 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="HandheldFriendly" content="true">
+	<style type="text/css">
+		#align {
+			line-height: 2rem;
+		}
+	</style>
 </head>
 <body>
 
-	<ul class="topnav"><div class="x">
-		<img id="logo" src="../logo.svg">
-		<div style="display: flex;align-items: center;"><li><a target="_blank" href="../">Home</a></li>
-			<li><a target="_blank" href="resources.html">Resources</a></li>
-			<li><a target="_blank" href="tutorials.html">Tutorials</a></li>
-			<li><a target="_blank" class="active" href="CTFs.html">CTFs</a></li></div>
-		</div>
-	</ul>
+	<ul id="navbar">
+        <img src="../logo.svg">
+        <div>
+            <li><a href="../" target="_blank">Home</a></li>
+            <li><a href="resources.html" target="_blank">Resources</a></li>
+            <li><a href="tutorials.html" target="_blank">Tutorials</a></li>
+            <li style="background-color: #333"><a style="color: #f1f1f1" href="CTFs.html" target="_blank">CTFs</a></li>
+        </div>
+    </ul>
 
 	<div id="cookieBar">
 		<div id="cookieText">By using our site, you agree to our use of cookies to deliver a better site experience</div>

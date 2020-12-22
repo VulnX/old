@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Introduction to ret2libc!</title>
+    <link rel="stylesheet" href="style.css" />
+    <script type="text/javascript" src="script.js"></script>
+    <link rel="icon" href="https://vulnx.in/favicon.png">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+    <script data-ad-client="ca-pub-6203666289882469" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="keywords" content="VulnX, vulnx, vulnx.in, VulnX.in, hacking, Hacking, Buffer Overflow, Local variable, local variable, buffer overflow, bof, BoF, exploiting, binary exploiting, memory corruption, memory, corruption, exploit, stack, stack variables, overflow the stack, overwrite RIP, overwrite EIP, saved return pointer, remote code execution, ret2libc, return to libc, libc attacks, libc, return, ret, ROP, return oriented programming, rop chaining, rop gadegets">
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167461836-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-167461836-1');
+    </script>
+    <div id="progressBar"></div>
+    <ul id="navbar">
+        <img src="../logo.svg">
+        <div>
+            <li><a href="../" target="_blank">Home</a></li>
+            <li><a href="../Contents/resources.html" target="_blank">Resources</a></li>
+            <li><a href="../Contents/tutorials.html" target="_blank">Tutorials</a></li>
+            <li><a href="../Contents/CTFs.html" target="_blank">CTFs</a></li>
+        </div>
+    </ul>
+    <div id="cookieBar">
+        <div id="cookieText">By using our site, you agree to our use of cookies to deliver a better site experience</div>
+        <div id="cookieButton" onclick="hideCookieBar()"><span></span><span></span><span></span><span></span>&#10005;</div>
+    </div>
+    <div id="floatingBox"><span>Introduction to ret2libc</span></div>
+    <div id="align">
+    	<hr />
+        <p style="text-align: right; letter-spacing: 2px; font-family: Ubuntu; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;"><i class="fas fa-user-circle" style="color: #09f"></i> VulnX&nbsp;&nbsp;<i class="far fa-clock" style="color: #09f"></i> 15 Dec 2020</p>
+        <hr />
+    	<p>Welcome to the fifth tutorial of the Buffer Overflow series. In the previous tutorial, we executed our first BoF attack.</p>
+    	<h2>Important Announcement</h2>
+    	<p>Before we begin this tutorial, I want to make an important announcement.<br />If you've tried compiling the applications which we have exploited earlier without disabling the security protections, then it is most likely that the exploits are going to be failed. The reason is that those exploits aren't capable of running against the modern mitigation techniques.</p>
+    	<p>So, now I think its time to introduce modern exploitations techniques and try to defeat maximum protections.</p>
+    	<p>We are going to be defeating the following techniques one by one</p>
+    	<ol style="list-style-type: devanagari">
+    		<li><span style="border-bottom: thin solid #228B22">System ASLR</span></li>
+    		<li><span style="border-bottom: thin solid #228B22">PIE</span></li>
+    		<li><span style="border-bottom: thin solid #228B22">RWX & NX Bit</span></li>
+    		<li><span style="border-bottom: thin solid #228B22">RelRO</span></li>
+    		<li><span style="border-bottom: thin solid #228B22">All of them together</span></li>
+    	</ol>
+    	<p>Out of the above listed protections, we have already defeated the first one (System ASLR). This is because, though we had disabled ASLR on the binary in the form of PIE but the system ASLR was always on. This means that our compiled application was unaffected by ASLR but the system was.</p>
+    	<p>But <span style="text-transform: uppercase; font-family: Ubuntu; font-weight: bold; letter-spacing: 1px;">who cares about the system as long as our exploit is working?!</span></p>
+        <hr class="new5">
+        <div class="icons">
+            <a class="ico" href="javascript:delay('#')">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a class="ico" href="javascript:delay('mailto:vulnx101@gmail.com')">
+                <i class="fab fa-google"></i>
+            </a>
+            <a class="ico" href="javascript:delay('https://instagram.com/vulnx_hacking')">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a class="ico" href="javascript:delay('https://bit.ly/VulnX_YT')">
+                <i class="fab fa-youtube"></i>
+            </a>
+        </div>
+    </div>
+    <div id="footer">
+        <h1 id="footerHeading" style="cursor: pointer; background-color: transparent; font-family: 'Saira Stencil One'; font-size: 50px; color: #eee" onclick="location.href='https://vulnx.in/'">VulnX</h1>
+        <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/'">Home</p>
+        <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/resources.html'">Resources</p>
+        <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/tutorials.html'">Tutorials</p>
+        <p style="cursor: pointer; background-color: transparent;" onclick="location.href='https://vulnx.in/Contents/CTFs.html'">CTFs</p>
+        <h1 id="footerHeading" style="background-color: transparent; font-family: 'Ubuntu'; color: #eee">Contact</h1>
+        <i class="fab fa-facebook-f" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='#'"></i>
+        <i class="fab fa-google" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='mailto:vulnx101@gmail.com'"></i>
+        <i class="fab fa-instagram" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='https://www.instagram.com/vulnx_hacking'"></i>
+        <i class="fab fa-youtube" style="line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;" onclick="location.href='https://bit.ly/VulnX_YT'"></i>
+    </div>
+</body>
+
+</html>
