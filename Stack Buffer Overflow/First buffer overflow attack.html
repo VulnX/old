@@ -123,7 +123,7 @@
   func();
   <font color="#FFFF55">return</font> <font color="#FF55FF">0</font>;
 }</b></div></pre>
-        <div id="quote">The flag <span style="color: #000; font-weight: bold">-no-pie</span> disables PIE for the compiled application. This means that the binary will be unaffected by ASLR.</div>
+        <div class="quote">The flag <span style="color: #000; font-weight: bold">-no-pie</span> disables PIE for the compiled application. This means that the binary will be unaffected by ASLR.</div>
         <p>After compiling, when you feed normal input, it should work just fine</p>
         <pre>
         <div class="snip"><span style="font-weight: bold;">root@kali</span>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># ./controlRIP.elf 
@@ -198,7 +198,7 @@ gdb-peda$ </div>
         <span id="Determining-correct-offset" class="secLink"></span>
         <h2 id="c">Determining the correct offset</h2>
         <p>Since we know that some 8 <span class="highlight">A</span>'s are overflowed to the RBP register, we can use a pattern like this :</p>
-        <div id="quote">AAAAAAAABBBBBBBBCCCCCCCC ...</div>
+        <div class="quote">AAAAAAAABBBBBBBBCCCCCCCC ...</div>
         <p>to overflow the buffer. This way we can examine which 8 bytes overflowed the RBP and accordingly calculate the offset for <span style="font-weight: bold;">Base Pointer</span></p>
         <p>So the entire pattern will be like this :-</p>
         <div class="snip">AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDDEEEEEEEEFFFFFFFFGGGGGGGGHHHHHHHHIIIIIIIIJJJJJJJJKKKKKKKKLLLLLLLLMMMMMMMMNNNNNNNNOOOOOOOOPPPPPPPPQQQQQQQQRRRRRRRRSSSSSSSSTTTTTTTTUUUUUUUUVVVVVVVVWWWWWWWWXXXXXXXXYYYYYYYYZZZZZZZZ</div>
@@ -254,7 +254,7 @@ Stopped reason: SIGSEGV
 gdb-peda$ </div>
       </pre>
         <p>As you can see above, the RBP is overwritten with 0x4949494949494949 ('<span style="font-family: 'Fira Code'">IIIIIIII</span>'). This clearly means that from AAA... all the way up to HHHHHHHH will be stored in the buffer and from <span style="font-family: 'Fira Code'">IIIIIIII</span> onwards, the rest of the data will be overflowed. Thus the offset for RBP is the number of bytes of the text :</p>
-        <div id="quote">AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDDEEEEEEEEFFFFFFFFGGGGGGGGHHHHHHHH</div>
+        <div class="quote">AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDDEEEEEEEEFFFFFFFFGGGGGGGGHHHHHHHH</div>
         <p>Since 'H' is the 8th alphabet and every alphabet is repeated 8 times thus the offset is :</p>
         <ul>
             alphabetical position x character frequency<br />
@@ -264,7 +264,7 @@ gdb-peda$ </div>
         </ul>
         <p>Thus the offset for the RBP is 64. The <i>saved return pointer</i>, lies just beneath the base-pointer, thus the correct offset for the <i>saved return pointer</i> should be 64 + 8 [ since registers in a x64 system are of 8 bytes ].</p>
         <p>This gives us the correct offset for the <i>saved return pointer</i> as 72. Let's test it before proceeding further. We will write 72 times the letter <span class="highlight">A</span> and 6 times the letter <span class="highlight">B</span></p>
-        <div id="quote" style="text-transform: uppercase; font-weight: bold; color: #333;">Note : The letter 'B' is repeated 6 times and not 8 because the RIP is a 6 byte register. Try to write more than 6 bytes in it and see what happens.</div>
+        <div class="quote" style="text-transform: uppercase; font-weight: bold; color: #333;">Note : The letter 'B' is repeated 6 times and not 8 because the RIP is a 6 byte register. Try to write more than 6 bytes in it and see what happens.</div>
         <span id="Fetching-the-address-of-callMe()" class="secLink"></span>
         <h2 id="d">Fetching the addressing of 'callMe()'</h2>
         <p>Alright, now we need to find the exact address where <abbr title="Our AIM : The function to be called">'callMe()' </abbr> is located. We can do that by using <i>objdump</i> with our binary.</p>
@@ -474,7 +474,7 @@ exploit += callMe                   <span style="color: #aaa">#   Now these byte
 sys.stdout.buffer.write(exploit)    <span style="color: #aaa">#   'exploit' is a byte-string so a normal print won't work.</span>
 </div>
       </pre>
-        <div id="quote"><span style="text-transform: uppercase; font-weight: bold">Note : The above script is of python3 and not python2. Also you must replace the memory address of <span style="text-transform: none; border-bottom: 1px solid #000;">callMe()</span> in your case.</span></div>
+        <div class="quote"><span style="text-transform: uppercase; font-weight: bold">Note : The above script is of python3 and not python2. Also you must replace the memory address of <span style="text-transform: none; border-bottom: 1px solid #000;">callMe()</span> in your case.</span></div>
         <p>Let's see what is the output of this script</p>
         <pre>
         <div class="snip"><b>root@kali</b>:<span style="color: #8181ff; font-weight: bold">~/Desktop/Buffer Overflow</span># python<b>3</b> payload.py 
@@ -492,7 +492,7 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXB@<b>roo
         </div>
       </pre>
         <p>As you can see there are more characters in between "B" and "@" but they aren't visible.</p>
-        <div id="quote"><span style="float: left; font-style: italic">Things aren't always as they seem, that is, until you see the hex!😂</span><br /><br /><span style="float: right">~VulnX</span></div>
+        <div class="quote"><span style="float: left; font-style: italic">Things aren't always as they seem, that is, until you see the hex!😂</span><br /><span style="float: right">~VulnX</span><br /></div>
         <p>Okay, aside from this, the script should be 99% functional</p>
         <p>We have reached the CLIMAX, now let's check if our script helps us acheive our objective</p>
         <pre>

@@ -460,13 +460,17 @@ div#cookieButton:hover span:nth-child(4) {
     margin-left: -1em;
 }
 
-#quote {
-    background-color: #f0f0f0;
-    font-size: .7rem;
-    padding: 20px;
-    border-left: 5px solid #0004;
-    font-family: 'Source Code Pro';
+.quote {
+    background-color: #f1f1f1;
+    font-size: 80%;
+    padding: 15px;
+    border-left: 5px solid #0007;
+    font-family: 'Ubuntu';
     overflow-wrap: break-word;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 #contactForm {
@@ -609,8 +613,7 @@ div#cookieButton:hover span:nth-child(4) {
 }
 
 uline {
-    color: #07f;
-    border-bottom: thin solid #07f;
+    border-bottom: thin solid #555;
 }
 @media screen and (max-width: 768px) {
 
@@ -641,7 +644,7 @@ uline {
         font-size: 0.6rem;
     }
 
-    #quote {
+    .quote {
         font-size: 0.6rem;
     }
 

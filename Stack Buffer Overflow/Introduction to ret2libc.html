@@ -45,7 +45,7 @@
         <hr />
     	<p>Welcome to the fifth tutorial of the Buffer Overflow series. In the previous tutorial, we executed our first BoF attack.</p>
     	<h2>Important Announcement</h2>
-    	<p>Before we begin this tutorial, I want to make an important announcement.<br />If you've tried compiling the applications which we have exploited earlier without disabling the security protections, then it is most likely that the exploits are going to be failed. The reason is that those exploits aren't capable of running against the modern mitigation techniques.</p>
+    	<p>Before we begin this tutorial, I want to make an important announcement.<br />If you've tried compiling the applications which we have exploited earlier <uline>without disabling the security protections</uline>, then it is most likely that the exploits are going to be <b style="color: #000; font-family: Roboto; letter-spacing: .5px">failed</b>. The reason is that those exploits aren't capable of running against the modern mitigation techniques.</p>
     	<p>So, now I think its time to introduce modern exploitations techniques and try to defeat maximum protections.</p>
     	<p>We are going to be defeating the following techniques one by one</p>
     	<ol style="list-style-type: devanagari">
@@ -55,8 +55,13 @@
     		<li><span style="border-bottom: thin solid #228B22">RelRO</span></li>
     		<li><span style="border-bottom: thin solid #228B22">All of them together</span></li>
     	</ol>
-    	<p>Out of the above listed protections, we have already defeated the first one (System ASLR). This is because, though we had disabled ASLR on the binary in the form of PIE but the system ASLR was always on. This means that our compiled application was unaffected by ASLR but the system was.</p>
+    	<p>Out of the above listed protections, we have already defeated the first one (System ASLR). This is because, though we had disabled <uline>ASLR on the binary in the form of PIE</uline> but the system ASLR was <uline>always on</uline>. This means that our compiled application was unaffected by ASLR but the system was.</p>
     	<p>But <span style="text-transform: uppercase; font-family: Ubuntu; font-weight: bold; letter-spacing: 1px;">who cares about the system as long as our exploit is working?!</span></p>
+    	<p>Absolutely true! But from now onwards, even the system ASLR will start to affect our exploits, so we need to take care of that as well :(</p>
+    	<div class="quote" style="text-transform: uppercase; font-weight: bold; color: #333;">Note : This is our last attack which will depend on disabled security protections.</div>
+    	<p>Now finally, let's start with introduction to ROP.</p>
+    	<h2>Introduction to ROP</h2>
+    	<p><span style="color: #228B22; font-weight: bold">ROP</span> is an abbreviation for <span class="highlight"><span style="color: #228B22; font-weight: bold">R</span>eturn <span style="color: #228B22; font-weight: bold">O</span>riented <span style="color: #228B22; font-weight: bold">P</span>rogramming</span>. ROP is an expoitation technique that allows hackers to execute code [ shellcode ] in the presense of security defenses like NX-Bit and RWX.</p>
         <hr class="new5">
         <div class="icons">
             <a class="ico" href="javascript:delay('#')">
