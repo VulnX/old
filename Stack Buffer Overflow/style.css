@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&family=Saira+Stencil+One&family=Roboto:wght@400&family=Source+Code+Pro:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&family=Saira+Stencil+One&family=Roboto:wght@400&family=Ubuntu:wght@500&family=Source+Code+Pro:wght@500&display=swap');
 
 * {
     scroll-behavior: smooth;
@@ -78,6 +78,15 @@ pre {
 
 .snip::-webkit-scrollbar-corner {
     background: transparent;
+}
+
+.terminal::before {
+    content: "$ ";
+}
+
+.gdb::before, .gdb::after {
+    content: "gdb-peda$ ";
+    color: #f00;
 }
 
 .copyIcon {
@@ -465,7 +474,8 @@ div#cookieButton:hover span:nth-child(4) {
     font-size: 80%;
     padding: 15px;
     border-left: 5px solid #0007;
-    font-family: 'Ubuntu';
+    font-family: 'Roboto';
+    line-height: normal;
     overflow-wrap: break-word;
     -webkit-user-select: none;
     -moz-user-select: none;
