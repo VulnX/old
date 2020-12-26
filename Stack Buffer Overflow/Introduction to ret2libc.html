@@ -40,86 +40,86 @@
     </div>
     <div id="floatingBox"><span>Introduction to ret2libc</span></div>
     <div id="align">
-    	<hr />
+        <hr />
         <p style="text-align: right; letter-spacing: 2px; font-family: Ubuntu; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;"><i class="fas fa-user-circle" style="color: #09f"></i> VulnX&nbsp;&nbsp;<i class="far fa-clock" style="color: #09f"></i> 15 Dec 2020</p>
         <hr />
-    	<p>Welcome to the fifth tutorial of the Buffer Overflow series. In the previous tutorial, we executed our first BoF attack.</p>
-    	<h2>Important Announcement</h2>
-    	<p>Before we begin this tutorial, I want to make an important announcement.<br />If you've tried compiling the applications which we have exploited earlier <uline>without disabling the security protections</uline>, then it is most likely that the exploits are going to <b style="color: #000; font-family: Roboto; letter-spacing: .5px">fail</b>. The reason is that those exploits aren't capable of running against the modern mitigation techniques.</p>
-    	<p>So, now I think its time to introduce modern exploitation techniques and try to defeat maximum protections.</p>
-    	<p>We are going to be defeating the following techniques one by one</p>
-    	<ol style="list-style-type: devanagari">
-    		<li><span style="border-bottom: thin solid #228B22">System ASLR</span></li>
-    		<li><span style="border-bottom: thin solid #228B22">PIE</span></li>
-    		<li><span style="border-bottom: thin solid #228B22">RWX & NX Bit</span></li>
-    		<li><span style="border-bottom: thin solid #228B22">RelRO</span></li>
-    		<li><span style="border-bottom: thin solid #228B22">All of them together</span></li>
-    	</ol>
-    	<p>Out of the above listed protections, we have already defeated the first one (System ASLR). This is because, though we had disabled <uline>ASLR on the binary in the form of PIE</uline> but the system ASLR was <uline>always on</uline>. This means that our compiled application was unaffected by ASLR but the system was.</p>
-    	<p>But <span style="text-transform: uppercase; font-family: Ubuntu; font-weight: bold; letter-spacing: 1px;">who cares about the system as long as our exploit is working?!</span></p>
-    	<p>Absolutely true! But from now onwards, even the system ASLR will start to affect our exploits, so we need to take care of that as well :(</p>
-    	<div class="quote" style="text-transform: uppercase; font-weight: bold; color: #333">Note : This is our last attack which will depend on disabled security protections.</div>
-    	<p>Now finally, let's start with introduction to ROP.</p>
-    	<h2>Introduction to ROP</h2>
-    	<p><span style="color: #228B22; font-weight: bold">ROP</span> is an abbreviation for <span class="highlight"><span style="color: #228B22; font-weight: bold">R</span>eturn <span style="color: #228B22; font-weight: bold">O</span>riented <span style="color: #228B22; font-weight: bold">P</span>rogramming</span>. ROP is an expoitation technique that allows hackers to execute code [ shellcode ] in the presense of security defenses like NX-Bit and RWX.</p>
-    	<div class="quote" style="font-weight: bold; color: #333">NOTE: Return Oriented Programming is not a programming language like C, Java, etc but rather an exploitation concept.</div>
-    	<p>Just how Java considers everything to be an Object, similarly ROP is all about “Gadgets”.</p>
-		<p>The following are a few examples of common gadgets.</p>
-		<ul class="points" style="font-family: Roboto; letter-spacing: 1px;">
-			<li>pop rax; ret</li>
-			<li>pop rdi; ret</li>
-			<li>xor rdx, rdx; mov rax, rdx; ret</li>
-		</ul>
-		<p>Can you notice something similar in them?<br />Obviously, its that <span class="highlight">ret</span> instruction at the end!</p>
-		<ul class="points" style="font-family: Roboto; letter-spacing: 1px;">
-			<li>pop rax; <span style="font-weight: bold; padding: 0 5px; border: thin dotted #333; background-color: #0bf; color: #000">ret</span></li>
-			<li>pop rdi; <span style="font-weight: bold; padding: 0 5px; border: thin dotted #333; background-color: #0bf; color: #000">ret</span></li>
-			<li>xor rdx, rdx; mov rax, rdx; <span style="font-weight: bold; padding: 0 5px; border: thin dotted #333; background-color: #0bf; color: #000">ret</span></li>
-		</ul>
-		<p>That is essentially what is called a “Gadget”.</p>
-		<p>So, a gadget is <uline>one or more assembly instructions ending with a</uline> <span class="highlight">ret</span>.</p>
-		<h2>Is your understanding of the <span class="highlight">ret</span> correct?</h2>
-		<p>Now, do you remember we had learnt that the <span class="highlight">ret</span> instruction</p>
-		<ul class="points">
-			<li>Reads a value from the top of the stack</li>
-			<li>Makes the RIP point to that location</li>
-		</ul>
-		<p>Yes we had read it <a class="link" target="_blank" href="Understanding%20the%20concept%20of%20overwriting%20return%20pointer%20to%20acheive%20arbitrary%20code%20execution.html">here</a>, anyway, now let’s confirm if our understanding of the <span class="highlight">ret</span> instruction is correct or not.</p>
-		<p>Let’s use the following assembly program</p>
-		<pre><div class="snip"><span style="color: #0ff">section</span> <span style="color: #0e0">.text</span>
+        <p>Welcome to the fifth tutorial of the Buffer Overflow series. In the previous tutorial, we executed our first BoF attack.</p>
+        <h2>Important Announcement</h2>
+        <p>Before we begin this tutorial, I want to make an important announcement.<br />If you've tried compiling the applications which we have exploited earlier <uline>without disabling the security protections</uline>, then it is most likely that the exploits are going to <b style="color: #000; font-family: Roboto; letter-spacing: .5px">fail</b>. The reason is that those exploits aren't capable of running against the modern mitigation techniques.</p>
+        <p>So, now I think its time to introduce modern exploitation techniques and try to defeat maximum protections.</p>
+        <p>We are going to be defeating the following techniques one by one</p>
+        <ol style="list-style-type: devanagari">
+            <li><span style="border-bottom: thin solid #228B22">System ASLR</span></li>
+            <li><span style="border-bottom: thin solid #228B22">PIE</span></li>
+            <li><span style="border-bottom: thin solid #228B22">RWX & NX Bit</span></li>
+            <li><span style="border-bottom: thin solid #228B22">RelRO</span></li>
+            <li><span style="border-bottom: thin solid #228B22">All of them together</span></li>
+        </ol>
+        <p>Out of the above listed protections, we have already defeated the first one (System ASLR). This is because, though we had disabled <uline>ASLR on the binary in the form of PIE</uline> but the system ASLR was <uline>always on</uline>. This means that our compiled application was unaffected by ASLR but the system was.</p>
+        <p>But <span style="text-transform: uppercase; font-family: Ubuntu; font-weight: bold; letter-spacing: 1px;">who cares about the system as long as our exploit is working?!</span></p>
+        <p>Absolutely true! But from now onwards, even the system ASLR will start to affect our exploits, so we need to take care of that as well :(</p>
+        <div class="quote" style="text-transform: uppercase; font-weight: bold; color: #333">Note : This is our last attack which will depend on disabled security protections.</div>
+        <p>Now finally, let's start with introduction to ROP.</p>
+        <h2>Introduction to ROP</h2>
+        <p><span style="color: #228B22; font-weight: bold">ROP</span> is an abbreviation for <span class="highlight"><span style="color: #228B22; font-weight: bold">R</span>eturn <span style="color: #228B22; font-weight: bold">O</span>riented <span style="color: #228B22; font-weight: bold">P</span>rogramming</span>. ROP is an expoitation technique that allows hackers to execute code [ shellcode ] in the presense of security defenses like NX-Bit and RWX.</p>
+        <div class="quote" style="font-weight: bold; color: #333">NOTE: Return Oriented Programming is not a programming language like C, Java, etc but rather an exploitation concept.</div>
+        <p>Just how Java considers everything to be an Object, similarly ROP is all about “Gadgets”.</p>
+        <p>The following are a few examples of common gadgets.</p>
+        <ul class="points" style="font-family: Roboto; letter-spacing: 1px;">
+            <li>pop rax; ret</li>
+            <li>pop rdi; ret</li>
+            <li>xor rdx, rdx; mov rax, rdx; ret</li>
+        </ul>
+        <p>Can you notice something similar in them?<br />Obviously, its that <span class="highlight">ret</span> instruction at the end!</p>
+        <ul class="points" style="font-family: Roboto; letter-spacing: 1px;">
+            <li>pop rax; <span style="font-weight: bold; padding: 0 5px; border: thin dotted #333; background-color: #0bf; color: #000">ret</span></li>
+            <li>pop rdi; <span style="font-weight: bold; padding: 0 5px; border: thin dotted #333; background-color: #0bf; color: #000">ret</span></li>
+            <li>xor rdx, rdx; mov rax, rdx; <span style="font-weight: bold; padding: 0 5px; border: thin dotted #333; background-color: #0bf; color: #000">ret</span></li>
+        </ul>
+        <p>That is essentially what is called a “Gadget”.</p>
+        <p>So, a gadget is <uline>one or more assembly instructions ending with a</uline> <span class="highlight">ret</span>.</p>
+        <h2>Is your understanding of the <span class="highlight">ret</span> correct?</h2>
+        <p>Now, do you remember we had learnt that the <span class="highlight">ret</span> instruction</p>
+        <ul class="points">
+            <li>Reads a value from the top of the stack</li>
+            <li>Makes the RIP point to that location</li>
+        </ul>
+        <p>Yes we had read it <a class="link" target="_blank" href="Understanding%20the%20concept%20of%20overwriting%20return%20pointer%20to%20acheive%20arbitrary%20code%20execution.html">here</a>, anyway, now let’s confirm if our understanding of the <span class="highlight">ret</span> instruction is correct or not.</p>
+        <p>Let’s use the following assembly program</p>
+        <pre><div class="snip"><span style="color: #0ff">section</span> <span style="color: #0e0">.text</span>
 
 <span style="color: #0ff">global</span> <span style="color: #0e0">_start</span>
 
 <span style="color: #0e0">_start:</span>
 
-	<span style="color: #f05; font-weight: bold">push</span> <span style="color: #d0f; font-weight: bold">0x42424242</span>
-	<span style="color: #f05; font-weight: bold">push</span> <span style="color: #d0f; font-weight: bold">0x41414141</span>
-	<span style="color: #f05; font-weight: bold">ret</span></div></pre>
-		<p>According to our understanding, this code should make the RIP point to <span class="highlight">0x41414141</span>.</p>
-		<p>Let’s compile it now</p>
-		<pre><div class="snip terminal"><span style="color: #0e0">nasm</span> -f elf64 <span style="border-bottom: thin solid #fff">file.asm</span>; <span style="color: #0e0">ld</span> file.o -o <span style="border-bottom: thin solid #fff">file</span></div></pre>
-		<p>Seems perfect, now on running the application we should return to <span class="highlight">0x41414141</span> and get a seg fault</p>
-		<pre><div class="snip terminal"><span style="color: #0e0">./file</span>
+    <span style="color: #f05; font-weight: bold">push</span> <span style="color: #d0f; font-weight: bold">0x42424242</span>
+    <span style="color: #f05; font-weight: bold">push</span> <span style="color: #d0f; font-weight: bold">0x41414141</span>
+    <span style="color: #f05; font-weight: bold">ret</span></div></pre>
+        <p>According to our understanding, this code should make the RIP point to <span class="highlight">0x41414141</span>.</p>
+        <p>Let’s compile it now</p>
+        <pre><div class="snip terminal"><span style="color: #0e0">nasm</span> -f elf64 <span style="border-bottom: thin solid #fff">file.asm</span>; <span style="color: #0e0">ld</span> file.o -o <span style="border-bottom: thin solid #fff">file</span></div></pre>
+        <p>Seems perfect, now on running the application we should return to <span class="highlight">0x41414141</span> and get a seg fault</p>
+        <pre><div class="snip terminal"><span style="color: #0e0">./file</span>
 [1]    231106 segmentation fault (core dumped)  ./file</div></pre>
-		<p>Awesome! But for a deeper view, let's open in this up in the debugger.</p>
-		<pre><div class="snip terminal"><span style="color: #0e0">gdb</span> <span style="border-bottom: thin solid #fff">./file</span> -q
+        <p>Awesome! But for a deeper view, let's open in this up in the debugger.</p>
+        <pre><div class="snip terminal"><span style="color: #0e0">gdb</span> <span style="border-bottom: thin solid #fff">./file</span> -q
 Reading symbols from <span style="color: #0e0">./file</span>...
 (No debugging symbols found in <span style="color: #0e0">./file</span>)
 <span style="color: #f00">gdb-peda$</span> </div></pre>
-		<p>Alright, now let's check our <span class="highlight">_start</span> function again</p>
-		<pre><div class="snip gdb">disassemble _start 
+        <p>Alright, now let's check our <span class="highlight">_start</span> function again</p>
+        <pre><div class="snip gdb">disassemble _start 
 Dump of assembler code for function _start:
    <span style="color: #1d99f3">0x0000000000401000</span> <+0>:     push   0x42424242
    <span style="color: #1d99f3">0x0000000000401005</span> <+5>:     push   0x41414141
    <span style="background-color: #fff; color: #000"><span style="color: #000; background-color: #1d99f3">0x000000000040100a</span> <+10>:    ret</span>
 End of assembler dump.
 </div></pre>
-		<p>Look at the highlighted line above, that's the <span class="highlight">ret</span> instruction. Let's set a break-point there so that we can <uline>analyse the memory just before and after executing the</uline> <span class="highlight">ret</span></p>
-		<pre><div class="snip gdb">break * _start+10
+        <p>Look at the highlighted line above, that's the <span class="highlight">ret</span> instruction. Let's set a break-point there so that we can <uline>analyse the memory just before and after executing the</uline> <span class="highlight">ret</span></p>
+        <pre><div class="snip gdb">break * _start+10
 Breakpoint 1 at <span style="color: #1d99f3">0x40100a</span>
 </div></pre>
-		<p>Perfect! Now we will run the application inside GDB using the <span class="highlight">run</span> command.</p>
-		<pre><div class="snip gdb">run
+        <p>Perfect! Now we will run the application inside GDB using the <span class="highlight">run</span> command.</p>
+        <pre><div class="snip gdb">run
 Starting program: /home/vulnx/file 
 <span style="color: #1d99f3">[----------------------------------registers-----------------------------------]</span>
 <span style="color: #0e0">RAX</span>: 0x0 
@@ -163,9 +163,9 @@ Legend: <span style="color: #f00">code</span>, <span style="color: #1d99f3">data
 
 Breakpoint 1, <span style="color: #1d99f3">0x000000000040100a</span> in <span style="color: #f50">_start</span> ()
 </div></pre>
-		<p>Alright now the stack has <span class="highlight">AAAA (0x41414141)</span> and <span class="highlight">BBBB (0x42424242)</span> respectively which we have manually pushed with the 2 lines prior to the <span class="highlight">ret</span> instruction. Let's move a <span class="highlight">s</span> ingle <span class="highlight">i</span> nstruction ahead (by using <span class="highlight">si</span> command)</p>
-		<div class="quote">Focus on what happens to the first value of the stack.<br />I've laid more emphasis on it by adding a dotted red border around it.</div>
-		<pre><div class="snip gdb">si
+        <p>Alright now the stack has <span class="highlight">AAAA (0x41414141)</span> and <span class="highlight">BBBB (0x42424242)</span> respectively which we have manually pushed with the 2 lines prior to the <span class="highlight">ret</span> instruction. Let's move a <span class="highlight">s</span> ingle <span class="highlight">i</span> nstruction ahead (by using <span class="highlight">si</span> command)</p>
+        <div class="quote">Focus on what happens to the first value of the stack.<br />I've laid more emphasis on it by adding a dotted red border around it.</div>
+        <pre><div class="snip gdb">si
 <span style="color: #1d99f3">[----------------------------------registers-----------------------------------]</span>
 <span style="color: #0e0">RAX</span>: 0x0 
 <span style="color: #0e0">RBX</span>: 0x0 
@@ -201,19 +201,33 @@ Legend: <span style="color: #f00">code</span>, <span style="color: #1d99f3">data
 Stopped reason: <span style="color: #f00">SIGSEGV</span>
 <span style="color: #1d99f3">0x0000000041414141</span> in <span style="color: #f50">??</span> ()
 </div></pre>
-		<p>Look at that! The first value is <uline>not only copied to the RIP as expected but also popped out of the stack</uline>.</p>
-		<p>Alright, now we know that the <span class="highlight">ret</span> instruction pops the first element on top of the stack in the RIP register.<br/>Basically the <span class="highlight">ret</span> is like:</p>
-		<ul>
-			<span class="highlight">pop rip</span>
-		</ul>
-		<p>But obviously this is <uline>just</uline> a pseudo-equivalent of the <span class="highlight">ret</span> instruction. In reality, if you were to use this kind of code in your assembly program, then the assembler will throw an error as this is an invalid instruction. You can't manually redirect the <span class="highlight">instruction pointer (RIP)</span> anywhere in memory<sup style="color: #f00">*</sup>.</p>
-		<div class="quote"><sup style="color: #f00">*</sup>But you can surely use something like this <span class="highlight">push <uline>&lt;MEMORY_ADDRESS&gt;</uline> ; ret</span> <span style="float: right;">:)</span></div>
-		<p>Ok. I know I've made a completely different tutorial explaining the <span class="highlight">ret</span> instruction but it was extremely important to understand that the first stack element is popped out and not copied to the RIP.</p>
-		<p>Awesome, so now that we are 100% clear with the concept of the returning, we can proceed further.</p>
-		<hr />
-		<div class="quote">NOTE : If you haven't understood some part of it clearly then please re-read this tutorial or reach out to me on my <a href="https://www.instagram.com/vulnx_hacking" class="link">Instagram</a> or you can mail me at <a href="mailto:vulnx101@gmail.com" class="link">vulnx101@gmail.com</a> or fill <a href="https://docs.google.com/forms/d/e/1FAIpQLScM7cjnyriiDIwM_8wFkS66cueS83lOaDoSsJ6dlM39szevcg/viewform?usp=sf_link" class="link">this contact page</a>.</div>
-		<hr />
-		<h2>Gadgets</h2>
+        <p>Look at that! The first value is <uline>not only copied to the RIP as expected but also popped out of the stack</uline>.</p>
+        <p>Alright, now we know that the <span class="highlight">ret</span> instruction pops the first element on top of the stack in the RIP register.<br />Basically the <span class="highlight">ret</span> is like:</p>
+        <ul>
+            <span class="highlight">pop rip</span>
+        </ul>
+        <p>But obviously this is <uline>just</uline> a pseudo-equivalent of the <span class="highlight">ret</span> instruction. In reality, if you were to use this kind of code in your assembly program, then the assembler will throw an error as this is an invalid instruction. You can't manually redirect the <span class="highlight">instruction pointer (RIP)</span> anywhere in memory<sup style="color: #f00">*</sup>.</p>
+        <div class="quote"><sup style="color: #f00">*</sup>But you can surely use something like this <span class="highlight">push <uline>&lt;MEMORY_ADDRESS&gt;</uline> ; ret</span> <span style="float: right;">:)</span></div>
+        <p>Ok. I know I've made a completely different tutorial explaining the <span class="highlight">ret</span> instruction but it was extremely important to understand that the first stack element is popped out and not copied to the RIP.</p>
+        <p>Awesome, so now that we are 100% clear with the concept of the returning, we can proceed further.</p>
+        <hr />
+        <div class="quote">NOTE : If you haven't understood some part of it clearly then please re-read this tutorial or reach out to me on my <a href="https://www.instagram.com/vulnx_hacking" class="link">Instagram</a> or you can mail me at <a href="mailto:vulnx101@gmail.com" class="link">vulnx101@gmail.com</a> or fill <a href="https://docs.google.com/forms/d/e/1FAIpQLScM7cjnyriiDIwM_8wFkS66cueS83lOaDoSsJ6dlM39szevcg/viewform?usp=sf_link" class="link">this contact page</a>.</div>
+        <hr />
+        <h2>Gadgets</h2>
+        <p>Alright, so, these gadgets are nothing but assembly instruction(s) ending with a <span class="highlight">ret</span>.</p>
+        <p>We are now well acquainted with the concept of <uline>overwriting the saved-return pointer</uline> [ located just after the RBP of the current stack frame ] <uline>to jump to the overwritten memory address</uline>.</p>
+        <p>But what about those situations where we don't have a definite function to return to?</p>
+        <hr />
+        <p>From now on, the following words:</p>
+        <ul class="points">
+            <li>"jump to</li>
+            <li>jump into</li>
+            <li>return to</li>
+            <li>return into</li>
+        </ul>
+        <p>some memory location", will all mean the same. </p>
+        <hr />
+        <p>-> </p>
         <hr />
         <div class="icons">
             <a class="ico" href="javascript:delay('#')">
