@@ -391,6 +391,7 @@ a.yay:hover span:nth-child(4) {
     max-width: 200px;
     max-height: 300px;
     margin: 5px;
+    border-radius: 5px;
     position: relative;
     overflow: hidden;
     transition: 0.3s;
@@ -398,9 +399,7 @@ a.yay:hover span:nth-child(4) {
 }
 
 .box:hover {
-    transform: scale(1.02);
-    box-shadow: 0 10px 15px 0 #00000070;
-    border: 0px solid black;
+    box-shadow: 0 0 5px #00000070;
     cursor: pointer;
 }
 
@@ -419,8 +418,8 @@ a.yay:hover span:nth-child(4) {
     position: absolute;
     height: 100px;
     bottom: 0;
-    word-break: break-word;
     width: 100%;
+    background: #fafafa;
     line-height: normal;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -560,20 +559,14 @@ h1 {
         margin: 10px 5%;
     }
 
-    ul.topnav .x {
-        margin-left: 5%;
-        margin-right: 5%;
-        width: auto;
+    #navbar {
         height: 55px;
+        padding: 0 5%;
     }
 
-    ul.topnav .x li a {
-        font-size: 0.6rem;
-        padding: 10px 5px;
-        height: 100%;
-    }
-
-    ul.topnav .x img {
-        height: 55px;
+    #navbar div li {
+        font-size: .6rem;
+        line-height: 2rem;
+        padding: 0px 5px;
     }
 }

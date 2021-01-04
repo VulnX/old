@@ -84,20 +84,21 @@ pre {
     content: "$ ";
 }
 
-.gdb::before, .gdb::after {
+.gdb::before,
+.gdb::after {
     content: "gdb-peda$ ";
     color: #f00;
 }
 
 .copyIcon {
     position: absolute;
-    right: 10%;
-    color: #fff;
-    transition: .3s
+    right: calc(25% - 40px);
+    top: 20px;
+    cursor: pointer;
 }
 
-.copyIcon:hover {
-    color: #aaa;
+.copyIcon span {
+    color: #f1f1f1;
 }
 
 #floatingBox {
@@ -625,6 +626,62 @@ div#cookieButton:hover span:nth-child(4) {
 uline {
     border-bottom: thin solid #555;
 }
+
+.material-icons {
+    position: relative;
+    top: 5px;
+    color: #07f;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.nonselectable {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 25px 0;
+    box-shadow: 0 0 20px rgba(0, 0, 0, .15);
+    font-family: Roboto;
+}
+
+td,
+th {
+    padding: 1vw;
+    text-align: center;
+    border: 0;
+}
+
+tr:nth-child(even) {
+    background-color: #f3f3f3;
+    color: #08f;
+    font-weight: bold;
+}
+
+#heading {
+    background-color: #08f;
+    color: #fff;
+}
+
+#last {
+    border-bottom: 5px solid #08f;
+}
+
+svg {
+    transition: .3s;
+}
+
+svg:hover {
+    box-shadow: 0 0 20px 2px #0005;
+}
+
 @media screen and (max-width: 768px) {
 
     h2 {
@@ -698,6 +755,9 @@ uline {
     }
 
     #contentList {
+        display: none;
+    }
+    .copyIcon {
         display: none;
     }
 

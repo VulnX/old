@@ -53,3 +53,16 @@ function hideCookieBar() {
     setCookie("cookiePromptShown", "yes", 30);
     document.getElementById("cookieBar").style.display = "none";
 }
+
+function copyText(id) {
+    var range = document.createRange();
+    range.selectNode(document.getElementById(id));
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+    document.execCommand("copy");
+    window.getSelection().removeAllRanges();
+    document.getElementById('copy').innerHTML = "done";
+    setTimeout(function() {
+        document.getElementById('copy').innerHTML = "content_copy";
+    }, 2000);
+}

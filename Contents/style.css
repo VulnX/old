@@ -373,20 +373,14 @@ uline {
         margin: 70px 5%;
     }
 
-    ul.topnav .x {
-        margin-left: 5%;
-        margin-right: 5%;
-        width: auto;
+    #navbar {
         height: 55px;
+        padding: 0 5%;
     }
 
-    ul.topnav .x li a {
-        font-size: 0.6rem;
-        padding: 10px 5px;
-        height: 100%;
-    }
-
-    ul.topnav .x img {
-        height: 55px;
+    #navbar div li {
+        font-size: .6rem;
+        line-height: 2rem;
+        padding: 0px 5px;
     }
 }
