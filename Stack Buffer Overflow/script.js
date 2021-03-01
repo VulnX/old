@@ -2,6 +2,7 @@ window.onload = function() {
     if (!(checkCookie("cookiePromptShown"))) {
         document.getElementById('cookieBar').style.display = "flex";
     }
+    document.getElementById('navbar').innerHTML = "<img src='../logo.svg'><div><li><a href='../' target='_blank'>Home</a></li><li><a href='../Contents/resources.html' target='_blank'>Resources</a></li><li><a href='../Contents/tutorials.html' target='_blank'>Tutorials</a></li><li><a href='../Contents/CTFs.html' target='_blank'>CTFs</a></li></div>";
 }
 
 window.onscroll = function() { updateScrollBar() };

@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Data and Data Types - Java Programming | VulnX</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" />
+    <script type="text/javascript" src="script.js"></script>
+    <script type="text/javascript" src="../../static/f3b0f7102df532768e34dfedbb515545.js"></script>
+    <link rel="icon" href="../../favicon.png" />
+    <script data-ad-client="ca-pub-6203666289882469" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>=
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta charset="utf-8">
+    <meta name="keywords" content="VulnX, vulnx, vulnx.in, VulnX.in, hacking, Hacking, programming, java, tutorials, java tutorials">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167461836-1"></script>
+</head>
+
+<body onload="x()">
+    <script type="text/javascript">
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-167461836-1');
+    </script>
+    <div id="progressBar"></div>
+    <ul class="topnav">
+        <div class="x">
+            <img id="logo" src="../../logo.svg">
+            <div style="display: flex; align-items: center;">
+                <li>
+                    <a target="_blank" href="../../">Home</a>
+                </li>
+                <li>
+                    <a target="_blank" href="../../Contents/resources.html">Resources</a>
+                </li>
+                <li>
+                    <a target="_blank" href="../../Contents/tutorials.html">Tutorials</a>
+                </li>
+                <li>
+                    <a target="_blank" href="../../Contents/CTFs.html">CTFs</a>
+                </li>
+            </div>
+        </div>
+    </ul>
+    <div id="cookieBar">
+        <div id="cookieText">By using our site, you agree to our use of cookies to deliver a better site experience</div>
+        <div id="cookieButton" onclick="hideCookieBar()">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            &#10005;
+        </div>
+    </div>
+    <div id="align">
+        <center>
+            <h1 style="color: #1b1b1b;">Java Programming</h1>
+        </center>
+        <center>
+            <h1 style="color: #1b1b1b;">Data and Data Types</h1>
+        </center>
+        <div class="tutorialContent">
+            <h2>Contents of the tutorial</h2>
+            <ul class="points">
+                <li><a class="link tableOfContentsLinks" href="#NeedForDataTypes">Need For Data Types</a></li>
+                <li><a class="link tableOfContentsLinks" href="#DataTypesInJava">Data Types In Java</a></li>
+                <li><a class="link tableOfContentsLinks" href="#PrimitiveDataTypes">Primitive Data Types</a>
+                	<ol>
+						<li><a class="link tableOfContentsLinks" href="#boolean">boolean</a></li>
+						<li><a class="link tableOfContentsLinks" href="#byte">byte</a></li>
+						<li><a class="link tableOfContentsLinks" href="#char">char</a></li>
+						<li><a class="link tableOfContentsLinks" href="#short">short</a></li>
+						<li><a class="link tableOfContentsLinks" href="#int">int</a></li>
+						<li><a class="link tableOfContentsLinks" href="#long">long</a></li>
+						<li><a class="link tableOfContentsLinks" href="#float">float</a></li>
+						<li><a class="link tableOfContentsLinks" href="#double">double</a></li>
+                	</ol>
+                </li>
+            </ul>
+            Hey guys!<br />
+            Welcome to the <b>third lesson</b>
+            of <i><u>Java Programming</u></i>.
+            <p>
+                In the <a class="link" href="Fundamentals of Objects and Classes.html">previous chapter</a>, we looked at the Fundamentals of Objects and Classes with more depth. We also wrote our very first Java program which prints <underline>“Hello World”</underline>.
+            </p>
+            <p>In this lesson, we will cover a lot more about the SYNTAX of the language and how data is stored and processed.</p>
+            <hr>
+            <span id="NeedForDataTypes" class="secLink"></span>
+            <h2>Need for Data Types</h2>
+            <p>Essentially data types are, <i>
+                    <underline>special types of data which tells the compiler or the interpreter how the programmer intends to use the data</underline>
+                </i>.</p>
+            <p>For example,<br />the sentence : <underline>"Hello, how are you?"</underline> and the number : <underline>1501</underline> are both, data to a computer. However it is essential for them to be separated.</p>
+            <p>The main reason to store these data into different categories like <underline>string</underline> for sentences and <underline>int</underline> for numbers, is to avoid mixing up of data. Let's say you write a program to accept 10 numbers from the user as input, and do some complex mathematical calculations on them to find some <underline>special</underline> number. But when the user actually runs the program and types a sentence instead of a number, your entire calculation system will go wrong and the program will fail. This is because you cannot perform any mathematical tasks on a text sentence. Try to solve this:</p>
+            <p>
+                <center>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26.173ex" height="4.701ex" role="img" focusable="false" viewBox="0 -1370 11568.6 2078" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" style="vertical-align: -1.602ex;">
+                        <defs>
+                            <path id="MJX-1-TEX-I-1D434" d="M208 74Q208 50 254 46Q272 46 272 35Q272 34 270 22Q267 8 264 4T251 0Q249 0 239 0T205 1T141 2Q70 2 50 0H42Q35 7 35 11Q37 38 48 46H62Q132 49 164 96Q170 102 345 401T523 704Q530 716 547 716H555H572Q578 707 578 706L606 383Q634 60 636 57Q641 46 701 46Q726 46 726 36Q726 34 723 22Q720 7 718 4T704 0Q701 0 690 0T651 1T578 2Q484 2 455 0H443Q437 6 437 9T439 27Q443 40 445 43L449 46H469Q523 49 533 63L521 213H283L249 155Q208 86 208 74ZM516 260Q516 271 504 416T490 562L463 519Q447 492 400 412L310 260L413 259Q516 259 516 260Z"></path>
+                            <path id="MJX-1-TEX-N-2062" d=""></path>
+                            <path id="MJX-1-TEX-I-1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path>
+                            <path id="MJX-1-TEX-I-1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path>
+                            <path id="MJX-1-TEX-N-3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path>
+                            <path id="MJX-1-TEX-N-48" d="M128 622Q121 629 117 631T101 634T58 637H25V683H36Q57 680 180 680Q315 680 324 683H335V637H302Q262 636 251 634T233 622L232 500V378H517V622Q510 629 506 631T490 634T447 637H414V683H425Q446 680 569 680Q704 680 713 683H724V637H691Q651 636 640 634T622 622V61Q628 51 639 49T691 46H724V0H713Q692 3 569 3Q434 3 425 0H414V46H447Q489 47 498 49T517 61V332H232V197L233 61Q239 51 250 49T302 46H335V0H324Q303 3 180 3Q45 3 36 0H25V46H58Q100 47 109 49T128 61V622Z"></path>
+                            <path id="MJX-1-TEX-N-65" d="M28 218Q28 273 48 318T98 391T163 433T229 448Q282 448 320 430T378 380T406 316T415 245Q415 238 408 231H126V216Q126 68 226 36Q246 30 270 30Q312 30 342 62Q359 79 369 104L379 128Q382 131 395 131H398Q415 131 415 121Q415 117 412 108Q393 53 349 21T250 -11Q155 -11 92 58T28 218ZM333 275Q322 403 238 411H236Q228 411 220 410T195 402T166 381T143 340T127 274V267H333V275Z"></path>
+                            <path id="MJX-1-TEX-N-6C" d="M42 46H56Q95 46 103 60V68Q103 77 103 91T103 124T104 167T104 217T104 272T104 329Q104 366 104 407T104 482T104 542T103 586T103 603Q100 622 89 628T44 637H26V660Q26 683 28 683L38 684Q48 685 67 686T104 688Q121 689 141 690T171 693T182 694H185V379Q185 62 186 60Q190 52 198 49Q219 46 247 46H263V0H255L232 1Q209 2 183 2T145 3T107 3T57 1L34 0H26V46H42Z"></path>
+                            <path id="MJX-1-TEX-N-6F" d="M28 214Q28 309 93 378T250 448Q340 448 405 380T471 215Q471 120 407 55T250 -10Q153 -10 91 57T28 214ZM250 30Q372 30 372 193V225V250Q372 272 371 288T364 326T348 362T317 390T268 410Q263 411 252 411Q222 411 195 399Q152 377 139 338T126 246V226Q126 130 145 91Q177 30 250 30Z"></path>
+                            <path id="MJX-1-TEX-N-2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"></path>
+                            <path id="MJX-1-TEX-N-20" d=""></path>
+                            <path id="MJX-1-TEX-N-68" d="M41 46H55Q94 46 102 60V68Q102 77 102 91T102 124T102 167T103 217T103 272T103 329Q103 366 103 407T103 482T102 542T102 586T102 603Q99 622 88 628T43 637H25V660Q25 683 27 683L37 684Q47 685 66 686T103 688Q120 689 140 690T170 693T181 694H184V367Q244 442 328 442Q451 442 463 329Q464 322 464 190V104Q464 66 466 59T477 49Q498 46 526 46H542V0H534L510 1Q487 2 460 2T422 3Q319 3 310 0H302V46H318Q379 46 379 62Q380 64 380 200Q379 335 378 343Q372 371 358 385T334 402T308 404Q263 404 229 370Q202 343 195 315T187 232V168V108Q187 78 188 68T191 55T200 49Q221 46 249 46H265V0H257L234 1Q210 2 183 2T145 3Q42 3 33 0H25V46H41Z"></path>
+                            <path id="MJX-1-TEX-N-77" d="M90 368Q84 378 76 380T40 385H18V431H24L43 430Q62 430 84 429T116 428Q206 428 221 431H229V385H215Q177 383 177 368Q177 367 221 239L265 113L339 328L333 345Q323 374 316 379Q308 384 278 385H258V431H264Q270 428 348 428Q439 428 454 431H461V385H452Q404 385 404 369Q404 366 418 324T449 234T481 143L496 100L537 219Q579 341 579 347Q579 363 564 373T530 385H522V431H529Q541 428 624 428Q692 428 698 431H703V385H697Q696 385 691 385T682 384Q635 377 619 334L559 161Q546 124 528 71Q508 12 503 1T487 -11H479Q460 -11 456 -4Q455 -3 407 133L361 267Q359 263 266 -4Q261 -11 243 -11H238Q225 -11 220 -3L90 368Z"></path>
+                            <path id="MJX-1-TEX-N-61" d="M137 305T115 305T78 320T63 359Q63 394 97 421T218 448Q291 448 336 416T396 340Q401 326 401 309T402 194V124Q402 76 407 58T428 40Q443 40 448 56T453 109V145H493V106Q492 66 490 59Q481 29 455 12T400 -6T353 12T329 54V58L327 55Q325 52 322 49T314 40T302 29T287 17T269 6T247 -2T221 -8T190 -11Q130 -11 82 20T34 107Q34 128 41 147T68 188T116 225T194 253T304 268H318V290Q318 324 312 340Q290 411 215 411Q197 411 181 410T156 406T148 403Q170 388 170 359Q170 334 154 320ZM126 106Q126 75 150 51T209 26Q247 26 276 49T315 109Q317 116 318 175Q318 233 317 233Q309 233 296 232T251 223T193 203T147 166T126 106Z"></path>
+                            <path id="MJX-1-TEX-N-72" d="M36 46H50Q89 46 97 60V68Q97 77 97 91T98 122T98 161T98 203Q98 234 98 269T98 328L97 351Q94 370 83 376T38 385H20V408Q20 431 22 431L32 432Q42 433 60 434T96 436Q112 437 131 438T160 441T171 442H174V373Q213 441 271 441H277Q322 441 343 419T364 373Q364 352 351 337T313 322Q288 322 276 338T263 372Q263 381 265 388T270 400T273 405Q271 407 250 401Q234 393 226 386Q179 341 179 207V154Q179 141 179 127T179 101T180 81T180 66V61Q181 59 183 57T188 54T193 51T200 49T207 48T216 47T225 47T235 46T245 46H276V0H267Q249 3 140 3Q37 3 28 0H20V46H36Z"></path>
+                            <path id="MJX-1-TEX-N-79" d="M69 -66Q91 -66 104 -80T118 -116Q118 -134 109 -145T91 -160Q84 -163 97 -166Q104 -168 111 -168Q131 -168 148 -159T175 -138T197 -106T213 -75T225 -43L242 0L170 183Q150 233 125 297Q101 358 96 368T80 381Q79 382 78 382Q66 385 34 385H19V431H26L46 430Q65 430 88 429T122 428Q129 428 142 428T171 429T200 430T224 430L233 431H241V385H232Q183 385 185 366L286 112Q286 113 332 227L376 341V350Q376 365 366 373T348 383T334 385H331V431H337H344Q351 431 361 431T382 430T405 429T422 429Q477 429 503 431H508V385H497Q441 380 422 345Q420 343 378 235T289 9T227 -131Q180 -204 113 -204Q69 -204 44 -177T19 -116Q19 -89 35 -78T69 -66Z"></path>
+                            <path id="MJX-1-TEX-N-75" d="M383 58Q327 -10 256 -10H249Q124 -10 105 89Q104 96 103 226Q102 335 102 348T96 369Q86 385 36 385H25V408Q25 431 27 431L38 432Q48 433 67 434T105 436Q122 437 142 438T172 441T184 442H187V261Q188 77 190 64Q193 49 204 40Q224 26 264 26Q290 26 311 35T343 58T363 90T375 120T379 144Q379 145 379 161T380 201T380 248V315Q380 361 370 372T320 385H302V431Q304 431 378 436T457 442H464V264Q464 84 465 81Q468 61 479 55T524 46H542V0Q540 0 467 -5T390 -11H383V58Z"></path>
+                            <path id="MJX-1-TEX-N-33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path>
+                            <path id="MJX-1-TEX-N-2E" d="M78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60Z"></path>
+                            <path id="MJX-1-TEX-N-31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path>
+                            <path id="MJX-1-TEX-N-34" d="M462 0Q444 3 333 3Q217 3 199 0H190V46H221Q241 46 248 46T265 48T279 53T286 61Q287 63 287 115V165H28V211L179 442Q332 674 334 675Q336 677 355 677H373L379 671V211H471V165H379V114Q379 73 379 66T385 54Q393 47 442 46H471V0H462ZM293 211V545L74 212L183 211H293Z"></path>
+                            <path id="MJX-1-TEX-N-32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path>
+                            <path id="MJX-1-TEX-N-38" d="M70 417T70 494T124 618T248 666Q319 666 374 624T429 515Q429 485 418 459T392 417T361 389T335 371T324 363L338 354Q352 344 366 334T382 323Q457 264 457 174Q457 95 399 37T249 -22Q159 -22 101 29T43 155Q43 263 172 335L154 348Q133 361 127 368Q70 417 70 494ZM286 386L292 390Q298 394 301 396T311 403T323 413T334 425T345 438T355 454T364 471T369 491T371 513Q371 556 342 586T275 624Q268 625 242 625Q201 625 165 599T128 534Q128 511 141 492T167 463T217 431Q224 426 228 424L286 386ZM250 21Q308 21 350 55T392 137Q392 154 387 169T375 194T353 216T330 234T301 253T274 270Q260 279 244 289T218 306L210 311Q204 311 181 294T133 239T107 157Q107 98 150 60T250 21Z"></path>
+                        </defs>
+                        <g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)">
+                            <g data-mml-node="math" data-semantic-type="relseq" data-semantic-role="equality" data-semantic-id="10" data-semantic-children="9,6" data-semantic-content="3" data-semantic-speech="upper A n s equals StartFraction Hello comma how are you Over 3.1428 EndFraction">
+                                <g data-mml-node="mrow" data-semantic-type="infixop" data-semantic-role="implicit" data-semantic-annotation="clearspeak:unit" data-semantic-id="9" data-semantic-children="0,1,2" data-semantic-content="7,8" data-semantic-parent="10">
+                                    <g data-mml-node="mi" data-semantic-type="identifier" data-semantic-role="latinletter" data-semantic-font="italic" data-semantic-annotation="clearspeak:simple;nemeth:number" data-semantic-id="0" data-semantic-parent="9">
+                                        <use xlink:href="#MJX-1-TEX-I-1D434"></use>
+                                    </g>
+                                    <g data-mml-node="mo" data-semantic-type="operator" data-semantic-role="multiplication" data-semantic-id="7" data-semantic-parent="9" data-semantic-added="true" data-semantic-operator="infixop,⁢" transform="translate(750, 0)">
+                                        <use xlink:href="#MJX-1-TEX-N-2062"></use>
+                                    </g>
+                                    <g data-mml-node="mi" data-semantic-type="identifier" data-semantic-role="latinletter" data-semantic-font="italic" data-semantic-annotation="clearspeak:simple" data-semantic-id="1" data-semantic-parent="9" transform="translate(750, 0)">
+                                        <use xlink:href="#MJX-1-TEX-I-1D45B"></use>
+                                    </g>
+                                    <g data-mml-node="mo" data-semantic-type="operator" data-semantic-role="multiplication" data-semantic-id="8" data-semantic-parent="9" data-semantic-added="true" data-semantic-operator="infixop,⁢" transform="translate(1350, 0)">
+                                        <use xlink:href="#MJX-1-TEX-N-2062"></use>
+                                    </g>
+                                    <g data-mml-node="mi" data-semantic-type="identifier" data-semantic-role="latinletter" data-semantic-font="italic" data-semantic-annotation="clearspeak:simple" data-semantic-id="2" data-semantic-parent="9" transform="translate(1350, 0)">
+                                        <use xlink:href="#MJX-1-TEX-I-1D460"></use>
+                                    </g>
+                                </g>
+                                <g data-mml-node="mo" data-semantic-type="relation" data-semantic-role="equality" data-semantic-id="3" data-semantic-parent="10" data-semantic-operator="relseq,=" transform="translate(2096.8, 0)">
+                                    <use xlink:href="#MJX-1-TEX-N-3D"></use>
+                                </g>
+                                <g data-mml-node="mrow" transform="translate(3152.6, 0)">
+                                    <g data-mml-node="mfrac" data-semantic-type="fraction" data-semantic-role="division" data-semantic-id="6" data-semantic-children="4,5" data-semantic-parent="10">
+                                        <g data-mml-node="mtext" data-semantic-type="text" data-semantic-role="unknown" data-semantic-font="normal" data-semantic-annotation="clearspeak:unit;nemeth:number" data-semantic-id="4" data-semantic-parent="6" transform="translate(220, 676)">
+                                            <use xlink:href="#MJX-1-TEX-N-48"></use>
+                                            <use xlink:href="#MJX-1-TEX-N-65" transform="translate(750, 0)"></use>
+                                            <use xlink:href="#MJX-1-TEX-N-6C" transform="translate(1194, 0)"></use>
+                                            <use xlink:href="#MJX-1-TEX-N-6C" transform="translate(1472, 0)"></use>
+                                            <use xlink:href="#MJX-1-TEX-N-6F" transform="translate(1750, 0)"></use>
+                                            <use xlink:href="#MJX-1-TEX-N-2C" transform="translate(2250, 0)"></use>
+                                            <use xlink:href="#MJX-1-TEX-N-20" transform="translate(2528, 0)"></use>
+                                            <use xlink:href="#MJX-1-TEX-N-68" transform="translate(2778, 0)"></use>
+                                            <use xlink:href="#MJX-1-TEX-N-6F" transform="translate(3334, 0)"></use>
+                                            <use xlink:href="#MJX-1-TEX-N-77" transform="translate(3834, 0)"></use>
+                                            <use xlink:href="#MJX-1-TEX-N-20" transform="translate(4556, 0)"></use>
+                                            <use xlink:href="#MJX-1-TEX-N-61" transform="translate(4806, 0)"></use>
+                                            <use xlink:href="#MJX-1-TEX-N-72" transform="translate(5306, 0)"></use>
+                                            <use xlink:href="#MJX-1-TEX-N-65" transform="translate(5698, 0)"></use>
+                                            <use xlink:href="#MJX-1-TEX-N-20" transform="translate(6142, 0)"></use>
+                                            <use xlink:href="#MJX-1-TEX-N-79" transform="translate(6392, 0)"></use>
+                                            <use xlink:href="#MJX-1-TEX-N-6F" transform="translate(6920, 0)"></use>
+                                            <use xlink:href="#MJX-1-TEX-N-75" transform="translate(7420, 0)"></use>
+                                        </g>
+                                        <g data-mml-node="mn" data-semantic-type="number" data-semantic-role="float" data-semantic-font="normal" data-semantic-annotation="clearspeak:simple" data-semantic-id="5" data-semantic-parent="6" transform="translate(2819, -686)">
+                                            <use xlink:href="#MJX-1-TEX-N-33"></use>
+                                            <use xlink:href="#MJX-1-TEX-N-2E" transform="translate(500, 0)"></use>
+                                            <use xlink:href="#MJX-1-TEX-N-31" transform="translate(778, 0)"></use>
+                                            <use xlink:href="#MJX-1-TEX-N-34" transform="translate(1278, 0)"></use>
+                                            <use xlink:href="#MJX-1-TEX-N-32" transform="translate(1778, 0)"></use>
+                                            <use xlink:href="#MJX-1-TEX-N-38" transform="translate(2278, 0)"></use>
+                                        </g>
+                                        <rect width="8176" height="60" x="120" y="220"></rect>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </svg></center>
+            </p>
+            <p>What is the answer? Can you calculate?</p>
+            <p>Of course, NO! This is an invalid mathematical equation. Now, if humans can't calculate or even understand such things, how can we expect a <underline class='italic'>computer<sup class="red">*</sup></underline> to do this.</p>
+            <hr>
+            <span><sup class="red">*</sup>which is only programmed to do specific tasks.</span>
+            <hr>
+            <span id="DataTypesInJava" class="secLink"></span>
+            <h2>Data Types in Java</h2>
+            <p>In the simplest terms, you can say that, data types are <underline>very specific containers</underline> used to store a <underline>particular</underline> type of data.</p>
+            <p>Now let's understand how many types of Data Types are there in Java.</p>
+            <p>Most distinctly, there are <span class="blue roboto underline" data-color='blue'>2 broad classifications</span> for Data Types. They are as follows:</p>
+            <center>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 403" width="480" height="403" style='width: 100%; height: auto'>
+                    <g>
+                        <g>
+                            <g>
+                                <path id="Data Types " fill="#000000" aria-label="Data Types" d="M84.31 48.84L75.18 48.84L75.18 79.77L84.31 79.77Q91.32 79.77 94.09 72.86Q95.6 69.06 95.6 63.82Q95.6 56.59 93.31 52.73Q91.06 48.84 84.31 48.84ZM85.98 40.61Q90.39 40.67 93.31 41.63Q98.3 43.27 101.38 47.65Q103.86 51.18 104.76 55.3Q105.66 59.42 105.66 63.15Q105.66 72.6 101.87 79.16Q96.72 88 85.98 88L65.57 88L65.57 40.61L85.98 40.61ZM131.71 74.37L131.71 70.96Q130.84 71.51 129.94 71.86Q129.07 72.18 127.53 72.47L125.47 72.86Q122.57 73.37 121.32 74.11Q119.2 75.36 119.2 78Q119.2 80.35 120.48 81.41Q121.8 82.44 123.67 82.44Q126.63 82.44 129.1 80.7Q131.61 78.96 131.71 74.37ZM123.02 67.07L126.14 66.68Q128.68 66.36 129.78 65.88Q131.74 65.04 131.74 63.27Q131.74 61.12 130.23 60.32Q128.75 59.48 125.85 59.48Q122.61 59.48 121.26 61.09Q120.29 62.28 119.97 64.3L111.13 64.3Q111.42 59.7 113.7 56.75Q117.33 52.12 126.17 52.12Q131.93 52.12 136.4 54.4Q140.87 56.68 140.87 63.02L140.87 79.09Q140.87 80.77 140.93 83.14Q141.03 84.95 141.48 85.59Q141.93 86.23 142.83 86.65L142.83 88L132.86 88Q132.44 86.94 132.28 86.01Q132.12 85.07 132.03 83.88Q130.13 85.94 127.65 87.39Q124.7 89.09 120.97 89.09Q116.21 89.09 113.09 86.39Q110 83.66 110 78.68Q110 72.21 114.99 69.32Q117.72 67.74 123.02 67.07ZM126.63 52.02L126.63 52.02ZM150.29 59.8L145.4 59.8L145.4 53.27L150.29 53.27L150.29 43.5L159.36 43.5L159.36 53.27L165.05 53.27L165.05 59.8L159.36 59.8L159.36 78.32Q159.36 80.48 159.9 81.02Q160.45 81.54 163.25 81.54Q163.67 81.54 164.12 81.54Q164.6 81.5 165.05 81.47L165.05 88.32L160.71 88.48Q154.21 88.71 151.83 86.23Q150.29 84.66 150.29 81.38L150.29 59.8ZM190.26 74.37L190.26 70.96Q189.39 71.51 188.49 71.86Q187.62 72.18 186.08 72.47L184.02 72.86Q181.13 73.37 179.87 74.11Q177.75 75.36 177.75 78Q177.75 80.35 179.04 81.41Q180.35 82.44 182.22 82.44Q185.18 82.44 187.65 80.7Q190.16 78.96 190.26 74.37ZM181.58 67.07L184.69 66.68Q187.23 66.36 188.33 65.88Q190.29 65.04 190.29 63.27Q190.29 61.12 188.78 60.32Q187.3 59.48 184.41 59.48Q181.16 59.48 179.81 61.09Q178.84 62.28 178.52 64.3L169.68 64.3Q169.97 59.7 172.25 56.75Q175.88 52.12 184.73 52.12Q190.48 52.12 194.95 54.4Q199.42 56.68 199.42 63.02L199.42 79.09Q199.42 80.77 199.49 83.14Q199.58 84.95 200.03 85.59Q200.48 86.23 201.38 86.65L201.38 88L191.41 88Q191 86.94 190.84 86.01Q190.68 85.07 190.58 83.88Q188.68 85.94 186.21 87.39Q183.25 89.09 179.52 89.09Q174.76 89.09 171.64 86.39Q168.55 83.66 168.55 78.68Q168.55 72.21 173.54 69.32Q176.27 67.74 181.58 67.07ZM185.18 52.02L185.18 52.02ZM222.64 40.61L261.03 40.61L261.03 49L246.85 49L246.85 88L236.88 88L236.88 49L222.64 49L222.64 40.61ZM262.63 102.05L262.63 94.72L263.79 94.78Q265.14 94.85 266.36 94.69Q267.59 94.53 268.42 93.95Q269.23 93.4 269.9 91.67Q270.61 89.93 270.48 89.54L257.62 52.95L267.81 52.95L275.46 78.8L282.7 52.95L292.44 52.95L280.42 87.42Q276.94 97.39 274.92 99.8Q272.89 102.18 266.81 102.18Q265.59 102.18 264.85 102.18Q264.11 102.15 262.63 102.05ZM275.05 52.02L275.05 52.02ZM321.99 70.48Q321.99 66.42 320.13 63.31Q318.29 60.19 314.14 60.19Q309.16 60.19 307.3 64.91Q306.33 67.42 306.33 71.28Q306.33 77.39 309.58 79.87Q311.51 81.31 314.14 81.31Q317.97 81.31 319.96 78.35Q321.99 75.4 321.99 70.48ZM316.78 52.18Q322.92 52.18 327.17 56.71Q331.44 61.25 331.44 70.03Q331.44 79.29 327.26 84.14Q323.12 89 316.56 89Q312.38 89 309.61 86.91Q308.1 85.75 306.65 83.53L306.65 101.79L297.59 101.79L297.59 52.95L306.36 52.95L306.36 58.13Q307.84 55.85 309.51 54.53Q312.57 52.18 316.78 52.18ZM351.89 59.58Q348.71 59.58 346.94 61.57Q345.21 63.56 344.75 66.97L359 66.97Q358.77 63.34 356.78 61.47Q354.82 59.58 351.89 59.58ZM351.89 52.02Q356.27 52.02 359.77 53.66Q363.28 55.3 365.56 58.84Q367.62 61.96 368.23 66.07Q368.58 68.48 368.52 73.02L344.53 73.02Q344.72 78.29 347.84 80.41Q349.74 81.73 352.41 81.73Q355.24 81.73 357.01 80.12Q357.97 79.25 358.71 77.71L368.07 77.71Q367.71 80.83 364.82 84.05Q360.32 89.16 352.21 89.16Q345.53 89.16 340.41 84.85Q335.3 80.54 335.3 70.83Q335.3 61.73 339.9 56.88Q344.53 52.02 351.89 52.02ZM352.54 52.02L352.54 52.02ZM372.54 76.81L381.83 76.81Q382.12 79.25 383.08 80.28Q384.79 82.12 389.38 82.12Q392.08 82.12 393.66 81.31Q395.27 80.51 395.27 78.9Q395.27 77.36 393.98 76.55Q392.7 75.75 384.43 73.79Q378.48 72.31 376.04 70.09Q373.6 67.9 373.6 63.79Q373.6 58.93 377.39 55.46Q381.22 51.96 388.13 51.96Q394.69 51.96 398.81 54.59Q402.95 57.2 403.56 63.63L394.4 63.63Q394.21 61.86 393.4 60.83Q391.89 58.97 388.26 58.97Q385.27 58.97 383.98 59.9Q382.73 60.83 382.73 62.08Q382.73 63.66 384.08 64.37Q385.43 65.11 393.63 66.91Q399.09 68.19 401.83 70.8Q404.53 73.43 404.53 77.39Q404.53 82.6 400.64 85.91Q396.78 89.19 388.68 89.19Q380.41 89.19 376.46 85.72Q372.54 82.21 372.54 76.81ZM388.84 52.02L388.84 52.02Z" />
+                            </g>
+                        </g>
+                        <path fill="none" stroke="#000" stroke-width="2" d="M386.35 263.16L386.35 186.99L81.68 186.99L81.68 263.16" />
+                        <path fill="none" stroke="#000" stroke-width="2" d="M234.01 110.83L234.01 186.99" />
+                        <path fill="#09f" d="M37.56 280.5L123.16 280.5L140.72 294.55L140.72 377.08L20 377.08L20 294.55L37.56 280.5Z" />
+                        <g>
+                            <g>
+                                <path id="Primitive" fill="#fcfcfc" aria-label="Primitive" d="M42.64 330.71Q42.64 329.42 41.95 328.87Q41.28 328.32 40.05 328.32L36.83 328.32L36.83 333.2L40.05 333.2Q41.28 333.2 41.95 332.6Q42.64 332 42.64 330.71ZM46.06 330.69Q46.06 333.62 44.58 334.83Q43.1 336.05 40.35 336.05L36.83 336.05L36.83 342L33.39 342L33.39 325.45L40.6 325.45Q43.1 325.45 44.58 326.73Q46.06 328.01 46.06 330.69ZM55.05 329.47Q55.14 329.47 55.19 329.48Q55.26 329.48 55.47 329.49L55.47 332.77Q55.17 332.73 54.93 332.72Q54.7 332.71 54.55 332.71Q52.62 332.71 51.96 333.97Q51.59 334.68 51.59 336.15L51.59 342L48.37 342L48.37 329.76L51.42 329.76L51.42 331.89Q52.16 330.67 52.71 330.22Q53.61 329.47 55.05 329.47ZM60.64 325.35L60.64 328.3L57.39 328.3L57.39 325.35L60.64 325.35ZM57.39 342L57.39 329.76L60.64 329.76L60.64 342L57.39 342ZM77.42 329.49Q78.23 329.49 79.01 329.8Q79.8 330.12 80.44 330.9Q80.96 331.54 81.14 332.48Q81.25 333.09 81.25 334.28L81.23 342L77.95 342L77.95 334.21Q77.95 333.51 77.72 333.06Q77.29 332.21 76.15 332.21Q74.82 332.21 74.32 333.31Q74.06 333.89 74.06 334.71L74.06 342L70.84 342L70.84 334.71Q70.84 333.62 70.61 333.13Q70.21 332.24 69.03 332.24Q67.66 332.24 67.19 333.13Q66.93 333.63 66.93 334.63L66.93 342L63.68 342L63.68 329.78L66.79 329.78L66.79 331.57Q67.39 330.61 67.92 330.21Q68.85 329.49 70.33 329.49Q71.74 329.49 72.6 330.11Q73.3 330.68 73.66 331.58Q74.29 330.5 75.22 329.99Q76.21 329.49 77.42 329.49ZM87.48 325.35L87.48 328.3L84.24 328.3L84.24 325.35L87.48 325.35ZM84.24 342L84.24 329.76L87.48 329.76L87.48 342L84.24 342ZM91.03 332.15L89.32 332.15L89.32 329.87L91.03 329.87L91.03 326.46L94.2 326.46L94.2 329.87L96.18 329.87L96.18 332.15L94.2 332.15L94.2 338.62Q94.2 339.37 94.39 339.56Q94.58 339.74 95.56 339.74Q95.7 339.74 95.86 339.74Q96.03 339.73 96.18 339.72L96.18 342.11L94.67 342.17Q92.4 342.25 91.57 341.38Q91.03 340.83 91.03 339.69L91.03 332.15ZM101.53 325.35L101.53 328.3L98.28 328.3L98.28 325.35L101.53 325.35ZM98.28 342L98.28 329.76L101.53 329.76L101.53 342L98.28 342ZM109.57 338.79L112.18 329.76L115.61 329.76L111.2 342L107.82 342L103.43 329.76L107.02 329.76L109.57 338.79ZM122.25 332.07Q121.14 332.07 120.52 332.77Q119.91 333.46 119.76 334.66L124.73 334.66Q124.65 333.39 123.96 332.73Q123.27 332.07 122.25 332.07ZM122.25 329.43Q123.78 329.43 125 330.01Q126.23 330.58 127.02 331.81Q127.74 332.9 127.96 334.34Q128.08 335.18 128.06 336.77L119.68 336.77Q119.75 338.61 120.84 339.35Q121.5 339.81 122.43 339.81Q123.42 339.81 124.04 339.25Q124.37 338.95 124.63 338.41L127.9 338.41Q127.78 339.5 126.77 340.62Q125.19 342.4 122.36 342.4Q120.03 342.4 118.24 340.9Q116.46 339.39 116.46 336Q116.46 332.82 118.06 331.13Q119.68 329.43 122.25 329.43ZM122.48 329.43L122.48 329.43Z" />
+                            </g>
+                        </g>
+                        <path fill="#09f" d="M336.08 280.5L421.69 280.5L439.25 294.55L439.25 377.08L318.52 377.08L318.52 294.55L336.08 280.5Z" />
+                        <g>
+                            <g>
+                                <path id="Composite" fill="#fcfcfc" aria-label="Composite" d="M322.82 337.21Q322.82 333.07 325.04 330.82Q326.97 328.87 329.96 328.87Q333.96 328.87 335.8 331.49Q336.82 332.96 336.9 334.44L333.59 334.44Q333.27 333.3 332.76 332.72Q331.86 331.69 330.09 331.69Q328.28 331.69 327.24 333.15Q326.2 334.6 326.2 337.27Q326.2 339.93 327.29 341.26Q328.4 342.58 330.1 342.58Q331.84 342.58 332.75 341.44Q333.26 340.83 333.59 339.61L336.87 339.61Q336.44 342.2 334.66 343.82Q332.9 345.44 330.14 345.44Q326.73 345.44 324.77 343.25Q322.82 341.05 322.82 337.21ZM329.86 328.68L329.86 328.68ZM344.4 342.84Q345.74 342.84 346.46 341.88Q347.18 340.93 347.18 339.17Q347.18 337.41 346.46 336.46Q345.74 335.5 344.4 335.5Q343.05 335.5 342.32 336.46Q341.6 337.41 341.6 339.17Q341.6 340.93 342.32 341.88Q343.05 342.84 344.4 342.84ZM350.39 339.17Q350.39 341.75 348.91 343.58Q347.43 345.41 344.41 345.41Q341.39 345.41 339.91 343.58Q338.42 341.75 338.42 339.17Q338.42 336.63 339.91 334.77Q341.39 332.92 344.41 332.92Q347.43 332.92 348.91 334.77Q350.39 336.63 350.39 339.17ZM344.41 332.98L344.41 332.98ZM365.67 333.03Q366.44 333.03 367.19 333.33Q367.94 333.63 368.56 334.39Q369.05 335 369.22 335.89Q369.33 336.48 369.33 337.62L369.31 345L366.17 345L366.17 337.54Q366.17 336.88 365.96 336.45Q365.55 335.63 364.45 335.63Q363.18 335.63 362.7 336.69Q362.45 337.24 362.45 338.03L362.45 345L359.37 345L359.37 338.03Q359.37 336.99 359.16 336.51Q358.77 335.67 357.64 335.67Q356.33 335.67 355.88 336.51Q355.63 337 355.63 337.95L355.63 345L352.53 345L352.53 333.31L355.5 333.31L355.5 335.02Q356.07 334.11 356.58 333.72Q357.47 333.03 358.89 333.03Q360.23 333.03 361.06 333.62Q361.72 334.17 362.07 335.03Q362.67 334 363.56 333.52Q364.51 333.03 365.67 333.03ZM380.21 339.15Q380.21 337.79 379.59 336.75Q378.98 335.71 377.59 335.71Q375.92 335.71 375.3 337.29Q374.98 338.13 374.98 339.41Q374.98 341.46 376.06 342.28Q376.71 342.77 377.59 342.77Q378.87 342.77 379.53 341.78Q380.21 340.79 380.21 339.15ZM378.47 333.03Q380.52 333.03 381.94 334.55Q383.37 336.06 383.37 339Q383.37 342.09 381.97 343.71Q380.59 345.33 378.4 345.33Q377 345.33 376.08 344.63Q375.57 344.25 375.09 343.51L375.09 349.61L372.06 349.61L372.06 333.29L374.99 333.29L374.99 335.02Q375.48 334.26 376.04 333.82Q377.06 333.03 378.47 333.03ZM390.83 342.84Q392.18 342.84 392.9 341.88Q393.62 340.93 393.62 339.17Q393.62 337.41 392.9 336.46Q392.18 335.5 390.83 335.5Q389.49 335.5 388.76 336.46Q388.04 337.41 388.04 339.17Q388.04 340.93 388.76 341.88Q389.49 342.84 390.83 342.84ZM396.83 339.17Q396.83 341.75 395.35 343.58Q393.86 345.41 390.85 345.41Q387.83 345.41 386.34 343.58Q384.86 341.75 384.86 339.17Q384.86 336.63 386.34 334.77Q387.83 332.92 390.85 332.92Q393.86 332.92 395.35 334.77Q396.83 336.63 396.83 339.17ZM390.85 332.98L390.85 332.98ZM398.3 341.26L401.41 341.26Q401.5 342.08 401.82 342.42Q402.39 343.03 403.93 343.03Q404.83 343.03 405.36 342.77Q405.9 342.5 405.9 341.96Q405.9 341.44 405.47 341.18Q405.04 340.91 402.28 340.25Q400.29 339.76 399.47 339.02Q398.66 338.29 398.66 336.91Q398.66 335.29 399.92 334.13Q401.2 332.96 403.51 332.96Q405.7 332.96 407.08 333.84Q408.46 334.71 408.67 336.86L405.61 336.86Q405.54 336.27 405.27 335.92Q404.77 335.3 403.55 335.3Q402.55 335.3 402.13 335.61Q401.71 335.92 401.71 336.34Q401.71 336.87 402.16 337.1Q402.61 337.35 405.35 337.95Q407.17 338.38 408.09 339.25Q408.99 340.13 408.99 341.46Q408.99 343.2 407.69 344.3Q406.4 345.4 403.69 345.4Q400.93 345.4 399.61 344.24Q398.3 343.07 398.3 341.26ZM403.75 332.98L403.75 332.98ZM414.4 329.07L414.4 331.89L411.3 331.89L411.3 329.07L414.4 329.07ZM411.3 345L411.3 333.29L414.4 333.29L414.4 345L411.3 345ZM417.8 335.58L416.17 335.58L416.17 333.4L417.8 333.4L417.8 330.13L420.83 330.13L420.83 333.4L422.73 333.4L422.73 335.58L420.83 335.58L420.83 341.77Q420.83 342.49 421.01 342.67Q421.19 342.84 422.13 342.84Q422.27 342.84 422.42 342.84Q422.58 342.83 422.73 342.82L422.73 345.11L421.28 345.16Q419.11 345.24 418.31 344.41Q417.8 343.88 417.8 342.79L417.8 335.58ZM429.31 335.5Q428.25 335.5 427.66 336.17Q427.08 336.84 426.93 337.97L431.69 337.97Q431.61 336.76 430.95 336.14Q430.29 335.5 429.31 335.5ZM429.31 332.98Q430.77 332.98 431.95 333.53Q433.12 334.08 433.88 335.26Q434.57 336.3 434.77 337.67Q434.89 338.48 434.87 339.99L426.85 339.99Q426.92 341.76 427.96 342.46Q428.59 342.91 429.49 342.91Q430.43 342.91 431.02 342.37Q431.34 342.08 431.59 341.56L434.72 341.56Q434.6 342.6 433.63 343.68Q432.13 345.39 429.42 345.39Q427.19 345.39 425.48 343.95Q423.77 342.51 423.77 339.26Q423.77 336.22 425.31 334.6Q426.85 332.98 429.31 332.98ZM429.53 332.98L429.53 332.98Z" />
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+            </center>
+            <ol>
+                <li><span class="heading">Primitive Data Types</span> are the basic data types which are pre-built in the system.</li>
+                <li><span class="heading">Composite Data Types</span> are the user-defined data types which aren't provided by default by the system.</li>
+            </ol>
+            <p>So here is a very brief distinguising table between <underline>Primitive</underline> and <underline>Composite</underline> data types.</p>
+            <table>
+                <tr>
+                    <th>Primitive Data Types</th>
+                    <th>Composite Data Types</th>
+                </tr>
+                <tr>
+                    <td>Created by the system, i.e inbuilt.</td>
+                    <td>Created by the user, i.e user-defined.</td>
+                </tr>
+                <tr>
+                    <td>For example:<br />int ; float ; long ; byte</td>
+                    <td>For example:<br />arrays ; classes ; interfaces</td>
+                </tr>
+            </table>
+            <br />
+            <div class="note">Since <underline>COMPOSITE</underline> data types are relatively complex, we won't learn about them so early. It's better to first understand the basics of Java and then explore the advanced concepts.</div>
+            <span id="PrimitiveDataTypes" class="secLink"></span>
+            <h2>Primitive Data Types</h2>
+            <p>As discussed earlier, primitive data types are provided by the computer.</p>
+            <p>There are 8 primitive data types in Java. They are:-</p>
+            <ol>
+                <li><span class="heading">byte</span></li>
+                <li><span class="heading">short</span></li>
+                <li><span class="heading">int</span></li>
+                <li><span class="heading">long</span></li>
+                <li><span class="heading">float</span></li>
+                <li><span class="heading">double</span></li>
+                <li><span class="heading">boolean</span></li>
+                <li><span class="heading">char</span></li>
+            </ol>
+            <p>Each of these, are capable of storing one particular type of data. For example, <underline>boolean</underline> can only store the values <underline>true</underline> or <underline>false</underline>. Storing any value apart from these 2, as a boolean data type will <underline>raise an error</underline>.</p>
+            <p>Each data type, is created with a specific amount of size. For example, the <underline>int</underline> data type has a memory storage capacity of 4 bytes. First, let's understand how computers measure the amount of memory.</p>
+            <ul class="points">
+                <li>Computers store data in the form of <underline>binary numbers</underline>...</li>
+                <li>...which comprises of only <underline>zeros(0) and ones(1)</underline>
+                </li>
+                <li>The most basic (smallest) unit in which computers measure data is called <underline>bit</underline>.</li>
+                <li>1 Bit is equivalent to a 0 or 1.</li>
+                <li>This 0 or 1 is the same as turning off or on of a transistor inside your computer's memory.</li>
+            </ul>
+            <p>Now let's see the bigger units of measurement which are more commanly used.</p>
+            <ol>
+                <li>Nibble <span class="roboto italic">(not very common)</span></li>
+                <li>Byte (b)</li>
+                <li><span class="heading">Kilobyte (KB)</span></li>
+                <li><span class="heading">Megabyte (MB)</span></li>
+                <li><span class="heading">Gigabyte (GB)</span></li>
+                <li><span class="heading">Terabyte (TB)</span></li>
+                <li>Petabyte (PB)</li>
+                <li>Exabyte (EB)</li>
+                <li>Zetabyte (ZB)</li>
+                <li>Yotabyte (YB)</li>
+            </ol>
+            <div class="note">The <span class="heading">underline</span> units of measurement are most commanly used. The remaining ones are usually very small and very high.</div>
+            <p>Now let's see the relationship between these data sizes.</p>
+            <pre>4 bits                     =    1 Nibble
+8 bits or 2 nibbles        =    1 byte (b)
+1024 bytes (b)             =    1 Kilobyte (KB)
+1024 Kilobytes (KB)        =    1 Megabyte (MB)
+1024 Megabytes (MB)        =    1 Gigabytes (GB)
+1024 Gigabytes (GB)        =    1 Terabyte (TB)
+1024 Terabytes (TB)        =    1 Petabyte (PB)
+1024 Petabytes (PB)        =    1 Exabyte (EB)
+1024 Exabytes (EB)         =    1 Zetabyte (ZB)
+1024 Zetabytes (ZB)        =    1 Yotabyte (YB)</pre>
+            <p>So below, I have presented a brief table showing all data types along with their sizes, range, data ( what type of data they are used to contain ) and default value.</p>
+        </div>
+        <br />
+        <div class="tableContainer">
+            <table>
+                <tr>
+                    <th class="_100px">DATA TYPE</th>
+                    <th class="_100px">DATA</th>
+                    <th class="_100px">SIZE</th>
+                    <th class="_100px">RANGE</th>
+                    <th class="_100px">DEFAULT VALUE</th>
+                </tr>
+                <tr>
+                    <td class="_100px">boolean</td>
+                    <td class="_100px">true | false</td>
+                    <td class="_100px">1 bit</td>
+                    <td class="_100px">=[NONE]=</td>
+                    <td class="_100px">false</td>
+                </tr>
+                <tr>
+                    <td class="_100px">byte</td>
+                    <td class="_100px">Small numeric values</td>
+                    <td class="_100px">1 byte</td>
+                    <td class="_100px">-128 to +127</td>
+                    <td class="_100px">0</td>
+                </tr>
+                <tr>
+                    <td class="_100px">char</td>
+                    <td class="_100px">Character</td>
+                    <td class="_100px">2 bytes</td>
+                    <td class="_100px">=[NONE]=</td>
+                    <td class="_100px">\u0000</td>
+                </tr>
+                <tr>
+                    <td class="_100px">short</td>
+                    <td class="_100px">Small numeric values</td>
+                    <td class="_100px">2 bytes</td>
+                    <td class="_100px">-32768 to +32767</td>
+                    <td class="_100px">0</td>
+                </tr>
+                <tr>
+                    <td class="_100px">int</td>
+                    <td class="_100px">Numeric values</td>
+                    <td class="_100px">4 bytes</td>
+                    <td class="_100px">-2147483648 to +2147483647</td>
+                    <td class="_100px">0</td>
+                </tr>
+                <tr>
+                    <td class="_100px">long</td>
+                    <td class="_100px">Large numeric values</td>
+                    <td class="_100px">8 bytes</td>
+                    <td class="_100px">-9223372036854775808 to +9223372036854775807</td>
+                    <td class="_100px">0</td>
+                </tr>
+                <tr>
+                    <td class="_100px">float</td>
+                    <td class="_100px">Floating-point (decimal) values</td>
+                    <td class="_100px">4 bytes</td>
+                    <td class="_100px">1.4E-45 to 3.4028235E38</td>
+                    <td class="_100px">0.0f</td>
+                </tr>
+                <tr>
+                    <td class="_100px">double</td>
+                    <td class="_100px">Large and precise floating-poing values</td>
+                    <td class="_100px">8 bytes</td>
+                    <td class="_100px">4.9E-324 to 1.79E308</td>
+                    <td class="_100px">0.0d</td>
+                </tr>
+            </table>
+        </div>
+        <br />
+        <div class="tutorialContent">
+            <div class="note">“byte” is both, a <underline>unit of data measurement</underline> as well as <underline>data type</underline>.</div>
+            <p>The SYNTAX for creating a variable with a data type is as follows:-</p>
+            <pre><div class="code">&lt;<span class="green">DATA_TYPE</span>&gt; &lt;VARIABLE_NAME&gt; = &lt;<span class="purple">VALUE</span>&gt;;</div></pre>
+            <p>OR</p>
+            <pre><div class="code">&lt;<span class="green">DATA_TYPE</span>&gt; &lt;VARIABLE_NAME&gt;;
+&lt;VARIABLE_NAME&gt; = &lt;<span class="purple">VALUE</span>&gt;;</div></pre>
+            <div class="note">The data type will only be used while creating a variable. Later if its value needs to be changed it must not include the data type as demonstrated in the second example, above. Thus the code like:
+                <pre><div class="code">&lt;<span class="green">DATA_TYPE</span>&gt; &lt;VARIABLE_NAME&gt;;
+&lt;<span class="green">DATA_TYPE</span>&gt; &lt;VARIABLE_NAME&gt; = &lt;<span class="purple">VALUE</span>&gt;;</div></pre>
+                will be wrong. The correct one should be :
+                <pre><div class="code">&lt;<span class="green">DATA_TYPE</span>&gt; &lt;VARIABLE_NAME&gt;;
+&lt;VARIABLE_NAME&gt; = &lt;<span class="purple">VALUE</span>&gt;;</div></pre>
+                or
+                <pre><div class="code">&lt;<span class="green">DATA_TYPE</span>&gt; &lt;VARIABLE_NAME&gt; = &lt;<span class="purple">VALUE</span>&gt;;</div></pre>
+            </div>
+            <p>Now we will learn about all these data types in detail with practical programming examples.</p>
+            <span id="boolean" class="secLink"></span>
+            <h3>1. <underline>boolean</underline>
+            </h3>
+            <p>Boolean is a special data type. Unlike other data types which store numbers or words/alphabets, boolean is used to store the values : <underline class="roboto black">true</underline> or <underline class="roboto black">false</underline>.</p>
+            <p>A variable declared with this data type, uses 1 bit of the computer's memory.</p>
+            <p>In a Java program we would declare a boolean variable as follows:</p>
+            <pre><div class="code" data-code-type='JavaSnippet'><span class="green">boolean</span> my_variable = <span class="purple">true</span>;</div></pre>
+            <p>We can create multiple variables of the same data type and they may or may not have the same value. Just be sure to name that new variable differently. As 1 or more variables with the same name will raise an error.</p>
+            <pre><div class="code" data-code-type='JavaSnippet'><span class="green">boolean</span> variable1 = <span class="purple">true</span>;
+        <span class="green">boolean</span> variable2 = <span class="purple">false</span>;</div></pre>
+            <p>Now let's add a few print statements to verify what's the answer</p>
+            <pre><div class="code" data-code-type='JavaSnippet'><span class="green">boolean</span> variable1 = <span class="purple">true</span>;
+        <span class="green">boolean</span> variable2 = <span class="purple">false</span>;
+        <span class="blue">System</span>.out.<span class="blue">println</span>(variable1);
+        <span class="blue">System</span>.out.<span class="blue">println</span>(variable2);</div></pre>
+            <p>The answer, quite noticeably is:</p>
+            <pre><div class="code">true
+false</div></pre>
+            <p>This is mostly used for conditional checking. In a situation where you need to execute some code depending on some condition, at that time we can use these boolean variables to store the outcome of our condition and later check if our condition is satisfied or not.</p>
+            <span id="byte" class="secLink"></span>
+            <h3>2. <underline>byte</underline>
+            </h3>
+            <p>The <underline class='roboto black'>byte</underline> data type occupies 1 byte or 8 bits of the computer's memory.</p>
+            <p>It is used to store non-floating ( non-decimal i.e. integer ) numbers ranging from <underline class='roboto black'>-128</underline> to <underline class='roboto black'>+127</underline>.</p>
+            <p>Let's assume we have a program which shows multiple options, each labelled with a number as shown below:</p>
+            <pre><div class="code" data-code-type='JavaSnippet'><span class="blue">System</span>.out.<span class="blue">println</span>(<span class="purple">"1. ABC"</span>);
+        <span class="blue">System</span>.out.<span class="blue">println</span>(<span class="purple">"2. PQR"</span>);
+        <span class="blue">System</span>.out.<span class="blue">println</span>(<span class="purple">"3. DKC"</span>);
+        <span class="blue">System</span>.out.<span class="blue">println</span>(<span class="purple">"4. XYZ"</span>);</div></pre>
+            <div class="note">The output will be :
+                <pre><div class="code">1. ABC
+2. PQR
+3. DKC
+4. XYZ</div></pre>
+                I won't be providing output everytime like this. It's assumed that so far you are clear with the conepts and can predict the output.</div>
+            <p>Suppose, after this, we somehow ask the user for input<sup class="red">*</sup> and s/he will need to enter a number from 1 to 4 and accordingly we will do the rest of the processing.</p>
+            <hr>
+            <span><sup class="red">*</sup> We will learn about user-input in the upcoming lessons.</span>
+            <hr>
+            <p>Most people tend to store the user-input in a variable with the data type <underline class='roboto black'>int</underline>. However, I believe that we should preferably use <underline class='roboto black'>byte</underline> in these cases.</p>
+            <p>Both <underline class='roboto black'>byte</underline> and <underline class='roboto black'>int</underline> can store a number from 1 to 4 as it falls in their range capacity <span class="italic roboto">( check the table given above to see the range capacity of all the data types )</span>.</p>
+            <p>But <underline class='roboto black'>int</underline> data type uses 4 bytes of the computer's memory while <underline class='roboto black'>byte</underline> data type only uses 1 byte of the computer's memory.</p>
+            <p>So why not use <underline class='roboto black'>byte</underline> if it can do the job and also use 4x less memory.</p>
+            <p>Here's how to make a <underline>byte</underline> variable</p>
+            <pre><div class="code" data-code-type='JavaSnippet'><span class="green">byte</span> b = <span class="purple">-12</span>;
+        <span class="blue">System</span>.out.<span class="blue">println</span>(b);</div></pre>
+            <p>OUTPUT :-</p>
+            <pre><div class="code">-12</div></pre>
+            <div class="note">Moving a value which is beyond the data type's range capacity will raise an error. Like this:
+                <pre><div class="code" data-code-type='JavaSnippet'><span class="green">byte</span> var1 = <span class="purple">-1501</span>;
+        <span class="green">byte</span> var2 = <span class="purple">1103</span>;
+        <span class="green">byte</span> var3 = <span class="purple">0</span>;
+        <span class="blue">System</span>.out.<span class="blue">println</span>(var1);
+        <span class="blue">System</span>.out.<span class="blue">println</span>(var2);
+        <span class="blue">System</span>.out.<span class="blue">println</span>(var3);</div></pre>
+                <p>It raises an error in the first 2 lines of the main method while compiling:</p>
+                <pre><div class="code">Program.java:3: error: incompatible types: possible lossy conversion from int to byte
+        byte var1 = -1501;
+                    ^
+Program.java:4: error: incompatible types: possible lossy conversion from int to byte
+        byte var2 = 1103;
+                    ^</div></pre>
+                <p>So be sure to <underline>use the correct data type according to your data</underline>.</p>
+            </div>
+            <span id="char" class="secLink"></span>
+            <h3>3. <underline>char</underline>
+            </h3>
+            <p>The <underline>char</underline> is a data type used to store characteracters.</p>
+            <p>A character can be:</p>
+            <ul class="points">
+                <li>An alphabet [ lower case or upper case ] like, <underline>'a'</underline> or <underline>'Z'</underline>.</li>
+                <li>A digit like <underline>'1'</underline>, <underline>'2'</underline>, <underline>'5'</underline> or <underline>'4'</underline> and <underline class="roboto black">NOT</underline>
+                    <underline>343</underline>.
+                </li>
+                <li>An operator like <underline>'+'</underline>, <underline>'-'</underline>, <underline>'%'</underline>, <underline>'^'</underline>, <underline>'&'</underline>, <underline>'*'</underline>, <underline>'='</underline>.</li>
+                <li>All special symbols<sup class="red">*</sup> like <underline>!</underline>, <underline>@</underline>, <underline>#</underline>, <underline>$</underline>, <underline>(</underline>, <underline>)</underline>, <underline>_</underline>, <underline>[</underline>, <underline>]</underline>, <underline>;</underline>, <underline>:</underline>, <underline>?</underline>, <underline>.</underline> and so on.</li>
+            </ul>
+            <hr>
+            <span><sup class="red">*</sup> Special symbols are basically everything except an alphabet, digit & operator in a sentence.</span>
+            <hr>
+            <center>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 598 393" width="600" height="600" style="width: 100%; height: auto">
+                    <g>
+                        <path fill="#1b1b1b" d="M176.93 60.05Q175.34 54.5 178.79 51.45Q185.06 55.14 187.89 55.99Q193.17 55.94 193.68 53.36Q193.8 51.28 190.46 49.35L184.18 46.3Q178.3 43.18 178.08 37.49Q178.3 34.22 180.32 31.6Q182.37 28.99 184.91 28.19Q187.48 27.36 190.99 27.58Q197.44 27.97 202.3 31.24Q202.49 35.85 199.42 39.27Q193.48 34.83 189.92 35.12Q186.57 34.73 186.38 37.51Q186.26 39.1 191.09 41.61Q196.63 43.86 199.29 46.76Q201.98 49.67 201.69 53.82Q201.3 59.44 196.46 62.44Q193.39 64.59 187.57 64.22Q182.03 63.51 176.93 60.05ZM231.62 27.23L208.64 27.92Q207.77 28.33 207.5 29.28L205.3 62.76Q205.54 64.1 206.59 64.29L229.42 63.39Q232.01 59.61 229.98 55.29L213.6 55.77L214.26 48.21L227.61 47.64Q229.74 44.47 227.91 40.91L214.8 41.17L215.24 34.92L231.2 34.41Q232.81 31.07 231.62 27.23ZM237.72 28.87L235.62 63.17Q238.31 65.1 243.56 63.76L244.92 43.79L255.84 63.71Q260.13 65.42 262.62 63.17L264.72 28.36Q261.26 26.48 257.5 28.31L256.32 47.55L244.7 27.84Q239.45 26.48 237.72 28.87ZM296.17 27.28L270.02 27.99Q267.53 31.19 270.24 35.75L279.1 35.56L277.52 63.59Q281.94 65.22 285.65 63.63L286.96 35.24L295.97 35.12Q297.85 31.19 296.17 27.28ZM326.98 27.23L304.01 27.92Q303.13 28.33 302.86 29.28L300.66 62.76Q300.9 64.1 301.95 64.29L324.78 63.39Q327.37 59.61 325.34 55.29L308.96 55.77L309.62 48.21L322.98 47.64Q325.1 44.47 323.27 40.91L310.16 41.17L310.6 34.92L326.56 34.41Q328.18 31.07 326.98 27.23ZM333.08 28.87L330.98 63.17Q333.67 65.1 338.92 63.76L340.28 43.79L351.2 63.71Q355.49 65.42 357.98 63.17L360.08 28.36Q356.62 26.48 352.86 28.31L351.69 47.55L340.06 27.84Q334.82 26.48 333.08 28.87ZM390.36 30.8Q391.21 35.19 388.06 37.83Q385.94 36.46 381.4 35.66Q377.42 35.27 374.9 37.98Q372.39 40.66 371.83 44.96Q371 47.67 372.85 51.92Q374.71 55.77 378.49 55.99Q382.3 56.21 387.6 54.5Q389.5 58.26 387.97 61.88Q381.69 64.76 377.78 64.61Q370.58 63.71 367.29 59.39Q362.89 53.6 364.31 43.05Q365.43 34.7 369.61 30.43Q375.05 26.01 382.81 26.82Q388.21 27.16 390.36 30.8ZM420.34 27.23L397.36 27.92Q396.49 28.33 396.22 29.28L394.02 62.76Q394.26 64.1 395.31 64.29L418.14 63.39Q420.73 59.61 418.7 55.29L402.32 55.77L402.98 48.21L416.33 47.64Q418.46 44.47 416.63 40.91L403.52 41.17L403.96 34.92L419.92 34.41Q421.53 31.07 420.34 27.23Z" />
+                        <path fill='none' d="M6 126L596 126L596 146L6 146L6 126Z" />
+                        <path fill="#1b1b1b" d="M41.41 147.97L44.46 147.97L44.46 121.22L41.41 121.22L41.41 132.15L32.17 132.15L32.17 121.22L29.09 121.22L29.09 147.97L32.17 147.97L32.17 135.4L41.41 135.4L41.41 147.97ZM85.41 140.19Q85.41 137.68 84.43 136.03Q83.48 134.38 81.59 133.62Q84.53 132.11 84.53 128.22Q84.53 124.83 82.61 122.94Q80.72 121.02 77.08 121.02Q75.43 121.02 74.07 121.61Q72.74 122.2 71.79 123.33Q70.85 124.44 70.32 126.02Q69.8 127.59 69.8 129.59L69.8 129.87L72.77 129.87Q72.77 124.16 77.25 124.16Q79.25 124.16 80.26 125.25Q81.31 126.33 81.31 128.37Q81.31 130.53 80.19 131.55Q79.11 132.53 76.9 132.53Q76.83 132.53 76.48 132.53Q76.17 132.53 75.61 132.5L75.61 135.54Q75.99 135.5 76.38 135.5Q76.8 135.47 77.25 135.47Q79.67 135.47 80.89 136.73Q82.15 137.99 82.15 140.19Q82.15 142.65 80.86 144.08Q79.56 145.48 77.29 145.48Q74.94 145.48 73.65 143.94Q72.39 142.37 72.32 139.53L69.27 139.53L69.27 139.81Q69.27 141.84 69.8 143.49Q70.36 145.13 71.37 146.28Q72.42 147.44 73.86 148.07Q75.29 148.7 77.08 148.7Q79 148.7 80.54 148.1Q82.08 147.47 83.17 146.35Q84.25 145.2 84.81 143.66Q85.41 142.09 85.41 140.19ZM110.4 148L125.34 148L125.34 145.31L119.36 145.31L119.36 120.35L111.83 120.35L111.83 123.05L116.42 123.05L116.42 145.31L110.4 145.31L110.4 148ZM151 148L165.94 148L165.94 145.31L159.96 145.31L159.96 120.35L152.43 120.35L152.43 123.05L157.02 123.05L157.02 145.31L151 145.31L151 148ZM207.07 134.88Q207.07 127.94 205.04 124.48Q203.01 121.02 199.09 121.02Q195.17 121.02 193.1 124.52Q191.07 127.98 191.07 134.88Q191.07 141.77 193.1 145.24Q195.17 148.7 199.09 148.7Q203.01 148.7 205.04 145.27Q207.07 141.81 207.07 134.88ZM203.88 134.88Q203.88 140.3 202.8 142.93Q201.71 145.55 199.09 145.55Q196.5 145.55 195.38 142.93Q194.26 140.3 194.26 134.88Q194.26 129.45 195.38 126.83Q196.5 124.2 199.09 124.2Q201.71 124.2 202.8 126.83Q203.88 129.45 203.88 134.88ZM243.64 148L246.58 148L246.58 135.44L246.58 134.42Q246.58 132.88 246.48 131.66Q246.37 130.43 245.85 129.41Q245.15 128.05 243.89 127.31Q242.66 126.58 240.81 126.58Q239.02 126.58 237.69 127.56Q236.4 128.54 235.63 130.32L235.63 120.35L232.69 120.35L232.69 148L235.63 148L235.63 136.06Q235.63 132.95 236.89 131.31Q238.15 129.63 240.39 129.63Q242.35 129.63 242.98 131.03Q243.64 132.43 243.64 135.09L243.64 148ZM288.2 134.88Q288.2 127.94 286.17 124.48Q284.14 121.02 280.22 121.02Q276.3 121.02 274.23 124.52Q272.2 127.98 272.2 134.88Q272.2 141.77 274.23 145.24Q276.3 148.7 280.22 148.7Q284.14 148.7 286.17 145.27Q288.2 141.81 288.2 134.88ZM285.01 134.88Q285.01 140.3 283.93 142.93Q282.84 145.55 280.22 145.55Q277.63 145.55 276.51 142.93Q275.39 140.3 275.39 134.88Q275.39 129.45 276.51 126.83Q277.63 124.2 280.22 124.2Q282.84 124.2 283.93 126.83Q285.01 129.45 285.01 134.88ZM326.21 147.69L330.62 127L327.78 127L324.81 143.17L322.53 127L318.96 127L316.69 143.17L313.71 127L310.91 127L315.32 147.69L318.09 147.69L320.75 130.12L323.41 147.69L326.21 147.69ZM369.99 141.31L369.99 139.07Q369.82 139.15 369.64 139.11Q369.5 139.04 369.43 139.04Q368.63 139.04 368.63 137.95L368.63 137.29L368.63 131.62Q368.63 129.03 368.35 127.14Q368.1 125.25 367.3 123.85Q366.35 122.28 364.81 121.4Q363.31 120.49 361.31 120.49Q352.74 120.49 352.74 135.12Q352.74 141.98 354.66 145.34Q356.62 148.7 360.75 148.7Q361.31 148.7 362.12 148.74Q362.92 148.74 363.41 148.77Q363.94 148.77 364.01 148.77L364.01 146.22Q363.94 146.22 363.48 146.22Q363.03 146.18 362.29 146.18Q361.59 146.15 361.14 146.15Q359.49 146.15 358.37 145.48Q357.25 144.78 356.55 143.38Q355.89 141.94 355.57 139.78Q355.26 137.6 355.26 134.59Q355.26 122.97 361.21 122.97Q362.36 122.97 363.24 123.36Q364.15 123.75 364.74 124.41Q365.37 125.04 365.69 125.88Q366 126.72 366 127.63Q366 128.22 365.65 128.47Q365.3 128.72 364.67 128.85Q364.04 129 363.2 129.1Q362.36 129.17 361.38 129.45Q359.32 130.04 358.3 131.59Q357.29 133.09 357.29 135.78Q357.29 138.66 358.41 140.26Q359.56 141.88 361.56 141.88Q363.03 141.88 364.18 141.03Q365.37 140.19 366.42 138.51L366.42 138.76Q366.42 140.13 366.98 140.79Q367.54 141.42 368.77 141.42Q368.98 141.42 369.26 141.46Q369.57 141.49 369.99 141.31ZM366.11 130.5L366.11 133.86Q366.11 136.59 364.95 137.95Q363.8 139.28 362.19 139.28Q361.07 139.28 360.44 138.38Q359.84 137.47 359.84 135.65Q359.84 133.9 360.4 132.99Q361 132.04 362.33 131.59Q363.34 131.27 364.29 131.16Q365.27 131.03 366.11 130.5ZM407.09 133.47L410.03 133.47Q409.93 126.3 404.22 126.3Q402.44 126.3 401.14 127.38Q399.88 128.44 398.97 130.47L398.97 127.03L396.07 127.03L396.07 147.72L399.01 147.72L399.01 135.89Q399.01 132.6 400.2 130.88Q401.42 129.17 403.63 129.17Q405.31 129.17 406.18 130.29Q407.09 131.41 407.09 133.47ZM450.63 140.19Q450.63 137.68 449.65 136.03Q448.71 134.38 446.82 133.62Q449.76 132.11 449.76 128.22Q449.76 124.83 447.83 122.94Q445.94 121.02 442.3 121.02Q440.66 121.02 439.29 121.61Q437.96 122.2 437.02 123.33Q436.07 124.44 435.55 126.02Q435.02 127.59 435.02 129.59L435.02 129.87L438 129.87Q438 124.16 442.48 124.16Q444.47 124.16 445.49 125.25Q446.54 126.33 446.54 128.37Q446.54 130.53 445.42 131.55Q444.33 132.53 442.13 132.53Q442.06 132.53 441.71 132.53Q441.39 132.53 440.83 132.5L440.83 135.54Q441.22 135.5 441.6 135.5Q442.02 135.47 442.48 135.47Q444.89 135.47 446.12 136.73Q447.38 137.99 447.38 140.19Q447.38 142.65 446.08 144.08Q444.79 145.48 442.51 145.48Q440.17 145.48 438.87 143.94Q437.61 142.37 437.54 139.53L434.5 139.53L434.5 139.81Q434.5 141.84 435.02 143.49Q435.58 145.13 436.6 146.28Q437.65 147.44 439.08 148.07Q440.52 148.7 442.3 148.7Q444.23 148.7 445.77 148.1Q447.31 147.47 448.39 146.35Q449.48 145.2 450.04 143.66Q450.63 142.09 450.63 140.19ZM484.09 149.96L491.34 126.65L488.19 126.65L483.08 143.66L478.07 126.65L474.85 126.65L481.64 148.46L481.05 150.56Q480.77 151.5 480.14 151.92Q479.54 152.31 478.56 152.31Q477.41 152.31 475.87 151.92L475.87 155Q476.57 155.21 477.27 155.28Q477.97 155.31 478.7 155.31Q479.93 155.31 480.73 155.03Q481.57 154.72 482.17 154.06Q482.76 153.39 483.18 152.41Q483.64 151.4 484.09 149.96ZM531.66 134.88Q531.66 127.94 529.63 124.48Q527.6 121.02 523.68 121.02Q519.76 121.02 517.69 124.52Q515.66 127.98 515.66 134.88Q515.66 141.77 517.69 145.24Q519.76 148.7 523.68 148.7Q527.6 148.7 529.63 145.27Q531.66 141.81 531.66 134.88ZM528.47 134.88Q528.47 140.3 527.39 142.93Q526.3 145.55 523.68 145.55Q521.09 145.55 519.97 142.93Q518.85 140.3 518.85 134.88Q518.85 129.45 519.97 126.83Q521.09 124.2 523.68 124.2Q526.3 124.2 527.39 126.83Q528.47 129.45 528.47 134.88ZM572.19 137.75L572.19 121.19L569.07 121.19L569.07 137.95Q569.07 141.7 567.88 143.56Q566.73 145.41 564.21 145.41Q561.69 145.41 560.5 143.59Q559.34 141.74 559.34 137.95L559.34 121.19L556.26 121.19L556.26 137.75Q556.26 143.28 558.19 145.97Q560.15 148.66 564.21 148.66Q568.3 148.66 570.23 146Q572.19 143.34 572.19 137.75Z" />
+                        <path fill="#0099ff" d="M36.41 367.96L39.46 367.96L39.46 341.23L36.41 341.23L36.41 352.14L27.17 352.14L27.17 341.23L24.09 341.23L24.09 367.96L27.17 367.96L27.17 355.4L36.41 355.4L36.41 367.96ZM80.41 360.19Q80.41 357.68 79.43 356.03Q78.48 354.38 76.59 353.62Q79.53 352.11 79.53 348.23Q79.53 344.83 77.61 342.94Q75.72 341.01 72.08 341.01Q70.43 341.01 69.07 341.61Q67.74 342.2 66.79 343.32Q65.85 344.44 65.32 346.02Q64.8 347.6 64.8 349.59L64.8 349.87L67.77 349.87Q67.77 344.17 72.25 344.17Q74.25 344.17 75.26 345.25Q76.31 346.33 76.31 348.37Q76.31 350.53 75.19 351.55Q74.11 352.53 71.9 352.53Q71.83 352.53 71.48 352.53Q71.17 352.53 70.61 352.5L70.61 355.54Q70.99 355.5 71.38 355.5Q71.8 355.47 72.25 355.47Q74.67 355.47 75.89 356.73Q77.15 357.99 77.15 360.19Q77.15 362.64 75.86 364.08Q74.56 365.48 72.29 365.48Q69.94 365.48 68.65 363.94Q67.39 362.37 67.32 359.53L64.27 359.53L64.27 359.81Q64.27 361.84 64.8 363.49Q65.36 365.13 66.37 366.29Q67.42 367.44 68.86 368.07Q70.29 368.7 72.08 368.7Q74 368.7 75.54 368.11Q77.08 367.48 78.17 366.36Q79.25 365.2 79.81 363.66Q80.41 362.08 80.41 360.19ZM105.4 368L120.34 368L120.34 365.31L114.36 365.31L114.36 340.35L106.83 340.35L106.83 343.05L111.42 343.05L111.42 365.31L105.4 365.31L105.4 368ZM146 368L160.94 368L160.94 365.31L154.96 365.31L154.96 340.35L147.43 340.35L147.43 343.05L152.02 343.05L152.02 365.31L146 365.31L146 368ZM202.07 354.88Q202.07 347.94 200.04 344.48Q198.01 341.01 194.09 341.01Q190.17 341.01 188.1 344.51Q186.07 347.98 186.07 354.88Q186.07 361.77 188.1 365.24Q190.17 368.7 194.09 368.7Q198.01 368.7 200.04 365.27Q202.07 361.81 202.07 354.88ZM198.88 354.88Q198.88 360.3 197.8 362.93Q196.71 365.55 194.09 365.55Q191.5 365.55 190.38 362.93Q189.26 360.3 189.26 354.88Q189.26 349.45 190.38 346.82Q191.5 344.2 194.09 344.2Q196.71 344.2 197.8 346.82Q198.88 349.45 198.88 354.88ZM238.64 368L241.58 368L241.58 355.44L241.58 354.42Q241.58 352.88 241.48 351.65Q241.37 350.43 240.85 349.42Q240.15 348.05 238.89 347.31Q237.66 346.58 235.81 346.58Q234.02 346.58 232.69 347.56Q231.4 348.54 230.63 350.32L230.63 340.35L227.69 340.35L227.69 368L230.63 368L230.63 356.06Q230.63 352.95 231.89 351.31Q233.15 349.63 235.39 349.63Q237.35 349.63 237.98 351.02Q238.64 352.43 238.64 355.08L238.64 368ZM283.2 354.88Q283.2 347.94 281.17 344.48Q279.14 341.01 275.22 341.01Q271.3 341.01 269.23 344.51Q267.2 347.98 267.2 354.88Q267.2 361.77 269.23 365.24Q271.3 368.7 275.22 368.7Q279.14 368.7 281.17 365.27Q283.2 361.81 283.2 354.88ZM280.01 354.88Q280.01 360.3 278.93 362.93Q277.84 365.55 275.22 365.55Q272.63 365.55 271.51 362.93Q270.39 360.3 270.39 354.88Q270.39 349.45 271.51 346.82Q272.63 344.2 275.22 344.2Q277.84 344.2 278.93 346.82Q280.01 349.45 280.01 354.88ZM321.21 367.69L325.62 347L322.78 347L319.81 363.17L317.53 347L313.96 347L311.69 363.17L308.71 347L305.91 347L310.32 367.69L313.09 367.69L315.75 350.12L318.41 367.69L321.21 367.69ZM364.99 361.31L364.99 359.07Q364.82 359.14 364.64 359.11Q364.5 359.04 364.43 359.04Q363.63 359.04 363.63 357.95L363.63 357.29L363.63 351.62Q363.63 349.03 363.35 347.14Q363.1 345.25 362.3 343.85Q361.35 342.27 359.81 341.4Q358.31 340.49 356.31 340.49Q347.74 340.49 347.74 355.12Q347.74 361.98 349.66 365.34Q351.62 368.7 355.75 368.7Q356.31 368.7 357.12 368.74Q357.92 368.74 358.41 368.77Q358.94 368.77 359.01 368.77L359.01 366.21Q358.94 366.21 358.48 366.21Q358.03 366.18 357.29 366.18Q356.59 366.14 356.14 366.14Q354.49 366.14 353.37 365.48Q352.25 364.78 351.55 363.38Q350.89 361.94 350.57 359.77Q350.26 357.61 350.26 354.6Q350.26 342.98 356.21 342.98Q357.36 342.98 358.24 343.36Q359.15 343.75 359.74 344.41Q360.37 345.04 360.69 345.88Q361 346.72 361 347.63Q361 348.23 360.65 348.47Q360.3 348.71 359.67 348.86Q359.04 349 358.2 349.1Q357.36 349.17 356.38 349.45Q354.32 350.05 353.3 351.58Q352.29 353.09 352.29 355.79Q352.29 358.65 353.41 360.26Q354.56 361.88 356.56 361.88Q358.03 361.88 359.18 361.04Q360.37 360.19 361.42 358.51L361.42 358.76Q361.42 360.13 361.98 360.79Q362.54 361.42 363.77 361.42Q363.98 361.42 364.26 361.45Q364.57 361.49 364.99 361.31ZM361.11 350.5L361.11 353.86Q361.11 356.59 359.95 357.95Q358.8 359.29 357.19 359.29Q356.07 359.29 355.44 358.38Q354.84 357.46 354.84 355.64Q354.84 353.89 355.4 352.99Q356 352.04 357.33 351.58Q358.34 351.27 359.29 351.17Q360.27 351.02 361.11 350.5ZM402.09 353.48L405.03 353.48Q404.93 346.3 399.22 346.3Q397.44 346.3 396.14 347.38Q394.88 348.44 393.97 350.46L393.97 347.03L391.07 347.03L391.07 367.72L394.01 367.72L394.01 355.89Q394.01 352.6 395.2 350.88Q396.42 349.17 398.63 349.17Q400.31 349.17 401.18 350.29Q402.09 351.41 402.09 353.48ZM445.63 360.19Q445.63 357.68 444.65 356.03Q443.71 354.38 441.82 353.62Q444.76 352.11 444.76 348.23Q444.76 344.83 442.83 342.94Q440.94 341.01 437.3 341.01Q435.66 341.01 434.29 341.61Q432.96 342.2 432.02 343.32Q431.07 344.44 430.55 346.02Q430.02 347.6 430.02 349.59L430.02 349.87L433 349.87Q433 344.17 437.48 344.17Q439.47 344.17 440.49 345.25Q441.54 346.33 441.54 348.37Q441.54 350.53 440.42 351.55Q439.33 352.53 437.13 352.53Q437.06 352.53 436.71 352.53Q436.39 352.53 435.83 352.5L435.83 355.54Q436.22 355.5 436.6 355.5Q437.02 355.47 437.48 355.47Q439.89 355.47 441.12 356.73Q442.38 357.99 442.38 360.19Q442.38 362.64 441.08 364.08Q439.79 365.48 437.51 365.48Q435.17 365.48 433.87 363.94Q432.61 362.37 432.54 359.53L429.5 359.53L429.5 359.81Q429.5 361.84 430.02 363.49Q430.58 365.13 431.6 366.29Q432.65 367.44 434.08 368.07Q435.52 368.7 437.3 368.7Q439.23 368.7 440.77 368.11Q442.31 367.48 443.39 366.36Q444.48 365.2 445.04 363.66Q445.63 362.08 445.63 360.19ZM479.09 369.96L486.34 346.65L483.19 346.65L478.08 363.66L473.07 346.65L469.85 346.65L476.64 368.45L476.05 370.56Q475.77 371.5 475.14 371.92Q474.54 372.31 473.56 372.31Q472.41 372.31 470.87 371.92L470.87 375Q471.57 375.21 472.27 375.28Q472.97 375.31 473.7 375.31Q474.93 375.31 475.73 375.04Q476.57 374.72 477.17 374.06Q477.76 373.39 478.18 372.41Q478.64 371.39 479.09 369.96ZM526.66 354.88Q526.66 347.94 524.63 344.48Q522.6 341.01 518.68 341.01Q514.76 341.01 512.69 344.51Q510.66 347.98 510.66 354.88Q510.66 361.77 512.69 365.24Q514.76 368.7 518.68 368.7Q522.6 368.7 524.63 365.27Q526.66 361.81 526.66 354.88ZM523.47 354.88Q523.47 360.3 522.39 362.93Q521.3 365.55 518.68 365.55Q516.09 365.55 514.97 362.93Q513.85 360.3 513.85 354.88Q513.85 349.45 514.97 346.82Q516.09 344.2 518.68 344.2Q521.3 344.2 522.39 346.82Q523.47 349.45 523.47 354.88ZM567.19 357.75L567.19 341.19L564.07 341.19L564.07 357.95Q564.07 361.7 562.88 363.56Q561.73 365.41 559.21 365.41Q556.69 365.41 555.5 363.59Q554.34 361.74 554.34 357.95L554.34 341.19L551.26 341.19L551.26 357.75Q551.26 363.27 553.19 365.97Q555.15 368.67 559.21 368.67Q563.3 368.67 565.23 366Q567.19 363.35 567.19 357.75Z" />
+                        <path fill='none' stroke='#000' stroke-width='5' d="M20 328L572 328C576.98 328 581 332.02 581 337L581 379C581 383.98 576.98 388 572 388L20 388C15.02 388 11 383.98 11 379L11 337C11 332.02 15.02 328 20 328Z" />
+                        <path fill='none' stroke='#000' stroke-width='5' d="M20 106L572 106C576.98 106 581 110.02 581 115L581 157C581 161.98 576.98 166 572 166L20 166C15.02 166 11 161.98 11 157L11 115C11 110.02 15.02 106 20 106Z" />
+                        <path fill='none' stroke='#000' stroke-width='5' d="M57 328L57 388" />
+                        <path fill='none' stroke='#000' stroke-width='5' d="M100 328L100 388" />
+                        <path fill='none' stroke='#000' stroke-width='5' d="M139 328L139 388" />
+                        <path fill='none' stroke='#000' stroke-width='5' d="M178 328L178 388" />
+                        <path fill='none' stroke='#000' stroke-width='5' d="M217 328L217 388" />
+                        <path fill='none' stroke='#000' stroke-width='5' d="M256 328L256 388" />
+                        <path fill='none' stroke='#000' stroke-width='5' d="M298 330L298 390" />
+                        <path fill='none' stroke='#000' stroke-width='5' d="M337 330L337 390" />
+                        <path fill='none' stroke='#000' stroke-width='5' d="M378 326L378 386" />
+                        <path fill='none' stroke='#000' stroke-width='5' d="M417 330L417 390" />
+                        <path fill='none' stroke='#000' stroke-width='5' d="M458 330L458 390" />
+                        <path fill='none' stroke='#000' stroke-width='5' d="M496 328L496 388" />
+                        <path fill='none' stroke='#000' stroke-width='5' d="M536 330L536 390" />
+                        <path fill="#1b1b1b" d="M167.9 249.8Q168.75 254.19 165.6 256.83Q163.48 255.46 158.94 254.66Q154.96 254.27 152.44 256.98Q149.93 259.66 149.37 263.96Q148.54 266.67 150.39 270.92Q152.25 274.77 156.03 274.99Q159.84 275.21 165.14 273.5Q167.04 277.26 165.5 280.88Q159.23 283.76 155.32 283.61Q148.12 282.71 144.83 278.39Q140.43 272.6 141.85 262.05Q142.97 253.7 147.15 249.43Q152.59 245.01 160.35 245.82Q165.75 246.16 167.9 249.8ZM173.66 247.87L171.56 282.17Q174.24 284.1 179.49 282.76L180.37 267.86L191.82 267.38L191.11 282.29Q194.48 284.37 199 282.1L200.66 247.36Q197.19 245.48 193.43 247.31L192.51 260.03L180.91 260.61L181.62 246.97Q177.22 245.28 173.66 247.87ZM216.26 246.33L203.47 282Q206.13 284.27 211.57 283.54L213.82 276.95L222.88 275.82L224.64 282.37Q229.98 283.39 233.33 281.19L223.56 246.04Q220.12 243.91 216.26 246.33ZM219.39 257.68L221.51 268.99L215.55 269.7L219.39 257.68ZM241.85 246.79L239.23 248.46L236.13 281.85Q239.11 284.39 244.12 282.63L245.27 271.09L248.12 270.79L256.69 283.22Q262.31 284.93 264.7 280.12L256.06 268.96Q263.89 267.01 265.09 260.81Q266.29 254.61 264.97 250.95Q263.67 247.28 258.84 246.48Q254.01 245.65 241.85 246.79ZM247 253.63Q256.28 252.53 257.37 254.9Q258.47 257.24 257.25 260.15Q256.03 263.03 245.95 263.71L247 253.63ZM281.89 246.33L269.09 282Q271.75 284.27 277.2 283.54L279.44 276.95L288.5 275.82L290.26 282.37Q295.61 283.39 298.95 281.19L289.19 246.04Q285.74 243.91 281.89 246.33ZM285.01 257.68L287.14 268.99L281.18 269.7L285.01 257.68ZM329.23 249.8Q330.08 254.19 326.93 256.83Q324.81 255.46 320.27 254.66Q316.29 254.27 313.77 256.98Q311.26 259.66 310.69 263.96Q309.86 266.67 311.72 270.92Q313.58 274.77 317.36 274.99Q321.17 275.21 326.47 273.5Q328.37 277.26 326.83 280.88Q320.56 283.76 316.65 283.61Q309.45 282.71 306.15 278.39Q301.76 272.6 303.18 262.05Q304.3 253.7 308.47 249.43Q313.92 245.01 321.68 245.82Q327.08 246.16 329.23 249.8ZM361.52 246.28L335.38 246.99Q332.89 250.19 335.6 254.75L344.46 254.56L342.87 282.59Q347.29 284.22 351 282.63L352.32 254.24L361.33 254.12Q363.21 250.19 361.52 246.28ZM392.34 246.23L369.36 246.92Q368.48 247.33 368.21 248.28L366.02 281.76Q366.26 283.1 367.31 283.29L390.14 282.39Q392.73 278.61 390.7 274.29L374.32 274.77L374.98 267.21L388.33 266.64Q390.46 263.47 388.62 259.91L375.51 260.17L375.95 253.92L391.92 253.41Q393.53 250.07 392.34 246.23ZM402.05 246.79L399.44 248.46L396.34 281.85Q399.32 284.39 404.32 282.63L405.47 271.09L408.33 270.79L416.9 283.22Q422.51 284.93 424.9 280.12L416.26 268.96Q424.1 267.01 425.29 260.81Q426.49 254.61 425.17 250.95Q423.88 247.28 419.04 246.48Q414.21 245.65 402.05 246.79ZM407.2 253.63Q416.48 252.53 417.58 254.9Q418.68 257.24 417.46 260.15Q416.24 263.03 406.15 263.71L407.2 253.63ZM430.89 279.05Q429.3 273.5 432.74 270.45Q439.02 274.14 441.85 274.99Q447.12 274.94 447.63 272.36Q447.76 270.28 444.41 268.35L438.14 265.3Q432.25 262.18 432.03 256.49Q432.25 253.22 434.28 250.6Q436.33 247.99 438.87 247.19Q441.43 246.36 444.95 246.58Q451.39 246.97 456.25 250.24Q456.45 254.85 453.37 258.27Q447.44 253.83 443.87 254.12Q440.53 253.73 440.33 256.51Q440.21 258.1 445.05 260.61Q450.59 262.86 453.25 265.76Q455.93 268.67 455.64 272.82Q455.25 278.44 450.42 281.44Q447.34 283.59 441.53 283.22Q435.99 282.51 430.89 279.05Z" />
+                    </g>
+                </svg>
+            </center>
+            <p>I hope you get the gist now.</p>
+            <p>
+                <underline>Each character</underline> like 'A' or '%' or '6' <underline>is of 1 byte</underline>. However, the <underline>char data type is of 2 bytes</underline>. This is because Java uses UTF-16<sup class="red">*</sup> encoding system.
+            </p>
+            <hr>
+            <span><sup class="red">*</sup> Read more about UTF-16 encoding system <a href="https://en.wikipedia.org/wiki/UTF-16" target="_blank" class="link">here</a>.</span>
+            <hr>
+            <p>Here's how you can use it in your program</p>
+            <pre><div class="code" data-code-type='JavaSnippet'><span class="green">char</span> ch = <span class="purple">'X'</span>;
+        <span class="blue">System</span>.out.<span class="blue">println</span>(ch);</div></pre>
+            <p>OUTPUT :-</p>
+            <pre><div class="code">X</div></pre>
+            <div class="note">You can also directly write the value in the print statement like this:
+                <pre><div class="code" data-code-type='JavaSnippet'><span class="blue">System</span>.out.<span class="blue">println</span>('&');</div></pre>
+                <p>OUTPUT :-</p>
+                <pre><div class="code">&</div></pre>
+                <div class="note">The <underline>char</underline> data type can only hold 1 character. So if you use 2 or more characters in the a <underline>char variable</underline> like this :
+                    <pre><div class="code" data-code-type='JavaSnippet'>char</span> ch = <span class="purple">'12'</span>;
+        <span class="blue">System</span>.out.<span class="blue">println</span>(ch);</div></pre>
+                    <p>The compiler will throw an error similar to this :</p>
+                    <pre><div class="code">Program.java:3: error: unclosed character literal
+                char ch = 'X1';
+                          ^</div></pre>
+                </div>
+            </div>
+            <span id="short" class="secLink"></span>
+            <h3>4. <underline>short</underline>
+            </h3>
+            <p>The <underline>short</underline> data type is quite similar to the <underline>byte</underline> data type.</p>
+            <p>It uses 2 bytes or 16 bits of the computer's memory and can store numbers from -32768 to +32767.</p>
+            <p>Here's how to use the short data type :</p>
+            <pre><div class="code" data-code-type='JavaSnippet'><span class="green">short</span> k = <span class="purple">1501</span>;
+        <span class="green">short</span> d = <span class="purple">1103</span>;
+        <span class="blue">System</span>.out.<span class="blue">println</span>(d);
+        <span class="blue">System</span>.out.<span class="blue">println</span>(k);</div></pre>
+            <p>OUTPUT :-</p>
+            <pre><div class="code">1103
+1501</div></pre>
+            <div class="note">Again don't forget to use <underline>short</underline> for a number that is less than -32768 or greater than +32767.</div>
+            <span id="int" class="secLink"></span>
+            <h3>5. <underline>int</underline>
+            </h3>
+            <p>The <underline>int</underline> data type is probably the most used data type for storing numerical values<sup class="red">*</sup>.</p>
+            <hr>
+            <span><sup class="red">*</sup> Which is non-floating point.</span>
+            <hr>
+            <p>It can store an extensively wide range of numbers from -2147483648 to +2147483647.</p>
+            <p>One <underline>int</underline> variable occupies 4 bytes of the computer's memory.</p>
+            <p>Here's how you can declare an <underline>int</underline> variable :</p>
+            <pre><div class="code" data-code-type='JavaSnippet'><span class="green">int</span> i = <span class="purple">15011103</span>;
+        <span class="blue">System</span>.out.<span class="blue">println</span>(i);</div></pre>
+            <p>OUTPUT :-</p>
+            <pre><div class="code">15011103</div></pre>
+            <div class="note">Be careful to store only non-floating point values in data types like <underline>int, short & byte</underline>. Storing a floating-point value in any of those like this :
+                <pre><div class="code" data-code-type='JavaSnippet'><span class="green">int</span> x = <span class="purple">1501.101</span>;
+        <span class="blue">System</span>.out.<span class="blue">println</span>(x);</div></pre>
+                <p>will raise an error.</p>
+            </div>
+            <span id="long" class="secLink"></span>
+            <h3>6. <underline>long</underline>
+            </h3>
+            <p>The <underline>long</underline> data type is an extended variant of the <underline>int</underline> data type.</p>
+            <p>It uses 8 bytes of the computer's memory and can store a number from -9223372036854775808 to +9223372036854775807.</p>
+            <p>We typically use this data type to hold immensely large numbers, for example a phone number<sup class="red">*</sup>.</p>
+            <hr>
+            <span><sup class="red">*</sup> Actually we can use <underline>String</underline> for that, but that's a separate topic and we will talk about it later.</span>
+            <hr>
+            <p>Here's how you can declare a <underline>long</underline> variable :</p>
+            <pre><div class="code" data-code-type='JavaSnippet'><span class="green">long</span> phone_number = <span class="purple">3712894560</span>;
+        <span class="blue">System</span>.out.<span class="blue">println</span>(phone_number);</div></pre>
+            <p>OUTPUT :-</p>
+            <pre><div class="code">3712894560</div></pre>
+            <div class="note">Be careful to store only non-floating point values for this data type as well</div>
+            <span id="float" class="secLink"></span>
+            <h3>7. <underline>float</underline>
+            </h3>
+            <p>The <underline>float</underline> data type can store floating point ( decimal ) values.</p>
+            <p>It uses 4 bytes of the computer's memory and can store a number from 1.4E-45 to 3.4028235E38.</p>
+            <p>Using the <underline>float</underline> data type, we can store floating-point values with 6-7 significant digits.</p>
+            <p>Here's how you can declare a <underline>float</underline> variable :</p>
+            <pre><div class="code" data-code-type='JavaSnippet'><span class="green">float</span> f = <span class="purple">3.14f</span>;
+        <span class="blue">System</span>.out.<span class="blue">println</span>(f);</div></pre>
+            <p>OUTPUT :-</p>
+            <pre><div class="code">3.14</div></pre>
+            <div class="note">The <span class="black" style="font-family: 'Source Code Pro'">‘f’</span> in 3.14f is optional. However, its a good practice to use the <span class="black" style="font-family: 'Source Code Pro'">‘f’</span> suffix for float data types, even though it is not printed in the output.
+                <p>Here's the reason to use the <span class="black" style="font-family: 'Source Code Pro'">‘f’</span> suffix :-</p>
+                <pre><div class="code"><underline>float x = 0</underline> has an implicit typecast<sup class="red">*</sup> from int to float.
+<underline>float x = 0.0f</underline> does not have such a typecast<sup class="red">*</sup>.
+<underline>float x = 0.0</underline> has an implicit typecast<sup class="red">*</sup> from double to float.
+
+<hr><span><sup class="red">*</sup> Typecasting is explained in the <a href="javascript:void(0)" class="link">next lesson</a>.</span><hr></div></pre>
+            </div>
+            <span id="double" class="secLink"></span>
+            <h3>8. <underline>double</underline>
+            </h3>
+            <p>The <underline>double</underline> data type can store floating point ( decimal ) values.</p>
+            <p>It uses 8 bytes of the computer's memory and can store a number from 4.9E-324 to 1.79E308.</p>
+            <p>Using the <underline>double</underline> data type, we can store floating-point values with 15-16 significant digits.</p>
+            <p>Here's how you can declare a <underline>double</underline> variable :</p>
+            <pre><div class="code" data-code-type='JavaSnippet'><span class="green">double</span> d = <span class="purple">2.718281828459045d</span>;
+        <span class="blue">System</span>.out.<span class="blue">println</span>(d);</div></pre>
+            <p>OUTPUT :-</p>
+            <pre><div class="code">2.718281828459045</div></pre>
+            <div class="note">The reason of using <span class="black" style="font-family: 'Source Code Pro'">‘d’</span> suffix in 2.718281828459045d is same as explained above.</div>
+            <p>So that's all for this lesson. We'll meet in the next one where we will learn about UNICODE, ASCII & Type conversions.</p>
+            <div id="contactParagraph"></div>
+        </div>
+    </div>
+    <div id="footer"></div>
+</body>
+
+</html>

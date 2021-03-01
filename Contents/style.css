@@ -301,8 +301,7 @@ ul {
 }
 
 #box:hover {
-    transform: scale(1.1);
-    box-shadow: 0 10px 15px 0 #00000070;
+    box-shadow: 0 0 5px #00000070;
     border: 0px solid black;
     cursor: pointer;
 }
@@ -348,16 +347,10 @@ uline {
 }
 
 .gridLayout {
-    display: inline-block;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     width: 100%;
-}
-
-.left {
-    float: left;
-}
-
-.right {
-    float: right;
 }
 
 @media screen and (max-width: 768px) {

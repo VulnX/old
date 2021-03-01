@@ -239,9 +239,24 @@ ul {
     color: #05f;
     font-weight: bold;
     display: inline-block;
-    width: 1em;
+    width: 1rem;
     margin-left: -1em;
     line-height: 2rem;
+}
+
+#points .subSec::before {
+    content: "\2022";
+    color: #f00;
+    font-weight: bold;
+    display: inline-block;
+    width: 1rem;
+    margin-left: 1rem;
+    line-height: 2rem;
+}
+
+.roboto {
+    font-family: Roboto;
+    color: inherit;
 }
 
 #footer {
