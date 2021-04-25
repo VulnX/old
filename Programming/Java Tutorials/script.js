@@ -7,7 +7,12 @@ function x() {
                 }
             }
         }
-        loadFooter();
+        var footer = "<h1 id=\"footerHeading\" style=\"cursor: pointer; background-color: transparent; font-family: 'Saira Stencil One'; font-size: 50px; color: #eee\" onclick=\"location.href='https://vulnx.in/'\">VulnX</h1><p style=\"cursor: pointer; background-color: transparent;\" onclick=\"location.href='https://vulnx.in/'\">Home</p><p style=\"cursor: pointer; background-color: transparent;\" onclick=\"location.href='https://vulnx.in/Contents/resources.html'\">Resources</p><p style=\"cursor: pointer; background-color: transparent;\" onclick=\"location.href='https://vulnx.in/Contents/tutorials.html'\">Tutorials</p><p style=\"cursor: pointer; background-color: transparent;\" onclick=\"location.href='https://vulnx.in/Contents/CTFs.html'\">CTFs</p><h1 id=\"footerHeading\" style=\"background-color: transparent; font-family: 'Ubuntu'; color: #eee\">Contact</h1><i class=\"fab fa-facebook-f\" style=\"line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;\" onclick=\"location.href='#'\"></i><i class=\"fab fa-google\" style=\"line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;\" onclick=\"location.href='mailto:vulnx101@gmail.com'\"></i><i class=\"fab fa-instagram\" style=\"line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;\" onclick=\"location.href='https://www.instagram.com/vulnx_hacking'\"></i><i class=\"fab fa-youtube\" style=\"line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;\" onclick=\"location.href='https://bit.ly/VulnX_YT'\"></i>";
+        document.getElementById('footer').innerHTML = footer;
+    }
+
+    if (document.getElementsByClassName('topnav')) {
+        document.getElementsByClassName('topnav')[0].innerHTML = "<div class='x'><img id='logo' src='../../logo.svg'><div style='display: flex; align-items: center;'><li><a target='_blank' href='../../'>Home</a></li><li><a target='_blank' href='../../Contents/resources.html'>Resources</a></li><li><a target='_blank' href='../../Contents/tutorials.html'>Tutorials</a></li><li><a target='_blank' href='../../Contents/CTFs.html'>CTFs</a></li></div></div>";
     }
 
     if (document.getElementById('contactParagraph')) {

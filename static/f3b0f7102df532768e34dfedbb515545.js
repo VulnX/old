@@ -1,5 +1,5 @@
-var footer = "<h1 id=\"footerHeading\" style=\"cursor: pointer; background-color: transparent; font-family: 'Saira Stencil One'; font-size: 50px; color: #eee\" onclick=\"location.href='https://vulnx.in/'\">VulnX</h1><p style=\"cursor: pointer; background-color: transparent;\" onclick=\"location.href='https://vulnx.in/'\">Home</p><p style=\"cursor: pointer; background-color: transparent;\" onclick=\"location.href='https://vulnx.in/Contents/resources.html'\">Resources</p><p style=\"cursor: pointer; background-color: transparent;\" onclick=\"location.href='https://vulnx.in/Contents/tutorials.html'\">Tutorials</p><p style=\"cursor: pointer; background-color: transparent;\" onclick=\"location.href='https://vulnx.in/Contents/CTFs.html'\">CTFs</p><h1 id=\"footerHeading\" style=\"background-color: transparent; font-family: 'Ubuntu'; color: #eee\">Contact</h1><i class=\"fab fa-facebook-f\" style=\"line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;\" onclick=\"location.href='#'\"></i><i class=\"fab fa-google\" style=\"line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;\" onclick=\"location.href='mailto:vulnx101@gmail.com'\"></i><i class=\"fab fa-instagram\" style=\"line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;\" onclick=\"location.href='https://www.instagram.com/vulnx_hacking'\"></i><i class=\"fab fa-youtube\" style=\"line-height: 60px; font-size: 26px; background-color: transparent; padding: 0 10px; cursor: pointer;\" onclick=\"location.href='https://bit.ly/VulnX_YT'\"></i>";
-
-function loadFooter() {
-	document.getElementById('footer').innerHTML = footer;
-}
+/*
+ *  Place all JS code
+ *  which is common to all pages
+ *  of the website here.
+*/

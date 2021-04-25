@@ -19,13 +19,13 @@ body::-webkit-scrollbar {
 }
 
 ::selection {
-    color: #fff;
-    background: #08f;
+    color: #000;
+    background: rgba(0, 127, 255, .5);
 }
 
 ::-moz-selection {
-    color: #fff;
-    background: #08f;
+    color: #000;
+    background: rgba(0, 127, 255, .5);
 }
 
 hr {
@@ -347,9 +347,14 @@ underline {
     border-bottom: thin solid #555;
 }
 
-.underline {
+.custom_underline {
     border-bottom: thin solid;
     border-bottom-color: attr(data-color);
+}
+
+.uline {
+    border-bottom: thin solid;
+    border-bottom-color: 
 }
 
 table {
@@ -584,6 +589,10 @@ h3 {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+#TutorialTitle {
+    /**/
 }
 
 @media screen and (max-width: 768px) {
