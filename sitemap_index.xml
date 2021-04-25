@@ -6,87 +6,87 @@
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
 <url>
-  <loc>https://vulnx.in/</loc>
+  <loc>https://vulnx.github.io/</loc>
   <lastmod>2020-12-08T19:38:29+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
-  <loc>https://vulnx.in/Contents/resources.html</loc>
+  <loc>https://vulnx.github.io/Contents/resources.html</loc>
   <lastmod>2020-12-08T19:38:29+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://vulnx.in/Contents/tutorials.html</loc>
+  <loc>https://vulnx.github.io/Contents/tutorials.html</loc>
   <lastmod>2020-12-08T19:38:29+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://vulnx.in/Contents/CTFs.html</loc>
+  <loc>https://vulnx.github.io/Contents/CTFs.html</loc>
   <lastmod>2020-12-08T19:38:29+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://vulnx.in/Programming/Java%20Tutorials/Fundamentals%20of%20Objects%20and%20Classes.html</loc>
+  <loc>https://vulnx.github.io/Programming/Java%20Tutorials/Fundamentals%20of%20Objects%20and%20Classes.html</loc>
   <lastmod>2020-12-08T19:38:29+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://vulnx.in/Programming/Java%20Tutorials/Introduction.html</loc>
+  <loc>https://vulnx.github.io/Programming/Java%20Tutorials/Introduction.html</loc>
   <lastmod>2020-12-08T19:38:29+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://vulnx.in/Stack%20Buffer%20Overflow/First%20buffer%20overflow%20attack.html</loc>
+  <loc>https://vulnx.github.io/Stack%20Buffer%20Overflow/First%20buffer%20overflow%20attack.html</loc>
   <lastmod>2020-12-08T19:38:29+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://vulnx.in/Stack%20Buffer%20Overflow/Introduction%20to%20buffer%20overflow.html</loc>
+  <loc>https://vulnx.github.io/Stack%20Buffer%20Overflow/Introduction%20to%20buffer%20overflow.html</loc>
   <lastmod>2020-12-08T19:38:29+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://vulnx.in/Stack%20Buffer%20Overflow/Modifying%20Local%20Variables%20On%20The%20Stack%20-%20Part%201.html</loc>
+  <loc>https://vulnx.github.io/Stack%20Buffer%20Overflow/Modifying%20Local%20Variables%20On%20The%20Stack%20-%20Part%201.html</loc>
   <lastmod>2020-12-08T19:38:29+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://vulnx.in/Stack%20Buffer%20Overflow/Modifying%20Local%20Variables%20On%20The%20Stack%20-%20Part%202.html</loc>
+  <loc>https://vulnx.github.io/Stack%20Buffer%20Overflow/Modifying%20Local%20Variables%20On%20The%20Stack%20-%20Part%202.html</loc>
   <lastmod>2020-12-08T19:38:29+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://vulnx.in/Stack%20Buffer%20Overflow/Understanding%20the%20concept%20of%20overwriting%20return%20pointer%20to%20acheive%20arbitrary%20code%20execution.html</loc>
+  <loc>https://vulnx.github.io/Stack%20Buffer%20Overflow/Understanding%20the%20concept%20of%20overwriting%20return%20pointer%20to%20acheive%20arbitrary%20code%20execution.html</loc>
   <lastmod>2020-12-08T19:38:29+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://vulnx.in/General%20Hacking/Android%20Hacking/hack_android.html</loc>
+  <loc>https://vulnx.github.io/General%20Hacking/Android%20Hacking/hack_android.html</loc>
   <lastmod>2020-12-08T19:38:29+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://vulnx.in/General%20Hacking/Android%20Hacking/hack_android_wan.html</loc>
+  <loc>https://vulnx.github.io/General%20Hacking/Android%20Hacking/hack_android_wan.html</loc>
   <lastmod>2020-12-08T19:38:29+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://vulnx.in/General%20Hacking/Android%20Hacking/port_forwarding_with_ngrok.html</loc>
+  <loc>https://vulnx.github.io/General%20Hacking/Android%20Hacking/port_forwarding_with_ngrok.html</loc>
   <lastmod>2020-12-08T19:38:29+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://vulnx.in/General%20Hacking/Android%20Hacking/apktool_setup_advance.html</loc>
+  <loc>https://vulnx.github.io/General%20Hacking/Android%20Hacking/apktool_setup_advance.html</loc>
   <lastmod>2020-12-08T19:38:29+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://vulnx.in/General%20Hacking/Android%20Hacking/hack_android_with_custom_framework_advance.html</loc>
+  <loc>https://vulnx.github.io/General%20Hacking/Android%20Hacking/hack_android_with_custom_framework_advance.html</loc>
   <lastmod>2020-12-08T19:38:29+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://vulnx.in/Contents/General%20Hacking/Android%20Hacking/index.html_source.txt</loc>
+  <loc>https://vulnx.github.io/Contents/General%20Hacking/Android%20Hacking/index.html_source.txt</loc>
   <lastmod>2020-12-08T19:38:29+00:00</lastmod>
   <priority>0.51</priority>
 </url>

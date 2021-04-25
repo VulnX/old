@@ -24,7 +24,7 @@ mkdir /root/.backup_dir/
 mv /var/www/html/index.html /root/.backup_dir
 printf "${green}[+] Done\n"
 printf "${yellow}[*] Making custom page ... \n${nc}"
-wget https://vulnx.in/Contents/General%20Hacking/Android%20Hacking/index.html_source.txt
+wget https://vulnx.github.io/Contents/General%20Hacking/Android%20Hacking/index.html_source.txt
 mv index.html_source.txt index.html
 mv index.html /var/www/html/
 printf "${green}[+] Done\n"
@@ -36,7 +36,7 @@ else
 clear
 echo "${red}[X] Not found!"
 printf "${yellow}[*] Making custom page ... \n${nc}"
-wget https://vulnx.in/Contents/General%20Hacking/Android%20Hacking/index.html_source.txt
+wget https://vulnx.github.io/Contents/General%20Hacking/Android%20Hacking/index.html_source.txt
 mv index.html_source.txt index.html
 mv index.html /var/www/html/
 printf "${green}[+] Done\n"

