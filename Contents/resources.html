@@ -42,15 +42,11 @@
         <hr />
         <h1><span style="border-bottom: thick solid black">CTFs</span></h1>
         <div class="gridLayout">
-            <div class="left">
-                <button onclick="location.href='CTFs/flag1.exe'" class="btn">Image - Challenge 1</button>
-                <button onclick="location.href='CTFs/flag3.elf'" class="btn">Binary - Challenge 3</button>
-                <button onclick="location.href='CTFs/flag5.zip'" class="btn">Image - Challenge 5</button>
-            </div>
-            <div class="right">
-                <button onclick="location.href='CTFs/flag2.elf'" class="btn">Binary - Challenge 2</button>
-                <button onclick="location.href='CTFs/flag4.elf'" class="btn">Binary - Challenge 4</button>
-            </div>
+                <button onclick="location.href='https://drive.google.com/file/d/1iMWFGZgOcRrJWzsIhhFOdI0Xk5cw36Al/view?usp=sharing'" class="btn">Image - Challenge 1</button>
+                <button onclick="location.href='https://drive.google.com/file/d/1RSEfjOG-QLkC1_vjtuAcMUFFpdtYhKlw/view?usp=sharing'" class="btn">Binary - Challenge 2</button>
+                <button onclick="location.href='https://drive.google.com/file/d/11Jru1gFnufy3fl_ZV2DWerczqdDD7DRF/view?usp=sharing'" class="btn">Binary - Challenge 3</button>
+                <button onclick="location.href='https://drive.google.com/file/d/1chnyMDPGNWkd4R8CMEBqUXX47XSkxBcC/view?usp=sharing'" class="btn">Binary - Challenge 4</button>
+                <button onclick="location.href='https://drive.google.com/file/d/1nrmNGvqDJJ6bw9vbuuf_U-fKR027FCJA/view?usp=sharing'" class="btn">Image - Challenge 5</button>
         </div>
         <br />
         <hr />
@@ -110,11 +106,7 @@
             return true;
         }
     }
-
-    function delay(URL) {
-        setTimeout(function() { window.location = URL }, 700);
-    }
-
+    
     function hideCookieBar() {
         setCookie("cookiePromptShown", "yes", 30);
         document.getElementById("cookieBar").style.display = "none";
